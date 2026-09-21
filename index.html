@@ -121,6 +121,13 @@
         <a href="#projects" class="btn btn--primary" data-i18n="hero_cta_primary">View Projects</a>
         <a href="#contact" class="btn btn--ghost" data-i18n="hero_cta_secondary">Start a Project</a>
       </div>
+
+      <!-- Honest, verifiable facts only — no invented client/project counts. -->
+      <div class="hero-stats">
+        <div class="hero-stat"><span class="num">4</span><span class="label" data-i18n="stat_languages">languages supported</span></div>
+        <div class="hero-stat"><span class="num">9</span><span class="label" data-i18n="stat_services">services offered</span></div>
+        <div class="hero-stat"><span class="num">100%</span><span class="label" data-i18n="stat_mobile">mobile-friendly</span></div>
+      </div>
     </div>
 
     <div class="hero-art" aria-hidden="true">
@@ -198,9 +205,49 @@
       <p class="section-intro" data-i18n="projects_intro">Demo concepts built to show how the finished product could look and work — not live client projects.</p>
     </div>
 
+    <!-- FEATURED — real, deployed project (not a mockup). Kept visually
+         separate from the demo cards below via .featured-project so it
+         reads as proof-of-work, not "just another concept card". -->
+    <div class="featured-project">
+      <div>
+        <span class="featured-badge"><span class="dot"></span><span data-i18n="featured_badge">Live project — not a demo</span></span>
+        <h3 data-i18n="featured_title">Arduino / ESP32 Firmware Studio</h3>
+        <p class="desc" data-i18n="featured_desc">A real, deployed ordering site I built and run myself — pick a controller, modules and options, and the price is calculated automatically, with the order sent straight to me. This is exactly the kind of site I can build for your business.</p>
+        <a class="btn btn--primary" href="https://luminous-profiterole.netlify.app/" target="_blank" rel="noopener" data-i18n="featured_cta">Open Live Site →</a>
+        <p class="featured-devices">
+          <span class="featured-device"><span class="check">✓</span><span data-i18n="featured_device_mobile">Works great on phone</span></span>
+          <span class="featured-device"><span class="check">✓</span><span data-i18n="featured_device_tablet">and tablet</span></span>
+          <span class="featured-device"><span class="check">✓</span><span data-i18n="featured_device_desktop">too — try it on your phone</span></span>
+        </p>
+      </div>
+      <!-- Real screenshot (via the free WordPress mshots service) instead of an
+           iframe — some hosts block embedding via X-Frame-Options, a screenshot
+           always renders, loads faster, and the whole frame is a real link
+           through to the live site either way. -->
+      <a class="featured-frame" href="https://luminous-profiterole.netlify.app/" target="_blank" rel="noopener">
+        <div class="mock-window">
+          <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+          <span class="mock-url">luminous-profiterole.netlify.app</span>
+        </div>
+        <img src="https://s0.wp.com/mshots/v1/https%3A%2F%2Fluminous-profiterole.netlify.app%2F?w=1200" alt="Screenshot of the live Arduino / ESP32 Firmware Studio site" loading="lazy">
+      </a>
+    </div>
+
     <!-- PROJECT 1 — Auto Service / Service Calculator -->
     <div class="project">
       <div class="project-mock">
+        <div class="project-photo" aria-hidden="true">
+          <svg viewBox="0 0 200 140" fill="none">
+            <rect x="30" y="70" width="140" height="35" rx="8" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M45 70 L65 45 H135 L155 70" stroke="#2F7D68" stroke-width="2"/>
+            <rect x="75" y="52" width="20" height="14" rx="2" stroke="#2F7D68" stroke-width="1.5"/>
+            <rect x="105" y="52" width="20" height="14" rx="2" stroke="#2F7D68" stroke-width="1.5"/>
+            <circle cx="60" cy="105" r="13" stroke="#B8752A" stroke-width="2"/>
+            <circle cx="140" cy="105" r="13" stroke="#B8752A" stroke-width="2"/>
+            <circle cx="60" cy="105" r="4" fill="#B8752A"/>
+            <circle cx="140" cy="105" r="4" fill="#B8752A"/>
+          </svg>
+        </div>
         <div class="mock">
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p1_mock_title">Brake Service Estimate</div>
@@ -237,6 +284,15 @@
     <!-- PROJECT 2 — Barbershop / Booking Website -->
     <div class="project">
       <div class="project-mock">
+        <div class="project-photo" aria-hidden="true">
+          <svg viewBox="0 0 200 140" fill="none">
+            <circle cx="58" cy="48" r="10" stroke="#2F7D68" stroke-width="2"/>
+            <circle cx="58" cy="92" r="10" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M66 53 L155 100" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M66 87 L155 40" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M40 112 h95 M40 119 h95 M40 126 h95" stroke="#B8752A" stroke-width="2"/>
+          </svg>
+        </div>
         <div class="mock">
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p2_mock_title">Book an Appointment</div>
@@ -260,6 +316,16 @@
     <!-- PROJECT 3 — Electronics / Product Configurator (Arduino / ESP32) -->
     <div class="project">
       <div class="project-mock">
+        <div class="project-photo" aria-hidden="true">
+          <svg viewBox="0 0 200 140" fill="none">
+            <rect x="70" y="45" width="60" height="50" rx="4" stroke="#2F7D68" stroke-width="2"/>
+            <circle cx="85" cy="60" r="3" fill="#2F7D68"/>
+            <circle cx="115" cy="60" r="3" fill="#2F7D68"/>
+            <circle cx="85" cy="80" r="3" fill="#2F7D68"/>
+            <circle cx="115" cy="80" r="3" fill="#2F7D68"/>
+            <path d="M70 55 H50 M70 75 H50 M70 85 H50 M130 55 H150 M130 75 H150 M130 85 H150 M85 45 V30 M115 45 V30 M85 95 V110 M115 95 V110" stroke="#B8752A" stroke-width="2"/>
+          </svg>
+        </div>
         <div class="mock">
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p3_mock_title">Board Configurator</div>
@@ -296,13 +362,20 @@
         <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
         <h3 data-i18n="p3_title">Product Configurator</h3>
         <p class="desc" data-i18n="p3_desc">Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.</p>
-        <a class="live-link" href="https://luminous-profiterole.netlify.app/" target="_blank" rel="noopener" data-i18n="p3_live_link">View Live Site →</a>
       </div>
     </div>
 
     <!-- PROJECT 4 — Business Tools / Order Management -->
     <div class="project">
       <div class="project-mock">
+        <div class="project-photo" aria-hidden="true">
+          <svg viewBox="0 0 200 140" fill="none">
+            <rect x="45" y="60" width="110" height="55" rx="6" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M80 60 V48 a8 8 0 0 1 8-8 h24 a8 8 0 0 1 8 8 v12" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M45 82 H155" stroke="#B8752A" stroke-width="2"/>
+            <rect x="92" y="75" width="16" height="14" rx="2" stroke="#B8752A" stroke-width="2"/>
+          </svg>
+        </div>
         <div class="mock">
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p4_mock_title">Orders</div>
@@ -323,6 +396,14 @@
     <!-- PROJECT 5 — Contact Form with live validation -->
     <div class="project">
       <div class="project-mock">
+        <div class="project-photo" aria-hidden="true">
+          <svg viewBox="0 0 200 140" fill="none">
+            <rect x="40" y="45" width="120" height="80" rx="6" stroke="#2F7D68" stroke-width="2"/>
+            <path d="M40 50 L100 95 L160 50" stroke="#2F7D68" stroke-width="2"/>
+            <circle cx="150" cy="32" r="16" stroke="#B8752A" stroke-width="2" fill="#F6F5F0"/>
+            <path d="M143 32 l5 5 l10 -10" stroke="#B8752A" stroke-width="2"/>
+          </svg>
+        </div>
         <div class="mock order-form-mock">
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p5_mock_title">New Order</div>
@@ -454,16 +535,6 @@
           <a href="https://wa.me/48786946055" target="_blank" rel="noopener">
             <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.43 0 .07 5.36.07 11.99c0 2.12.55 4.2 1.6 6.04L0 24l6.16-1.62a12 12 0 0 0 5.9 1.5h.01c6.63 0 11.99-5.36 11.99-11.99 0-3.2-1.25-6.21-3.54-8.41ZM12.07 21.8c-1.87 0-3.7-.5-5.3-1.44l-.38-.23-3.65.96.97-3.56-.25-.37A9.8 9.8 0 0 1 2.2 12c0-5.42 4.41-9.83 9.83-9.83 2.62 0 5.08 1.02 6.93 2.88a9.75 9.75 0 0 1 2.9 6.95c0 5.42-4.41 9.8-9.79 9.8z"/></svg>
             <span data-i18n="contact_whatsapp_link">Message me</span>
-          </a>
-        </dd>
-      </div>
-      <div class="channel">
-        <dt>GitHub</dt>
-        <!-- Replace REPLACE_WITH_YOUR_GITHUB_USERNAME with your GitHub profile or portfolio repo link -->
-        <dd>
-          <a href="https://github.com/REPLACE_WITH_YOUR_GITHUB_USERNAME">
-            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.04 11.04 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
-            <span data-i18n="contact_add_link">add link</span>
           </a>
         </dd>
       </div>

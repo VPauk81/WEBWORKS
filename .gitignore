@@ -2,6 +2,3 @@
 .DS_Store
 Thumbs.db
 *.swp
-
-# Old monolithic version, superseded by index.html + css/ + js/
-index (3).html

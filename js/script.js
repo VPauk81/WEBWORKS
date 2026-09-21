@@ -17,6 +17,7 @@
       hero_title: "Practical web tools for businesses that want things to just work.",
       hero_sub: "Websites, online calculators, configurators and order systems for small and medium businesses across Europe.",
       hero_cta_primary: "View Projects", hero_cta_secondary: "Start a Project",
+      stat_languages: "languages supported", stat_services: "services offered", stat_mobile: "mobile-friendly",
 
       services_title: "Services",
       services_intro: "Practical web solutions for small and medium businesses — from a single landing page to a full configurator with order automation.",
@@ -45,6 +46,14 @@
       projects_intro: "Demo concepts built to show how the finished product could look and work — not live client projects.",
       project_demo_tag: "Demo concept",
 
+      featured_badge: "Live project — not a demo",
+      featured_title: "Arduino / ESP32 Firmware Studio",
+      featured_desc: "A real, deployed ordering site I built and run myself — pick a controller, modules and options, and the price is calculated automatically, with the order sent straight to me. This is exactly the kind of site I can build for your business.",
+      featured_cta: "Open Live Site →",
+      featured_device_mobile: "Works great on phone",
+      featured_device_tablet: "and tablet",
+      featured_device_desktop: "too — try it on your phone",
+
       p1_category: "Auto Service", p1_title: "Service Calculator",
       p1_desc: "Website with services, pricing and an interactive calculator for customer requests.",
       p1_mock_title: "Brake Service Estimate", p1_mock_label1: "Vehicle type", p1_mock_label2: "Service type", p1_mock_total_label: "Estimated total",
@@ -62,7 +71,6 @@
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "None", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT touch",
       p3_mod1: "Wi-Fi module", p3_mod2: "Relay module", p3_mod3: "Sensor kit",
-      p3_live_link: "View Live Site →",
 
       p4_category: "Business Tools", p4_title: "Order Management",
       p4_desc: "Order form connected to Google Sheets, with automatic email notifications and order status management.",
@@ -91,7 +99,7 @@
       why_5_t: "Fast development", why_5_d: "Small, focused projects that move quickly without cutting corners.",
       why_6_t: "Transparent process", why_6_d: "No hidden steps — you can see the project as it's being built.",
 
-      contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me", contact_add_link: "add link",
+      contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
       contact_whatsapp_link: "Message me",
       footer_rights: "All rights reserved."
     },
@@ -105,6 +113,7 @@
       hero_title: "Praktyczne narzędzia webowe dla firm, które chcą, by wszystko po prostu działało.",
       hero_sub: "Strony internetowe, kalkulatory online, konfiguratory i systemy zamówień dla małych i średnich firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
+      stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "przyjazne mobilnie",
 
       services_title: "Usługi",
       services_intro: "Praktyczne rozwiązania webowe dla małych i średnich firm — od pojedynczej strony docelowej po pełny konfigurator z automatyzacją zamówień.",
@@ -133,6 +142,14 @@
       projects_intro: "Koncepcje demonstracyjne pokazujące, jak mógłby wyglądać i działać gotowy produkt — nie są to realizacje dla klientów.",
       project_demo_tag: "Koncepcja demo",
 
+      featured_badge: "Projekt na żywo — to nie demo",
+      featured_title: "Arduino / ESP32 Firmware Studio",
+      featured_desc: "Prawdziwa, działająca strona zamówień, którą sam zbudowałem i prowadzę — wybierasz sterownik, moduły i opcje, cena liczy się automatycznie, a zamówienie trafia prosto do mnie. Dokładnie taką stronę mogę zbudować dla Twojej firmy.",
+      featured_cta: "Otwórz stronę na żywo →",
+      featured_device_mobile: "Świetnie działa na telefonie",
+      featured_device_tablet: "i tablecie",
+      featured_device_desktop: "też — sprawdź na swoim telefonie",
+
       p1_category: "Serwis samochodowy", p1_title: "Kalkulator serwisowy",
       p1_desc: "Strona z usługami, cennikiem i interaktywnym kalkulatorem dla zgłoszeń klientów.",
       p1_mock_title: "Wycena serwisu hamulców", p1_mock_label1: "Typ pojazdu", p1_mock_label2: "Rodzaj usługi", p1_mock_total_label: "Szacowana kwota",
@@ -150,7 +167,6 @@
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Brak", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT dotykowy",
       p3_mod1: "Moduł Wi-Fi", p3_mod2: "Moduł przekaźnikowy", p3_mod3: "Zestaw czujników",
-      p3_live_link: "Zobacz stronę na żywo →",
 
       p4_category: "Narzędzia biznesowe", p4_title: "Zarządzanie zamówieniami",
       p4_desc: "Formularz zamówień połączony z Google Sheets, z automatycznymi powiadomieniami e-mail i zarządzaniem statusem zamówienia.",
@@ -179,7 +195,7 @@
       why_5_t: "Szybka realizacja", why_5_d: "Niewielkie, skoncentrowane projekty realizowane sprawnie i bez uproszczeń.",
       why_6_t: "Przejrzysty proces", why_6_d: "Żadnych ukrytych etapów — widzisz projekt na każdym kroku jego powstawania.",
 
-      contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie", contact_add_link: "dodaj link",
+      contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
       contact_whatsapp_link: "Napisz do mnie",
       footer_rights: "Wszelkie prawa zastrzeżone."
     },
@@ -193,6 +209,7 @@
       hero_title: "Praktische Web-Tools für Unternehmen, bei denen es einfach funktionieren soll.",
       hero_sub: "Websites, Online-Rechner, Konfiguratoren und Bestellsysteme für kleine und mittlere Unternehmen in ganz Europa.",
       hero_cta_primary: "Projekte ansehen", hero_cta_secondary: "Projekt starten",
+      stat_languages: "unterstützte Sprachen", stat_services: "angebotene Leistungen", stat_mobile: "mobilfreundlich",
 
       services_title: "Leistungen",
       services_intro: "Praktische Web-Lösungen für kleine und mittlere Unternehmen — von einer einzelnen Landingpage bis zum vollständigen Konfigurator mit Bestellautomatisierung.",
@@ -221,6 +238,14 @@
       projects_intro: "Demo-Konzepte, die zeigen, wie das fertige Produkt aussehen und funktionieren könnte — keine echten Kundenprojekte.",
       project_demo_tag: "Demo-Konzept",
 
+      featured_badge: "Live-Projekt — keine Demo",
+      featured_title: "Arduino / ESP32 Firmware Studio",
+      featured_desc: "Eine echte, live geschaltete Bestellseite, die ich selbst gebaut habe und betreibe — Controller, Module und Optionen auswählen, der Preis wird automatisch berechnet, und die Bestellung geht direkt an mich. Genau so eine Seite kann ich auch für Ihr Unternehmen bauen.",
+      featured_cta: "Live-Seite öffnen →",
+      featured_device_mobile: "Funktioniert super auf dem Handy",
+      featured_device_tablet: "und Tablet",
+      featured_device_desktop: "auch — probieren Sie es auf Ihrem Handy aus",
+
       p1_category: "Kfz-Service", p1_title: "Service-Rechner",
       p1_desc: "Website mit Leistungen, Preisen und einem interaktiven Rechner für Kundenanfragen.",
       p1_mock_title: "Kostenvoranschlag Bremsenservice", p1_mock_label1: "Fahrzeugtyp", p1_mock_label2: "Leistung", p1_mock_total_label: "Geschätzter Preis",
@@ -238,7 +263,6 @@
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Keins", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT Touch",
       p3_mod1: "WLAN-Modul", p3_mod2: "Relaismodul", p3_mod3: "Sensor-Kit",
-      p3_live_link: "Live-Seite ansehen →",
 
       p4_category: "Business-Tools", p4_title: "Bestellverwaltung",
       p4_desc: "Bestellformular verbunden mit Google Sheets, inklusive automatischer E-Mail-Benachrichtigungen und Statusverwaltung.",
@@ -267,7 +291,7 @@
       why_5_t: "Schnelle Umsetzung", why_5_d: "Kleine, fokussierte Projekte, die zügig vorankommen, ohne Abstriche bei der Qualität.",
       why_6_t: "Transparenter Prozess", why_6_d: "Keine versteckten Schritte — Sie sehen das Projekt während der Entstehung.",
 
-      contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich", contact_add_link: "Link hinzufügen",
+      contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
       contact_whatsapp_link: "Schreiben Sie mir",
       footer_rights: "Alle Rechte vorbehalten."
     },
@@ -281,6 +305,7 @@
       hero_title: "Практичные веб-инструменты для бизнеса, которому важно, чтобы всё просто работало.",
       hero_sub: "Сайты, онлайн-калькуляторы, конфигураторы и системы заказов для малого и среднего бизнеса в Европе.",
       hero_cta_primary: "Смотреть проекты", hero_cta_secondary: "Начать проект",
+      stat_languages: "поддерживаемых языка", stat_services: "видов услуг", stat_mobile: "адаптация под мобильные",
 
       services_title: "Услуги",
       services_intro: "Практичные веб-решения для малого и среднего бизнеса — от одностраничного лендинга до полноценного конфигуратора с автоматизацией заказов.",
@@ -309,6 +334,14 @@
       projects_intro: "Демонстрационные концепты, показывающие, как мог бы выглядеть и работать готовый продукт — это не реальные проекты клиентов.",
       project_demo_tag: "Демо-концепт",
 
+      featured_badge: "Реальный проект — не демо",
+      featured_title: "Arduino / ESP32 Firmware Studio",
+      featured_desc: "Настоящий, работающий сайт для приёма заказов, который я сам разработал и веду — выбираете контроллер, модули и опции, цена считается автоматически, а заказ приходит прямо мне. Именно такой сайт я могу сделать и для вашего бизнеса.",
+      featured_cta: "Открыть рабочий сайт →",
+      featured_device_mobile: "Отлично работает на телефоне",
+      featured_device_tablet: "и планшете",
+      featured_device_desktop: "тоже — проверьте на своём телефоне",
+
       p1_category: "Автосервис", p1_title: "Калькулятор услуг",
       p1_desc: "Сайт с услугами, ценами и интерактивным калькулятором для заявок клиентов.",
       p1_mock_title: "Расчёт стоимости ремонта тормозов", p1_mock_label1: "Тип автомобиля", p1_mock_label2: "Вид услуги", p1_mock_total_label: "Примерная стоимость",
@@ -326,7 +359,6 @@
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Без дисплея", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT сенсорный",
       p3_mod1: "Wi-Fi модуль", p3_mod2: "Модуль реле", p3_mod3: "Набор датчиков",
-      p3_live_link: "Смотреть рабочий сайт →",
 
       p4_category: "Бизнес-инструменты", p4_title: "Управление заказами",
       p4_desc: "Форма заказа, связанная с Google Sheets, с автоматическими email-уведомлениями и управлением статусами заказов.",
@@ -355,7 +387,7 @@
       why_5_t: "Быстрая разработка", why_5_d: "Небольшие, сфокусированные проекты, которые движутся быстро без потери качества.",
       why_6_t: "Прозрачный процесс", why_6_d: "Никаких скрытых этапов — вы видите проект по мере его создания.",
 
-      contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне", contact_add_link: "добавить ссылку",
+      contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
       contact_whatsapp_link: "Написать мне",
       footer_rights: "Все права защищены."
     }
