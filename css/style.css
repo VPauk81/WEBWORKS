@@ -252,10 +252,36 @@
   .mobile-panel .lang-switch{ width:fit-content; }
   .mobile-panel-cta{ display:flex; margin-top:28px; width:100%; }
 
+  /* On phones/tablets, instead of hiding nav links + lang switch +
+     CTA behind a hamburger menu, wrap the header onto multiple
+     centered rows so everything stays directly visible: brand on
+     its own line, nav links below it, language switch + CTA
+     button on a third line. The hamburger/mobile-panel markup is
+     left in place (harmless, just never shown) rather than
+     removed, to keep this change low-risk. */
   @media (max-width: 860px){
-    .nav-links, .nav-right > .btn, .nav-right > .lang-switch{ display:none; }
-    .nav-toggle{ display:flex; }
-    .nav-right{ gap:12px; }
+    .nav-row{
+      flex-wrap:wrap;
+      justify-content:center;
+      height:auto;
+      padding:10px 0;
+      row-gap:10px;
+    }
+    .nav-links{
+      order:2;
+      flex-basis:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      row-gap:8px;
+    }
+    .nav-right{
+      order:3;
+      flex-basis:100%;
+      justify-content:center;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .nav-toggle{ display:none; }
   }
 
   /* ==========================================================
@@ -656,48 +682,41 @@
      order form above). No backend: submitting opens the
      visitor's own email client with the review pre-filled.
      ---------------------------------------------------------- */
+  #review .section-head{ margin-bottom:14px; }
+
   .review-form{
-    max-width:230px;
+    max-width:400px;
     background:var(--paper-alt);
     border:1px solid var(--line);
-    border-radius:6px;
-    padding:10px;
-  }
-  .review-form .order-field{ margin-bottom:8px; }
-  .review-form .order-field label{
-    font-size:10px;
-    margin-bottom:2px;
-  }
-  .review-form .field-with-check input{
-    padding:6px 8px;
-    font-size:12px;
+    border-radius:8px;
+    padding:18px;
   }
   .review-form textarea{
     width:100%;
     background:var(--white);
     border:1px solid var(--line);
     border-radius:3px;
-    padding:6px 8px;
-    font-size:12px;
+    padding:9px 11px;
+    font-size:14px;
     font-family:var(--font-body);
     color:var(--ink);
     resize:vertical;
-    min-height:28px;
+    min-height:52px;
     transition:border-color .15s ease;
   }
   .review-form textarea:focus-visible{ border-color:var(--accent); }
 
-  .review-rating-field{ margin-bottom:8px; }
+  .review-rating-field{ margin-bottom:12px; }
   .review-rating-field label{
     display:block;
-    font-size:10px;
+    font-size:12px;
     font-family:var(--font-head);
     color:var(--ink-soft);
-    margin-bottom:2px;
+    margin-bottom:4px;
   }
-  .review-stars{ display:flex; gap:2px; }
+  .review-stars{ display:flex; gap:3px; }
   .review-star{
-    font-size:15px;
+    font-size:22px;
     line-height:1;
     color:var(--line);
     transition:color .15s ease, transform .1s ease;
@@ -705,11 +724,11 @@
   .review-star:hover{ transform:scale(1.12); }
   .review-star.is-active{ color:var(--copper); }
 
-  .review-form .btn{ width:100%; margin-top:2px; padding:8px 14px; font-size:12px; }
-  .review-note{ font-size:9px; color:var(--ink-soft); margin-top:6px; line-height:1.35; }
+  .review-form .btn{ width:100%; margin-top:2px; }
+  .review-note{ font-size:11px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
 
   @media (max-width: 500px){
-    .review-form{ padding:10px; max-width:230px; }
+    .review-form{ padding:16px; max-width:none; }
   }
 
   /* ==========================================================
