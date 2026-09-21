@@ -106,6 +106,8 @@
       review_submit: "Send Review",
       review_note: "Opens your email app with the review pre-filled, addressed to me — nothing is posted automatically.",
 
+      share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share",
+
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
@@ -209,6 +211,8 @@
       review_label_text: "Twoja opinia", review_ph_text: "Jak przebiegała współpraca?",
       review_submit: "Wyślij opinię",
       review_note: "Otwiera Twój program pocztowy z gotową wiadomością do mnie — nic nie publikuje się automatycznie.",
+
+      share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij",
 
       contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
       contact_whatsapp_link: "Napisz do mnie",
@@ -314,6 +318,8 @@
       review_submit: "Bewertung senden",
       review_note: "Öffnet Ihr E-Mail-Programm mit der vorausgefüllten Bewertung an mich — nichts wird automatisch veröffentlicht.",
 
+      share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen",
+
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
@@ -417,6 +423,8 @@
       review_label_text: "Ваш отзыв", review_ph_text: "Как прошла работа вместе?",
       review_submit: "Отправить отзыв",
       review_note: "Откроется ваша почта с уже заполненным письмом мне — ничего не публикуется автоматически.",
+
+      share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться",
 
       contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
       contact_whatsapp_link: "Написать мне",
@@ -575,6 +583,35 @@
 
       osc.start(now);
       osc.stop(now + 0.08);
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
+  // "Copy Link" — a bright, quick two-step "ding" confirming the copy
+  // succeeded, distinct from the nav tick, lang pop and CTA chime.
+  function playCopyClickSound(){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+
+      var notes = [880, 1320];
+      for (var i = 0; i < notes.length; i++){
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.type = "sine";
+        var startAt = now + i * 0.07;
+        osc.frequency.setValueAtTime(notes[i], startAt);
+
+        gain.gain.setValueAtTime(0.0001, startAt);
+        gain.gain.exponentialRampToValueAtTime(0.13, startAt + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.18);
+
+        osc.start(startAt);
+        osc.stop(startAt + 0.2);
+      }
     } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
   }
 
@@ -893,6 +930,108 @@
         "?subject=" + encodeURIComponent(subject) +
         "&body=" + encodeURIComponent(body);
     });
+  }
+
+  /* ========================================================
+     SHARE THIS SITE — Copy Link + Share menu (footer)
+     Fixed to the real public GitHub Pages URL so it's always the
+     correct link to share, even when this page is opened locally
+     from disk during editing/testing.
+     ======================================================== */
+  var SITE_URL = "https://vpauk81.github.io/WEBWORKS/";
+
+  var copyLinkBtn = document.getElementById("copyLinkBtn");
+  var shareWrap = document.getElementById("shareWrap");
+  var shareToggleBtn = document.getElementById("shareToggleBtn");
+  var shareMenu = document.getElementById("shareMenu");
+
+  if (copyLinkBtn){
+    copyLinkBtn.addEventListener("click", function(){
+      var label = copyLinkBtn.querySelector("span");
+      var originalKey = label ? label.getAttribute("data-i18n") : null;
+
+      function showCopied(){
+        playCopyClickSound();
+        copyLinkBtn.classList.add("is-copied");
+        if (label){
+          var lang = document.documentElement.getAttribute("lang") || "en";
+          label.textContent = (TRANSLATIONS[lang] && TRANSLATIONS[lang].share_copied) || "Copied!";
+        }
+        setTimeout(function(){
+          copyLinkBtn.classList.remove("is-copied");
+          if (label && originalKey){
+            var lang2 = document.documentElement.getAttribute("lang") || "en";
+            label.textContent = (TRANSLATIONS[lang2] && TRANSLATIONS[lang2][originalKey]) || "Copy Link";
+          }
+        }, 1800);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(SITE_URL).then(showCopied, function(){
+          fallbackCopyText(SITE_URL);
+          showCopied();
+        });
+      } else {
+        fallbackCopyText(SITE_URL);
+        showCopied();
+      }
+    });
+  }
+
+  function fallbackCopyText(text){
+    var ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.opacity = "0";
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (e) { /* ignore */ }
+    document.body.removeChild(ta);
+  }
+
+  if (shareToggleBtn && shareMenu && shareWrap){
+    shareToggleBtn.addEventListener("click", function(e){
+      e.stopPropagation();
+      var isOpen = shareMenu.classList.toggle("is-open");
+      shareToggleBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+
+    document.addEventListener("click", function(e){
+      if (!shareWrap.contains(e.target)){
+        shareMenu.classList.remove("is-open");
+        shareToggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", function(e){
+      if (e.key === "Escape"){
+        shareMenu.classList.remove("is-open");
+        shareToggleBtn.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    var shareItems = shareMenu.querySelectorAll(".share-menu-item");
+    for (var shi = 0; shi < shareItems.length; shi++){
+      shareItems[shi].addEventListener("click", function(){
+        var platform = this.getAttribute("data-share");
+        var text = document.title;
+        var target = "";
+
+        if (platform === "whatsapp"){
+          target = "https://wa.me/?text=" + encodeURIComponent(text + " " + SITE_URL);
+        } else if (platform === "telegram"){
+          target = "https://t.me/share/url?url=" + encodeURIComponent(SITE_URL) + "&text=" + encodeURIComponent(text);
+        } else if (platform === "viber"){
+          target = "viber://forward?text=" + encodeURIComponent(text + " " + SITE_URL);
+        } else if (platform === "email"){
+          window.location.href = "mailto:?subject=" + encodeURIComponent(text) + "&body=" + encodeURIComponent(SITE_URL);
+        }
+
+        if (target){ window.open(target, "_blank", "noopener"); }
+
+        shareMenu.classList.remove("is-open");
+        shareToggleBtn.setAttribute("aria-expanded", "false");
+      });
+    }
   }
 
 })();

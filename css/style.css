@@ -656,37 +656,38 @@
      visitor's own email client with the review pre-filled.
      ---------------------------------------------------------- */
   .review-form{
-    max-width:480px;
+    max-width:400px;
     background:var(--paper-alt);
     border:1px solid var(--line);
     border-radius:8px;
-    padding:24px;
+    padding:18px;
   }
   .review-form textarea{
     width:100%;
     background:var(--white);
     border:1px solid var(--line);
     border-radius:3px;
-    padding:11px 12px;
-    font-size:14px;
+    padding:9px 11px;
+    font-size:13px;
     font-family:var(--font-body);
     color:var(--ink);
     resize:vertical;
+    min-height:52px;
     transition:border-color .15s ease;
   }
   .review-form textarea:focus-visible{ border-color:var(--accent); }
 
-  .review-rating-field{ margin-bottom:16px; }
+  .review-rating-field{ margin-bottom:12px; }
   .review-rating-field label{
     display:block;
     font-size:12px;
     font-family:var(--font-head);
     color:var(--ink-soft);
-    margin-bottom:6px;
+    margin-bottom:4px;
   }
-  .review-stars{ display:flex; gap:4px; }
+  .review-stars{ display:flex; gap:3px; }
   .review-star{
-    font-size:28px;
+    font-size:22px;
     line-height:1;
     color:var(--line);
     transition:color .15s ease, transform .1s ease;
@@ -694,11 +695,11 @@
   .review-star:hover{ transform:scale(1.12); }
   .review-star.is-active{ color:var(--copper); }
 
-  .review-form .btn{ width:100%; margin-top:4px; }
-  .review-note{ font-size:12px; color:var(--ink-soft); margin-top:12px; line-height:1.5; }
+  .review-form .btn{ width:100%; margin-top:2px; }
+  .review-note{ font-size:11px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
 
   @media (max-width: 500px){
-    .review-form{ padding:18px; max-width:none; }
+    .review-form{ padding:16px; max-width:none; }
   }
 
   /* ==========================================================
@@ -796,6 +797,60 @@
   }
   .footer-links{ display:flex; gap:24px; }
   .footer-links a:hover{ color:var(--white); }
+
+  /* ----------------------------------------------------------
+     Share this site — copy link + a small "share to" menu.
+     ---------------------------------------------------------- */
+  .share-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .share-copy-btn, .share-toggle-btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:9px 16px;
+    border-radius:20px;
+    background:rgba(255,255,255,.06);
+    border:1px solid var(--line-dark);
+    color:var(--muted-dark);
+    font-family:var(--font-head);
+    font-size:13px;
+    font-weight:500;
+    transition:background .18s ease, color .18s ease, transform .15s ease, border-color .18s ease;
+  }
+  .share-copy-btn svg, .share-toggle-btn svg{ width:16px; height:16px; fill:currentColor; flex-shrink:0; }
+  .share-copy-btn:hover, .share-toggle-btn:hover{ background:rgba(255,255,255,.12); color:var(--white); transform:translateY(-1px); }
+  .share-copy-btn:active, .share-toggle-btn:active{ transform:translateY(0) scale(.96); }
+  .share-copy-btn.is-copied{ background:var(--accent); color:var(--white); border-color:var(--accent); }
+
+  .share-wrap{ position:relative; }
+  .share-menu{
+    display:none;
+    position:absolute;
+    bottom:calc(100% + 8px);
+    left:0;
+    z-index:20;
+    min-width:180px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:8px;
+    box-shadow:0 14px 34px rgba(0,0,0,.3);
+    padding:6px;
+  }
+  .share-menu.is-open{ display:block; }
+  .share-menu-item{
+    display:flex; align-items:center; gap:10px;
+    width:100%;
+    padding:9px 10px;
+    border-radius:5px;
+    font-family:var(--font-body);
+    font-size:14px;
+    color:var(--ink);
+    text-align:left;
+    transition:background .15s ease;
+  }
+  .share-menu-item:hover{ background:var(--paper-alt); }
+  .share-menu-item svg{ width:19px; height:19px; flex-shrink:0; fill:currentColor; }
+  .share-menu-item[data-share="whatsapp"] svg{ color:#25D366; }
+  .share-menu-item[data-share="telegram"] svg{ color:#229ED9; }
+  .share-menu-item[data-share="viber"] svg{ color:#7360F2; }
+  .share-menu-item[data-share="email"] svg{ color:var(--ink-soft); }
 
   /* utility */
   .visually-hidden{
