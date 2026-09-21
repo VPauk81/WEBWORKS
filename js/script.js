@@ -451,9 +451,47 @@
     return "en";
   }
 
+  /* ========================================================
+     LANGUAGE SWITCH — CLICK SOUND
+     A short, pleasant two-note "pop" synthesized with the Web
+     Audio API — no audio file to load. The AudioContext is
+     created lazily on the first click (browsers block audio
+     until a user gesture anyway), then reused for every click.
+     ======================================================== */
+  var langClickAudioCtx = null;
+
+  function playLangClickSound(){
+    try {
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      if (!langClickAudioCtx){ langClickAudioCtx = new Ctx(); }
+      if (langClickAudioCtx.state === "suspended"){ langClickAudioCtx.resume(); }
+
+      var ctx = langClickAudioCtx;
+      var now = ctx.currentTime;
+
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(720, now);
+      osc.frequency.exponentialRampToValueAtTime(1080, now + 0.09);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.16, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.16);
+
+      osc.start(now);
+      osc.stop(now + 0.17);
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
   var langButtons = document.querySelectorAll(".lang-switch button");
   for (var k = 0; k < langButtons.length; k++){
     langButtons[k].addEventListener("click", function(){
+      playLangClickSound();
       applyLanguage(this.getAttribute("data-lang"));
       closeMobilePanel();
     });
