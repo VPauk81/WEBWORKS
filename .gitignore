@@ -2,9 +2,3 @@
 .DS_Store
 Thumbs.db
 *.swp
-
-# Browser screenshots saved by mistake instead of real photos —
-# not real content, and one shows iStock-watermarked search results.
-# Replace with real photos and remove these two lines.
-images/biznes.jpg
-images/kontakt.jpg
