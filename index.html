@@ -60,7 +60,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 
@@ -70,7 +70,13 @@
 <header class="site-header">
   <div class="wrap nav-row">
     <!-- BRAND NAME: replace "WEBWORKS" here and in the footer with your studio name -->
-    <a href="#top" class="brand">WEBWORKS</a>
+    <a href="#top" class="brand">
+      <svg class="brand-icon" viewBox="0 0 32 32" aria-hidden="true">
+        <rect x="1" y="1" width="30" height="30" rx="8" fill="#101A21"/>
+        <path d="M8 11 L12 21 L16 13 L20 21 L24 11" stroke="#2F7D68" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      WEBWORKS
+    </a>
 
     <nav class="nav-links" aria-label="Primary">
       <a href="#services" data-i18n="nav_services">Services</a>
@@ -476,20 +482,18 @@
 
     <dl class="channels">
       <div class="channel">
-        <dt>Email</dt>
+        <dt><svg class="channel-dt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>Email</dt>
         <!-- Replace with your real email -->
         <dd>
           <a href="mailto:s.i.pauchak@gmail.com">
-            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>
             s.i.pauchak@gmail.com
           </a>
         </dd>
       </div>
       <div class="channel">
-        <dt>WhatsApp</dt>
+        <dt><svg class="channel-dt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.43 0 .07 5.36.07 11.99c0 2.12.55 4.2 1.6 6.04L0 24l6.16-1.62a12 12 0 0 0 5.9 1.5h.01c6.63 0 11.99-5.36 11.99-11.99 0-3.2-1.25-6.21-3.54-8.41ZM12.07 21.8c-1.87 0-3.7-.5-5.3-1.44l-.38-.23-3.65.96.97-3.56-.25-.37A9.8 9.8 0 0 1 2.2 12c0-5.42 4.41-9.83 9.83-9.83 2.62 0 5.08 1.02 6.93 2.88a9.75 9.75 0 0 1 2.9 6.95c0 5.42-4.41 9.8-9.79 9.8z"/></svg>WhatsApp</dt>
         <dd>
           <a href="https://wa.me/48786946055" target="_blank" rel="noopener">
-            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.43 0 .07 5.36.07 11.99c0 2.12.55 4.2 1.6 6.04L0 24l6.16-1.62a12 12 0 0 0 5.9 1.5h.01c6.63 0 11.99-5.36 11.99-11.99 0-3.2-1.25-6.21-3.54-8.41ZM12.07 21.8c-1.87 0-3.7-.5-5.3-1.44l-.38-.23-3.65.96.97-3.56-.25-.37A9.8 9.8 0 0 1 2.2 12c0-5.42 4.41-9.83 9.83-9.83 2.62 0 5.08 1.02 6.93 2.88a9.75 9.75 0 0 1 2.9 6.95c0 5.42-4.41 9.8-9.79 9.8z"/></svg>
             <span data-i18n="contact_whatsapp_link">Message me</span>
           </a>
         </dd>
@@ -522,6 +526,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=6"></script>
+<script src="js/script.js?v=7"></script>
 </body>
 </html>
