@@ -253,7 +253,7 @@
   .mobile-panel-cta{ display:flex; margin-top:28px; width:100%; }
 
   @media (max-width: 860px){
-    .nav-links, .nav-right > .btn{ display:none; }
+    .nav-links, .nav-right > .btn, .nav-right > .lang-switch{ display:none; }
     .nav-toggle{ display:flex; }
     .nav-right{ gap:12px; }
   }
@@ -657,38 +657,47 @@
      visitor's own email client with the review pre-filled.
      ---------------------------------------------------------- */
   .review-form{
-    max-width:400px;
+    max-width:230px;
     background:var(--paper-alt);
     border:1px solid var(--line);
-    border-radius:8px;
-    padding:18px;
+    border-radius:6px;
+    padding:10px;
+  }
+  .review-form .order-field{ margin-bottom:8px; }
+  .review-form .order-field label{
+    font-size:10px;
+    margin-bottom:2px;
+  }
+  .review-form .field-with-check input{
+    padding:6px 8px;
+    font-size:12px;
   }
   .review-form textarea{
     width:100%;
     background:var(--white);
     border:1px solid var(--line);
     border-radius:3px;
-    padding:9px 11px;
-    font-size:13px;
+    padding:6px 8px;
+    font-size:12px;
     font-family:var(--font-body);
     color:var(--ink);
     resize:vertical;
-    min-height:52px;
+    min-height:28px;
     transition:border-color .15s ease;
   }
   .review-form textarea:focus-visible{ border-color:var(--accent); }
 
-  .review-rating-field{ margin-bottom:12px; }
+  .review-rating-field{ margin-bottom:8px; }
   .review-rating-field label{
     display:block;
-    font-size:12px;
+    font-size:10px;
     font-family:var(--font-head);
     color:var(--ink-soft);
-    margin-bottom:4px;
+    margin-bottom:2px;
   }
-  .review-stars{ display:flex; gap:3px; }
+  .review-stars{ display:flex; gap:2px; }
   .review-star{
-    font-size:22px;
+    font-size:15px;
     line-height:1;
     color:var(--line);
     transition:color .15s ease, transform .1s ease;
@@ -696,11 +705,11 @@
   .review-star:hover{ transform:scale(1.12); }
   .review-star.is-active{ color:var(--copper); }
 
-  .review-form .btn{ width:100%; margin-top:2px; }
-  .review-note{ font-size:11px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .review-form .btn{ width:100%; margin-top:2px; padding:8px 14px; font-size:12px; }
+  .review-note{ font-size:9px; color:var(--ink-soft); margin-top:6px; line-height:1.35; }
 
   @media (max-width: 500px){
-    .review-form{ padding:16px; max-width:none; }
+    .review-form{ padding:10px; max-width:230px; }
   }
 
   /* ==========================================================

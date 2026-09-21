@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 11;
+  var PAGE_BUILD = 12;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=11">
+<link rel="stylesheet" href="css/style.css?v=12">
 </head>
 <body>
 
@@ -530,7 +530,7 @@
 
       <div class="order-field" id="reviewTextField">
         <label for="reviewText" data-i18n="review_label_text">Your review</label>
-        <textarea id="reviewText" rows="2" data-i18n-placeholder="review_ph_text" placeholder="What was it like working together?"></textarea>
+        <textarea id="reviewText" rows="1" data-i18n-placeholder="review_ph_text" placeholder="What was it like working together?"></textarea>
       </div>
 
       <button type="button" class="btn btn--primary cta-btn" id="reviewSubmit" data-i18n="review_submit" title="Opens your email app with the review pre-filled">Send Review</button>
@@ -639,6 +639,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=11"></script>
+<script src="js/script.js?v=12"></script>
 </body>
 </html>
