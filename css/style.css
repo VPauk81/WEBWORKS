@@ -226,35 +226,47 @@
   .hero{
     background:var(--navy);
     color:var(--white);
-    padding:56px 0 48px;
+    padding:36px 0 32px;
     overflow:hidden;
   }
   .hero .wrap{ display:block; }
   .hero-copy{ max-width:640px; }
   .hero-title{
-    font-size:clamp(30px, 4.4vw, 46px);
-    line-height:1.08;
-    margin-bottom:16px;
+    font-size:clamp(24px, 3.4vw, 34px);
+    line-height:1.1;
+    margin-bottom:10px;
   }
   .hero-sub{
-    font-size:17px;
+    font-size:15px;
     color:var(--muted-dark);
     max-width:480px;
-    margin-bottom:26px;
+    margin-bottom:18px;
   }
-  .hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+  .hero-actions{ display:flex; gap:12px; flex-wrap:wrap; }
 
   .hero-stats{
     display:flex;
-    gap:32px;
+    gap:28px;
     flex-wrap:wrap;
-    margin-top:28px;
-    padding-top:18px;
+    margin-top:18px;
+    padding-top:14px;
     border-top:1px solid var(--line-dark);
   }
   .hero-stat{ display:flex; flex-direction:column; gap:2px; }
-  .hero-stat .num{ font-family:var(--font-head); font-size:24px; font-weight:600; color:var(--accent); }
-  .hero-stat .label{ font-size:13px; color:var(--muted-dark); }
+  .hero-stat .num{ font-family:var(--font-head); font-size:20px; font-weight:600; color:var(--accent); }
+  .hero-stat .label{ font-size:12px; color:var(--muted-dark); }
+
+  .hero-photo{
+    margin-top:24px;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--line-dark);
+  }
+  .hero-photo img{ width:100%; height:200px; object-fit:cover; display:block; }
+
+  @media (max-width: 600px){
+    .hero-photo img{ height:160px; }
+  }
 
   /* ==========================================================
      5. SERVICES (spec-sheet list)
