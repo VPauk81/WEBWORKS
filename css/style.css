@@ -257,6 +257,18 @@
   .hero-stat .num{ font-family:var(--font-head); font-size:17px; font-weight:600; color:var(--accent); }
   .hero-stat .label{ font-size:11px; color:var(--muted-dark); }
 
+  .hero-photo{
+    margin-top:18px;
+    border-radius:8px;
+    overflow:hidden;
+    border:1px solid var(--line-dark);
+  }
+  .hero-photo img{ width:100%; height:180px; object-fit:cover; display:block; }
+
+  @media (max-width: 600px){
+    .hero-photo img{ height:140px; }
+  }
+
   /* ==========================================================
      5. SERVICES (spec-sheet list)
      ========================================================== */
