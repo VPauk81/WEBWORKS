@@ -99,6 +99,13 @@
       why_5_t: "Fast development", why_5_d: "Small, focused projects that move quickly without cutting corners.",
       why_6_t: "Transparent process", why_6_d: "No hidden steps — you can see the project as it's being built.",
 
+      review_title: "Leave a Review", review_intro: "Worked with me before? A short honest review helps other business owners decide — it goes straight to my inbox.",
+      review_label_name: "Your name", review_ph_name: "John Smith",
+      review_label_rating: "Your rating",
+      review_label_text: "Your review", review_ph_text: "What was it like working together?",
+      review_submit: "Send Review",
+      review_note: "Opens your email app with the review pre-filled, addressed to me — nothing is posted automatically.",
+
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
@@ -195,6 +202,13 @@
       why_4_t: "Funkcje na zamówienie", why_4_d: "Kalkulatory, konfiguratory i formularze dopasowane do Twojego procesu.",
       why_5_t: "Szybka realizacja", why_5_d: "Niewielkie, skoncentrowane projekty realizowane sprawnie i bez uproszczeń.",
       why_6_t: "Przejrzysty proces", why_6_d: "Żadnych ukrytych etapów — widzisz projekt na każdym kroku jego powstawania.",
+
+      review_title: "Zostaw opinię", review_intro: "Pracowaliśmy już razem? Krótka, szczera opinia pomaga innym przedsiębiorcom podjąć decyzję — trafia prosto do mojej skrzynki.",
+      review_label_name: "Twoje imię", review_ph_name: "Jan Kowalski",
+      review_label_rating: "Twoja ocena",
+      review_label_text: "Twoja opinia", review_ph_text: "Jak przebiegała współpraca?",
+      review_submit: "Wyślij opinię",
+      review_note: "Otwiera Twój program pocztowy z gotową wiadomością do mnie — nic nie publikuje się automatycznie.",
 
       contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
       contact_whatsapp_link: "Napisz do mnie",
@@ -293,6 +307,13 @@
       why_5_t: "Schnelle Umsetzung", why_5_d: "Kleine, fokussierte Projekte, die zügig vorankommen, ohne Abstriche bei der Qualität.",
       why_6_t: "Transparenter Prozess", why_6_d: "Keine versteckten Schritte — Sie sehen das Projekt während der Entstehung.",
 
+      review_title: "Bewertung hinterlassen", review_intro: "Haben Sie schon mit mir zusammengearbeitet? Eine kurze ehrliche Bewertung hilft anderen Unternehmern bei der Entscheidung — sie geht direkt an mein Postfach.",
+      review_label_name: "Ihr Name", review_ph_name: "Max Mustermann",
+      review_label_rating: "Ihre Bewertung",
+      review_label_text: "Ihre Bewertung (Text)", review_ph_text: "Wie war die Zusammenarbeit?",
+      review_submit: "Bewertung senden",
+      review_note: "Öffnet Ihr E-Mail-Programm mit der vorausgefüllten Bewertung an mich — nichts wird automatisch veröffentlicht.",
+
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
@@ -389,6 +410,13 @@
       why_4_t: "Индивидуальный функционал", why_4_d: "Калькуляторы, конфигураторы и формы создаются под ваш конкретный процесс.",
       why_5_t: "Быстрая разработка", why_5_d: "Небольшие, сфокусированные проекты, которые движутся быстро без потери качества.",
       why_6_t: "Прозрачный процесс", why_6_d: "Никаких скрытых этапов — вы видите проект по мере его создания.",
+
+      review_title: "Оставить отзыв", review_intro: "Уже работали со мной? Короткий честный отзыв помогает другим владельцам бизнеса принять решение — он придёт прямо мне на почту.",
+      review_label_name: "Ваше имя", review_ph_name: "Иван Иванов",
+      review_label_rating: "Ваша оценка",
+      review_label_text: "Ваш отзыв", review_ph_text: "Как прошла работа вместе?",
+      review_submit: "Отправить отзыв",
+      review_note: "Откроется ваша почта с уже заполненным письмом мне — ничего не публикуется автоматически.",
 
       contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
       contact_whatsapp_link: "Написать мне",
@@ -810,6 +838,60 @@
       if (nameOk && emailOk && phoneOk){
         orderDemoStatus.classList.add("is-shown");
       }
+    });
+  }
+
+  /* ========================================================
+     LEAVE A REVIEW
+     Real, working submission — no backend, no database. Clicking
+     "Send Review" builds a mailto: link from the filled-in name,
+     star rating and review text and opens it, so the visitor's
+     own email client sends it straight to my inbox. Nothing is
+     auto-published; every review that appears elsewhere on the
+     site was actually sent in and added by hand.
+     ======================================================== */
+  var reviewNameInput = document.getElementById("reviewName");
+  var reviewStars = document.querySelectorAll(".review-star");
+  var reviewTextInput = document.getElementById("reviewText");
+  var reviewSubmitBtn = document.getElementById("reviewSubmit");
+  var selectedReviewRating = 0;
+
+  function setReviewRating(value){
+    selectedReviewRating = value;
+    for (var ri = 0; ri < reviewStars.length; ri++){
+      var starValue = Number(reviewStars[ri].getAttribute("data-value"));
+      reviewStars[ri].classList.toggle("is-active", starValue <= value);
+    }
+  }
+
+  for (var si = 0; si < reviewStars.length; si++){
+    reviewStars[si].addEventListener("click", function(){
+      setReviewRating(Number(this.getAttribute("data-value")));
+    });
+  }
+
+  if (reviewNameInput && reviewTextInput && reviewSubmitBtn){
+    reviewSubmitBtn.addEventListener("click", function(){
+      var name = reviewNameInput.value.trim();
+      var text = reviewTextInput.value.trim();
+
+      if (!name){ reviewNameInput.focus(); return; }
+      if (!text){ reviewTextInput.focus(); return; }
+
+      var stars = selectedReviewRating > 0
+        ? new Array(selectedReviewRating + 1).join("★")
+        : "(no rating selected)";
+
+      var subject = "WEBWORKS review from " + name;
+      var body =
+        "Name: " + name + "\n" +
+        "Rating: " + stars + (selectedReviewRating > 0 ? " (" + selectedReviewRating + "/5)" : "") + "\n\n" +
+        text;
+
+      window.location.href =
+        "mailto:s.i.pauchak@gmail.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
     });
   }
 
