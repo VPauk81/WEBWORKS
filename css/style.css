@@ -264,22 +264,22 @@
       flex-wrap:wrap;
       justify-content:center;
       height:auto;
-      padding:10px 0;
-      row-gap:10px;
+      padding:8px 0;
+      row-gap:6px;
     }
     .nav-links{
       order:2;
       flex-basis:100%;
       justify-content:center;
       flex-wrap:wrap;
-      row-gap:8px;
+      gap:6px 14px;
     }
     .nav-right{
       order:3;
       flex-basis:100%;
       justify-content:center;
       flex-wrap:wrap;
-      gap:10px;
+      gap:8px;
     }
     .nav-toggle{ display:none; }
   }
@@ -682,7 +682,7 @@
      order form above). No backend: submitting opens the
      visitor's own email client with the review pre-filled.
      ---------------------------------------------------------- */
-  #review .section-head{ margin-bottom:14px; }
+  #review .section-head{ margin-bottom:4px; }
 
   .review-form{
     max-width:400px;
@@ -830,7 +830,7 @@
   /* ----------------------------------------------------------
      Share this site — copy link + a small "share to" menu.
      ---------------------------------------------------------- */
-  .share-row{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:22px; }
+  .share-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top:2px; }
   .share-copy-btn, .share-toggle-btn{
     display:inline-flex; align-items:center; gap:8px;
     padding:9px 16px;

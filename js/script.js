@@ -106,7 +106,7 @@
       review_submit: "Send Review",
       review_note: "Opens your email app with the review pre-filled, addressed to me — nothing is posted automatically.",
 
-      share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share",
+      share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share", share_channel_title: "Share the site",
 
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
       contact_whatsapp_link: "Message me",
@@ -212,7 +212,7 @@
       review_submit: "Wyślij opinię",
       review_note: "Otwiera Twój program pocztowy z gotową wiadomością do mnie — nic nie publikuje się automatycznie.",
 
-      share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij",
+      share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij", share_channel_title: "Udostępnij stronę",
 
       contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
       contact_whatsapp_link: "Napisz do mnie",
@@ -318,7 +318,7 @@
       review_submit: "Bewertung senden",
       review_note: "Öffnet Ihr E-Mail-Programm mit der vorausgefüllten Bewertung an mich — nichts wird automatisch veröffentlicht.",
 
-      share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen",
+      share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen", share_channel_title: "Seite teilen",
 
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
       contact_whatsapp_link: "Schreiben Sie mir",
@@ -424,7 +424,7 @@
       review_submit: "Отправить отзыв",
       review_note: "Откроется ваша почта с уже заполненным письмом мне — ничего не публикуется автоматически.",
 
-      share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться",
+      share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться", share_channel_title: "Поделиться сайтом",
 
       contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
       contact_whatsapp_link: "Написать мне",
