@@ -250,6 +250,7 @@
   .mobile-panel .nav-links a{ font-size:22px; color:var(--ink); }
   .mobile-panel .nav-links a:hover{ color:var(--accent); }
   .mobile-panel .lang-switch{ width:fit-content; }
+  .mobile-panel-cta{ display:flex; margin-top:28px; width:100%; }
 
   @media (max-width: 860px){
     .nav-links, .nav-right > .btn{ display:none; }
