@@ -60,7 +60,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 
@@ -81,12 +81,12 @@
 
     <div class="nav-right">
       <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-lang="en" aria-pressed="true">EN</button>
-        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
-        <button type="button" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+        <button type="button" data-lang="en" aria-pressed="true"><img class="lang-flag" src="https://flagcdn.com/24x18/gb.png" alt="">EN</button>
+        <button type="button" data-lang="pl" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/pl.png" alt="">PL</button>
+        <button type="button" data-lang="de" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/de.png" alt="">DE</button>
+        <button type="button" data-lang="ru" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/ru.png" alt="">RU</button>
       </div>
-      <a href="#contact" class="btn btn--primary" data-i18n="nav_cta">Start a Project</a>
+      <a href="#contact" class="btn btn--primary cta-btn" data-i18n="nav_cta">Start a Project</a>
       <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobilePanel">
         <span></span><span></span><span></span>
       </button>
@@ -101,10 +101,10 @@
       <a href="#contact" data-i18n="nav_contact">Contact</a>
     </nav>
     <div class="lang-switch" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="pl" aria-pressed="false">PL</button>
-      <button type="button" data-lang="de" aria-pressed="false">DE</button>
-      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      <button type="button" data-lang="en" aria-pressed="true"><img class="lang-flag" src="https://flagcdn.com/24x18/gb.png" alt="">EN</button>
+      <button type="button" data-lang="pl" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/pl.png" alt="">PL</button>
+      <button type="button" data-lang="de" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/de.png" alt="">DE</button>
+      <button type="button" data-lang="ru" aria-pressed="false"><img class="lang-flag" src="https://flagcdn.com/24x18/ru.png" alt="">RU</button>
     </div>
   </div>
 </header>
@@ -118,8 +118,8 @@
       <h1 class="hero-title" data-i18n="hero_title">Practical web tools for businesses that want things to just work.</h1>
       <p class="hero-sub" data-i18n="hero_sub">Websites, online calculators, configurators and order systems for small and medium businesses across Europe.</p>
       <div class="hero-actions">
-        <a href="#projects" class="btn btn--primary" data-i18n="hero_cta_primary">View Projects</a>
-        <a href="#contact" class="btn btn--ghost" data-i18n="hero_cta_secondary">Start a Project</a>
+        <a href="#projects" class="btn btn--primary cta-btn" data-i18n="hero_cta_primary">View Projects</a>
+        <a href="#contact" class="btn btn--ghost cta-btn" data-i18n="hero_cta_secondary">Start a Project</a>
       </div>
 
       <!-- Honest, verifiable facts only — no invented client/project counts. -->
@@ -471,7 +471,7 @@
 
     <div class="contact-actions">
       <!-- Replace s.i.pauchak@gmail.com with your real address -->
-      <a href="mailto:s.i.pauchak@gmail.com" class="btn btn--primary" data-i18n="contact_cta">Contact Me</a>
+      <a href="mailto:s.i.pauchak@gmail.com" class="btn btn--primary cta-btn" data-i18n="contact_cta">Contact Me</a>
     </div>
 
     <dl class="channels">
@@ -522,6 +522,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=4"></script>
+<script src="js/script.js?v=5"></script>
 </body>
 </html>

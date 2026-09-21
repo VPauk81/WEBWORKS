@@ -452,22 +452,27 @@
   }
 
   /* ========================================================
-     LANGUAGE SWITCH — CLICK SOUND
-     A short, pleasant two-note "pop" synthesized with the Web
-     Audio API — no audio file to load. The AudioContext is
-     created lazily on the first click (browsers block audio
-     until a user gesture anyway), then reused for every click.
+     UI CLICK SOUNDS
+     Short tones synthesized with the Web Audio API — no audio
+     files to load. A single AudioContext is created lazily on
+     the first click (browsers block audio until a user gesture
+     anyway) and reused for every sound after that.
      ======================================================== */
-  var langClickAudioCtx = null;
+  var uiAudioCtx = null;
 
+  function getUiAudioContext(){
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return null;
+    if (!uiAudioCtx){ uiAudioCtx = new Ctx(); }
+    if (uiAudioCtx.state === "suspended"){ uiAudioCtx.resume(); }
+    return uiAudioCtx;
+  }
+
+  // Language switch — a quick, light two-note "pop".
   function playLangClickSound(){
     try {
-      var Ctx = window.AudioContext || window.webkitAudioContext;
-      if (!Ctx) return;
-      if (!langClickAudioCtx){ langClickAudioCtx = new Ctx(); }
-      if (langClickAudioCtx.state === "suspended"){ langClickAudioCtx.resume(); }
-
-      var ctx = langClickAudioCtx;
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
       var now = ctx.currentTime;
 
       var osc = ctx.createOscillator();
@@ -488,6 +493,37 @@
     } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
   }
 
+  // Main call-to-action buttons (View Projects / Start a Project / Contact
+  // Me) — a warmer, richer ascending chime (two layered notes, a major
+  // third apart) so it reads as a bigger, more deliberate action than the
+  // language switch's light pop.
+  function playCtaClickSound(){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+
+      var notes = [523.25, 659.25]; // C5, E5
+      for (var i = 0; i < notes.length; i++){
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.type = "triangle";
+        var startAt = now + i * 0.045;
+        osc.frequency.setValueAtTime(notes[i], startAt);
+
+        gain.gain.setValueAtTime(0.0001, startAt);
+        gain.gain.exponentialRampToValueAtTime(0.14, startAt + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startAt + 0.32);
+
+        osc.start(startAt);
+        osc.stop(startAt + 0.34);
+      }
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
   var langButtons = document.querySelectorAll(".lang-switch button");
   for (var k = 0; k < langButtons.length; k++){
     langButtons[k].addEventListener("click", function(){
@@ -495,6 +531,11 @@
       applyLanguage(this.getAttribute("data-lang"));
       closeMobilePanel();
     });
+  }
+
+  var ctaButtons = document.querySelectorAll(".cta-btn");
+  for (var c = 0; c < ctaButtons.length; c++){
+    ctaButtons[c].addEventListener("click", playCtaClickSound);
   }
 
   applyLanguage(getInitialLanguage());
