@@ -438,9 +438,9 @@
   .project h3{ font-size:26px; margin-bottom:14px; }
   .project p.desc{ color:var(--ink-soft); margin-bottom:18px; max-width:440px; }
 
-  /* Themed illustration banner above each project mockup — custom line-art
-     in the site's own palette instead of stock photos (no licensing risk,
-     stays consistent with the hero artwork). */
+  /* Themed banner above each project mockup — a real photo where one
+     exists, falling back to custom line-art (own palette, no licensing
+     risk, matches the hero artwork) for the rest. */
   .project-photo{
     aspect-ratio:16/9;
     border-radius:6px;
@@ -450,8 +450,10 @@
     align-items:center;
     justify-content:center;
     margin-bottom:16px;
+    overflow:hidden;
   }
   .project-photo svg{ width:54%; height:54%; }
+  .project-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
 
   /* generic mockup shell */
   .mock{
