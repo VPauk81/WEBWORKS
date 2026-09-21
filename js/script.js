@@ -524,6 +524,32 @@
     } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
   }
 
+  // Top nav links (Services / Projects / Process / Contact) — a very
+  // short, quiet "tick", lighter and more neutral than the other two
+  // sounds since these are frequent, low-weight navigation clicks.
+  function playNavClickSound(){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.type = "square";
+      osc.frequency.setValueAtTime(920, now);
+
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(0.05, now + 0.006);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.07);
+
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
   var langButtons = document.querySelectorAll(".lang-switch button");
   for (var k = 0; k < langButtons.length; k++){
     langButtons[k].addEventListener("click", function(){
@@ -536,6 +562,11 @@
   var ctaButtons = document.querySelectorAll(".cta-btn");
   for (var c = 0; c < ctaButtons.length; c++){
     ctaButtons[c].addEventListener("click", playCtaClickSound);
+  }
+
+  var navLinkButtons = document.querySelectorAll(".nav-links a");
+  for (var n = 0; n < navLinkButtons.length; n++){
+    navLinkButtons[n].addEventListener("click", playNavClickSound);
   }
 
   applyLanguage(getInitialLanguage());
