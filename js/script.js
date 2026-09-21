@@ -101,6 +101,7 @@
 
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
       contact_whatsapp_link: "Message me",
+      contact_github_link: "View on GitHub",
       footer_rights: "All rights reserved."
     },
 
@@ -197,6 +198,7 @@
 
       contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
       contact_whatsapp_link: "Napisz do mnie",
+      contact_github_link: "Zobacz na GitHub",
       footer_rights: "Wszelkie prawa zastrzeżone."
     },
 
@@ -293,6 +295,7 @@
 
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
       contact_whatsapp_link: "Schreiben Sie mir",
+      contact_github_link: "Auf GitHub ansehen",
       footer_rights: "Alle Rechte vorbehalten."
     },
 
@@ -389,6 +392,7 @@
 
       contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
       contact_whatsapp_link: "Написать мне",
+      contact_github_link: "Смотреть на GitHub",
       footer_rights: "Все права защищены."
     }
   };
