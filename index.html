@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="meta_title">Web Development &amp; Business Solutions | WEBWORKS</title>
+<meta name="description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
+
+<!-- Open Graph — replace REPLACE_WITH_YOUR_DOMAIN with your real site URL once published -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="WEBWORKS">
+<meta property="og:title" data-i18n="meta_title" content="Web Development &amp; Business Solutions | WEBWORKS">
+<meta property="og:description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
+<meta property="og:url" content="https://REPLACE_WITH_YOUR_DOMAIN">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pl_PL">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="ru_RU">
+<!-- Social preview image — required for a real link-card preview in ads/posts/messengers.
+     Replace with a real 1200x630px PNG/JPG hosted on your domain; without it most platforms
+     (Facebook, LinkedIn, WhatsApp, Telegram) show no preview image at all. -->
+<meta property="og:image" content="https://REPLACE_WITH_YOUR_DOMAIN/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Canonical URL — replace REPLACE_WITH_YOUR_DOMAIN once the site has a real domain -->
+<link rel="canonical" href="https://REPLACE_WITH_YOUR_DOMAIN/">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" data-i18n="meta_title" content="Web Development &amp; Business Solutions | WEBWORKS">
+<meta name="twitter:description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
+<meta name="twitter:image" content="https://REPLACE_WITH_YOUR_DOMAIN/og-image.jpg">
+
+<!-- Structured data — helps Google show a richer result (name, service type, area served).
+     Update sameAs with your real profiles once you have them (LinkedIn, GitHub, etc.). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "WEBWORKS",
+  "description": "Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.",
+  "url": "https://REPLACE_WITH_YOUR_DOMAIN",
+  "email": "mailto:s.i.pauchak@gmail.com",
+  "areaServed": ["PL", "DE", "EU"],
+  "availableLanguage": ["en", "pl", "de", "ru"],
+  "sameAs": []
+}
+</script>
+
+<!-- Favicon — inline placeholder monogram (no external file needed). Replace with your own icon later. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23101A21'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='30' font-weight='700' fill='%232F7D68' text-anchor='middle'%3EW%3C/text%3E%3C/svg%3E">
+
+<!--
+  Optional web fonts. The site is fully functional and looks correct
+  without these — if this fails to load (offline, blocked, etc.) the
+  CSS below falls back to system fonts automatically.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ==========================================================
+     HEADER
+     ========================================================== -->
+<header class="site-header">
+  <div class="wrap nav-row">
+    <!-- BRAND NAME: replace "WEBWORKS" here and in the footer with your studio name -->
+    <a href="#top" class="brand">WEBWORKS</a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#projects" data-i18n="nav_projects">Projects</a>
+      <a href="#process" data-i18n="nav_process">Process</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+        <button type="button" data-lang="de" aria-pressed="false">DE</button>
+        <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+      </div>
+      <a href="#contact" class="btn btn--primary" data-i18n="nav_cta">Start a Project</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="mobilePanel">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-panel" id="mobilePanel">
+    <nav class="nav-links" aria-label="Mobile">
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#projects" data-i18n="nav_projects">Projects</a>
+      <a href="#process" data-i18n="nav_process">Process</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+      <button type="button" data-lang="de" aria-pressed="false">DE</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+  </div>
+</header>
+
+<!-- ==========================================================
+     HERO
+     ========================================================== -->
+<section class="hero" id="top">
+  <div class="wrap">
+    <div class="hero-copy">
+      <h1 class="hero-title" data-i18n="hero_title">Practical web tools for businesses that want things to just work.</h1>
+      <p class="hero-sub" data-i18n="hero_sub">Websites, online calculators, configurators and order systems for small and medium businesses across Europe.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn--primary" data-i18n="hero_cta_primary">View Projects</a>
+        <a href="#contact" class="btn btn--ghost" data-i18n="hero_cta_secondary">Start a Project</a>
+      </div>
+    </div>
+
+    <div class="hero-art" aria-hidden="true">
+      <svg viewBox="0 0 420 360" fill="none">
+        <circle cx="70" cy="70" r="5" fill="#2F7D68"/>
+        <circle cx="210" cy="40" r="5" fill="#2F7D68"/>
+        <circle cx="350" cy="100" r="5" fill="#2F7D68"/>
+        <circle cx="120" cy="190" r="5" fill="#B8752A"/>
+        <circle cx="300" cy="220" r="5" fill="#2F7D68"/>
+        <circle cx="60" cy="300" r="5" fill="#2F7D68"/>
+        <circle cx="230" cy="320" r="5" fill="#2F7D68"/>
+        <path class="draw-line" d="M70 70 L210 40 L350 100 M210 40 L120 190 L300 220 M120 190 L60 300 M300 220 L230 320 M210 40 L300 220" stroke="#3A5560" stroke-width="1.2"/>
+        <rect x="150" y="150" width="70" height="46" rx="3" stroke="#2F7D68" stroke-width="1.2"/>
+        <rect x="165" y="162" width="16" height="10" stroke="#2F7D68" stroke-width="1"/>
+        <rect x="190" y="162" width="16" height="10" stroke="#2F7D68" stroke-width="1"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     SERVICES
+     ========================================================== -->
+<section class="section" id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="services_title">Services</h2>
+      <p class="section-intro" data-i18n="services_intro">Practical web solutions for small and medium businesses — from a single landing page to a full configurator with order automation.</p>
+    </div>
+
+    <div class="service-list">
+      <div class="service-row"><span class="num">01</span><h3 data-i18n="service_1_t">Business Websites</h3><p data-i18n="service_1_d">Clear, fast websites that explain what you do and make it easy to get in touch.</p></div>
+      <div class="service-row"><span class="num">02</span><h3 data-i18n="service_2_t">Landing Pages</h3><p data-i18n="service_2_d">Focused single-page sites built around one offer and one clear action.</p></div>
+      <div class="service-row"><span class="num">03</span><h3 data-i18n="service_3_t">Online Calculators</h3><p data-i18n="service_3_d">Interactive price or estimate calculators your customers can use themselves.</p></div>
+      <div class="service-row"><span class="num">04</span><h3 data-i18n="service_4_t">Product Configurators</h3><p data-i18n="service_4_d">Step-by-step configurators for choosing components, options and add-ons.</p></div>
+      <div class="service-row"><span class="num">05</span><h3 data-i18n="service_5_t">Order Forms</h3><p data-i18n="service_5_d">Structured forms that collect exactly the information you need, cleanly.</p></div>
+      <div class="service-row"><span class="num">06</span><h3 data-i18n="service_6_t">Google Sheets Integration</h3><p data-i18n="service_6_d">Orders and form submissions saved automatically to a spreadsheet you already use.</p></div>
+      <div class="service-row"><span class="num">07</span><h3 data-i18n="service_7_t">Automatic Email Notifications</h3><p data-i18n="service_7_d">You and your customer are both notified the moment an order comes in.</p></div>
+      <div class="service-row"><span class="num">08</span><h3 data-i18n="service_8_t">Custom Business Tools</h3><p data-i18n="service_8_d">Small internal tools built around how your business actually works.</p></div>
+      <div class="service-row"><span class="num">09</span><h3 data-i18n="service_9_t">Mobile-friendly Websites</h3><p data-i18n="service_9_d">Every project is built and tested to work properly on a phone first.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     WHAT I BUILD
+     ========================================================== -->
+<section class="section" id="what-i-build">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="build_title">What I Build</h2>
+      <p class="section-intro" data-i18n="build_intro">The same core pieces, combined differently for each business.</p>
+    </div>
+  </div>
+
+  <div class="build-grid">
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_1_t">Business Websites</h3><p data-i18n="build_1_d">A clear online presence for your business.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_2_t">Online Calculators</h3><p data-i18n="build_2_d">Instant estimates based on customer input.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_3_t">Product Configurators</h3><p data-i18n="build_3_d">Guided selection of components and options.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_4_t">Order Systems</h3><p data-i18n="build_4_d">Structured requests from customer to inbox.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_5_t">Google Sheets Integrations</h3><p data-i18n="build_5_d">Orders logged where you already work.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_6_t">Email Automation</h3><p data-i18n="build_6_d">Automatic notifications for every order.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_7_t">Custom Web Applications</h3><p data-i18n="build_7_d">Small tools shaped around your workflow.</p></div>
+    <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_8_t">Mobile-first Design</h3><p data-i18n="build_8_d">Built for a phone screen, not just a desktop.</p></div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     PROJECTS
+     ========================================================== -->
+<section class="section" id="projects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="projects_title">Selected Projects</h2>
+      <p class="section-intro" data-i18n="projects_intro">Demo concepts built to show how the finished product could look and work — not live client projects.</p>
+    </div>
+
+    <!-- PROJECT 1 — Auto Service / Service Calculator -->
+    <div class="project">
+      <div class="project-mock">
+        <div class="mock">
+          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
+          <div class="mock-title" data-i18n="p1_mock_title">Brake Service Estimate</div>
+          <div class="mock-row">
+            <label data-i18n="p1_mock_label1">Vehicle type</label>
+            <select id="calc1Vehicle">
+              <option value="40" data-i18n="p1_opt_v1">Compact car</option>
+              <option value="55" data-i18n="p1_opt_v2">Sedan</option>
+              <option value="80" data-i18n="p1_opt_v3">SUV / Van</option>
+            </select>
+          </div>
+          <div class="mock-row">
+            <label data-i18n="p1_mock_label2">Service type</label>
+            <select id="calc1Service">
+              <option value="60" data-i18n="p1_opt_s1">Inspection</option>
+              <option value="140" data-i18n="p1_opt_s2">Pad replacement</option>
+              <option value="230" data-i18n="p1_opt_s3">Full brake overhaul</option>
+            </select>
+          </div>
+          <div class="mock-total">
+            <span data-i18n="p1_mock_total_label">Estimated total</span>
+            <span class="amount">€<span id="calc1Total">100</span></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="project-category" data-i18n="p1_category">Auto Service</div>
+        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+        <h3 data-i18n="p1_title">Service Calculator</h3>
+        <p class="desc" data-i18n="p1_desc">Website with services, pricing and an interactive calculator for customer requests.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT 2 — Barbershop / Booking Website -->
+    <div class="project">
+      <div class="project-mock">
+        <div class="mock">
+          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
+          <div class="mock-title" data-i18n="p2_mock_title">Book an Appointment</div>
+          <div class="mock-list-row"><span data-i18n="p2_service1">Haircut</span><span>€25</span></div>
+          <div class="mock-list-row"><span data-i18n="p2_service2">Beard trim</span><span>€15</span></div>
+          <div class="mock-list-row"><span data-i18n="p2_service3">Haircut &amp; beard</span><span>€35</span></div>
+          <div class="calendar-mini" aria-hidden="true">
+            <span>M</span><span>T</span><span>W</span><span class="on">T</span><span>F</span><span>S</span><span>S</span>
+          </div>
+          <a class="btn btn--copper" style="margin-top:16px; width:100%; cursor:default;" data-i18n="p2_mock_cta" title="Demo interface — not a live booking system">Request Appointment</a>
+        </div>
+      </div>
+      <div>
+        <div class="project-category" data-i18n="p2_category">Barbershop</div>
+        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+        <h3 data-i18n="p2_title">Booking Website</h3>
+        <p class="desc" data-i18n="p2_desc">Modern presentation website with services, prices and appointment request functionality.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT 3 — Electronics / Product Configurator (Arduino / ESP32) -->
+    <div class="project">
+      <div class="project-mock">
+        <div class="mock">
+          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
+          <div class="mock-title" data-i18n="p3_mock_title">Board Configurator</div>
+          <div class="mock-row">
+            <label data-i18n="p3_mock_label1">Controller</label>
+            <select id="calc3Board">
+              <option value="12" data-i18n="p3_opt_b1">Arduino Uno</option>
+              <option value="9" data-i18n="p3_opt_b2">ESP8266</option>
+              <option value="14" data-i18n="p3_opt_b3">ESP32</option>
+            </select>
+          </div>
+          <div class="mock-row">
+            <label data-i18n="p3_mock_label2">Display</label>
+            <select id="calc3Display">
+              <option value="0" data-i18n="p3_opt_d1">None</option>
+              <option value="6" data-i18n="p3_opt_d2">LCD 16x2</option>
+              <option value="8" data-i18n="p3_opt_d3">OLED</option>
+              <option value="15" data-i18n="p3_opt_d4">TFT touch</option>
+            </select>
+          </div>
+          <div class="mock-checks">
+            <label><input type="checkbox" class="calc3module" value="5" checked><span data-i18n="p3_mod1">Wi-Fi module</span></label>
+            <label><input type="checkbox" class="calc3module" value="7"><span data-i18n="p3_mod2">Relay module</span></label>
+            <label><input type="checkbox" class="calc3module" value="6"><span data-i18n="p3_mod3">Sensor kit</span></label>
+          </div>
+          <div class="mock-total">
+            <span data-i18n="p3_mock_total_label">Configuration total</span>
+            <span class="amount">€<span id="calc3Total">17</span></span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="project-category" data-i18n="p3_category">Electronics</div>
+        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+        <h3 data-i18n="p3_title">Product Configurator</h3>
+        <p class="desc" data-i18n="p3_desc">Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.</p>
+        <a class="live-link" href="https://luminous-profiterole.netlify.app/" target="_blank" rel="noopener" data-i18n="p3_live_link">View Live Site →</a>
+      </div>
+    </div>
+
+    <!-- PROJECT 4 — Business Tools / Order Management -->
+    <div class="project">
+      <div class="project-mock">
+        <div class="mock">
+          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
+          <div class="mock-title" data-i18n="p4_mock_title">Orders</div>
+          <div class="mock-list-row"><span>#1042 — J. Kowalski</span><span class="badge badge--new" data-i18n="p4_status_new">New</span></div>
+          <div class="mock-list-row"><span>#1041 — M. Nowak</span><span class="badge badge--progress" data-i18n="p4_status_progress">Processing</span></div>
+          <div class="mock-list-row"><span>#1040 — A. Schmidt</span><span class="badge badge--done" data-i18n="p4_status_done">Shipped</span></div>
+          <div class="mock-list-row"><span>#1039 — L. Dubois</span><span class="badge badge--done" data-i18n="p4_status_done">Shipped</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="project-category" data-i18n="p4_category">Business Tools</div>
+        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+        <h3 data-i18n="p4_title">Order Management</h3>
+        <p class="desc" data-i18n="p4_desc">Order form connected to Google Sheets, with automatic email notifications and order status management.</p>
+      </div>
+    </div>
+
+    <!-- PROJECT 5 — Contact Form with live validation -->
+    <div class="project">
+      <div class="project-mock">
+        <div class="mock order-form-mock">
+          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
+          <div class="mock-title" data-i18n="p5_mock_title">New Order</div>
+
+          <div class="order-field" id="orderNameField">
+            <label for="orderName" data-i18n="p5_label_name">Name</label>
+            <div class="field-with-check">
+              <input type="text" id="orderName" autocomplete="name" data-i18n-placeholder="p5_ph_name" placeholder="John Smith">
+              <span class="field-check">✔</span>
+            </div>
+          </div>
+
+          <div class="order-field" id="orderEmailField">
+            <label for="orderEmail" data-i18n="p5_label_email">Email</label>
+            <div class="field-with-check">
+              <input type="email" id="orderEmail" autocomplete="email" inputmode="email" data-i18n-placeholder="p5_ph_email" placeholder="name@mail.com">
+              <span class="field-check">✔</span>
+            </div>
+            <!-- Reserved-height inline warning, same as my other order forms — keeps the
+                 layout from jumping when the message appears/disappears. -->
+            <span class="email-inline-error" id="orderEmailInlineError" data-i18n="p5_email_latin_only">⚠ Email can only be entered using Latin letters and digits (Cyrillic is not allowed)</span>
+          </div>
+
+          <div class="order-field" id="orderPhoneField">
+            <label for="orderPhoneNumber" data-i18n="p5_label_phone">Phone</label>
+            <div class="phone-row">
+              <!-- Custom country/dial-code picker with real flag images (flagcdn.com) —
+                   same approach used on my Arduino/ESP32 firmware order site, so flags
+                   render reliably on every OS/browser instead of relying on emoji flags. -->
+              <div class="country-select-wrap" id="countrySelectBox">
+                <button type="button" class="country-select-btn" id="countrySelectBtn" aria-haspopup="listbox" aria-expanded="false">
+                  <img class="country-flag-img" id="countrySelectFlagImg" src="" alt="">
+                  <span id="countrySelectCodeText">+48</span>
+                  <span class="country-select-arrow">▼</span>
+                </button>
+                <div class="country-select-dropdown" id="countrySelectDropdown" role="listbox"></div>
+              </div>
+              <div class="field-with-check phone-field-wrap">
+                <input type="tel" id="orderPhoneNumber" inputmode="tel" data-i18n-placeholder="p5_ph_phone" placeholder="512 345 678">
+                <span class="field-check">✔</span>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" class="btn btn--primary" id="orderDemoSubmit" data-i18n="p5_submit" title="Demo interface — not a live order form">Send Request</button>
+          <p class="order-demo-status" id="orderDemoStatus" data-i18n="p5_demo_sent">Demo only — this is where a real submission confirmation would appear.</p>
+        </div>
+      </div>
+      <div>
+        <div class="project-category" data-i18n="p5_category">Contact Forms</div>
+        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+        <h3 data-i18n="p5_title">Clear Contact Form</h3>
+        <p class="desc" data-i18n="p5_desc">A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email check against common domain endings, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ==========================================================
+     PROCESS
+     ========================================================== -->
+<section class="section section--dark" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="process_title">How It Works</h2>
+      <p class="section-intro" data-i18n="process_intro">A short, clear process from first message to a live site.</p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-step"><span class="step-num">01</span><h3 data-i18n="process_1_t">Discuss</h3><p data-i18n="process_1_d">We talk through what you need, who it's for, and what success looks like.</p></div>
+      <div class="process-step"><span class="step-num">02</span><h3 data-i18n="process_2_t">Build</h3><p data-i18n="process_2_d">I design and build the site or tool, keeping you updated as it takes shape.</p></div>
+      <div class="process-step"><span class="step-num">03</span><h3 data-i18n="process_3_t">Review</h3><p data-i18n="process_3_d">You test everything, and we adjust the details so it fits how you work.</p></div>
+      <div class="process-step"><span class="step-num">04</span><h3 data-i18n="process_4_t">Launch</h3><p data-i18n="process_4_d">The project goes live, and you get everything you need to keep running it.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     WHY WORK WITH ME
+     ========================================================== -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="why_title">Why Work With Me</h2>
+      <p class="section-intro" data-i18n="why_intro">No agency overhead, no inflated promises — just a direct way of working.</p>
+    </div>
+  </div>
+
+  <div class="why-list">
+    <div class="why-item"><h3 data-i18n="why_1_t">Practical solutions</h3><p data-i18n="why_1_d">Built around what your business actually needs, not extra features you'll never use.</p></div>
+    <div class="why-item"><h3 data-i18n="why_2_t">Mobile-friendly</h3><p data-i18n="why_2_d">Every project works properly on a phone, not only on a desktop screen.</p></div>
+    <div class="why-item"><h3 data-i18n="why_3_t">Clear communication</h3><p data-i18n="why_3_d">You'll always know what stage the project is at and what happens next.</p></div>
+    <div class="why-item"><h3 data-i18n="why_4_t">Custom functionality</h3><p data-i18n="why_4_d">Calculators, configurators and forms built around your exact process.</p></div>
+    <div class="why-item"><h3 data-i18n="why_5_t">Fast development</h3><p data-i18n="why_5_d">Small, focused projects that move quickly without cutting corners.</p></div>
+    <div class="why-item"><h3 data-i18n="why_6_t">Transparent process</h3><p data-i18n="why_6_d">No hidden steps — you can see the project as it's being built.</p></div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     CONTACT
+     ========================================================== -->
+<section class="section section--dark contact" id="contact">
+  <div class="wrap">
+    <h2 class="contact-title">
+      <span data-i18n="contact_line1">Have a project?</span>
+      <span data-i18n="contact_line2">Let's build it.</span>
+    </h2>
+
+    <div class="contact-actions">
+      <!-- Replace s.i.pauchak@gmail.com with your real address -->
+      <a href="mailto:s.i.pauchak@gmail.com" class="btn btn--primary" data-i18n="contact_cta">Contact Me</a>
+    </div>
+
+    <dl class="channels">
+      <div class="channel">
+        <dt>Email</dt>
+        <!-- Replace with your real email -->
+        <dd>
+          <a href="mailto:s.i.pauchak@gmail.com">
+            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>
+            s.i.pauchak@gmail.com
+          </a>
+        </dd>
+      </div>
+      <div class="channel">
+        <dt>WhatsApp</dt>
+        <dd>
+          <a href="https://wa.me/48786946055" target="_blank" rel="noopener">
+            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.43 0 .07 5.36.07 11.99c0 2.12.55 4.2 1.6 6.04L0 24l6.16-1.62a12 12 0 0 0 5.9 1.5h.01c6.63 0 11.99-5.36 11.99-11.99 0-3.2-1.25-6.21-3.54-8.41ZM12.07 21.8c-1.87 0-3.7-.5-5.3-1.44l-.38-.23-3.65.96.97-3.56-.25-.37A9.8 9.8 0 0 1 2.2 12c0-5.42 4.41-9.83 9.83-9.83 2.62 0 5.08 1.02 6.93 2.88a9.75 9.75 0 0 1 2.9 6.95c0 5.42-4.41 9.8-9.79 9.8z"/></svg>
+            <span data-i18n="contact_whatsapp_link">Message me</span>
+          </a>
+        </dd>
+      </div>
+      <div class="channel">
+        <dt>GitHub</dt>
+        <!-- Replace REPLACE_WITH_YOUR_GITHUB_USERNAME with your GitHub profile or portfolio repo link -->
+        <dd>
+          <a href="https://github.com/REPLACE_WITH_YOUR_GITHUB_USERNAME">
+            <svg class="channel-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.87-1.36-3.87-1.36-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.17.08 1.78 1.2 1.78 1.2 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.04 11.04 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+            <span data-i18n="contact_add_link">add link</span>
+          </a>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</section>
+
+<!-- ==========================================================
+     FOOTER
+     ========================================================== -->
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <!-- BRAND NAME: replace here too -->
+    <span>&copy; 2026 WEBWORKS. <span data-i18n="footer_rights">All rights reserved.</span></span>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="#services" data-i18n="nav_services">Services</a>
+      <a href="#projects" data-i18n="nav_projects">Projects</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
