@@ -3,6 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SELF-HEALING CACHE CHECK — runs before anything else loads.
+     GitHub Pages' CDN and browsers cache this HTML page itself, so
+     a visitor can land on a stale copy even after we've pushed and
+     deployed changes (this bit us more than once). version.json is
+     fetched with cache disabled; if its number is higher than the
+     build this specific HTML was generated with, this page is a
+     stale cached copy — force a real reload that bypasses the
+     cache. Bump PAGE_BUILD here AND the number in version.json on
+     every deploy that changes css/js/images/markup. -->
+<script>
+(function(){
+  var PAGE_BUILD = 10;
+  try {
+    fetch("version.json?_=" + Date.now(), { cache: "no-store" })
+      .then(function(r){ return r.ok ? r.text() : null; })
+      .then(function(text){
+        if (!text) return;
+        var latest = parseInt(text, 10);
+        if (latest && latest > PAGE_BUILD){
+          location.replace(location.pathname + "?_fresh=" + Date.now());
+        }
+      })
+      .catch(function(){ /* offline or blocked — just show the cached page */ });
+  } catch (e) { /* fetch unavailable — ignore */ }
+})();
+</script>
 <title data-i18n="meta_title">Web Development &amp; Business Solutions | WEBWORKS</title>
 <meta name="description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
 
