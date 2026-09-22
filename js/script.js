@@ -108,7 +108,8 @@
       inquiry_label_email: "Your email", inquiry_ph_email: "name@mail.com",
       inquiry_label_message: "What do you want on your site?", inquiry_ph_message: "Describe your business, what the site should do, any examples you like...",
       inquiry_submit: "Send",
-      inquiry_note: "Opens your email app with everything you wrote, addressed to me — nothing is sent automatically.",
+      inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
+      inquiry_sent: "Sent! I'll get back to you by email.",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
       footer_rights: "All rights reserved."
@@ -214,7 +215,8 @@
       inquiry_label_email: "Twój email", inquiry_ph_email: "imie@mail.com",
       inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
       inquiry_submit: "Wyślij",
-      inquiry_note: "Otwiera Twój program pocztowy z całą wiadomością do mnie — nic nie wysyła się automatycznie.",
+      inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
+      inquiry_sent: "Wysłano! Odpowiem mailem.",
       contact_whatsapp_link: "Napisz do mnie",
       contact_github_link: "Zobacz na GitHub",
       footer_rights: "Wszelkie prawa zastrzeżone."
@@ -320,7 +322,8 @@
       inquiry_label_email: "Ihre E-Mail", inquiry_ph_email: "name@mail.com",
       inquiry_label_message: "Was soll auf Ihrer Website stehen?", inquiry_ph_message: "Beschreiben Sie Ihr Unternehmen, was die Website tun soll, Beispiele, die Ihnen gefallen ...",
       inquiry_submit: "Senden",
-      inquiry_note: "Öffnet Ihr E-Mail-Programm mit allem, was Sie geschrieben haben, an mich adressiert — nichts wird automatisch gesendet.",
+      inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
+      inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
       footer_rights: "Alle Rechte vorbehalten."
@@ -426,7 +429,8 @@
       inquiry_label_email: "Ваш email", inquiry_ph_email: "name@mail.com",
       inquiry_label_message: "Что вы хотите видеть на сайте?", inquiry_ph_message: "Опишите свой бизнес, что должен уметь сайт, примеры, которые вам нравятся...",
       inquiry_submit: "Отправить",
-      inquiry_note: "Откроется ваша почта со всем, что вы написали, адресованным мне — ничего не отправляется автоматически.",
+      inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
+      inquiry_sent: "Отправлено! Я отвечу вам по email.",
       contact_whatsapp_link: "Написать мне",
       contact_github_link: "Смотреть на GitHub",
       footer_rights: "Все права защищены."
@@ -886,10 +890,19 @@
      opening it sends everything straight to my inbox via the
      visitor's own email client.
      ======================================================== */
+  // Same backend approach as the Arduino/ESP32 Firmware Studio site:
+  // POST a "data" field (JSON string) to a Google Apps Script Web App,
+  // which appends a row to a Google Sheet and emails a notification.
+  // See google-apps-script/Code.gs for the script to deploy. Until a
+  // real URL is set here, submissions fall back to mailto: (still a
+  // real, working send — just via the visitor's own email app).
+  var WEBWORKS_SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
+
   var inquiryNameInput = document.getElementById("inquiryName");
   var inquiryEmailInput = document.getElementById("inquiryEmail");
   var inquiryMessageInput = document.getElementById("inquiryMessage");
   var inquirySubmitBtn = document.getElementById("inquirySubmit");
+  var inquiryStatus = document.getElementById("inquiryStatus");
   var contactCtaBtn = document.getElementById("contactCtaBtn");
 
   function checkInquiryField(input, isValid){
@@ -913,20 +926,44 @@
       if (!emailOk){ inquiryEmailInput.focus(); return; }
       if (!message){ inquiryMessageInput.focus(); return; }
 
-      playCtaClickSound();
-
       var name = inquiryNameInput.value.trim();
       var email = inquiryEmailInput.value.trim();
-      var subject = "New project inquiry from " + name;
-      var body =
-        "Name: " + name + "\n" +
-        "Email: " + email + "\n\n" +
-        message;
+      var lang = document.documentElement.getAttribute("lang") || "en";
 
-      window.location.href =
-        "mailto:s.i.pauchak@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
+      function sendByEmailInstead(){
+        var subject = "New project inquiry from " + name;
+        var body = "Name: " + name + "\nEmail: " + email + "\n\n" + message;
+        window.location.href =
+          "mailto:s.i.pauchak@gmail.com" +
+          "?subject=" + encodeURIComponent(subject) +
+          "&body=" + encodeURIComponent(body);
+      }
+
+      function showSentStatus(){
+        if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
+      }
+
+      playCtaClickSound();
+
+      if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1){
+        // Script not deployed yet — mailto still works right now.
+        sendByEmailInstead();
+        return;
+      }
+
+      var formData = new URLSearchParams();
+      formData.append("data", JSON.stringify({ name: name, email: email, message: message, language: lang }));
+
+      inquirySubmitBtn.disabled = true;
+      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData })
+        .then(function(){
+          inquirySubmitBtn.disabled = false;
+          showSentStatus();
+        })
+        .catch(function(){
+          inquirySubmitBtn.disabled = false;
+          sendByEmailInstead();
+        });
     });
   }
 

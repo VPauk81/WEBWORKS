@@ -777,6 +777,8 @@
   .inquiry-form textarea:focus-visible{ border-color:var(--accent); }
   .inquiry-form .btn{ width:100%; margin-top:4px; }
   .inquiry-note{ font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .inquiry-status{ font-size:13px; color:var(--accent); font-weight:600; margin-top:10px; display:none; }
+  .inquiry-status.is-shown{ display:block; }
 
   @media (max-width: 500px){
     .inquiry-form{ max-width:none; padding:18px; }
