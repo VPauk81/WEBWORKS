@@ -99,13 +99,6 @@
       why_5_t: "Fast development", why_5_d: "Small, focused projects that move quickly without cutting corners.",
       why_6_t: "Transparent process", why_6_d: "No hidden steps — you can see the project as it's being built.",
 
-      review_title: "Leave a Review", review_intro: "Worked with me before? A short honest review helps other business owners decide — it goes straight to my inbox.",
-      review_label_name: "Your name", review_ph_name: "John Smith",
-      review_label_rating: "Your rating",
-      review_label_text: "Your review", review_ph_text: "What was it like working together?",
-      review_submit: "Send Review",
-      review_note: "Opens your email app with the review pre-filled, addressed to me — nothing is posted automatically.",
-
       share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share", share_channel_title: "Share the site",
 
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
@@ -204,13 +197,6 @@
       why_4_t: "Funkcje na zamówienie", why_4_d: "Kalkulatory, konfiguratory i formularze dopasowane do Twojego procesu.",
       why_5_t: "Szybka realizacja", why_5_d: "Niewielkie, skoncentrowane projekty realizowane sprawnie i bez uproszczeń.",
       why_6_t: "Przejrzysty proces", why_6_d: "Żadnych ukrytych etapów — widzisz projekt na każdym kroku jego powstawania.",
-
-      review_title: "Zostaw opinię", review_intro: "Pracowaliśmy już razem? Krótka, szczera opinia pomaga innym przedsiębiorcom podjąć decyzję — trafia prosto do mojej skrzynki.",
-      review_label_name: "Twoje imię", review_ph_name: "Jan Kowalski",
-      review_label_rating: "Twoja ocena",
-      review_label_text: "Twoja opinia", review_ph_text: "Jak przebiegała współpraca?",
-      review_submit: "Wyślij opinię",
-      review_note: "Otwiera Twój program pocztowy z gotową wiadomością do mnie — nic nie publikuje się automatycznie.",
 
       share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij", share_channel_title: "Udostępnij stronę",
 
@@ -311,13 +297,6 @@
       why_5_t: "Schnelle Umsetzung", why_5_d: "Kleine, fokussierte Projekte, die zügig vorankommen, ohne Abstriche bei der Qualität.",
       why_6_t: "Transparenter Prozess", why_6_d: "Keine versteckten Schritte — Sie sehen das Projekt während der Entstehung.",
 
-      review_title: "Bewertung hinterlassen", review_intro: "Haben Sie schon mit mir zusammengearbeitet? Eine kurze ehrliche Bewertung hilft anderen Unternehmern bei der Entscheidung — sie geht direkt an mein Postfach.",
-      review_label_name: "Ihr Name", review_ph_name: "Max Mustermann",
-      review_label_rating: "Ihre Bewertung",
-      review_label_text: "Ihre Bewertung (Text)", review_ph_text: "Wie war die Zusammenarbeit?",
-      review_submit: "Bewertung senden",
-      review_note: "Öffnet Ihr E-Mail-Programm mit der vorausgefüllten Bewertung an mich — nichts wird automatisch veröffentlicht.",
-
       share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen", share_channel_title: "Seite teilen",
 
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
@@ -416,13 +395,6 @@
       why_4_t: "Индивидуальный функционал", why_4_d: "Калькуляторы, конфигураторы и формы создаются под ваш конкретный процесс.",
       why_5_t: "Быстрая разработка", why_5_d: "Небольшие, сфокусированные проекты, которые движутся быстро без потери качества.",
       why_6_t: "Прозрачный процесс", why_6_d: "Никаких скрытых этапов — вы видите проект по мере его создания.",
-
-      review_title: "Оставить отзыв", review_intro: "Уже работали со мной? Короткий честный отзыв помогает другим владельцам бизнеса принять решение — он придёт прямо мне на почту.",
-      review_label_name: "Ваше имя", review_ph_name: "Иван Иванов",
-      review_label_rating: "Ваша оценка",
-      review_label_text: "Ваш отзыв", review_ph_text: "Как прошла работа вместе?",
-      review_submit: "Отправить отзыв",
-      review_note: "Откроется ваша почта с уже заполненным письмом мне — ничего не публикуется автоматически.",
 
       share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться", share_channel_title: "Поделиться сайтом",
 
@@ -879,61 +851,7 @@
   }
 
   /* ========================================================
-     LEAVE A REVIEW
-     Real, working submission — no backend, no database. Clicking
-     "Send Review" builds a mailto: link from the filled-in name,
-     star rating and review text and opens it, so the visitor's
-     own email client sends it straight to my inbox. Nothing is
-     auto-published; every review that appears elsewhere on the
-     site was actually sent in and added by hand.
-     ======================================================== */
-  var reviewNameInput = document.getElementById("reviewName");
-  var reviewStars = document.querySelectorAll(".review-star");
-  var reviewTextInput = document.getElementById("reviewText");
-  var reviewSubmitBtn = document.getElementById("reviewSubmit");
-  var selectedReviewRating = 0;
-
-  function setReviewRating(value){
-    selectedReviewRating = value;
-    for (var ri = 0; ri < reviewStars.length; ri++){
-      var starValue = Number(reviewStars[ri].getAttribute("data-value"));
-      reviewStars[ri].classList.toggle("is-active", starValue <= value);
-    }
-  }
-
-  for (var si = 0; si < reviewStars.length; si++){
-    reviewStars[si].addEventListener("click", function(){
-      setReviewRating(Number(this.getAttribute("data-value")));
-    });
-  }
-
-  if (reviewNameInput && reviewTextInput && reviewSubmitBtn){
-    reviewSubmitBtn.addEventListener("click", function(){
-      var name = reviewNameInput.value.trim();
-      var text = reviewTextInput.value.trim();
-
-      if (!name){ reviewNameInput.focus(); return; }
-      if (!text){ reviewTextInput.focus(); return; }
-
-      var stars = selectedReviewRating > 0
-        ? new Array(selectedReviewRating + 1).join("★")
-        : "(no rating selected)";
-
-      var subject = "WEBWORKS review from " + name;
-      var body =
-        "Name: " + name + "\n" +
-        "Rating: " + stars + (selectedReviewRating > 0 ? " (" + selectedReviewRating + "/5)" : "") + "\n\n" +
-        text;
-
-      window.location.href =
-        "mailto:s.i.pauchak@gmail.com" +
-        "?subject=" + encodeURIComponent(subject) +
-        "&body=" + encodeURIComponent(body);
-    });
-  }
-
-  /* ========================================================
-     SHARE THIS SITE — Copy Link + Share menu (footer)
+     SHARE THIS SITE — Copy Link + Share menu (Contact section)
      Fixed to the real public GitHub Pages URL so it's always the
      correct link to share, even when this page is opened locally
      from disk during editing/testing.
@@ -1009,21 +927,26 @@
       }
     });
 
+    // Share only the bare link — no page title/caption attached, on any
+    // platform or in any site language. Where a platform requires some
+    // kind of label (email's subject line), it's a fixed Russian string
+    // rather than the visitor's currently selected site language.
+    var SHARE_EMAIL_SUBJECT = "Ссылка на сайт WEBWORKS";
+
     var shareItems = shareMenu.querySelectorAll(".share-menu-item");
     for (var shi = 0; shi < shareItems.length; shi++){
       shareItems[shi].addEventListener("click", function(){
         var platform = this.getAttribute("data-share");
-        var text = document.title;
         var target = "";
 
         if (platform === "whatsapp"){
-          target = "https://wa.me/?text=" + encodeURIComponent(text + " " + SITE_URL);
+          target = "https://wa.me/?text=" + encodeURIComponent(SITE_URL);
         } else if (platform === "telegram"){
-          target = "https://t.me/share/url?url=" + encodeURIComponent(SITE_URL) + "&text=" + encodeURIComponent(text);
+          target = "https://t.me/share/url?url=" + encodeURIComponent(SITE_URL);
         } else if (platform === "viber"){
-          target = "viber://forward?text=" + encodeURIComponent(text + " " + SITE_URL);
+          target = "viber://forward?text=" + encodeURIComponent(SITE_URL);
         } else if (platform === "email"){
-          window.location.href = "mailto:?subject=" + encodeURIComponent(text) + "&body=" + encodeURIComponent(SITE_URL);
+          window.location.href = "mailto:?subject=" + encodeURIComponent(SHARE_EMAIL_SUBJECT) + "&body=" + encodeURIComponent(SITE_URL);
         }
 
         if (target){ window.open(target, "_blank", "noopener"); }

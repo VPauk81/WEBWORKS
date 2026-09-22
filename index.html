@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 14;
+  var PAGE_BUILD = 15;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=14">
+<link rel="stylesheet" href="css/style.css?v=15">
 </head>
 <body>
 
@@ -494,52 +494,6 @@
 </section>
 
 <!-- ==========================================================
-     LEAVE A REVIEW
-     Real submissions only — this opens the visitor's own email
-     client with the review pre-filled (name, rating, text), sent
-     straight to my inbox. No fake reviews are ever added here by
-     hand; only what real people actually send in gets published
-     as a testimonial later.
-     ========================================================== -->
-<section class="section" id="review">
-  <div class="wrap">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="review_title">Leave a Review</h2>
-      <p class="section-intro" data-i18n="review_intro">Worked with me before? A short honest review helps other business owners decide — it goes straight to my inbox.</p>
-    </div>
-
-    <div class="review-form">
-      <div class="order-field" id="reviewNameField">
-        <label for="reviewName" data-i18n="review_label_name">Your name</label>
-        <div class="field-with-check">
-          <input type="text" id="reviewName" autocomplete="name" data-i18n-placeholder="review_ph_name" placeholder="John Smith">
-          <span class="field-check">✔</span>
-        </div>
-      </div>
-
-      <div class="review-rating-field">
-        <label data-i18n="review_label_rating">Your rating</label>
-        <div class="review-stars" id="reviewStars" role="radiogroup" aria-label="Rating">
-          <button type="button" class="review-star" data-value="1" aria-label="1 star">★</button>
-          <button type="button" class="review-star" data-value="2" aria-label="2 stars">★</button>
-          <button type="button" class="review-star" data-value="3" aria-label="3 stars">★</button>
-          <button type="button" class="review-star" data-value="4" aria-label="4 stars">★</button>
-          <button type="button" class="review-star" data-value="5" aria-label="5 stars">★</button>
-        </div>
-      </div>
-
-      <div class="order-field" id="reviewTextField">
-        <label for="reviewText" data-i18n="review_label_text">Your review</label>
-        <textarea id="reviewText" rows="2" data-i18n-placeholder="review_ph_text" placeholder="What was it like working together?"></textarea>
-      </div>
-
-      <button type="button" class="btn btn--primary cta-btn" id="reviewSubmit" data-i18n="review_submit" title="Opens your email app with the review pre-filled">Send Review</button>
-      <p class="review-note" data-i18n="review_note">Opens your email app with the review pre-filled, addressed to me — nothing is posted automatically.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================================================
      CONTACT
      ========================================================== -->
 <section class="section section--dark contact" id="contact">
@@ -642,6 +596,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=14"></script>
+<script src="js/script.js?v=15"></script>
 </body>
 </html>
