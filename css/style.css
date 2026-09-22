@@ -750,6 +750,7 @@
      submitting opens the visitor's own email client with everything
      they wrote, in whatever language they wrote it in. */
   .inquiry-form{
+    display:none;
     max-width:460px;
     background:var(--paper-alt);
     border-radius:8px;
@@ -757,6 +758,7 @@
     margin-bottom:32px;
     color:var(--ink);
   }
+  .inquiry-form.is-open{ display:block; }
   .inquiry-form h3{ font-size:19px; margin-bottom:6px; }
   .inquiry-intro{ font-size:13px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
   .inquiry-form textarea{

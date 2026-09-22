@@ -930,11 +930,17 @@
     });
   }
 
-  // "Написать мне" scrolls to the form (native #anchor jump) and focuses
-  // the first field, instead of opening a blank mailto: immediately.
-  if (contactCtaBtn && inquiryNameInput){
+  // "Написать мне" toggles the inquiry form open/closed, instead of
+  // jumping to it or opening a blank mailto: immediately.
+  var projectFormEl = document.getElementById("projectForm");
+  if (contactCtaBtn && projectFormEl && inquiryNameInput){
     contactCtaBtn.addEventListener("click", function(){
-      setTimeout(function(){ inquiryNameInput.focus(); }, 350);
+      var isOpen = projectFormEl.classList.toggle("is-open");
+      contactCtaBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (isOpen){
+        projectFormEl.scrollIntoView({ behavior: "smooth", block: "start" });
+        setTimeout(function(){ inquiryNameInput.focus(); }, 350);
+      }
     });
   }
 
