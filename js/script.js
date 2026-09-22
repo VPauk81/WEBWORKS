@@ -102,6 +102,13 @@
       share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share", share_channel_title: "Share the site",
 
       contact_line1: "Have a project?", contact_line2: "Let's build it.", contact_cta: "Contact Me",
+
+      inquiry_title: "Tell me about your project", inquiry_intro: "Write in whatever language is easiest for you — describe what you want, and I'll reply by email.",
+      inquiry_label_name: "Your name", inquiry_ph_name: "John Smith",
+      inquiry_label_email: "Your email", inquiry_ph_email: "name@mail.com",
+      inquiry_label_message: "What do you want on your site?", inquiry_ph_message: "Describe your business, what the site should do, any examples you like...",
+      inquiry_submit: "Send",
+      inquiry_note: "Opens your email app with everything you wrote, addressed to me — nothing is sent automatically.",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
       footer_rights: "All rights reserved."
@@ -201,6 +208,13 @@
       share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij", share_channel_title: "Udostępnij stronę",
 
       contact_line1: "Masz projekt?", contact_line2: "Zbudujmy go.", contact_cta: "Napisz do mnie",
+
+      inquiry_title: "Opowiedz mi o swoim projekcie", inquiry_intro: "Napisz w języku, w którym Ci najwygodniej — opisz, czego potrzebujesz, a odpowiem mailem.",
+      inquiry_label_name: "Twoje imię", inquiry_ph_name: "Jan Kowalski",
+      inquiry_label_email: "Twój email", inquiry_ph_email: "imie@mail.com",
+      inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
+      inquiry_submit: "Wyślij",
+      inquiry_note: "Otwiera Twój program pocztowy z całą wiadomością do mnie — nic nie wysyła się automatycznie.",
       contact_whatsapp_link: "Napisz do mnie",
       contact_github_link: "Zobacz na GitHub",
       footer_rights: "Wszelkie prawa zastrzeżone."
@@ -300,6 +314,13 @@
       share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen", share_channel_title: "Seite teilen",
 
       contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
+
+      inquiry_title: "Erzählen Sie mir von Ihrem Projekt", inquiry_intro: "Schreiben Sie in der Sprache, die Ihnen am leichtesten fällt — beschreiben Sie, was Sie möchten, ich antworte per E-Mail.",
+      inquiry_label_name: "Ihr Name", inquiry_ph_name: "Max Mustermann",
+      inquiry_label_email: "Ihre E-Mail", inquiry_ph_email: "name@mail.com",
+      inquiry_label_message: "Was soll auf Ihrer Website stehen?", inquiry_ph_message: "Beschreiben Sie Ihr Unternehmen, was die Website tun soll, Beispiele, die Ihnen gefallen ...",
+      inquiry_submit: "Senden",
+      inquiry_note: "Öffnet Ihr E-Mail-Programm mit allem, was Sie geschrieben haben, an mich adressiert — nichts wird automatisch gesendet.",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
       footer_rights: "Alle Rechte vorbehalten."
@@ -399,6 +420,13 @@
       share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться", share_channel_title: "Поделиться сайтом",
 
       contact_line1: "Есть проект?", contact_line2: "Давайте его реализуем.", contact_cta: "Написать мне",
+
+      inquiry_title: "Расскажите о своём проекте", inquiry_intro: "Пишите на любом удобном вам языке — опишите, что вам нужно, и я отвечу по email.",
+      inquiry_label_name: "Ваше имя", inquiry_ph_name: "Иван Иванов",
+      inquiry_label_email: "Ваш email", inquiry_ph_email: "name@mail.com",
+      inquiry_label_message: "Что вы хотите видеть на сайте?", inquiry_ph_message: "Опишите свой бизнес, что должен уметь сайт, примеры, которые вам нравятся...",
+      inquiry_submit: "Отправить",
+      inquiry_note: "Откроется ваша почта со всем, что вы написали, адресованным мне — ничего не отправляется автоматически.",
       contact_whatsapp_link: "Написать мне",
       contact_github_link: "Смотреть на GitHub",
       footer_rights: "Все права защищены."
@@ -847,6 +875,66 @@
       if (nameOk && emailOk && phoneOk){
         orderDemoStatus.classList.add("is-shown");
       }
+    });
+  }
+
+  /* ========================================================
+     PROJECT INQUIRY FORM — Contact section
+     Real, working submission — no backend. Lets a client describe
+     what they want in their own language, in writing, instead of
+     a phone call. Building a mailto: from the filled-in fields and
+     opening it sends everything straight to my inbox via the
+     visitor's own email client.
+     ======================================================== */
+  var inquiryNameInput = document.getElementById("inquiryName");
+  var inquiryEmailInput = document.getElementById("inquiryEmail");
+  var inquiryMessageInput = document.getElementById("inquiryMessage");
+  var inquirySubmitBtn = document.getElementById("inquirySubmit");
+  var contactCtaBtn = document.getElementById("contactCtaBtn");
+
+  function checkInquiryField(input, isValid){
+    var field = input.closest(".order-field");
+    if (field){ field.classList.toggle("is-valid", isValid); }
+    return isValid;
+  }
+  function checkInquiryName(){ return checkInquiryField(inquiryNameInput, inquiryNameInput.value.trim().length >= 2); }
+  function checkInquiryEmail(){ return checkInquiryField(inquiryEmailInput, isRealisticEmail(inquiryEmailInput.value.trim())); }
+
+  if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
+    inquiryNameInput.addEventListener("input", checkInquiryName);
+    inquiryEmailInput.addEventListener("input", checkInquiryEmail);
+
+    inquirySubmitBtn.addEventListener("click", function(){
+      var nameOk = checkInquiryName();
+      var emailOk = checkInquiryEmail();
+      var message = inquiryMessageInput.value.trim();
+
+      if (!nameOk){ inquiryNameInput.focus(); return; }
+      if (!emailOk){ inquiryEmailInput.focus(); return; }
+      if (!message){ inquiryMessageInput.focus(); return; }
+
+      playCtaClickSound();
+
+      var name = inquiryNameInput.value.trim();
+      var email = inquiryEmailInput.value.trim();
+      var subject = "New project inquiry from " + name;
+      var body =
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n\n" +
+        message;
+
+      window.location.href =
+        "mailto:s.i.pauchak@gmail.com" +
+        "?subject=" + encodeURIComponent(subject) +
+        "&body=" + encodeURIComponent(body);
+    });
+  }
+
+  // "Написать мне" scrolls to the form (native #anchor jump) and focuses
+  // the first field, instead of opening a blank mailto: immediately.
+  if (contactCtaBtn && inquiryNameInput){
+    contactCtaBtn.addEventListener("click", function(){
+      setTimeout(function(){ inquiryNameInput.focus(); }, 350);
     });
   }
 

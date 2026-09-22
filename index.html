@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 16;
+  var PAGE_BUILD = 17;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=16">
+<link rel="stylesheet" href="css/style.css?v=17">
 </head>
 <body>
 
@@ -504,8 +504,40 @@
     </h2>
 
     <div class="contact-actions">
-      <!-- Replace s.i.pauchak@gmail.com with your real address -->
-      <a href="mailto:s.i.pauchak@gmail.com" class="btn btn--primary cta-btn" data-i18n="contact_cta">Contact Me</a>
+      <a href="#projectForm" class="btn btn--primary cta-btn" id="contactCtaBtn" data-i18n="contact_cta">Contact Me</a>
+    </div>
+
+    <!-- Real, working intake form — no backend, so submitting opens the
+         visitor's own email client with everything they wrote, addressed
+         to me. Lets a client describe their project in whatever language
+         is easiest for them, in writing, instead of a phone call. -->
+    <div class="inquiry-form" id="projectForm">
+      <h3 data-i18n="inquiry_title">Tell me about your project</h3>
+      <p class="inquiry-intro" data-i18n="inquiry_intro">Write in whatever language is easiest for you — describe what you want, and I'll reply by email.</p>
+
+      <div class="order-field" id="inquiryNameField">
+        <label for="inquiryName" data-i18n="inquiry_label_name">Your name</label>
+        <div class="field-with-check">
+          <input type="text" id="inquiryName" autocomplete="name" data-i18n-placeholder="inquiry_ph_name" placeholder="John Smith">
+          <span class="field-check">✔</span>
+        </div>
+      </div>
+
+      <div class="order-field" id="inquiryEmailField">
+        <label for="inquiryEmail" data-i18n="inquiry_label_email">Your email</label>
+        <div class="field-with-check">
+          <input type="email" id="inquiryEmail" autocomplete="email" inputmode="email" data-i18n-placeholder="inquiry_ph_email" placeholder="name@mail.com">
+          <span class="field-check">✔</span>
+        </div>
+      </div>
+
+      <div class="order-field" id="inquiryMessageField">
+        <label for="inquiryMessage" data-i18n="inquiry_label_message">What do you want on your site?</label>
+        <textarea id="inquiryMessage" rows="4" data-i18n-placeholder="inquiry_ph_message" placeholder="Describe your business, what the site should do, any examples you like..."></textarea>
+      </div>
+
+      <button type="button" class="btn btn--primary cta-btn" id="inquirySubmit" data-i18n="inquiry_submit" title="Opens your email app with your message pre-filled">Send</button>
+      <p class="inquiry-note" data-i18n="inquiry_note">Opens your email app with everything you wrote, addressed to me — nothing is sent automatically.</p>
     </div>
 
     <dl class="channels">
@@ -596,6 +628,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=16"></script>
+<script src="js/script.js?v=17"></script>
 </body>
 </html>

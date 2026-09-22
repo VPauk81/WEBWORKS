@@ -745,6 +745,41 @@
   .contact-title span{ display:block; color:var(--muted-dark); }
   .contact-actions{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:28px; }
 
+  /* Real project-inquiry form — a light card against the dark Contact
+     section, matching the other working forms on the site. No backend:
+     submitting opens the visitor's own email client with everything
+     they wrote, in whatever language they wrote it in. */
+  .inquiry-form{
+    max-width:460px;
+    background:var(--paper-alt);
+    border-radius:8px;
+    padding:22px;
+    margin-bottom:32px;
+    color:var(--ink);
+  }
+  .inquiry-form h3{ font-size:19px; margin-bottom:6px; }
+  .inquiry-intro{ font-size:13px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
+  .inquiry-form textarea{
+    width:100%;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:10px 12px;
+    font-size:14px;
+    font-family:var(--font-body);
+    color:var(--ink);
+    resize:vertical;
+    min-height:90px;
+    transition:border-color .15s ease;
+  }
+  .inquiry-form textarea:focus-visible{ border-color:var(--accent); }
+  .inquiry-form .btn{ width:100%; margin-top:4px; }
+  .inquiry-note{ font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+
+  @media (max-width: 500px){
+    .inquiry-form{ max-width:none; padding:18px; }
+  }
+
   .channels{
     display:flex; gap:40px; flex-wrap:wrap;
     border-top:1px solid var(--line-dark);
