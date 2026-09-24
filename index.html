@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 20;
+  var PAGE_BUILD = 21;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=20">
+<link rel="stylesheet" href="css/style.css?v=21">
 </head>
 <body>
 
@@ -531,6 +531,32 @@
         </div>
       </div>
 
+      <div class="order-field" id="inquiryPhoneField">
+        <label for="inquiryPhoneNumber" data-i18n="inquiry_label_phone">Phone (optional)</label>
+        <div class="phone-row">
+          <div class="country-select-wrap" id="inquiryCountrySelectBox">
+            <button type="button" class="country-select-btn" id="inquiryCountrySelectBtn" aria-haspopup="listbox" aria-expanded="false">
+              <img class="country-flag-img" id="inquiryCountrySelectFlagImg" src="" alt="">
+              <span id="inquiryCountrySelectCodeText">+48</span>
+              <span class="country-select-arrow">▼</span>
+            </button>
+            <div class="country-select-dropdown" id="inquiryCountrySelectDropdown" role="listbox"></div>
+          </div>
+          <div class="field-with-check phone-field-wrap">
+            <input type="tel" id="inquiryPhoneNumber" inputmode="tel" data-i18n-placeholder="inquiry_ph_phone" placeholder="512 345 678">
+          </div>
+        </div>
+      </div>
+
+      <div class="messenger-field" id="inquiryMessengerField">
+        <label data-i18n="inquiry_messenger_question">This number also has:</label>
+        <div class="messenger-options">
+          <label class="messenger-opt"><input type="checkbox" id="inquiryWhatsapp"> WhatsApp</label>
+          <label class="messenger-opt"><input type="checkbox" id="inquiryViber"> Viber</label>
+          <label class="messenger-opt"><input type="checkbox" id="inquiryTelegram"> Telegram</label>
+        </div>
+      </div>
+
       <div class="order-field" id="inquiryMessageField">
         <label for="inquiryMessage" data-i18n="inquiry_label_message">What do you want on your site?</label>
         <textarea id="inquiryMessage" rows="4" data-i18n-placeholder="inquiry_ph_message" placeholder="Describe your business, what the site should do, any examples you like..."></textarea>
@@ -629,6 +655,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=20"></script>
+<script src="js/script.js?v=21"></script>
 </body>
 </html>

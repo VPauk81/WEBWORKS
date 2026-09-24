@@ -106,6 +106,8 @@
       inquiry_title: "Tell me about your project", inquiry_intro: "Write in whatever language is easiest for you — describe what you want, and I'll reply by email.",
       inquiry_label_name: "Your name", inquiry_ph_name: "John Smith",
       inquiry_label_email: "Your email", inquiry_ph_email: "name@mail.com",
+      inquiry_label_phone: "Phone (optional)", inquiry_ph_phone: "512 345 678",
+      inquiry_messenger_question: "This number also has:",
       inquiry_label_message: "What do you want on your site?", inquiry_ph_message: "Describe your business, what the site should do, any examples you like...",
       inquiry_submit: "Send",
       inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
@@ -213,6 +215,8 @@
       inquiry_title: "Opowiedz mi o swoim projekcie", inquiry_intro: "Napisz w języku, w którym Ci najwygodniej — opisz, czego potrzebujesz, a odpowiem mailem.",
       inquiry_label_name: "Twoje imię", inquiry_ph_name: "Jan Kowalski",
       inquiry_label_email: "Twój email", inquiry_ph_email: "imie@mail.com",
+      inquiry_label_phone: "Telefon (opcjonalnie)", inquiry_ph_phone: "512 345 678",
+      inquiry_messenger_question: "Pod tym numerem dostępne są też:",
       inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
       inquiry_submit: "Wyślij",
       inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
@@ -320,6 +324,8 @@
       inquiry_title: "Erzählen Sie mir von Ihrem Projekt", inquiry_intro: "Schreiben Sie in der Sprache, die Ihnen am leichtesten fällt — beschreiben Sie, was Sie möchten, ich antworte per E-Mail.",
       inquiry_label_name: "Ihr Name", inquiry_ph_name: "Max Mustermann",
       inquiry_label_email: "Ihre E-Mail", inquiry_ph_email: "name@mail.com",
+      inquiry_label_phone: "Telefon (optional)", inquiry_ph_phone: "512 345 678",
+      inquiry_messenger_question: "Unter dieser Nummer erreichbar auch über:",
       inquiry_label_message: "Was soll auf Ihrer Website stehen?", inquiry_ph_message: "Beschreiben Sie Ihr Unternehmen, was die Website tun soll, Beispiele, die Ihnen gefallen ...",
       inquiry_submit: "Senden",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
@@ -427,6 +433,8 @@
       inquiry_title: "Расскажите о своём проекте", inquiry_intro: "Пишите на любом удобном вам языке — опишите, что вам нужно, и я отвечу по email.",
       inquiry_label_name: "Ваше имя", inquiry_ph_name: "Иван Иванов",
       inquiry_label_email: "Ваш email", inquiry_ph_email: "name@mail.com",
+      inquiry_label_phone: "Телефон (необязательно)", inquiry_ph_phone: "512 345 678",
+      inquiry_messenger_question: "На этом номере также есть:",
       inquiry_label_message: "Что вы хотите видеть на сайте?", inquiry_ph_message: "Опишите свой бизнес, что должен уметь сайт, примеры, которые вам нравятся...",
       inquiry_submit: "Отправить",
       inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
@@ -756,18 +764,22 @@
   var orderDemoSubmit = document.getElementById("orderDemoSubmit");
   var orderDemoStatus = document.getElementById("orderDemoStatus");
 
-  var countrySelectBtn = document.getElementById("countrySelectBtn");
-  var countrySelectBox = document.getElementById("countrySelectBox");
-  var countrySelectDropdown = document.getElementById("countrySelectDropdown");
-  var countrySelectFlagImg = document.getElementById("countrySelectFlagImg");
-  var countrySelectCodeText = document.getElementById("countrySelectCodeText");
+  // Reusable country/dial-code picker (flag + code + digit count),
+  // shared by the Project 5 demo form and the real inquiry form below
+  // — same behavior, own instance per set of element IDs.
+  function createCountrySelect(ids, onSelect){
+    var btn = document.getElementById(ids.btn);
+    var box = document.getElementById(ids.box);
+    var dropdown = document.getElementById(ids.dropdown);
+    var flagImg = document.getElementById(ids.flagImg);
+    var codeText = document.getElementById(ids.codeText);
 
-  var selectedCountry = COUNTRY_CODES[0];
+    var selected = COUNTRY_CODES[0];
+    var api = { getSelectedCountry: function(){ return selected; } };
 
-  function initCountrySelect(){
-    if (!countrySelectBtn || !countrySelectDropdown) return;
+    if (!btn || !dropdown) return api;
 
-    countrySelectDropdown.innerHTML = COUNTRY_CODES.map(function(c, i){
+    dropdown.innerHTML = COUNTRY_CODES.map(function(c, i){
       return '<div class="country-option" role="option" data-index="' + i + '" tabindex="-1">' +
         '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="' + c.iso2 + '" loading="lazy">' +
         '<span class="country-option-code">' + c.code + '</span>' +
@@ -776,31 +788,31 @@
     }).join("");
 
     function selectCountry(country){
-      selectedCountry = country;
-      countrySelectCodeText.textContent = country.code;
-      countrySelectFlagImg.src = "https://flagcdn.com/24x18/" + country.iso2 + ".png";
-      countrySelectFlagImg.alt = country.iso2;
-      countrySelectBtn.title = country.name;
-      if (orderPhoneNumberInput){ checkOrderPhone(); }
+      selected = country;
+      codeText.textContent = country.code;
+      flagImg.src = "https://flagcdn.com/24x18/" + country.iso2 + ".png";
+      flagImg.alt = country.iso2;
+      btn.title = country.name;
+      if (onSelect){ onSelect(country); }
     }
 
     selectCountry(COUNTRY_CODES[0]);
 
     function closeDropdown(){
-      countrySelectDropdown.classList.remove("open");
-      countrySelectBtn.setAttribute("aria-expanded", "false");
+      dropdown.classList.remove("open");
+      btn.setAttribute("aria-expanded", "false");
     }
     function openDropdown(){
-      countrySelectDropdown.classList.add("open");
-      countrySelectBtn.setAttribute("aria-expanded", "true");
+      dropdown.classList.add("open");
+      btn.setAttribute("aria-expanded", "true");
     }
 
-    countrySelectBtn.addEventListener("click", function(e){
+    btn.addEventListener("click", function(e){
       e.stopPropagation();
-      if (countrySelectDropdown.classList.contains("open")){ closeDropdown(); } else { openDropdown(); }
+      if (dropdown.classList.contains("open")){ closeDropdown(); } else { openDropdown(); }
     });
 
-    var options = countrySelectDropdown.querySelectorAll(".country-option");
+    var options = dropdown.querySelectorAll(".country-option");
     for (var oi = 0; oi < options.length; oi++){
       options[oi].addEventListener("click", function(){
         selectCountry(COUNTRY_CODES[Number(this.getAttribute("data-index"))]);
@@ -809,12 +821,16 @@
     }
 
     document.addEventListener("click", function(e){
-      if (countrySelectBox && !countrySelectBox.contains(e.target)){ closeDropdown(); }
+      if (box && !box.contains(e.target)){ closeDropdown(); }
     });
     document.addEventListener("keydown", function(e){
       if (e.key === "Escape"){ closeDropdown(); }
     });
+
+    return api;
   }
+
+  var orderCountrySelect = null;
 
   function validateOrderField(input, isValid){
     var field = input.closest(".order-field");
@@ -850,12 +866,16 @@
 
   function checkOrderPhone(){
     var digits = orderPhoneNumberInput.value.replace(/\D/g, "").length;
-    var expected = selectedCountry ? selectedCountry.digits : 6;
+    var country = orderCountrySelect ? orderCountrySelect.getSelectedCountry() : null;
+    var expected = country ? country.digits : 6;
     return validateOrderField(orderPhoneNumberInput, digits === expected);
   }
 
   if (orderNameInput && orderEmailInput && orderPhoneNumberInput && orderDemoSubmit){
-    initCountrySelect();
+    orderCountrySelect = createCountrySelect({
+      btn: "countrySelectBtn", box: "countrySelectBox", dropdown: "countrySelectDropdown",
+      flagImg: "countrySelectFlagImg", codeText: "countrySelectCodeText"
+    }, function(){ checkOrderPhone(); });
 
     orderNameInput.addEventListener("input", checkOrderName);
 
@@ -913,6 +933,16 @@
   function checkInquiryName(){ return checkInquiryField(inquiryNameInput, inquiryNameInput.value.trim().length >= 2); }
   function checkInquiryEmail(){ return checkInquiryField(inquiryEmailInput, isRealisticEmail(inquiryEmailInput.value.trim())); }
 
+  var inquiryPhoneNumberInput = document.getElementById("inquiryPhoneNumber");
+  var inquiryWhatsappCheck = document.getElementById("inquiryWhatsapp");
+  var inquiryViberCheck = document.getElementById("inquiryViber");
+  var inquiryTelegramCheck = document.getElementById("inquiryTelegram");
+
+  var inquiryCountrySelect = createCountrySelect({
+    btn: "inquiryCountrySelectBtn", box: "inquiryCountrySelectBox", dropdown: "inquiryCountrySelectDropdown",
+    flagImg: "inquiryCountrySelectFlagImg", codeText: "inquiryCountrySelectCodeText"
+  });
+
   if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
     inquiryNameInput.addEventListener("input", checkInquiryName);
     inquiryEmailInput.addEventListener("input", checkInquiryEmail);
@@ -930,9 +960,28 @@
       var email = inquiryEmailInput.value.trim();
       var lang = document.documentElement.getAttribute("lang") || "en";
 
+      // Phone is optional — only include a dial code if a number was
+      // actually typed.
+      var phoneDigits = inquiryPhoneNumberInput ? inquiryPhoneNumberInput.value.trim() : "";
+      var phone = "";
+      if (phoneDigits){
+        var country = inquiryCountrySelect.getSelectedCountry();
+        phone = (country ? country.code : "") + " " + phoneDigits;
+      }
+      var whatsapp = !!(inquiryWhatsappCheck && inquiryWhatsappCheck.checked);
+      var viber = !!(inquiryViberCheck && inquiryViberCheck.checked);
+      var telegram = !!(inquiryTelegramCheck && inquiryTelegramCheck.checked);
+
       function sendByEmailInstead(){
         var subject = "New project inquiry from " + name;
-        var body = "Name: " + name + "\nEmail: " + email + "\n\n" + message;
+        var body =
+          "Name: " + name + "\n" +
+          "Email: " + email + "\n" +
+          (phone ? "Phone: " + phone + "\n" : "") +
+          (whatsapp ? "WhatsApp: yes\n" : "") +
+          (viber ? "Viber: yes\n" : "") +
+          (telegram ? "Telegram: yes\n" : "") +
+          "\n" + message;
         window.location.href =
           "mailto:s.i.pauchak@gmail.com" +
           "?subject=" + encodeURIComponent(subject) +
@@ -952,7 +1001,11 @@
       }
 
       var formData = new URLSearchParams();
-      formData.append("data", JSON.stringify({ name: name, email: email, message: message, language: lang }));
+      formData.append("data", JSON.stringify({
+        name: name, email: email, phone: phone,
+        whatsapp: whatsapp, viber: viber, telegram: telegram,
+        message: message, language: lang
+      }));
 
       inquirySubmitBtn.disabled = true;
       fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData })

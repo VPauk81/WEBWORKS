@@ -775,6 +775,19 @@
     transition:border-color .15s ease;
   }
   .inquiry-form textarea:focus-visible{ border-color:var(--accent); }
+
+  .messenger-field{ margin-bottom:16px; }
+  .messenger-field label{
+    display:block;
+    font-size:12px;
+    font-family:var(--font-head);
+    color:var(--ink-soft);
+    margin-bottom:6px;
+  }
+  .messenger-options{ display:flex; gap:16px; flex-wrap:wrap; }
+  .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:13px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
+  .messenger-opt input{ accent-color:var(--accent); width:15px; height:15px; }
+
   .inquiry-form .btn{ width:100%; margin-top:4px; }
   .inquiry-note{ font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-status{ font-size:13px; color:var(--accent); font-weight:600; margin-top:10px; display:none; }
