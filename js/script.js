@@ -896,7 +896,7 @@
   // See google-apps-script/Code.gs for the script to deploy. Until a
   // real URL is set here, submissions fall back to mailto: (still a
   // real, working send — just via the visitor's own email app).
-  var WEBWORKS_SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL";
+  var WEBWORKS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcdVTHhxzfBV_wGtIFaM089sVgyTaMsQl_28nspfn6khEd59jac_ONeplNrmmbtZFY8g/exec";
 
   var inquiryNameInput = document.getElementById("inquiryName");
   var inquiryEmailInput = document.getElementById("inquiryEmail");
