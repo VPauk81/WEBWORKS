@@ -167,33 +167,48 @@ function colorRow(sheet, row) {
   sheet.getRange(row, 1, 1, HEADER_ROW.length).setBackground(statusColor(status));
 }
 
+const QUOTA_WARNING_TEXT =
+  "⚠ email не отправлен: превышен суточный лимит писем Gmail. " +
+  "Попробуйте позже (лимит обновляется около полуночи по тихоокеанскому времени)";
+
+function formatNowLabel() {
+  return Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+}
+
 // Безопасная отправка письма — проверяет остаток суточной квоты
-// Gmail ДО попытки отправки; если её нет, сразу пишет понятную
-// причину в столбец "Email клиенту", вместо тихой потери письма.
-function safeSendEmail(mailOptions, sheet, row) {
+// Gmail ДО попытки отправки. Когда переданы sheet/row, столбец
+// "Email клиенту" всегда получает метку времени ЭТОЙ попытки:
+//   успех:  "20.09.2026 17:38 ✅"
+//   неудача: "20.09.2026 17:38 ⚠ email не отправлен: ... (письмо клиенту)"
+// — context поясняет, какое именно письмо это было (например,
+// "письмо клиенту" при создании заявки или "письмо клиенту
+// (статус)" при смене статуса).
+function safeSendEmail(mailOptions, sheet, row, context) {
+
+  const label = formatNowLabel();
+  const suffix = context ? " (" + context + ")" : "";
 
   if (MailApp.getRemainingDailyQuota() <= 0) {
     if (sheet && row) {
-      sheet.getRange(row, COL_CLIENT_EMAIL).setValue(QUOTA_WARNING_TEXT);
+      sheet.getRange(row, COL_CLIENT_EMAIL).setValue(label + " " + QUOTA_WARNING_TEXT + suffix);
     }
     return false;
   }
 
   try {
     MailApp.sendEmail(mailOptions);
+    if (sheet && row) {
+      sheet.getRange(row, COL_CLIENT_EMAIL).setValue(label + " ✅");
+    }
     return true;
   } catch (mailErr) {
     if (sheet && row) {
-      sheet.getRange(row, COL_CLIENT_EMAIL).setValue(QUOTA_WARNING_TEXT);
+      sheet.getRange(row, COL_CLIENT_EMAIL).setValue(label + " " + QUOTA_WARNING_TEXT + suffix);
     }
     return false;
   }
 
 }
-
-const QUOTA_WARNING_TEXT =
-  "⚠ email не отправлен: превышен суточный лимит писем Gmail. " +
-  "Попробуйте позже (лимит обновляется около полуночи по тихоокеанскому времени)";
 
 function handleInquiry(data) {
 
@@ -228,9 +243,10 @@ function handleInquiry(data) {
   attachDescriptionNote(sheet, row, data.message);
   colorRow(sheet, row);
 
-  // Письмо клиенту — "спасибо, получил заявку"
+  // Письмо клиенту — "спасибо, получил заявку". safeSendEmail сама
+  // пишет в столбец C метку времени + ✅ или причину ошибки.
   if (data.email) {
-    const sentOk = safeSendEmail({
+    safeSendEmail({
       to: data.email,
       replyTo: OWNER_EMAIL,
       subject: "Спасибо за заявку — WEBWORKS",
@@ -238,10 +254,7 @@ function handleInquiry(data) {
         "Здравствуйте" + (data.name ? ", " + data.name : "") + "!\n\n" +
         "Я получил вашу заявку (" + orderID + ") и скоро свяжусь с вами.\n\n" +
         "С уважением,\nWEBWORKS"
-    }, sheet, row);
-    if (sentOk) {
-      sheet.getRange(row, COL_CLIENT_EMAIL).setValue("✅ Отправлено");
-    }
+    }, sheet, row, "письмо клиенту");
   } else {
     sheet.getRange(row, COL_CLIENT_EMAIL).setValue("—");
   }
@@ -400,7 +413,7 @@ function checkStatusChanges(e) {
       T.status + ": " + status + "\n\n" +
       "WEBWORKS";
 
-    safeSendEmail({ to: email, replyTo: OWNER_EMAIL, subject: subject, body: body }, sheet, row);
+    safeSendEmail({ to: email, replyTo: OWNER_EMAIL, subject: subject, body: body }, sheet, row, "письмо клиенту, статус");
 
   } finally {
     lock.releaseLock();
