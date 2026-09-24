@@ -633,6 +633,7 @@
       playLangClickSound();
       applyLanguage(this.getAttribute("data-lang"));
       closeMobilePanel();
+      trackEvent("language_view");
     });
   }
 
@@ -918,6 +919,49 @@
   // real, working send — just via the visitor's own email app).
   var WEBWORKS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcdVTHhxzfBV_wGtIFaM089sVgyTaMsQl_28nspfn6khEd59jac_ONeplNrmmbtZFY8g/exec";
 
+  /* ========================================================
+     VISIT TRACKING — same approach as the Arduino/ESP32 site:
+     light "beacons" to the same Apps Script (type: "visit"),
+     logged to a separate "Visits" sheet — no IP/geolocation,
+     just what the browser already exposes (language, timezone,
+     referrer, device). A failed beacon never affects the site.
+     ======================================================== */
+  function buildVisitorContext(){
+    var params = new URLSearchParams(location.search);
+    return {
+      siteLang: document.documentElement.getAttribute("lang") || "en",
+      browserLang: navigator.language || navigator.userLanguage || "",
+      referrer: document.referrer || "",
+      pageUrl: location.href,
+      utmSource: params.get("utm_source") || "",
+      utmMedium: params.get("utm_medium") || "",
+      utmCampaign: params.get("utm_campaign") || "",
+      timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone) || "",
+      screen: screen.width + "x" + screen.height,
+      device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? "mobile" : "desktop",
+      userAgent: navigator.userAgent
+    };
+  }
+
+  function sendVisitBeacon(eventName){
+    if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1) return;
+    try {
+      var payload = Object.assign({ type: "visit", event: eventName }, buildVisitorContext());
+      var formData = new URLSearchParams();
+      formData.append("data", JSON.stringify(payload));
+      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData }).catch(function(){});
+    } catch (err) { /* statistics must never break the site */ }
+  }
+
+  var sentFunnelEvents = {};
+  function trackEvent(eventName){
+    if (sentFunnelEvents[eventName]) return;
+    sentFunnelEvents[eventName] = true;
+    sendVisitBeacon(eventName);
+  }
+
+  sendVisitBeacon("pageview");
+
   var inquiryNameInput = document.getElementById("inquiryName");
   var inquiryEmailInput = document.getElementById("inquiryEmail");
   var inquiryMessageInput = document.getElementById("inquiryMessage");
@@ -1030,9 +1074,16 @@
       if (isOpen){
         projectFormEl.scrollIntoView({ behavior: "smooth", block: "start" });
         setTimeout(function(){ inquiryNameInput.focus(); }, 350);
+        trackEvent("inquiry_form_opened");
       }
     });
   }
+
+  // "Начали заполнять заявку" — первый ввод в любое из полей формы
+  ["inquiryName", "inquiryEmail", "inquiryPhoneNumber"].forEach(function(id){
+    var el = document.getElementById(id);
+    if (el){ el.addEventListener("input", function(){ trackEvent("inquiry_started"); }, { once: true }); }
+  });
 
   /* ========================================================
      SHARE THIS SITE — Copy Link + Share menu (Contact section)

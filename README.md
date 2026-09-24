@@ -33,6 +33,16 @@ Same approach as the Arduino/ESP32 Firmware Studio site: the page POSTs to a Goo
 3. Replace `SPREADSHEET_ID` in the script with the Sheet's ID (from its URL: `.../spreadsheets/d/THIS_PART/edit`).
 4. **Deploy → New deployment → Web app** — Execute as **Me**, Who has access **Anyone** — Deploy, and copy the Web App URL.
 5. In `js/script.js`, replace `WEBWORKS_SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL"` with that URL.
+6. **One extra one-time step for the status-change emails to work:** in the Apps Script editor, open **Триггеры** (the clock icon on the left) → **Добавить триггер** → function `checkStatusChanges` → event source "Из таблицы" → event type "При редактировании" → Save (and authorize again when asked). Without this trigger, the status dropdown in column B still works, but changing it won't email the client or recolor the row.
+
+Whenever `google-apps-script/Code.gs` changes in this repo afterwards, re-paste it into the same Apps Script project and redeploy as a **new version** of the *same* deployment (Deploy → Manage deployments → ✏️ → Version: New version) — this keeps the same Web App URL, no need to touch `WEBWORKS_SCRIPT_URL` again.
+
+### What the sheet does
+
+- **Заявки** (main sheet) — one row per inquiry: ID, status (dropdown, see below), whether the client confirmation email sent, date, language, name, email, phone (forced to plain text so `+48...` doesn't trigger a formula error), WhatsApp/Viber/Telegram checkmarks, and description (shown as "📝 см. примечание" — hover the cell to read the full text, kept in a note instead of stretching the row).
+- **Статус column** — click any cell to pick from 🟢 Новый → 🟡 Проверяется → 🟠 Ожидает оплаты → 🔵 В работе → 🟣 Готово → 📦 Отправлен → ✔️ Завершён → ❌ Отменён. The row's background color updates to match, and (once the trigger from step 6 is installed) the client automatically gets an email about the new status, written in whichever language they used the site in.
+- **Visits** sheet — created automatically on first visit. Lightweight, no-IP/geolocation beacons (page language, browser language, timezone, referrer, device, screen size) for `pageview`, `language_view`, `inquiry_form_opened` and `inquiry_started` events.
+- **`?action=stats`** on the Web App URL returns basic JSON stats (visits/inquiries today/yesterday/7d/30d/all-time, top referrers, device breakdown). Optionally lock it down by setting a `STATS_KEY` script property and calling `?action=stats&key=...`.
 
 ## To do before going live
 
