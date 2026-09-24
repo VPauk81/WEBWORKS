@@ -8,7 +8,7 @@
 
 // ID своей Google Таблицы (из её ссылки:
 // https://docs.google.com/spreadsheets/d/ЭТОТ_ID/edit)
-const SPREADSHEET_ID = "REPLACE_WITH_YOUR_SPREADSHEET_ID";
+const SPREADSHEET_ID = "1bF083S-JgnAWPtx_3f3_PAqDJgmBEAv5nFoEAeXHHhI";
 const SHEET_NAME = "Заявки";
 const OWNER_EMAIL = "s.i.pauchak@gmail.com";
 
@@ -22,6 +22,23 @@ const QUOTA_WARNING_TEXT =
 const HEADER_ROW = [
   "ID заявки", "Статус", "Email клиенту", "Дата заявки", "Язык",
   "Имя", "Email", "Телефон", "WhatsApp", "Viber", "Telegram", "Описание"
+];
+
+// Столбцы (1 = A) — используются для форматирования/валидации ниже.
+const COL_STATUS = 2;   // B
+const COL_PHONE = 8;    // H
+
+// Статусы заказа — выпадающий список в столбце B, чтобы отмечать,
+// на каком этапе разработка, кликом по ячейке.
+const STATUS_OPTIONS = [
+  "🟢 Новый",
+  "🟡 Проверяется",
+  "🟠 Ожидает оплаты",
+  "🔵 В работе",
+  "🟣 Готово",
+  "📦 Отправлен",
+  "✔️ Завершён",
+  "❌ Отменён"
 ];
 
 function doGet(e) {
@@ -44,6 +61,27 @@ function ensureHeaderRow(sheet) {
   }
 }
 
+// Столбец "Телефон" всегда должен быть текстом — иначе Таблицы видят
+// "+48 512345678" и пытаются прочитать это как формулу (#ERROR!).
+// Ставим формат "простой текст" на широкий диапазон заранее — тогда
+// будущие appendRow() в этот столбец никогда не попадут под авто-
+// определение формулы, независимо от того, сколько строк уже есть.
+function ensurePhoneColumnIsText(sheet) {
+  sheet.getRange(2, COL_PHONE, 998, 1).setNumberFormat("@");
+}
+
+// Выпадающий список статусов в столбце B — перевызываем при каждой
+// заявке (как setupStatusDropdown в Arduino-проекте), чтобы список
+// точно охватывал и только что добавленную строку, и был всегда
+// актуален, даже если этот список значений когда-нибудь поменяется.
+function setupStatusDropdown(sheet) {
+  const rule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(STATUS_OPTIONS, true)
+    .setAllowInvalid(false)
+    .build();
+  sheet.getRange(2, COL_STATUS, 998, 1).setDataValidation(rule);
+}
+
 function doPost(e) {
   try {
 
@@ -54,6 +92,8 @@ function doPost(e) {
       .getSheetByName(SHEET_NAME);
 
     ensureHeaderRow(sheet);
+    ensurePhoneColumnIsText(sheet);
+    setupStatusDropdown(sheet);
 
     const orderID = nextOrderId();
 
@@ -111,7 +151,7 @@ function doPost(e) {
 
     sheet.appendRow([
       orderID,
-      "🟢 Новая",
+      STATUS_OPTIONS[0],
       clientEmailStatus,
       createdLabel,
       data.language || "",
