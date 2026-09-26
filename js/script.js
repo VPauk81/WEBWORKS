@@ -1259,7 +1259,11 @@
       groups.push(new Array(take + 1).join("_ ").trim());
       remaining -= take;
     }
-    return groups.join("  ");
+    // Two NON-BREAKING spaces between groups — plain spaces get
+    // collapsed to one by the browser when rendering a placeholder,
+    // which would blur the "_ _ _  _ _ _  _ _ _" grouping into one
+    // long run of underscores.
+    return groups.join("  ");
   }
 
   function updateInquiryPhonePlaceholder(){
