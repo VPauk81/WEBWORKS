@@ -1018,6 +1018,9 @@
   var inquiryCountrySelect = createCountrySelect({
     btn: "inquiryCountrySelectBtn", box: "inquiryCountrySelectBox", dropdown: "inquiryCountrySelectDropdown",
     flagImg: "inquiryCountrySelectFlagImg", codeText: "inquiryCountrySelectCodeText"
+  }, function(){
+    checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
+    updateInquiryMessengerVisibility();
   });
 
   var inquiryAlreadySent = false;
@@ -1161,9 +1164,33 @@
     if (!inquiryPhoneNumberInput) return true;
     var digits = inquiryPhoneNumberInput.value.replace(/\D/g, "").length;
     if (!digits) return true; // optional field — empty counts as "fine"
-    var country = inquiryCountrySelect.getSelectedCountry();
+    var country = inquiryCountrySelect ? inquiryCountrySelect.getSelectedCountry() : null;
     var expected = country ? country.digits : 6;
     return digits === expected;
+  }
+
+  var inquiryMessengerField = document.getElementById("inquiryMessengerField");
+
+  // Same behavior as the Arduino/ESP32 order form: the "This number
+  // also has: WhatsApp/Viber/Telegram" box stays hidden until the
+  // phone number is fully and correctly typed in, then appears
+  // highlighted. If the number becomes incomplete/invalid again,
+  // any previously checked messenger is cleared so it can't stay
+  // "invisibly" checked.
+  function updateInquiryMessengerVisibility(){
+    if (!inquiryMessengerField || !inquiryPhoneNumberInput) return;
+    var digits = inquiryPhoneNumberInput.value.replace(/\D/g, "").length;
+    var country = inquiryCountrySelect ? inquiryCountrySelect.getSelectedCountry() : null;
+    var expected = country ? country.digits : 6;
+    var phoneIsValid = digits === expected;
+
+    inquiryMessengerField.classList.toggle("visible", phoneIsValid);
+
+    if (!phoneIsValid){
+      if (inquiryWhatsappCheck) inquiryWhatsappCheck.checked = false;
+      if (inquiryViberCheck) inquiryViberCheck.checked = false;
+      if (inquiryTelegramCheck) inquiryTelegramCheck.checked = false;
+    }
   }
 
   if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
@@ -1217,6 +1244,7 @@
 
         validateInquiryForm(false);
         hideInquiryCheck(inquiryPhoneNumberInput);
+        updateInquiryMessengerVisibility();
       });
       inquiryPhoneNumberInput.addEventListener("blur", function(){
         checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());

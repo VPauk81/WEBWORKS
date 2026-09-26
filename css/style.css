@@ -777,7 +777,16 @@
   }
   .inquiry-form textarea:focus-visible{ border-color:var(--accent); }
 
-  .messenger-field{ margin-bottom:16px; }
+  /* Hidden until the phone number above is fully valid — same
+     "appears + highlighted" behavior as the Arduino/ESP32 order
+     form's messenger block. */
+  .messenger-field{ margin-bottom:16px; display:none; }
+  .messenger-field.visible{
+    display:block;
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:10px 12px;
+  }
   .messenger-field label{
     display:block;
     font-size:12px;
