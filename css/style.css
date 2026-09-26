@@ -493,15 +493,15 @@
 
   .tag{
     display:inline-block;
-    font-size:12px;
+    font-size:14px;
     font-family:var(--font-head);
-    padding:4px 10px;
+    padding:5px 12px;
     border:1px solid var(--line);
     border-radius:3px;
     color:var(--ink-soft);
     margin-bottom:10px;
   }
-  .project-category{ font-size:13px; color:var(--accent); font-family:var(--font-head); margin-bottom:4px; }
+  .project-category{ font-size:16px; font-weight:600; color:var(--accent); font-family:var(--font-head); margin-bottom:6px; }
   .project h3{ font-size:21px; margin-bottom:8px; }
   .project p.desc{ color:var(--ink-soft); margin-bottom:12px; max-width:440px; }
 

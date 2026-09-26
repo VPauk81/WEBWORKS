@@ -431,7 +431,10 @@ function checkStatusChanges(e) {
     // заявок и на тех статусах, где хочу её показать клиенту — если
     // ячейка пустая, письмо уходит как обычно, без единой ссылки.
     const progressLink = String(sheet.getRange(row, COL_PROGRESS_LINK).getValue() || "").trim();
-    const progressStatuses = { checking: true, working: true, ready: true };
+    const progressStatuses = {
+      checking: true, payment: true, working: true,
+      ready: true, sent: true, completed: true
+    };
 
     // Правку самой ссылки обрабатываем, только если она реально что-то
     // меняет в письме (иначе смысла слать письмо нет — статус тот же).
@@ -488,9 +491,11 @@ const VISITS_HEADERS = [
 // 0-based индексы для computeStats()
 const VCOL_EVENT = 2;
 const VCOL_SITELANG = 3;
+const VCOL_BROWSERLANG = 4;
 const VCOL_TIMEZONE = 5;
 const VCOL_DOMAIN = 6;
 const VCOL_DEVICE = 11;
+const VCOL_COUNTRY = 15;
 
 const EVENT_LABELS = {
   pageview: "Просмотр страницы",
@@ -562,12 +567,36 @@ const TZ_COUNTRY = {
   "Europe/Istanbul": "Турция", "Asia/Istanbul": "Турция"
 };
 
-// Когда часовой пояс браузера не попал в TZ_COUNTRY (редкая/нестандартная
-// зона), даём грубую вторую догадку по языку, на котором посетитель
-// реально смотрел сайт — так страна показывается для любого языка
-// интерфейса, а не только когда часовой пояс распознан напрямую.
-// Помечаем явно "(по языку)", чтобы не путать с более точной догадкой
-// по часовому поясу.
+// Страна определяется в 3 шага, от точного к грубому, и НИКОГДА не
+// остаётся пустой — для любого языка сайта:
+//   1) часовой пояс браузера (TZ_COUNTRY выше) — самое точное;
+//   2) язык/регион самого браузера (напр. "fr-FR" → Франция,
+//      "de-AT" → Австрия, "cs" → Чехия) — помечается "(по браузеру)";
+//   3) язык, на котором смотрели сайт — помечается "(по языку)".
+const ISO2_COUNTRY = {
+  PL: "Польша", DE: "Германия", FR: "Франция", GB: "Великобритания",
+  UK: "Великобритания", IE: "Ирландия", ES: "Испания", IT: "Италия",
+  NL: "Нидерланды", BE: "Бельгия", AT: "Австрия", CH: "Швейцария",
+  CZ: "Чехия", SK: "Словакия", PT: "Португалия", DK: "Дания",
+  NO: "Норвегия", SE: "Швеция", FI: "Финляндия", GR: "Греция",
+  HU: "Венгрия", RO: "Румыния", BG: "Болгария", HR: "Хорватия",
+  SI: "Словения", RS: "Сербия", UA: "Украина", RU: "Россия",
+  BY: "Беларусь", LT: "Литва", LV: "Латвия", EE: "Эстония",
+  LU: "Люксембург", MT: "Мальта", CY: "Кипр", MD: "Молдова",
+  IS: "Исландия", TR: "Турция", US: "США", CA: "Канада",
+  AE: "ОАЭ", KZ: "Казахстан", GE: "Грузия", AM: "Армения", IL: "Израиль"
+};
+
+const BROWSER_LANG_COUNTRY = {
+  pl: "Польша", fr: "Франция", it: "Италия", es: "Испания",
+  nl: "Нидерланды", cs: "Чехия", sk: "Словакия", uk: "Украина",
+  be: "Беларусь", lt: "Литва", lv: "Латвия", et: "Эстония",
+  hu: "Венгрия", ro: "Румыния", bg: "Болгария", hr: "Хорватия",
+  sl: "Словения", sr: "Сербия", el: "Греция", pt: "Португалия",
+  da: "Дания", sv: "Швеция", fi: "Финляндия", nb: "Норвегия",
+  no: "Норвегия", tr: "Турция", ka: "Грузия", hy: "Армения"
+};
+
 const LANG_COUNTRY_FALLBACK = {
   pl: "Польша (по языку)",
   de: "Германия/Австрия/Швейцария (по языку)",
@@ -575,10 +604,42 @@ const LANG_COUNTRY_FALLBACK = {
   en: "Англоязычный регион (по языку)"
 };
 
-function guessCountry(timezone, siteLang) {
+function guessCountry(timezone, browserLang, siteLang) {
   const byTimezone = TZ_COUNTRY[String(timezone || "")];
   if (byTimezone) return byTimezone;
-  return LANG_COUNTRY_FALLBACK[String(siteLang || "")] || "";
+
+  const parts = String(browserLang || "").split(/[-_]/);
+  const region = (parts[1] || "").toUpperCase();
+  if (region && ISO2_COUNTRY[region]) return ISO2_COUNTRY[region] + " (по браузеру)";
+  const byBrowserLang = BROWSER_LANG_COUNTRY[(parts[0] || "").toLowerCase()];
+  if (byBrowserLang) return byBrowserLang + " (по браузеру)";
+
+  return LANG_COUNTRY_FALLBACK[String(siteLang || "")] || "Не определено";
+}
+
+// Убирает пометку "(по браузеру)"/"(по языку)" — чтобы на Дашборде
+// "Польша" и "Польша (по браузеру)" считались одной страной.
+function countryKey(label) {
+  return String(label || "Не определено").replace(/\s*\(по [^)]*\)\s*$/, "") || "Не определено";
+}
+
+// Один раз дозаполняет столбец "Страна" у старых строк Visits, где он
+// пустой (строки, записанные до появления/улучшения этой догадки).
+function backfillVisitCountries(sheet) {
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty("VISITS_COUNTRY_BACKFILL_V2") === "done") return;
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow >= 2) {
+    const rows = sheet.getRange(2, 1, lastRow - 1, VISITS_HEADERS.length).getValues();
+    const countries = rows.map(function(r){
+      const current = String(r[VCOL_COUNTRY] || "").trim();
+      return [current || guessCountry(r[VCOL_TIMEZONE], r[VCOL_BROWSERLANG], r[VCOL_SITELANG])];
+    });
+    sheet.getRange(2, VCOL_COUNTRY + 1, countries.length, 1).setValues(countries);
+  }
+
+  props.setProperty("VISITS_COUNTRY_BACKFILL_V2", "done");
 }
 
 function getOrCreateVisitsSheet() {
@@ -596,6 +657,13 @@ function getOrCreateVisitsSheet() {
   sheet.getRange(1, 1, 1, VISITS_HEADERS.length).setValues([VISITS_HEADERS]);
   sheet.getRange(1, 1, 1, VISITS_HEADERS.length).setFontWeight("bold");
   sheet.setFrozenRows(1);
+
+  // Столбец "Страна" — последний справа (P), поэтому выделяем его цветом,
+  // чтобы его было сразу видно.
+  sheet.getRange(1, VCOL_COUNTRY + 1).setBackground("#1baf7a").setFontColor("#ffffff");
+  sheet.setColumnWidth(VCOL_COUNTRY + 1, 200);
+
+  backfillVisitCountries(sheet);
 
   return sheet;
 }
@@ -631,7 +699,7 @@ function logVisit(data) {
     data.screen || "",
     data.pageUrl || "",
     data.userAgent || "",
-    guessCountry(data.timezone, data.siteLang)
+    guessCountry(data.timezone, data.browserLang, data.siteLang)
   ]);
 
   updateDashboard();
@@ -677,6 +745,7 @@ function computeStats() {
   const bySiteLang = {};
   const byDevice = {};
   const byDomain = {};
+  const byCountry = {};
   const dailyMap = {};
 
   const rows = (visitsSheet && visitsSheet.getLastRow() > 1)
@@ -701,6 +770,10 @@ function computeStats() {
       byDevice[device] = (byDevice[device] || 0) + 1;
       byDomain[domain] = (byDomain[domain] || 0) + 1;
 
+      const country = countryKey(r[VCOL_COUNTRY] ||
+        guessCountry(r[VCOL_TIMEZONE], r[VCOL_BROWSERLANG], r[VCOL_SITELANG]));
+      byCountry[country] = (byCountry[country] || 0) + 1;
+
       if (rawDate >= day35) {
         dailyMap[dateKey] = (dailyMap[dateKey] || 0) + 1;
       }
@@ -724,6 +797,11 @@ function computeStats() {
 
   const topReferrers = Object.keys(byDomain)
     .map(function(k){ return { domain: k, count: byDomain[k] }; })
+    .sort(function(a, b){ return b.count - a.count; })
+    .slice(0, 10);
+
+  const topCountries = Object.keys(byCountry)
+    .map(function(k){ return { country: k, count: byCountry[k] }; })
     .sort(function(a, b){ return b.count - a.count; })
     .slice(0, 10);
 
@@ -762,6 +840,7 @@ function computeStats() {
     byInquiryLang: byInquiryLang,
     byDevice: byDevice,
     topReferrers: topReferrers,
+    topCountries: topCountries,
     dailySeries: dailySeries
   };
 
@@ -1061,13 +1140,40 @@ function updateDashboard() {
     sheet.setRowHeight(rowIndex, 28);
   }
 
+  // --- Страны посетителей -----------------------------------------
+  sheet.getRange("A68:C68").merge();
+  sheet.getRange("A68").setValue("🌍 СТРАНЫ ПОСЕТИТЕЛЕЙ (топ-10)")
+    .setFontWeight("bold").setFontColor("#ffffff").setBackground("#1baf7a");
+
+  sheet.getRange(69, 1, 1, 2).setValues([["Страна", "Просмотров"]]).setFontWeight("bold").setFontColor("#52514e");
+
+  const countryRows = stats.topCountries.length
+    ? stats.topCountries.map(function(c){ return [c.country, c.count]; })
+    : [["Пока нет данных", 0]];
+  while (countryRows.length < 10) countryRows.push(["", ""]);
+
+  sheet.getRange(70, 1, 10, 2).setValues(countryRows);
+  sheet.getRange(70, 2, 10, 1).setNumberFormat("#,##0");
+
+  if (stats.topCountries.length > 0) {
+    const countryChart = sheet.newChart()
+      .setChartType(Charts.ChartType.BAR)
+      .addRange(sheet.getRange(70, 1, Math.min(10, stats.topCountries.length), 2))
+      .setPosition(68, 4, 0, 0)
+      .setOption("title", "Страны посетителей")
+      .setOption("width", 420).setOption("height", 260)
+      .setOption("legend", "none").setOption("colors", ["#1baf7a"])
+      .build();
+    sheet.insertChart(countryChart);
+  }
+
   // --- Пояснение внизу -------------------------------------------
-  sheet.getRange("A68:H68").merge();
-  sheet.getRange("A68")
-    .setValue("ℹ️ Без IP/геолокации: страна — только догадка по часовому поясу браузера посетителя, язык — по тому, что реально было показано на экране. Обновляется автоматически при каждом визите и заявке.")
+  sheet.getRange("A83:H83").merge();
+  sheet.getRange("A83")
+    .setValue("ℹ️ Без IP/геолокации: страна — догадка по часовому поясу браузера, а если он не распознан — по языку браузера или сайта. Язык — по тому, что реально было показано на экране. Обновляется автоматически при каждом визите и заявке.")
     .setFontColor("#898781").setFontStyle("italic").setWrap(true);
 
   sheet.setFrozenRows(2);
-  sheet.getRange(1, 1, 68, 8).setFontFamily("Arial");
+  sheet.getRange(1, 1, 83, 8).setFontFamily("Arial");
 
 }
