@@ -999,6 +999,12 @@
     return isValid;
   }
 
+  // Same behavior as the Arduino/ESP32 order form: the green
+  // checkmark never flickers while typing — it's hidden on every
+  // keystroke and only reappears once the visitor leaves the field
+  // (blur) with a valid value.
+  function hideInquiryCheck(input){ checkInquiryField(input, false); }
+
   var inquiryPhoneNumberInput = document.getElementById("inquiryPhoneNumber");
   var inquiryWhatsappCheck = document.getElementById("inquiryWhatsapp");
   var inquiryViberCheck = document.getElementById("inquiryViber");
@@ -1078,7 +1084,9 @@
       errors.push({ msg: inquiryErrorText("inquiry_err_name"), el: inquiryNameField });
     }
 
-    if (!email){
+    if (inquiryEmailHadInvalidChars){
+      errors.push({ msg: inquiryErrorText("p5_email_latin_only"), el: inquiryEmailField, playSound: true });
+    } else if (!email){
       errors.push({ msg: inquiryErrorText("inquiry_err_email_required"), el: inquiryEmailField });
     } else if (!isRealisticEmail(email)){
       errors.push({ msg: inquiryErrorText("inquiry_err_email_invalid"), el: inquiryEmailField, playSound: true });
@@ -1100,8 +1108,6 @@
     }
 
     clearInquiryErrorMarks();
-    checkInquiryField(inquiryNameInput, !!name);
-    checkInquiryField(inquiryEmailInput, !!email && isRealisticEmail(email));
 
     if (errors.length > 0){
       if (inquiryFormError){ inquiryFormError.textContent = errors[0].msg; }
@@ -1132,10 +1138,91 @@
     return true;
   }
 
+  // Same rule as everywhere else on the site: only Latin letters,
+  // digits and standard email symbols (. _ % + - @) are allowed —
+  // Cyrillic and stray characters are stripped as you type/paste,
+  // with a warning shown right under the field.
+  var inquiryEmailInlineError = document.getElementById("inquiryEmailInlineError");
+  var inquiryEmailHadInvalidChars = false;
+
+  function updateInquiryEmailInlineError(){
+    if (!inquiryEmailInlineError) return;
+    inquiryEmailInlineError.classList.toggle("visible", inquiryEmailHadInvalidChars);
+  }
+
+  function sanitizeInquiryEmail(){
+    var cleaned = inquiryEmailInput.value.replace(/[^a-zA-Z0-9._%+\-@]/g, "");
+    inquiryEmailHadInvalidChars = cleaned !== inquiryEmailInput.value;
+    if (inquiryEmailHadInvalidChars){ inquiryEmailInput.value = cleaned; }
+    updateInquiryEmailInlineError();
+  }
+
+  function isInquiryPhoneValid(){
+    if (!inquiryPhoneNumberInput) return true;
+    var digits = inquiryPhoneNumberInput.value.replace(/\D/g, "").length;
+    if (!digits) return true; // optional field — empty counts as "fine"
+    var country = inquiryCountrySelect.getSelectedCountry();
+    var expected = country ? country.digits : 6;
+    return digits === expected;
+  }
+
   if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
-    inquiryNameInput.addEventListener("input", function(){ validateInquiryForm(false); });
-    inquiryEmailInput.addEventListener("input", function(){ validateInquiryForm(false); });
-    if (inquiryPhoneNumberInput){ inquiryPhoneNumberInput.addEventListener("input", function(){ validateInquiryForm(false); }); }
+    inquiryNameInput.addEventListener("input", function(){
+      validateInquiryForm(false);
+      hideInquiryCheck(inquiryNameInput);
+    });
+    inquiryNameInput.addEventListener("blur", function(){
+      checkInquiryField(inquiryNameInput, !!inquiryNameInput.value.trim());
+    });
+
+    inquiryEmailInput.addEventListener("input", function(){
+      sanitizeInquiryEmail();
+      validateInquiryForm(false);
+      hideInquiryCheck(inquiryEmailInput);
+    });
+    inquiryEmailInput.addEventListener("paste", function(){
+      setTimeout(function(){
+        sanitizeInquiryEmail();
+        validateInquiryForm(false);
+      }, 0);
+    });
+    inquiryEmailInput.addEventListener("blur", function(){
+      var email = inquiryEmailInput.value.trim();
+      checkInquiryField(inquiryEmailInput, !inquiryEmailHadInvalidChars && !!email && isRealisticEmail(email));
+    });
+
+    if (inquiryPhoneNumberInput){
+      inquiryPhoneNumberInput.addEventListener("input", function(){
+        var cursorPos = inquiryPhoneNumberInput.selectionStart;
+        var cleaned = inquiryPhoneNumberInput.value.replace(/[^0-9\-\s()]/g, "");
+
+        var digitsBeforeCursor = inquiryPhoneNumberInput.value
+          .slice(0, cursorPos)
+          .replace(/\D/g, "").length;
+
+        // Auto-format in groups of 3 with a space: "789 946 055"
+        var digitsOnly = cleaned.replace(/\D/g, "").slice(0, 12);
+        var formatted = digitsOnly.replace(/(\d{3})(?=\d)/g, "$1 ");
+
+        inquiryPhoneNumberInput.value = formatted;
+
+        // Put the cursor back after the same number of digits, so
+        // the inserted spaces don't shove it to the end.
+        var pos = 0, seen = 0;
+        while (pos < formatted.length && seen < digitsBeforeCursor){
+          if (/\d/.test(formatted[pos])) seen++;
+          pos++;
+        }
+        inquiryPhoneNumberInput.setSelectionRange(pos, pos);
+
+        validateInquiryForm(false);
+        hideInquiryCheck(inquiryPhoneNumberInput);
+      });
+      inquiryPhoneNumberInput.addEventListener("blur", function(){
+        checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
+      });
+    }
+
     inquiryMessageInput.addEventListener("input", function(){ validateInquiryForm(false); });
 
     inquirySubmitBtn.addEventListener("click", function(){

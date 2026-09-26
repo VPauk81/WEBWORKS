@@ -621,6 +621,7 @@
 
   .phone-row{ display:flex; gap:6px; align-items:stretch; }
   .phone-field-wrap{ flex:1 1 auto; min-width:0; }
+  #inquiryPhoneNumber{ font-size:20px; font-weight:600; letter-spacing:0.5px; }
 
   .country-select-wrap{ position:relative; flex:0 0 auto; }
   .country-select-btn{
