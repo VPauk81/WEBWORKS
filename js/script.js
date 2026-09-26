@@ -1248,6 +1248,7 @@
       });
       inquiryPhoneNumberInput.addEventListener("blur", function(){
         checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
+        updateInquiryMessengerVisibility();
       });
     }
 
