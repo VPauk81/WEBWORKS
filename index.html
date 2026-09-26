@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 29;
+  var PAGE_BUILD = 30;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=29">
+<link rel="stylesheet" href="css/style.css?v=30">
 </head>
 <body>
 
@@ -544,7 +544,7 @@
             <div class="country-select-dropdown" id="inquiryCountrySelectDropdown" role="listbox"></div>
           </div>
           <div class="field-with-check phone-field-wrap">
-            <input type="tel" id="inquiryPhoneNumber" inputmode="tel" data-i18n-placeholder="inquiry_ph_phone" placeholder="512 345 678">
+            <input type="tel" id="inquiryPhoneNumber" inputmode="tel" placeholder="_ _ _  _ _ _  _ _ _">
             <span class="field-check">✔</span>
           </div>
         </div>
@@ -556,6 +556,7 @@
           <label class="messenger-opt"><input type="checkbox" id="inquiryWhatsapp"> WhatsApp</label>
           <label class="messenger-opt"><input type="checkbox" id="inquiryViber"> Viber</label>
           <label class="messenger-opt"><input type="checkbox" id="inquiryTelegram"> Telegram</label>
+          <label class="messenger-opt messenger-opt-none"><input type="checkbox" id="inquiryMsgNone"> <span data-i18n="inquiry_messenger_none">None</span></label>
         </div>
       </div>
 
@@ -568,6 +569,7 @@
 
       <button type="button" class="btn btn--primary cta-btn" id="inquirySubmit" data-i18n="inquiry_submit" title="Sends your message">Send</button>
       <p class="inquiry-status" id="inquiryStatus" data-i18n="inquiry_sent">Sent! I'll get back to you by email.</p>
+      <p class="inquiry-send-again-notice" id="inquirySendAgainNotice" data-i18n="inquiry_send_again">To send another one, change or add something to the project description.</p>
       <p class="inquiry-note" data-i18n="inquiry_note">Sent straight to me — write in your own language, no phone call needed.</p>
     </div>
 
@@ -650,6 +652,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=29"></script>
+<script src="js/script.js?v=30"></script>
 </body>
 </html>

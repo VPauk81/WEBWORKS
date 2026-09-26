@@ -108,6 +108,7 @@
       inquiry_label_email: "Your email", inquiry_ph_email: "name@mail.com",
       inquiry_label_phone: "Phone (optional)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "This number also has:",
+      inquiry_messenger_none: "None",
       inquiry_label_message: "What do you want on your site?", inquiry_ph_message: "Describe your business, what the site should do, any examples you like...",
       inquiry_err_name: "Please enter your name.",
       inquiry_err_email_required: "Please enter your email.",
@@ -116,6 +117,7 @@
       inquiry_err_message: "Please describe your project.",
       inquiry_submit: "Send",
       inquiry_sending: "Sending...",
+      inquiry_send_again: "To send another one, change or add something to the project description.",
       inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
       inquiry_sent: "Sent! I'll get back to you by email.",
       inquiry_sent_btn: "Sent ✓",
@@ -224,6 +226,7 @@
       inquiry_label_email: "Twój email", inquiry_ph_email: "imie@mail.com",
       inquiry_label_phone: "Telefon (opcjonalnie)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "Pod tym numerem dostępne są też:",
+      inquiry_messenger_none: "Brak",
       inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
       inquiry_err_name: "Podaj swoje imię.",
       inquiry_err_email_required: "Podaj swój email.",
@@ -232,6 +235,7 @@
       inquiry_err_message: "Opisz swój projekt.",
       inquiry_submit: "Wyślij",
       inquiry_sending: "Wysyłanie...",
+      inquiry_send_again: "Aby wysłać kolejne zgłoszenie, zmień lub dopisz coś w opisie projektu.",
       inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
       inquiry_sent: "Wysłano! Odpowiem mailem.",
       inquiry_sent_btn: "Wysłano ✓",
@@ -340,6 +344,7 @@
       inquiry_label_email: "Ihre E-Mail", inquiry_ph_email: "name@mail.com",
       inquiry_label_phone: "Telefon (optional)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "Unter dieser Nummer erreichbar auch über:",
+      inquiry_messenger_none: "Keine",
       inquiry_label_message: "Was soll auf Ihrer Website stehen?", inquiry_ph_message: "Beschreiben Sie Ihr Unternehmen, was die Website tun soll, Beispiele, die Ihnen gefallen ...",
       inquiry_err_name: "Bitte geben Sie Ihren Namen ein.",
       inquiry_err_email_required: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
@@ -348,6 +353,7 @@
       inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt.",
       inquiry_submit: "Senden",
       inquiry_sending: "Wird gesendet...",
+      inquiry_send_again: "Um eine weitere zu senden, ändern oder ergänzen Sie etwas in der Projektbeschreibung.",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
       inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
       inquiry_sent_btn: "Gesendet ✓",
@@ -456,6 +462,7 @@
       inquiry_label_email: "Ваш email", inquiry_ph_email: "name@mail.com",
       inquiry_label_phone: "Телефон (необязательно)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "На этом номере также есть:",
+      inquiry_messenger_none: "Нет",
       inquiry_label_message: "Что вы хотите видеть на сайте?", inquiry_ph_message: "Опишите свой бизнес, что должен уметь сайт, примеры, которые вам нравятся...",
       inquiry_err_name: "Пожалуйста, введите ваше имя.",
       inquiry_err_email_required: "Пожалуйста, введите ваш email.",
@@ -464,6 +471,7 @@
       inquiry_err_message: "Опишите, пожалуйста, ваш проект.",
       inquiry_submit: "Отправить",
       inquiry_sending: "Отправка...",
+      inquiry_send_again: "Чтобы отправить ещё раз — измените или допишите что-то в описании проекта.",
       inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
       inquiry_sent: "Отправлено! Я отвечу вам по email.",
       inquiry_sent_btn: "Отправлено ✓",
@@ -1013,11 +1021,30 @@
   var inquiryWhatsappCheck = document.getElementById("inquiryWhatsapp");
   var inquiryViberCheck = document.getElementById("inquiryViber");
   var inquiryTelegramCheck = document.getElementById("inquiryTelegram");
+  var inquiryMsgNoneCheck = document.getElementById("inquiryMsgNone");
   var inquiryFormError = document.getElementById("inquiryFormError");
   var inquiryNameField = document.getElementById("inquiryNameField");
   var inquiryEmailField = document.getElementById("inquiryEmailField");
   var inquiryPhoneField = document.getElementById("inquiryPhoneField");
   var inquiryMessageField = document.getElementById("inquiryMessageField");
+  var inquirySendAgainNotice = document.getElementById("inquirySendAgainNotice");
+
+  // "Нет" исключает выбор мессенджеров, и наоборот — тот же приём,
+  // что в Arduino/ESP32 order form.
+  var inquiryMessengerCheckboxes = [inquiryWhatsappCheck, inquiryViberCheck, inquiryTelegramCheck];
+  if (inquiryMsgNoneCheck){
+    inquiryMsgNoneCheck.addEventListener("change", function(){
+      if (inquiryMsgNoneCheck.checked){
+        inquiryMessengerCheckboxes.forEach(function(cb){ if (cb) cb.checked = false; });
+      }
+    });
+  }
+  inquiryMessengerCheckboxes.forEach(function(cb){
+    if (!cb) return;
+    cb.addEventListener("change", function(){
+      if (cb.checked && inquiryMsgNoneCheck){ inquiryMsgNoneCheck.checked = false; }
+    });
+  });
 
   var inquiryCountrySelect = createCountrySelect({
     btn: "inquiryCountrySelectBtn", box: "inquiryCountrySelectBox", dropdown: "inquiryCountrySelectDropdown",
@@ -1025,9 +1052,26 @@
   }, function(){
     checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
     updateInquiryMessengerVisibility();
+    updateInquiryPhonePlaceholder();
   });
 
   var inquiryAlreadySent = false;
+
+  // Same rule as the Arduino/ESP32 order form: once sent, the button
+  // stays locked (no accidental double-send) — it only unlocks again
+  // once the visitor changes or adds something to the project
+  // description, which is also what the notice under the button tells
+  // them to do.
+  function resetInquirySubmitLock(){
+    if (!inquiryAlreadySent) return;
+    inquiryAlreadySent = false;
+    inquirySubmitBtn.disabled = false;
+    inquirySubmitBtn.classList.remove("sending", "loading", "error");
+    var langReset = document.documentElement.getAttribute("lang") || "en";
+    inquirySubmitBtn.textContent = (TRANSLATIONS[langReset] && TRANSLATIONS[langReset].inquiry_submit) || "Send";
+    if (inquiryStatus){ inquiryStatus.classList.remove("is-shown"); }
+    if (inquirySendAgainNotice){ inquirySendAgainNotice.classList.remove("visible"); }
+  }
 
   /* --------------------------------------------------------
      VALIDATION — same approach as the Arduino/ESP32 order form:
@@ -1204,6 +1248,27 @@
     return digits === expected;
   }
 
+  // Placeholder like "_ _ _  _ _ _  _ _ _" — groups of 3, shorter last
+  // group if it doesn't divide evenly. Same helper as the Arduino/ESP32
+  // order form's buildPhonePlaceholder()/updatePhonePlaceholder().
+  function buildInquiryPhonePlaceholder(digitCount){
+    var groups = [];
+    var remaining = digitCount;
+    while (remaining > 0){
+      var take = Math.min(3, remaining);
+      groups.push(new Array(take + 1).join("_ ").trim());
+      remaining -= take;
+    }
+    return groups.join("  ");
+  }
+
+  function updateInquiryPhonePlaceholder(){
+    if (!inquiryPhoneNumberInput) return;
+    var country = inquiryCountrySelect ? inquiryCountrySelect.getSelectedCountry() : null;
+    var expected = country ? country.digits : 6;
+    inquiryPhoneNumberInput.placeholder = buildInquiryPhonePlaceholder(expected);
+  }
+
   var inquiryMessengerField = document.getElementById("inquiryMessengerField");
 
   // Same behavior as the Arduino/ESP32 order form: the "This number
@@ -1225,6 +1290,7 @@
       if (inquiryWhatsappCheck) inquiryWhatsappCheck.checked = false;
       if (inquiryViberCheck) inquiryViberCheck.checked = false;
       if (inquiryTelegramCheck) inquiryTelegramCheck.checked = false;
+      if (inquiryMsgNoneCheck) inquiryMsgNoneCheck.checked = false;
     }
   }
 
@@ -1287,7 +1353,10 @@
       });
     }
 
-    inquiryMessageInput.addEventListener("input", function(){ validateInquiryForm(false); });
+    inquiryMessageInput.addEventListener("input", function(){
+      validateInquiryForm(false);
+      resetInquirySubmitLock();
+    });
 
     inquirySubmitBtn.addEventListener("click", function(){
       // One inquiry per page load — stops accidental double-sends
@@ -1321,6 +1390,7 @@
         var lang2 = document.documentElement.getAttribute("lang") || "en";
         inquirySubmitBtn.textContent = (TRANSLATIONS[lang2] && TRANSLATIONS[lang2].inquiry_sent_btn) || "Sent ✓";
         if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
+        if (inquirySendAgainNotice){ inquirySendAgainNotice.classList.add("visible"); }
         playInquirySendSuccessSound();
       }
 
