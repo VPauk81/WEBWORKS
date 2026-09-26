@@ -13,6 +13,11 @@ const SPREADSHEET_ID = "1bF083S-JgnAWPtx_3f3_PAqDJgmBEAv5nFoEAeXHHhI";
 const SHEET_NAME = "Заявки";
 const OWNER_EMAIL = "s.i.pauchak@gmail.com";
 
+// Имя отправителя, которое видит клиент в почте, вместо голого
+// адреса s.i.pauchak@gmail.com — сам адрес не меняется (письма всё
+// равно уходят с аккаунта Gmail, авторизованного на отправку).
+const SENDER_NAME = "WebWorks";
+
 // Часовой пояс, в котором Я читаю таблицу (это НЕ часовой пояс
 // посетителей — их собственный часовой пояс хранится отдельно,
 // в столбце "Часовой пояс (посетителя)" листа Visits).
@@ -209,8 +214,10 @@ function safeSendEmail(mailOptions, sheet, row, context) {
     return false;
   }
 
+  const mailOptionsWithName = Object.assign({ name: SENDER_NAME }, mailOptions);
+
   try {
-    MailApp.sendEmail(mailOptions);
+    MailApp.sendEmail(mailOptionsWithName);
     if (sheet && row) {
       sheet.getRange(row, COL_CLIENT_EMAIL).setValue(label + " ✅");
     }
