@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 38;
+  var PAGE_BUILD = 39;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -91,7 +91,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=38">
+<link rel="stylesheet" href="css/style.css?v=39">
 </head>
 <body>
 
@@ -261,10 +261,19 @@
 
     <!-- CASE STUDY of the live project above — only facts that can be
          checked on the live site / in its code, no invented metrics. -->
-    <div class="case-study">
-      <span class="case-label" data-i18n="case_label">Case study</span>
-      <h3 class="case-title" data-i18n="case_title">How the Firmware Studio works — from task to result</h3>
+    <!-- Collapsed by default to keep the Projects section compact —
+         native <details>, so it opens even without JS and is keyboard/
+         screen-reader friendly out of the box. -->
+    <details class="case-study" id="caseStudy">
+      <summary class="case-toggle">
+        <span class="case-toggle-text">
+          <span class="case-label" data-i18n="case_label">Case study</span>
+          <span class="case-title" data-i18n="case_title">How the Firmware Studio works — from task to result</span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
 
+      <div class="case-body">
       <div class="case-grid">
         <div class="case-col">
           <span class="case-step">01</span>
@@ -294,7 +303,8 @@
         <div class="case-fact"><span class="num">8</span><span data-i18n="case_fact_statuses">order statuses with auto-emails</span></div>
         <div class="case-fact"><span class="num">100</span><span data-i18n="case_fact_bp">Lighthouse Best Practices</span></div>
       </div>
-    </div>
+      </div>
+    </details>
 
     <!-- PROJECT 1 — Auto Service / Service Calculator -->
     <div class="project">
@@ -739,6 +749,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=38" defer></script>
+<script src="js/script.js?v=39" defer></script>
 </body>
 </html>

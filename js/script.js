@@ -1645,6 +1645,11 @@
      correct link to share, even when this page is opened locally
      from disk during editing/testing.
      ======================================================== */
+  var caseStudyEl = document.getElementById("caseStudy");
+  if (caseStudyEl){
+    caseStudyEl.addEventListener("toggle", function(){ playNavClickSound(); });
+  }
+
   var SITE_URL = "https://vpauk81.github.io/WEBWORKS/";
 
   var copyLinkBtn = document.getElementById("copyLinkBtn");
