@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 39;
+  var PAGE_BUILD = 40;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -91,7 +91,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=39">
+<link rel="stylesheet" href="css/style.css?v=40">
 </head>
 <body>
 
@@ -307,6 +307,17 @@
     </details>
 
     <!-- PROJECT 1 — Auto Service / Service Calculator -->
+    <details class="project-toggle" id="project1">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p1_category">Auto Service</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p1_title">Service Calculator</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
     <div class="project">
       <div class="project-mock">
         <div class="project-photo">
@@ -338,14 +349,23 @@
         </div>
       </div>
       <div>
-        <div class="project-category" data-i18n="p1_category">Auto Service</div>
-        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
-        <h3 data-i18n="p1_title">Service Calculator</h3>
         <p class="desc" data-i18n="p1_desc">Website with services, pricing and an interactive calculator for customer requests.</p>
       </div>
     </div>
+    </details>
 
     <!-- PROJECT 2 — Barbershop / Booking Website -->
+    <details class="project-toggle" id="project2">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p2_category">Barbershop</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p2_title">Booking Website</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
     <div class="project">
       <div class="project-mock">
         <div class="project-photo">
@@ -364,14 +384,23 @@
         </div>
       </div>
       <div>
-        <div class="project-category" data-i18n="p2_category">Barbershop</div>
-        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
-        <h3 data-i18n="p2_title">Booking Website</h3>
         <p class="desc" data-i18n="p2_desc">Modern presentation website with services, prices and appointment request functionality.</p>
       </div>
     </div>
+    </details>
 
     <!-- PROJECT 3 — Electronics / Product Configurator (Arduino / ESP32) -->
+    <details class="project-toggle" id="project3">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p3_category">Electronics</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p3_title">Product Configurator</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
     <div class="project">
       <div class="project-mock">
         <div class="project-photo">
@@ -409,14 +438,23 @@
         </div>
       </div>
       <div>
-        <div class="project-category" data-i18n="p3_category">Electronics</div>
-        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
-        <h3 data-i18n="p3_title">Product Configurator</h3>
         <p class="desc" data-i18n="p3_desc">Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.</p>
       </div>
     </div>
+    </details>
 
     <!-- PROJECT 4 — Business Tools / Order Management -->
+    <details class="project-toggle" id="project4">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p4_category">Business Tools</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p4_title">Order Management</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
     <div class="project">
       <div class="project-mock">
         <div class="project-photo">
@@ -432,14 +470,23 @@
         </div>
       </div>
       <div>
-        <div class="project-category" data-i18n="p4_category">Business Tools</div>
-        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
-        <h3 data-i18n="p4_title">Order Management</h3>
         <p class="desc" data-i18n="p4_desc">Order form connected to Google Sheets, with automatic email notifications and order status management.</p>
       </div>
     </div>
+    </details>
 
     <!-- PROJECT 5 — Contact Form with live validation -->
+    <details class="project-toggle" id="project5">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p5_category">Contact Forms</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p5_title">Clear Contact Form</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="case-chevron" aria-hidden="true"></span>
+      </summary>
     <div class="project">
       <div class="project-mock">
         <div class="project-photo">
@@ -494,12 +541,10 @@
         </div>
       </div>
       <div>
-        <div class="project-category" data-i18n="p5_category">Contact Forms</div>
-        <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
-        <h3 data-i18n="p5_title">Clear Contact Form</h3>
         <p class="desc" data-i18n="p5_desc">A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email check against common domain endings, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.</p>
       </div>
     </div>
+    </details>
 
   </div>
 </section>
@@ -749,6 +794,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=39" defer></script>
+<script src="js/script.js?v=40" defer></script>
 </body>
 </html>
