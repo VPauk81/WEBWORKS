@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 22;
+  var PAGE_BUILD = 23;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=22">
+<link rel="stylesheet" href="css/style.css?v=23">
 </head>
 <body>
 
@@ -569,15 +569,6 @@
 
     <dl class="channels">
       <div class="channel">
-        <dt><svg class="channel-dt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4C2.9 4 2 4.9 2 6v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5L4 8V6l8 5 8-5v2z"/></svg>Email</dt>
-        <!-- Replace with your real email -->
-        <dd>
-          <a href="mailto:s.i.pauchak@gmail.com">
-            s.i.pauchak@gmail.com
-          </a>
-        </dd>
-      </div>
-      <div class="channel">
         <dt><svg class="channel-dt-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.43 0 .07 5.36.07 11.99c0 2.12.55 4.2 1.6 6.04L0 24l6.16-1.62a12 12 0 0 0 5.9 1.5h.01c6.63 0 11.99-5.36 11.99-11.99 0-3.2-1.25-6.21-3.54-8.41ZM12.07 21.8c-1.87 0-3.7-.5-5.3-1.44l-.38-.23-3.65.96.97-3.56-.25-.37A9.8 9.8 0 0 1 2.2 12c0-5.42 4.41-9.83 9.83-9.83 2.62 0 5.08 1.02 6.93 2.88a9.75 9.75 0 0 1 2.9 6.95c0 5.42-4.41 9.8-9.79 9.8z"/></svg>WhatsApp</dt>
         <dd>
           <a href="https://wa.me/48786946055" target="_blank" rel="noopener">
@@ -655,6 +646,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=22"></script>
+<script src="js/script.js?v=23"></script>
 </body>
 </html>

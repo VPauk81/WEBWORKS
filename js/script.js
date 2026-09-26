@@ -112,6 +112,7 @@
       inquiry_submit: "Send",
       inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
       inquiry_sent: "Sent! I'll get back to you by email.",
+      inquiry_sent_btn: "Sent ✓",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
       footer_rights: "All rights reserved."
@@ -221,6 +222,7 @@
       inquiry_submit: "Wyślij",
       inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
       inquiry_sent: "Wysłano! Odpowiem mailem.",
+      inquiry_sent_btn: "Wysłano ✓",
       contact_whatsapp_link: "Napisz do mnie",
       contact_github_link: "Zobacz na GitHub",
       footer_rights: "Wszelkie prawa zastrzeżone."
@@ -330,6 +332,7 @@
       inquiry_submit: "Senden",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
       inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
+      inquiry_sent_btn: "Gesendet ✓",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
       footer_rights: "Alle Rechte vorbehalten."
@@ -439,6 +442,7 @@
       inquiry_submit: "Отправить",
       inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
       inquiry_sent: "Отправлено! Я отвечу вам по email.",
+      inquiry_sent_btn: "Отправлено ✓",
       contact_whatsapp_link: "Написать мне",
       contact_github_link: "Смотреть на GitHub",
       footer_rights: "Все права защищены."
@@ -987,11 +991,18 @@
     flagImg: "inquiryCountrySelectFlagImg", codeText: "inquiryCountrySelectCodeText"
   });
 
+  var inquiryAlreadySent = false;
+
   if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
     inquiryNameInput.addEventListener("input", checkInquiryName);
     inquiryEmailInput.addEventListener("input", checkInquiryEmail);
 
     inquirySubmitBtn.addEventListener("click", function(){
+      // One inquiry per page load — stops accidental double-sends
+      // from extra clicks while a request is in flight or after it
+      // already went through.
+      if (inquiryAlreadySent || inquirySubmitBtn.disabled) return;
+
       var nameOk = checkInquiryName();
       var emailOk = checkInquiryEmail();
       var message = inquiryMessageInput.value.trim();
@@ -1016,6 +1027,14 @@
       var viber = !!(inquiryViberCheck && inquiryViberCheck.checked);
       var telegram = !!(inquiryTelegramCheck && inquiryTelegramCheck.checked);
 
+      function markAsSent(){
+        inquiryAlreadySent = true;
+        inquirySubmitBtn.disabled = true;
+        var lang2 = document.documentElement.getAttribute("lang") || "en";
+        inquirySubmitBtn.textContent = (TRANSLATIONS[lang2] && TRANSLATIONS[lang2].inquiry_sent_btn) || "Sent ✓";
+        if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
+      }
+
       function sendByEmailInstead(){
         var subject = "New project inquiry from " + name;
         var body =
@@ -1030,10 +1049,7 @@
           "mailto:s.i.pauchak@gmail.com" +
           "?subject=" + encodeURIComponent(subject) +
           "&body=" + encodeURIComponent(body);
-      }
-
-      function showSentStatus(){
-        if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
+        markAsSent();
       }
 
       playCtaClickSound();
@@ -1054,8 +1070,7 @@
       inquirySubmitBtn.disabled = true;
       fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData })
         .then(function(){
-          inquirySubmitBtn.disabled = false;
-          showSentStatus();
+          markAsSent();
         })
         .catch(function(){
           inquirySubmitBtn.disabled = false;
