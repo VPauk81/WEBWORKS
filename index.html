@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 37;
+  var PAGE_BUILD = 38;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -91,7 +91,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=37">
+<link rel="stylesheet" href="css/style.css?v=38">
 </head>
 <body>
 
@@ -563,7 +563,7 @@
     </div>
 
     <!-- Real Google Lighthouse results for THIS site (mobile, 26.09.2026,
-         median of 3 runs: 88/91/92). Re-measure and update after big
+         median of 5 runs: 88/91/92/89/90). Re-measure and update after big
          changes — never put numbers here that weren't measured. -->
     <div class="quality">
       <div class="quality-head">
@@ -571,7 +571,7 @@
         <p data-i18n="quality_note">Google Lighthouse results for this very site — mobile test, 26.09.2026.</p>
       </div>
       <div class="quality-scores">
-        <div class="score" style="--score:91"><span class="score-ring"><span class="score-num">91</span></span><span class="score-label" data-i18n="q_perf">Performance</span></div>
+        <div class="score" style="--score:90"><span class="score-ring"><span class="score-num">90</span></span><span class="score-label" data-i18n="q_perf">Performance</span></div>
         <div class="score" style="--score:100"><span class="score-ring"><span class="score-num">100</span></span><span class="score-label" data-i18n="q_a11y">Accessibility</span></div>
         <div class="score" style="--score:100"><span class="score-ring"><span class="score-num">100</span></span><span class="score-label" data-i18n="q_bp">Best Practices</span></div>
         <div class="score" style="--score:100"><span class="score-ring"><span class="score-num">100</span></span><span class="score-label" data-i18n="q_seo">SEO</span></div>
@@ -739,6 +739,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=37" defer></script>
+<script src="js/script.js?v=38" defer></script>
 </body>
 </html>
