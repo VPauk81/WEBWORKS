@@ -13,6 +13,8 @@
     --muted-dark: #9FB1B7;
     --accent:     #2F7D68;
     --accent-soft:#E4EEE9;
+    --accent-on-dark:#5BBF9F;  /* 7.9:1 on --navy — readable accent text on dark sections */
+    --accent-text:#1F5A4A;     /* 6.8:1 on light tints — small accent text on light cards */
     --copper:     #B8752A;
     --white:      #FFFFFF;
 
@@ -127,8 +129,8 @@
   .btn--ghost:active{ transform:translateY(0) scale(.97); }
   .section:not(.section--dark) .btn--ghost{ border-color:var(--ink); }
   .section:not(.section--dark) .btn--ghost:hover{ background:rgba(20,25,28,.06); }
-  .btn--copper{ background:var(--copper); color:var(--white); }
-  .btn--copper:hover{ background:#9C6221; }
+  .btn--copper{ background:#96601F; color:var(--white); }
+  .btn--copper:hover{ background:#7E501A; }
 
   /* ==========================================================
      3. HEADER / NAV
@@ -322,7 +324,7 @@
     border-top:1px solid var(--line-dark);
   }
   .hero-stat{ display:flex; flex-direction:column; gap:1px; }
-  .hero-stat .num{ font-family:var(--font-head); font-size:17px; font-weight:600; color:var(--accent); }
+  .hero-stat .num{ font-family:var(--font-head); font-size:17px; font-weight:600; color:var(--accent-on-dark); }
   .hero-stat .label{ font-size:11px; color:var(--muted-dark); }
 
   .hero-photo{
@@ -483,6 +485,54 @@
     .featured-frame img{ height:220px; }
   }
 
+  /* Case study — sits right under the live project, same accent frame
+     family but lighter, so it reads as "the story behind that card". */
+  .case-study{
+    margin:0 0 24px;
+    padding:24px;
+    border:1px solid var(--line);
+    border-left:4px solid var(--accent);
+    border-radius:8px;
+    background:var(--white);
+  }
+  .case-label{
+    display:inline-block;
+    font-family:var(--font-head); font-size:12px; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase;
+    color:var(--accent-text);
+    margin-bottom:6px;
+  }
+  .case-title{ font-size:20px; margin-bottom:18px; }
+  .case-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
+  .case-step{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:30px; height:30px; border-radius:50%;
+    background:var(--accent); color:var(--white);
+    font-family:var(--font-head); font-size:13px; font-weight:600;
+    margin-bottom:8px;
+  }
+  .case-col h4{ font-family:var(--font-head); font-size:16px; margin-bottom:6px; }
+  .case-col p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
+  .case-list{ list-style:none; margin:0; padding:0; }
+  .case-list li{
+    position:relative; padding-left:18px; margin-bottom:7px;
+    font-size:14px; color:var(--ink-soft); line-height:1.5;
+  }
+  .case-list li::before{ content:"✓"; position:absolute; left:0; color:var(--accent-text); font-weight:700; }
+  .case-facts{
+    display:grid; grid-template-columns:repeat(4, 1fr); gap:12px;
+    margin-top:22px; padding-top:18px; border-top:1px solid var(--line);
+  }
+  .case-fact{ display:flex; flex-direction:column; gap:2px; }
+  .case-fact .num{ font-family:var(--font-head); font-size:28px; font-weight:700; color:var(--accent-text); line-height:1.1; }
+  .case-fact span:last-child{ font-size:13px; color:var(--ink-soft); }
+
+  @media (max-width: 860px){
+    .case-grid{ grid-template-columns:1fr; gap:18px; }
+    .case-facts{ grid-template-columns:repeat(2, 1fr); }
+    .case-study{ padding:18px; }
+  }
+
   .project{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -549,7 +599,7 @@
     margin-top:12px; padding-top:10px; border-top:1px solid var(--line);
     font-family:var(--font-head);
   }
-  .mock-total .amount{ font-size:22px; color:var(--accent); }
+  .mock-total .amount{ font-size:22px; color:var(--accent-text); }
 
   .mock-list-row{
     display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px;
@@ -557,8 +607,8 @@
   .mock-list-row:last-child{ border-bottom:none; }
   .badge{ font-size:11px; font-family:var(--font-head); padding:2px 8px; border-radius:10px; }
   .badge--new{ background:#EFE6D6; color:#8A5A1E; }
-  .badge--progress{ background:var(--accent-soft); color:var(--accent); }
-  .badge--done{ background:#E2EEE7; color:#2F7D68; }
+  .badge--progress{ background:var(--accent-soft); color:var(--accent-text); }
+  .badge--done{ background:#E2EEE7; color:var(--accent-text); }
 
   .calendar-mini{ display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-top:6px; }
   .calendar-mini span{
@@ -741,6 +791,25 @@
   }
 
   /* ==========================================================
+     9b. GUARANTEES + MEASURED QUALITY
+     ========================================================== */
+  #guarantees{ background:var(--paper-alt); }
+  .guarantee-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+  .guarantee{
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+  }
+  .guarantee-icon{ width:32px; height:32px; color:var(--accent); margin-bottom:10px; }
+  .guarantee h3{ font-size:17px; margin-bottom:6px; }
+  .guarantee p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
+
+  @media (max-width: 860px){
+    .guarantee-grid{ grid-template-columns:1fr; }
+  }
+
+  /* ==========================================================
      10. CONTACT
      ========================================================== */
   .contact{ text-align:left; }
@@ -885,7 +954,7 @@
   }
   .channel dt{
     display:flex; align-items:center; gap:7px;
-    font-family:var(--font-head); font-size:13px; color:var(--accent); margin-bottom:6px;
+    font-family:var(--font-head); font-size:13px; color:var(--accent-on-dark); margin-bottom:6px;
   }
   .channel dd{ margin:0; font-size:15px; color:var(--muted-dark); }
   .channel dd a{ display:inline-flex; align-items:center; gap:8px; transition:color .15s ease; }

@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 35;
+  var PAGE_BUILD = 36;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -85,9 +85,13 @@
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts load without blocking the first paint (text shows in a system
+     font for a moment, then swaps) — was the biggest Lighthouse delay. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=35">
+<link rel="stylesheet" href="css/style.css?v=36">
 </head>
 <body>
 
@@ -165,7 +169,7 @@
     </div>
 
     <div class="hero-photo">
-      <img src="images/pechatkoda.jpg?v=8" alt="Writing code for a client project" loading="lazy">
+      <img src="images/pechatkoda.jpg?v=8" alt="Writing code for a client project" fetchpriority="high" decoding="async">
     </div>
   </div>
 </section>
@@ -255,6 +259,43 @@
       </a>
     </div>
 
+    <!-- CASE STUDY of the live project above — only facts that can be
+         checked on the live site / in its code, no invented metrics. -->
+    <div class="case-study">
+      <span class="case-label" data-i18n="case_label">Case study</span>
+      <h3 class="case-title" data-i18n="case_title">How the Firmware Studio works — from task to result</h3>
+
+      <div class="case-grid">
+        <div class="case-col">
+          <span class="case-step">01</span>
+          <h4 data-i18n="case_task_t">Task</h4>
+          <p data-i18n="case_task_d">Let customers put together a custom Arduino / ESP32 firmware order on their own and see the price right away — without phone calls or long back-and-forth messages.</p>
+        </div>
+        <div class="case-col">
+          <span class="case-step">02</span>
+          <h4 data-i18n="case_solution_t">Solution</h4>
+          <ul class="case-list">
+            <li data-i18n="case_sol_1">Configurator: Arduino ⇄ ESP32, controller, displays, LEDs and 4 categories of modules</li>
+            <li data-i18n="case_sol_2">Live price in PLN plus the current EUR exchange rate</li>
+            <li data-i18n="case_sol_3">Prices come from a Google Sheets price list — change it there, and the site updates</li>
+            <li data-i18n="case_sol_4">Orders land in a spreadsheet with an ID and status; the client gets an email in their language at every status change</li>
+          </ul>
+        </div>
+        <div class="case-col">
+          <span class="case-step">03</span>
+          <h4 data-i18n="case_result_t">Result</h4>
+          <p data-i18n="case_result_d">The customer builds the order and sees the price on their own — in their language, on a phone or a computer. I get a complete, structured order in a spreadsheet and by email, and the customer is kept up to date automatically.</p>
+        </div>
+      </div>
+
+      <div class="case-facts">
+        <div class="case-fact"><span class="num">4</span><span data-i18n="case_fact_langs">site languages</span></div>
+        <div class="case-fact"><span class="num">70</span><span data-i18n="case_fact_countries">countries in the phone picker</span></div>
+        <div class="case-fact"><span class="num">8</span><span data-i18n="case_fact_statuses">order statuses with auto-emails</span></div>
+        <div class="case-fact"><span class="num">100</span><span data-i18n="case_fact_bp">Lighthouse Best Practices</span></div>
+      </div>
+    </div>
+
     <!-- PROJECT 1 — Auto Service / Service Calculator -->
     <div class="project">
       <div class="project-mock">
@@ -265,7 +306,7 @@
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p1_mock_title">Brake Service Estimate</div>
           <div class="mock-row">
-            <label data-i18n="p1_mock_label1">Vehicle type</label>
+            <label for="calc1Vehicle" data-i18n="p1_mock_label1">Vehicle type</label>
             <select id="calc1Vehicle">
               <option value="40" data-i18n="p1_opt_v1">Compact car</option>
               <option value="55" data-i18n="p1_opt_v2">Sedan</option>
@@ -273,7 +314,7 @@
             </select>
           </div>
           <div class="mock-row">
-            <label data-i18n="p1_mock_label2">Service type</label>
+            <label for="calc1Service" data-i18n="p1_mock_label2">Service type</label>
             <select id="calc1Service">
               <option value="60" data-i18n="p1_opt_s1">Inspection</option>
               <option value="140" data-i18n="p1_opt_s2">Pad replacement</option>
@@ -330,7 +371,7 @@
           <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
           <div class="mock-title" data-i18n="p3_mock_title">Board Configurator</div>
           <div class="mock-row">
-            <label data-i18n="p3_mock_label1">Controller</label>
+            <label for="calc3Board" data-i18n="p3_mock_label1">Controller</label>
             <select id="calc3Board">
               <option value="12" data-i18n="p3_opt_b1">Arduino Uno</option>
               <option value="9" data-i18n="p3_opt_b2">ESP8266</option>
@@ -338,7 +379,7 @@
             </select>
           </div>
           <div class="mock-row">
-            <label data-i18n="p3_mock_label2">Display</label>
+            <label for="calc3Display" data-i18n="p3_mock_label2">Display</label>
             <select id="calc3Display">
               <option value="0" data-i18n="p3_opt_d1">None</option>
               <option value="6" data-i18n="p3_opt_d2">LCD 16x2</option>
@@ -490,6 +531,36 @@
     <div class="why-item"><h3 data-i18n="why_4_t">Custom functionality</h3><p data-i18n="why_4_d">Calculators, configurators and forms built around your exact process.</p></div>
     <div class="why-item"><h3 data-i18n="why_5_t">Fast development</h3><p data-i18n="why_5_d">Small, focused projects that move quickly without cutting corners.</p></div>
     <div class="why-item"><h3 data-i18n="why_6_t">Transparent process</h3><p data-i18n="why_6_d">No hidden steps — you can see the project as it's being built.</p></div>
+  </div>
+</section>
+
+<!-- ==========================================================
+     GUARANTEES + MEASURED QUALITY
+     ========================================================== -->
+<section class="section" id="guarantees">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" data-i18n="guar_title">Guarantees</h2>
+      <p class="section-intro" data-i18n="guar_intro">What you can count on when we work together.</p>
+    </div>
+
+    <div class="guarantee-grid">
+      <div class="guarantee">
+        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3 data-i18n="guar_1_t">Reply within 24 hours</h3>
+        <p data-i18n="guar_1_d">Every inquiry gets a personal reply — in your language — within a day.</p>
+      </div>
+      <div class="guarantee">
+        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.1-.6-.6-2.1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <h3 data-i18n="guar_2_t">30 days of free fixes</h3>
+        <p data-i18n="guar_2_d">After launch, I fix any bugs and make small text or image changes free of charge for 30 days.</p>
+      </div>
+      <div class="guarantee">
+        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <h3 data-i18n="guar_3_t">The site is 100% yours</h3>
+        <p data-i18n="guar_3_d">You get the full source code, the domain and every login — no lock-in, no hidden subscriptions.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -652,6 +723,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=35"></script>
+<script src="js/script.js?v=36" defer></script>
 </body>
 </html>
