@@ -908,11 +908,21 @@
     return validateOrderField(orderPhoneNumberInput, digits === expected);
   }
 
+  // Same underscore mask as the real inquiry form's phone field
+  // (buildInquiryPhonePlaceholder(), defined further below — function
+  // declarations are hoisted, so it's available here already).
+  function updateOrderPhonePlaceholder(){
+    if (!orderPhoneNumberInput) return;
+    var country = orderCountrySelect ? orderCountrySelect.getSelectedCountry() : null;
+    var expected = country ? country.digits : 6;
+    orderPhoneNumberInput.placeholder = buildInquiryPhonePlaceholder(expected);
+  }
+
   if (orderNameInput && orderEmailInput && orderPhoneNumberInput && orderDemoSubmit){
     orderCountrySelect = createCountrySelect({
       btn: "countrySelectBtn", box: "countrySelectBox", dropdown: "countrySelectDropdown",
       flagImg: "countrySelectFlagImg", codeText: "countrySelectCodeText"
-    }, function(){ checkOrderPhone(); });
+    }, function(){ checkOrderPhone(); updateOrderPhonePlaceholder(); });
 
     orderNameInput.addEventListener("input", checkOrderName);
 
