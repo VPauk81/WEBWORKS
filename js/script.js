@@ -115,6 +115,7 @@
       inquiry_err_phone_invalid: "Check the phone number for the selected country.",
       inquiry_err_message: "Please describe your project.",
       inquiry_submit: "Send",
+      inquiry_sending: "Sending...",
       inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
       inquiry_sent: "Sent! I'll get back to you by email.",
       inquiry_sent_btn: "Sent ✓",
@@ -230,6 +231,7 @@
       inquiry_err_phone_invalid: "Sprawdź numer telefonu dla wybranego kraju.",
       inquiry_err_message: "Opisz swój projekt.",
       inquiry_submit: "Wyślij",
+      inquiry_sending: "Wysyłanie...",
       inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
       inquiry_sent: "Wysłano! Odpowiem mailem.",
       inquiry_sent_btn: "Wysłano ✓",
@@ -345,6 +347,7 @@
       inquiry_err_phone_invalid: "Überprüfen Sie die Telefonnummer für das ausgewählte Land.",
       inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt.",
       inquiry_submit: "Senden",
+      inquiry_sending: "Wird gesendet...",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
       inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
       inquiry_sent_btn: "Gesendet ✓",
@@ -460,6 +463,7 @@
       inquiry_err_phone_invalid: "Проверьте номер телефона для выбранной страны.",
       inquiry_err_message: "Опишите, пожалуйста, ваш проект.",
       inquiry_submit: "Отправить",
+      inquiry_sending: "Отправка...",
       inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
       inquiry_sent: "Отправлено! Я отвечу вам по email.",
       inquiry_sent_btn: "Отправлено ✓",
@@ -1282,6 +1286,7 @@
       function markAsSent(){
         inquiryAlreadySent = true;
         inquirySubmitBtn.disabled = true;
+        inquirySubmitBtn.classList.remove("sending", "loading", "error");
         var lang2 = document.documentElement.getAttribute("lang") || "en";
         inquirySubmitBtn.textContent = (TRANSLATIONS[lang2] && TRANSLATIONS[lang2].inquiry_sent_btn) || "Sent ✓";
         if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
@@ -1319,14 +1324,28 @@
         message: message, language: lang
       }));
 
+      // Visible "sending" state — same idea as the Arduino/ESP32 order
+      // form: button greys out, gets a spinning loader and its label
+      // changes to "Sending...", so it's obvious the click registered
+      // and a request is actually in flight.
+      var inquirySubmitDefaultText = inquirySubmitBtn.textContent;
       inquirySubmitBtn.disabled = true;
+      inquirySubmitBtn.classList.add("sending", "loading");
+      inquirySubmitBtn.textContent = inquiryErrorText("inquiry_sending") || "Sending...";
+
       fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData })
         .then(function(){
           markAsSent();
         })
         .catch(function(){
-          inquirySubmitBtn.disabled = false;
-          sendByEmailInstead();
+          inquirySubmitBtn.classList.remove("sending", "loading");
+          inquirySubmitBtn.classList.add("error");
+          setTimeout(function(){
+            inquirySubmitBtn.classList.remove("error");
+            inquirySubmitBtn.disabled = false;
+            inquirySubmitBtn.textContent = inquirySubmitDefaultText;
+            sendByEmailInstead();
+          }, 1200);
         });
     });
   }

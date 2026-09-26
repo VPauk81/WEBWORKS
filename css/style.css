@@ -798,8 +798,31 @@
   .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:13px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
   .messenger-opt input{ accent-color:var(--accent); width:15px; height:15px; }
 
-  .inquiry-form .btn{ width:100%; margin-top:4px; }
+  .inquiry-form .btn{ width:100%; margin-top:4px; position:relative; }
   .inquiry-form .btn:disabled{ opacity:1; cursor:default; background:var(--accent); }
+
+  /* Sending state — same spinner-on-the-button approach as the
+     Arduino/ESP32 order form, so it's visually obvious a request
+     is in flight rather than the button just looking stuck. */
+  .inquiry-form .btn.sending{ background:#888; cursor:wait; }
+  .inquiry-form .btn.loading::after{
+    content:"";
+    position:absolute;
+    right:16px;
+    top:50%;
+    width:14px;
+    height:14px;
+    margin-top:-7px;
+    border:2px solid #fff;
+    border-top:2px solid transparent;
+    border-radius:50%;
+    animation:webworks-spin .7s linear infinite;
+  }
+  @keyframes webworks-spin{
+    from{ transform:rotate(0deg); }
+    to{ transform:rotate(360deg); }
+  }
+  .inquiry-form .btn.error{ background:#c0392b; }
   .inquiry-note{ font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-status{
     display:none;
