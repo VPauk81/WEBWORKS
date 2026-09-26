@@ -1072,6 +1072,37 @@
     } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
   }
 
+  // Same cheerful rising major arpeggio as the Arduino/ESP32 order
+  // form's "заявка успешно отправлена" chime (E5-G5-B5-E6, sine).
+  function playInquirySendSuccessSound(){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      var tones = [
+        { f: 659,  dur: 0.10, vol: 0.09, delay: 0 },    // E5
+        { f: 784,  dur: 0.10, vol: 0.09, delay: 0.08 }, // G5
+        { f: 988,  dur: 0.10, vol: 0.09, delay: 0.16 }, // B5
+        { f: 1319, dur: 0.22, vol: 0.12, delay: 0.24 }  // E6
+      ];
+      for (var ti = 0; ti < tones.length; ti++){
+        var t = tones[ti];
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "sine";
+        var startAt = now + t.delay;
+        osc.frequency.setValueAtTime(t.f, startAt);
+        gain.gain.setValueAtTime(0.0001, startAt);
+        gain.gain.exponentialRampToValueAtTime(t.vol, startAt + t.dur * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startAt + t.dur);
+        osc.start(startAt);
+        osc.stop(startAt + t.dur + 0.03);
+      }
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
   function clearInquiryErrorMarks(){
     var marked = document.querySelectorAll("#projectForm .error-field");
     for (var mi = 0; mi < marked.length; mi++){ marked[mi].classList.remove("error-field"); }
@@ -1290,6 +1321,7 @@
         var lang2 = document.documentElement.getAttribute("lang") || "en";
         inquirySubmitBtn.textContent = (TRANSLATIONS[lang2] && TRANSLATIONS[lang2].inquiry_sent_btn) || "Sent ✓";
         if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
+        playInquirySendSuccessSound();
       }
 
       function sendByEmailInstead(){
