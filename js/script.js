@@ -911,10 +911,12 @@
   // Same underscore mask as the real inquiry form's phone field
   // (buildInquiryPhonePlaceholder(), defined further below — function
   // declarations are hoisted, so it's available here already).
-  function updateOrderPhonePlaceholder(){
+  // The select calls onSelect(country) once during its own creation,
+  // before orderCountrySelect is assigned — so use the passed country.
+  function updateOrderPhonePlaceholder(country){
     if (!orderPhoneNumberInput) return;
-    var country = orderCountrySelect ? orderCountrySelect.getSelectedCountry() : null;
-    var expected = country ? country.digits : 6;
+    country = country || (orderCountrySelect ? orderCountrySelect.getSelectedCountry() : null);
+    var expected = country ? country.digits : COUNTRY_CODES[0].digits;
     orderPhoneNumberInput.placeholder = buildInquiryPhonePlaceholder(expected);
   }
 
@@ -922,7 +924,10 @@
     orderCountrySelect = createCountrySelect({
       btn: "countrySelectBtn", box: "countrySelectBox", dropdown: "countrySelectDropdown",
       flagImg: "countrySelectFlagImg", codeText: "countrySelectCodeText"
-    }, function(){ checkOrderPhone(); updateOrderPhonePlaceholder(); });
+    }, function(country){
+      updateOrderPhonePlaceholder(country);
+      if (orderCountrySelect){ checkOrderPhone(); }
+    });
 
     orderNameInput.addEventListener("input", checkOrderName);
 
@@ -1059,10 +1064,12 @@
   var inquiryCountrySelect = createCountrySelect({
     btn: "inquiryCountrySelectBtn", box: "inquiryCountrySelectBox", dropdown: "inquiryCountrySelectDropdown",
     flagImg: "inquiryCountrySelectFlagImg", codeText: "inquiryCountrySelectCodeText"
-  }, function(){
-    checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
-    updateInquiryMessengerVisibility();
-    updateInquiryPhonePlaceholder();
+  }, function(country){
+    updateInquiryPhonePlaceholder(country);
+    if (inquiryCountrySelect){
+      checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneFilledAndValid());
+      updateInquiryMessengerVisibility();
+    }
   });
 
   var inquiryAlreadySent = false;
@@ -1276,11 +1283,19 @@
     return groups.join("  ");
   }
 
-  function updateInquiryPhonePlaceholder(){
+  function updateInquiryPhonePlaceholder(country){
     if (!inquiryPhoneNumberInput) return;
-    var country = inquiryCountrySelect ? inquiryCountrySelect.getSelectedCountry() : null;
-    var expected = country ? country.digits : 6;
+    country = country || (inquiryCountrySelect ? inquiryCountrySelect.getSelectedCountry() : null);
+    var expected = country ? country.digits : COUNTRY_CODES[0].digits;
     inquiryPhoneNumberInput.placeholder = buildInquiryPhonePlaceholder(expected);
+  }
+
+  // For the green checkmark only: an EMPTY optional phone is fine for
+  // validation, but must not show a checkmark.
+  function isInquiryPhoneFilledAndValid(){
+    if (!inquiryPhoneNumberInput) return false;
+    var digits = inquiryPhoneNumberInput.value.replace(/\D/g, "").length;
+    return digits > 0 && isInquiryPhoneValid();
   }
 
   var inquiryMessengerField = document.getElementById("inquiryMessengerField");
@@ -1362,7 +1377,7 @@
         updateInquiryMessengerVisibility();
       });
       inquiryPhoneNumberInput.addEventListener("blur", function(){
-        checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneValid());
+        checkInquiryField(inquiryPhoneNumberInput, isInquiryPhoneFilledAndValid());
         updateInquiryMessengerVisibility();
       });
     }
