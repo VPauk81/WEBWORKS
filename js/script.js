@@ -123,6 +123,9 @@
       guar_2_d: "After launch, I fix any bugs and make small text or image changes free of charge for 30 days.",
       guar_3_t: "The site is 100% yours",
       guar_3_d: "You get the full source code, the domain and every login — no lock-in, no hidden subscriptions.",
+      quality_title: "Measured quality",
+      quality_note: "Google Lighthouse results for this very site — mobile test, 26.09.2026.",
+      q_perf: "Performance", q_a11y: "Accessibility", q_bp: "Best Practices", q_seo: "SEO",
 
       share_copy: "Copy Link", share_copied: "Copied!", share_button: "Share", share_channel_title: "Share the site",
 
@@ -266,6 +269,9 @@
       guar_2_d: "Po starcie przez 30 dni bezpłatnie poprawiam błędy i wprowadzam drobne zmiany tekstów lub zdjęć.",
       guar_3_t: "Strona jest w 100% Twoja",
       guar_3_d: "Dostajesz pełny kod źródłowy, domenę i wszystkie dostępy — bez uzależnienia i ukrytych abonamentów.",
+      quality_title: "Zmierzona jakość",
+      quality_note: "Wyniki Google Lighthouse dla tej strony — test mobilny, 26.09.2026.",
+      q_perf: "Wydajność", q_a11y: "Dostępność", q_bp: "Dobre praktyki", q_seo: "SEO",
 
       share_copy: "Kopiuj link", share_copied: "Skopiowano!", share_button: "Udostępnij", share_channel_title: "Udostępnij stronę",
 
@@ -409,6 +415,9 @@
       guar_2_d: "Nach dem Start behebe ich 30 Tage lang kostenlos Fehler und ändere kleinere Texte oder Bilder.",
       guar_3_t: "Die Website gehört zu 100 % Ihnen",
       guar_3_d: "Sie erhalten den kompletten Quellcode, die Domain und alle Zugänge — keine Bindung, keine versteckten Abos.",
+      quality_title: "Gemessene Qualität",
+      quality_note: "Google-Lighthouse-Ergebnisse für genau diese Website — Mobil-Test, 26.09.2026.",
+      q_perf: "Leistung", q_a11y: "Barrierefreiheit", q_bp: "Best Practices", q_seo: "SEO",
 
       share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen", share_channel_title: "Seite teilen",
 
@@ -552,6 +561,9 @@
       guar_2_d: "После запуска 30 дней бесплатно исправляю ошибки и вношу небольшие правки в тексты и фото.",
       guar_3_t: "Сайт на 100% ваш",
       guar_3_d: "Вы получаете весь исходный код, домен и все доступы — без привязки и скрытых подписок.",
+      quality_title: "Измеренное качество",
+      quality_note: "Результаты Google Lighthouse для этого сайта — мобильный тест, 26.09.2026.",
+      q_perf: "Скорость", q_a11y: "Доступность", q_bp: "Лучшие практики", q_seo: "SEO",
 
       share_copy: "Копировать ссылку", share_copied: "Скопировано!", share_button: "Поделиться", share_channel_title: "Поделиться сайтом",
 

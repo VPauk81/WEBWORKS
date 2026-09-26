@@ -805,8 +805,39 @@
   .guarantee h3{ font-size:17px; margin-bottom:6px; }
   .guarantee p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
 
+  /* Lighthouse-style score rings: the green arc length = --score %. */
+  .quality{
+    margin-top:24px;
+    padding:22px;
+    border:1px solid var(--line);
+    border-radius:8px;
+    background:var(--white);
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:20px;
+    align-items:center;
+  }
+  .quality-head h3{ font-size:17px; margin-bottom:6px; }
+  .quality-head p{ font-size:13px; color:var(--ink-soft); line-height:1.5; }
+  .quality-scores{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
+  .score{ display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
+  .score-ring{
+    width:72px; height:72px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:conic-gradient(#0C9D58 calc(var(--score) * 1%), #DDEFE5 0);
+  }
+  .score-num{
+    width:58px; height:58px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--white);
+    font-family:var(--font-head); font-size:20px; font-weight:700; color:#0A6E3E;
+  }
+  .score-label{ font-size:13px; color:var(--ink-soft); }
+
   @media (max-width: 860px){
     .guarantee-grid{ grid-template-columns:1fr; }
+    .quality{ grid-template-columns:1fr; }
+    .quality-scores{ grid-template-columns:repeat(2, 1fr); row-gap:18px; }
   }
 
   /* ==========================================================
