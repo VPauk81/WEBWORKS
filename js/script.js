@@ -525,6 +525,8 @@
     }
 
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* localStorage unavailable — ignore */ }
+
+    refreshInquiryTextsForLanguage();
   }
 
   function getInitialLanguage(){
@@ -1100,6 +1102,7 @@
      message, so it doesn't beep on every keystroke.
      -------------------------------------------------------- */
   var lastShownInquiryError = "";
+  var currentInquiryErrorKey = "";
 
   function inquiryErrorText(key){
     var lang = document.documentElement.getAttribute("lang") || "en";
@@ -1180,15 +1183,15 @@
     var errors = [];
 
     if (!name){
-      errors.push({ msg: inquiryErrorText("inquiry_err_name"), el: inquiryNameField });
+      errors.push({ key: "inquiry_err_name", el: inquiryNameField });
     }
 
     if (inquiryEmailHadInvalidChars){
-      errors.push({ msg: inquiryErrorText("p5_email_latin_only"), el: inquiryEmailField, playSound: true });
+      errors.push({ key: "p5_email_latin_only", el: inquiryEmailField, playSound: true });
     } else if (!email){
-      errors.push({ msg: inquiryErrorText("inquiry_err_email_required"), el: inquiryEmailField });
+      errors.push({ key: "inquiry_err_email_required", el: inquiryEmailField });
     } else if (!isRealisticEmail(email)){
-      errors.push({ msg: inquiryErrorText("inquiry_err_email_invalid"), el: inquiryEmailField, playSound: true });
+      errors.push({ key: "inquiry_err_email_invalid", el: inquiryEmailField, playSound: true });
     }
 
     // Phone is optional — only validated once the visitor actually
@@ -1198,17 +1201,20 @@
       var country = inquiryCountrySelect.getSelectedCountry();
       var expectedDigits = country ? country.digits : 6;
       if (digitCount !== expectedDigits){
-        errors.push({ msg: inquiryErrorText("inquiry_err_phone_invalid"), el: inquiryPhoneField, playSound: true });
+        errors.push({ key: "inquiry_err_phone_invalid", el: inquiryPhoneField, playSound: true });
       }
     }
 
     if (!message){
-      errors.push({ msg: inquiryErrorText("inquiry_err_message"), el: inquiryMessageField });
+      errors.push({ key: "inquiry_err_message", el: inquiryMessageField });
     }
+
+    for (var mi2 = 0; mi2 < errors.length; mi2++){ errors[mi2].msg = inquiryErrorText(errors[mi2].key); }
 
     clearInquiryErrorMarks();
 
     if (errors.length > 0){
+      currentInquiryErrorKey = errors[0].key;
       if (inquiryFormError){ inquiryFormError.textContent = errors[0].msg; }
 
       for (var ei = 0; ei < errors.length; ei++){
@@ -1232,9 +1238,29 @@
       return false;
     }
 
+    currentInquiryErrorKey = "";
     if (inquiryFormError){ inquiryFormError.textContent = ""; }
     lastShownInquiryError = "";
     return true;
+  }
+
+  // Texts that JS writes at runtime (error line, button state) aren't
+  // covered by data-i18n — re-render them whenever the language changes.
+  // Called from applyLanguage(), which also runs once before these vars
+  // are assigned, hence the guards.
+  function refreshInquiryTextsForLanguage(){
+    if (inquiryFormError && currentInquiryErrorKey){
+      inquiryFormError.textContent = inquiryErrorText(currentInquiryErrorKey);
+      // Same message, just translated — don't buzz again for it.
+      lastShownInquiryError = inquiryFormError.textContent;
+    }
+    if (inquirySubmitBtn){
+      if (inquirySubmitBtn.classList.contains("sending")){
+        inquirySubmitBtn.textContent = inquiryErrorText("inquiry_sending");
+      } else if (inquiryAlreadySent){
+        inquirySubmitBtn.textContent = inquiryErrorText("inquiry_sent_btn");
+      }
+    }
   }
 
   // Same rule as everywhere else on the site: only Latin letters,
@@ -1459,7 +1485,6 @@
       // form: button greys out, gets a spinning loader and its label
       // changes to "Sending...", so it's obvious the click registered
       // and a request is actually in flight.
-      var inquirySubmitDefaultText = inquirySubmitBtn.textContent;
       inquirySubmitBtn.disabled = true;
       inquirySubmitBtn.classList.add("sending", "loading");
       inquirySubmitBtn.textContent = inquiryErrorText("inquiry_sending") || "Sending...";
@@ -1474,7 +1499,7 @@
           setTimeout(function(){
             inquirySubmitBtn.classList.remove("error");
             inquirySubmitBtn.disabled = false;
-            inquirySubmitBtn.textContent = inquirySubmitDefaultText;
+            inquirySubmitBtn.textContent = inquiryErrorText("inquiry_submit");
             sendByEmailInstead();
           }, 1200);
         });
