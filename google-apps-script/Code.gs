@@ -23,7 +23,8 @@ const APP_TIMEZONE = "Europe/Warsaw";
 // =======================
 const HEADER_ROW = [
   "ID заявки", "Статус", "Email клиенту", "Дата заявки", "Язык",
-  "Имя", "Email", "Телефон", "WhatsApp", "Viber", "Telegram", "Описание"
+  "Имя", "Email", "Телефон", "WhatsApp", "Viber", "Telegram", "Описание",
+  "Ссылка для клиента (прогресс/демо)"
 ];
 
 const COL_STATUS = 2;       // B
@@ -31,6 +32,8 @@ const COL_CLIENT_EMAIL = 3; // C
 const COL_LANG = 5;         // E
 const COL_CLIENT_EMAIL_ADDR = 7; // G
 const COL_DESCRIPTION = 12; // L
+const COL_PROGRESS_LINK = 13; // M — заполняю сам, вручную, только когда хочу
+                               // дать клиенту ссылку посмотреть его сайт
 
 function doGet(e) {
 
@@ -90,6 +93,17 @@ function ensureHeaderRow(sheet) {
     sheet.appendRow(HEADER_ROW);
     sheet.getRange(1, 1, 1, HEADER_ROW.length).setFontWeight("bold");
     sheet.setFrozenRows(1);
+    return;
+  }
+
+  // Таблица уже существует (со старыми заявками) — дописываем в конец
+  // только недостающие заголовки (например, новую колонку со ссылкой
+  // для клиента), не трогая уже имеющиеся столбцы и данные.
+  const lastCol = sheet.getLastColumn();
+  if (lastCol < HEADER_ROW.length) {
+    const missing = HEADER_ROW.slice(lastCol);
+    sheet.getRange(1, lastCol + 1, 1, missing.length).setValues([missing]);
+    sheet.getRange(1, lastCol + 1, 1, missing.length).setFontWeight("bold");
   }
 }
 
@@ -235,7 +249,8 @@ function handleInquiry(data) {
     data.whatsapp ? "✔" : "",
     data.viber ? "✔" : "",
     data.telegram ? "✔" : "",
-    previewText(data.message)
+    previewText(data.message),
+    "" // Ссылка для клиента — пустая, заполняю сам вручную при желании
   ]);
 
   const row = sheet.getLastRow();
@@ -312,7 +327,8 @@ const STATUS_LANG = {
     sentText: "Материалы по вашему проекту отправлены.",
     completedText: "Ваш проект полностью завершён.",
     cancelledText: "К сожалению, ваша заявка была отменена.",
-    order: "Номер заявки", orderWord: "Заявка", status: "Статус"
+    order: "Номер заявки", orderWord: "Заявка", status: "Статус",
+    progressLink: "Посмотреть текущий прогресс по вашему сайту:"
   },
 
   pl: {
@@ -329,7 +345,8 @@ const STATUS_LANG = {
     sentText: "Materiały zostały wysłane.",
     completedText: "Projekt został zakończony.",
     cancelledText: "Niestety zgłoszenie zostało anulowane.",
-    order: "Numer zgłoszenia", orderWord: "Zgłoszenie", status: "Status"
+    order: "Numer zgłoszenia", orderWord: "Zgłoszenie", status: "Status",
+    progressLink: "Zobacz aktualny postęp Twojej strony:"
   },
 
   en: {
@@ -346,7 +363,8 @@ const STATUS_LANG = {
     sentText: "The files for your project have been sent.",
     completedText: "Your project has been completed.",
     cancelledText: "Unfortunately your inquiry has been cancelled.",
-    order: "Inquiry number", orderWord: "Inquiry", status: "Status"
+    order: "Inquiry number", orderWord: "Inquiry", status: "Status",
+    progressLink: "See the current progress on your website:"
   },
 
   de: {
@@ -363,7 +381,8 @@ const STATUS_LANG = {
     sentText: "Die Dateien zu Ihrem Projekt wurden versendet.",
     completedText: "Ihr Projekt ist vollständig abgeschlossen.",
     cancelledText: "Leider wurde Ihre Anfrage storniert.",
-    order: "Anfragenummer", orderWord: "Anfrage", status: "Status"
+    order: "Anfragenummer", orderWord: "Anfrage", status: "Status",
+    progressLink: "Aktuellen Fortschritt Ihrer Website ansehen:"
   }
 
 };
@@ -381,12 +400,18 @@ function checkStatusChanges(e) {
 
     const sheet = e.range.getSheet();
     if (sheet.getName() !== SHEET_NAME) return;
-    if (e.range.getColumn() !== COL_STATUS) return;
+
+    const editedCol = e.range.getColumn();
+    const isStatusEdit = editedCol === COL_STATUS;
+    const isLinkEdit = editedCol === COL_PROGRESS_LINK;
+    if (!isStatusEdit && !isLinkEdit) return;
 
     const row = e.range.getRow();
     if (row < 2) return;
 
-    colorRow(sheet, row);
+    if (isStatusEdit) {
+      colorRow(sheet, row);
+    }
 
     const status = sheet.getRange(row, COL_STATUS).getValue();
     const email = sheet.getRange(row, COL_CLIENT_EMAIL_ADDR).getValue();
@@ -394,6 +419,16 @@ function checkStatusChanges(e) {
 
     const key = detectStatusKey(status);
     if (!key) return;
+
+    // Ссылку на прогресс/демо добавляю сам, вручную, только для тех
+    // заявок и на тех статусах, где хочу её показать клиенту — если
+    // ячейка пустая, письмо уходит как обычно, без единой ссылки.
+    const progressLink = String(sheet.getRange(row, COL_PROGRESS_LINK).getValue() || "").trim();
+    const progressStatuses = { checking: true, working: true, ready: true };
+
+    // Правку самой ссылки обрабатываем, только если она реально что-то
+    // меняет в письме (иначе смысла слать письмо нет — статус тот же).
+    if (isLinkEdit && !(progressLink && progressStatuses[key])) return;
 
     const lang = sheet.getRange(row, COL_LANG).getValue() || "ru";
     const T = STATUS_LANG[lang] || STATUS_LANG.ru;
@@ -409,6 +444,7 @@ function checkStatusChanges(e) {
     const body =
       T.hello + "\n\n" +
       MESSAGES[key] + "\n\n" +
+      (progressLink && progressStatuses[key] ? T.progressLink + " " + progressLink + "\n\n" : "") +
       T.order + ": " + orderID + "\n" +
       T.status + ": " + status + "\n\n" +
       "WEBWORKS";
@@ -497,14 +533,45 @@ const TZ_COUNTRY = {
   "Europe/Vilnius": "Литва",
   "Europe/Riga": "Латвия",
   "Europe/Tallinn": "Эстония",
+  "Europe/Luxembourg": "Люксембург",
+  "Europe/Malta": "Мальта",
+  "Europe/Nicosia": "Кипр", "Asia/Nicosia": "Кипр",
+  "Europe/Chisinau": "Молдова",
+  "Europe/Skopje": "Северная Македония",
+  "Europe/Sarajevo": "Босния и Герцеговина",
+  "Europe/Podgorica": "Черногория",
+  "Europe/Tirane": "Албания",
+  "Europe/Vaduz": "Лихтенштейн",
+  "Europe/Monaco": "Монако",
+  "Europe/Andorra": "Андорра",
+  "Europe/San_Marino": "Сан-Марино",
+  "Europe/Vatican": "Ватикан",
+  "Europe/Gibraltar": "Гибралтар",
+  "Atlantic/Reykjavik": "Исландия",
   "America/New_York": "США", "America/Chicago": "США",
   "America/Los_Angeles": "США", "America/Denver": "США",
+  "America/Toronto": "Канада", "America/Vancouver": "Канада",
   "Asia/Dubai": "ОАЭ",
   "Europe/Istanbul": "Турция", "Asia/Istanbul": "Турция"
 };
 
-function guessCountry(timezone) {
-  return TZ_COUNTRY[String(timezone || "")] || "";
+// Когда часовой пояс браузера не попал в TZ_COUNTRY (редкая/нестандартная
+// зона), даём грубую вторую догадку по языку, на котором посетитель
+// реально смотрел сайт — так страна показывается для любого языка
+// интерфейса, а не только когда часовой пояс распознан напрямую.
+// Помечаем явно "(по языку)", чтобы не путать с более точной догадкой
+// по часовому поясу.
+const LANG_COUNTRY_FALLBACK = {
+  pl: "Польша (по языку)",
+  de: "Германия/Австрия/Швейцария (по языку)",
+  ru: "Россия/СНГ (по языку)",
+  en: "Англоязычный регион (по языку)"
+};
+
+function guessCountry(timezone, siteLang) {
+  const byTimezone = TZ_COUNTRY[String(timezone || "")];
+  if (byTimezone) return byTimezone;
+  return LANG_COUNTRY_FALLBACK[String(siteLang || "")] || "";
 }
 
 function getOrCreateVisitsSheet() {
@@ -557,7 +624,7 @@ function logVisit(data) {
     data.screen || "",
     data.pageUrl || "",
     data.userAgent || "",
-    guessCountry(data.timezone)
+    guessCountry(data.timezone, data.siteLang)
   ]);
 
   updateDashboard();
