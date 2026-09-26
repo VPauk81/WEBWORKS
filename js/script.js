@@ -109,6 +109,11 @@
       inquiry_label_phone: "Phone (optional)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "This number also has:",
       inquiry_label_message: "What do you want on your site?", inquiry_ph_message: "Describe your business, what the site should do, any examples you like...",
+      inquiry_err_name: "Please enter your name.",
+      inquiry_err_email_required: "Please enter your email.",
+      inquiry_err_email_invalid: "Please enter a valid email address.",
+      inquiry_err_phone_invalid: "Check the phone number for the selected country.",
+      inquiry_err_message: "Please describe your project.",
       inquiry_submit: "Send",
       inquiry_note: "Sent straight to me — write in your own language, no phone call needed.",
       inquiry_sent: "Sent! I'll get back to you by email.",
@@ -219,6 +224,11 @@
       inquiry_label_phone: "Telefon (opcjonalnie)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "Pod tym numerem dostępne są też:",
       inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
+      inquiry_err_name: "Podaj swoje imię.",
+      inquiry_err_email_required: "Podaj swój email.",
+      inquiry_err_email_invalid: "Podaj poprawny adres email.",
+      inquiry_err_phone_invalid: "Sprawdź numer telefonu dla wybranego kraju.",
+      inquiry_err_message: "Opisz swój projekt.",
       inquiry_submit: "Wyślij",
       inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
       inquiry_sent: "Wysłano! Odpowiem mailem.",
@@ -329,6 +339,11 @@
       inquiry_label_phone: "Telefon (optional)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "Unter dieser Nummer erreichbar auch über:",
       inquiry_label_message: "Was soll auf Ihrer Website stehen?", inquiry_ph_message: "Beschreiben Sie Ihr Unternehmen, was die Website tun soll, Beispiele, die Ihnen gefallen ...",
+      inquiry_err_name: "Bitte geben Sie Ihren Namen ein.",
+      inquiry_err_email_required: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
+      inquiry_err_email_invalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      inquiry_err_phone_invalid: "Überprüfen Sie die Telefonnummer für das ausgewählte Land.",
+      inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt.",
       inquiry_submit: "Senden",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
       inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
@@ -439,6 +454,11 @@
       inquiry_label_phone: "Телефон (необязательно)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "На этом номере также есть:",
       inquiry_label_message: "Что вы хотите видеть на сайте?", inquiry_ph_message: "Опишите свой бизнес, что должен уметь сайт, примеры, которые вам нравятся...",
+      inquiry_err_name: "Пожалуйста, введите ваше имя.",
+      inquiry_err_email_required: "Пожалуйста, введите ваш email.",
+      inquiry_err_email_invalid: "Введите корректный адрес email.",
+      inquiry_err_phone_invalid: "Проверьте номер телефона для выбранной страны.",
+      inquiry_err_message: "Опишите, пожалуйста, ваш проект.",
       inquiry_submit: "Отправить",
       inquiry_note: "Придёт прямо мне — пишите на своём языке, звонить не нужно.",
       inquiry_sent: "Отправлено! Я отвечу вам по email.",
@@ -978,13 +998,16 @@
     if (field){ field.classList.toggle("is-valid", isValid); }
     return isValid;
   }
-  function checkInquiryName(){ return checkInquiryField(inquiryNameInput, inquiryNameInput.value.trim().length >= 2); }
-  function checkInquiryEmail(){ return checkInquiryField(inquiryEmailInput, isRealisticEmail(inquiryEmailInput.value.trim())); }
 
   var inquiryPhoneNumberInput = document.getElementById("inquiryPhoneNumber");
   var inquiryWhatsappCheck = document.getElementById("inquiryWhatsapp");
   var inquiryViberCheck = document.getElementById("inquiryViber");
   var inquiryTelegramCheck = document.getElementById("inquiryTelegram");
+  var inquiryFormError = document.getElementById("inquiryFormError");
+  var inquiryNameField = document.getElementById("inquiryNameField");
+  var inquiryEmailField = document.getElementById("inquiryEmailField");
+  var inquiryPhoneField = document.getElementById("inquiryPhoneField");
+  var inquiryMessageField = document.getElementById("inquiryMessageField");
 
   var inquiryCountrySelect = createCountrySelect({
     btn: "inquiryCountrySelectBtn", box: "inquiryCountrySelectBox", dropdown: "inquiryCountrySelectDropdown",
@@ -993,9 +1016,127 @@
 
   var inquiryAlreadySent = false;
 
+  /* --------------------------------------------------------
+     VALIDATION — same approach as the Arduino/ESP32 order form:
+     one combined error line above the button (always showing
+     the FIRST problem, top-to-bottom in field order), a red
+     border+tint on every invalid field, a short shake + scroll
+     on the first invalid field when the visitor actually presses
+     Send, and a short "buzz" sound — but only once per distinct
+     message, so it doesn't beep on every keystroke.
+     -------------------------------------------------------- */
+  var lastShownInquiryError = "";
+
+  function inquiryErrorText(key){
+    var lang = document.documentElement.getAttribute("lang") || "en";
+    var dict = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    return (dict && dict[key]) || (TRANSLATIONS.en && TRANSLATIONS.en[key]) || "";
+  }
+
+  function playInquiryErrorSound(){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime;
+      var tones = [{ f1: 300, f2: 220, delay: 0 }, { f1: 260, f2: 180, delay: 0.1 }];
+      for (var ti = 0; ti < tones.length; ti++){
+        var t = tones[ti];
+        var osc = ctx.createOscillator();
+        var gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.type = "square";
+        var startAt = now + t.delay;
+        var dur = 0.09;
+        osc.frequency.setValueAtTime(t.f1, startAt);
+        osc.frequency.exponentialRampToValueAtTime(t.f2, startAt + dur * 0.7);
+        gain.gain.setValueAtTime(0.0001, startAt);
+        gain.gain.exponentialRampToValueAtTime(0.06, startAt + dur * 0.15);
+        gain.gain.exponentialRampToValueAtTime(0.0001, startAt + dur);
+        osc.start(startAt);
+        osc.stop(startAt + dur + 0.03);
+      }
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
+  function clearInquiryErrorMarks(){
+    var marked = document.querySelectorAll("#projectForm .error-field");
+    for (var mi = 0; mi < marked.length; mi++){ marked[mi].classList.remove("error-field"); }
+    var shaken = document.querySelectorAll("#projectForm .error-scroll");
+    for (var si = 0; si < shaken.length; si++){ shaken[si].classList.remove("error-scroll"); }
+  }
+
+  function validateInquiryForm(scrollToError){
+    var name = inquiryNameInput.value.trim();
+    var email = inquiryEmailInput.value.trim();
+    var message = inquiryMessageInput.value.trim();
+    var phoneDigitsRaw = inquiryPhoneNumberInput ? inquiryPhoneNumberInput.value.trim() : "";
+
+    var errors = [];
+
+    if (!name){
+      errors.push({ msg: inquiryErrorText("inquiry_err_name"), el: inquiryNameField });
+    }
+
+    if (!email){
+      errors.push({ msg: inquiryErrorText("inquiry_err_email_required"), el: inquiryEmailField });
+    } else if (!isRealisticEmail(email)){
+      errors.push({ msg: inquiryErrorText("inquiry_err_email_invalid"), el: inquiryEmailField, playSound: true });
+    }
+
+    // Phone is optional — only validated once the visitor actually
+    // starts typing a number.
+    if (phoneDigitsRaw){
+      var digitCount = phoneDigitsRaw.replace(/\D/g, "").length;
+      var country = inquiryCountrySelect.getSelectedCountry();
+      var expectedDigits = country ? country.digits : 6;
+      if (digitCount !== expectedDigits){
+        errors.push({ msg: inquiryErrorText("inquiry_err_phone_invalid"), el: inquiryPhoneField, playSound: true });
+      }
+    }
+
+    if (!message){
+      errors.push({ msg: inquiryErrorText("inquiry_err_message"), el: inquiryMessageField });
+    }
+
+    clearInquiryErrorMarks();
+    checkInquiryField(inquiryNameInput, !!name);
+    checkInquiryField(inquiryEmailInput, !!email && isRealisticEmail(email));
+
+    if (errors.length > 0){
+      if (inquiryFormError){ inquiryFormError.textContent = errors[0].msg; }
+
+      for (var ei = 0; ei < errors.length; ei++){
+        if (errors[ei].el){ errors[ei].el.classList.add("error-field"); }
+      }
+
+      if (errors[0].playSound){
+        if (errors[0].msg !== lastShownInquiryError){
+          playInquiryErrorSound();
+          lastShownInquiryError = errors[0].msg;
+        }
+      } else {
+        lastShownInquiryError = "";
+      }
+
+      if (scrollToError && errors[0].el){
+        errors[0].el.scrollIntoView({ behavior: "smooth", block: "center" });
+        errors[0].el.classList.add("error-scroll");
+      }
+
+      return false;
+    }
+
+    if (inquiryFormError){ inquiryFormError.textContent = ""; }
+    lastShownInquiryError = "";
+    return true;
+  }
+
   if (inquiryNameInput && inquiryEmailInput && inquiryMessageInput && inquirySubmitBtn){
-    inquiryNameInput.addEventListener("input", checkInquiryName);
-    inquiryEmailInput.addEventListener("input", checkInquiryEmail);
+    inquiryNameInput.addEventListener("input", function(){ validateInquiryForm(false); });
+    inquiryEmailInput.addEventListener("input", function(){ validateInquiryForm(false); });
+    if (inquiryPhoneNumberInput){ inquiryPhoneNumberInput.addEventListener("input", function(){ validateInquiryForm(false); }); }
+    inquiryMessageInput.addEventListener("input", function(){ validateInquiryForm(false); });
 
     inquirySubmitBtn.addEventListener("click", function(){
       // One inquiry per page load — stops accidental double-sends
@@ -1003,16 +1144,11 @@
       // already went through.
       if (inquiryAlreadySent || inquirySubmitBtn.disabled) return;
 
-      var nameOk = checkInquiryName();
-      var emailOk = checkInquiryEmail();
-      var message = inquiryMessageInput.value.trim();
-
-      if (!nameOk){ inquiryNameInput.focus(); return; }
-      if (!emailOk){ inquiryEmailInput.focus(); return; }
-      if (!message){ inquiryMessageInput.focus(); return; }
+      if (!validateInquiryForm(true)) return;
 
       var name = inquiryNameInput.value.trim();
       var email = inquiryEmailInput.value.trim();
+      var message = inquiryMessageInput.value.trim();
       var lang = document.documentElement.getAttribute("lang") || "en";
 
       // Phone is optional — only include a dial code if a number was

@@ -15,7 +15,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 23;
+  var PAGE_BUILD = 24;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -87,7 +87,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="css/style.css?v=23">
+<link rel="stylesheet" href="css/style.css?v=24">
 </head>
 <body>
 
@@ -562,6 +562,8 @@
         <textarea id="inquiryMessage" rows="4" data-i18n-placeholder="inquiry_ph_message" placeholder="Describe your business, what the site should do, any examples you like..."></textarea>
       </div>
 
+      <p class="inquiry-form-error" id="inquiryFormError"></p>
+
       <button type="button" class="btn btn--primary cta-btn" id="inquirySubmit" data-i18n="inquiry_submit" title="Sends your message">Send</button>
       <p class="inquiry-status" id="inquiryStatus" data-i18n="inquiry_sent">Sent! I'll get back to you by email.</p>
       <p class="inquiry-note" data-i18n="inquiry_note">Sent straight to me — write in your own language, no phone call needed.</p>
@@ -646,6 +648,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=23"></script>
+<script src="js/script.js?v=24"></script>
 </body>
 </html>

@@ -807,6 +807,32 @@
   .inquiry-status.is-shown{ display:flex; }
   .inquiry-status::before{ content:"✅"; font-size:16px; line-height:1; flex-shrink:0; }
 
+  /* Validation errors — same visual language as the Arduino/ESP32
+     order form: a red border+tint around the invalid field, one
+     combined error line above the button, and a quick shake when
+     the visitor tries to submit with something still wrong. */
+  .inquiry-form-error{
+    margin-top:8px;
+    font-size:13px;
+    font-weight:600;
+    color:#c0392b;
+    min-height:0;
+  }
+  .error-field{
+    border:2px solid #e74c3c !important;
+    background:#fff6f6 !important;
+    border-radius:6px;
+    padding:6px;
+  }
+  .error-scroll{ animation:webworks-shake .25s linear 2; }
+  @keyframes webworks-shake{
+    0%{ transform:translateX(0); }
+    25%{ transform:translateX(-4px); }
+    50%{ transform:translateX(4px); }
+    75%{ transform:translateX(-4px); }
+    100%{ transform:translateX(0); }
+  }
+
   @media (max-width: 500px){
     .inquiry-form{ max-width:none; padding:18px; }
   }
