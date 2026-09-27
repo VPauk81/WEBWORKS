@@ -50,9 +50,9 @@
       featured_title: "Arduino / ESP32 Firmware Studio",
       featured_desc: "A real, deployed ordering site I built and run myself — pick a controller, modules and options, and the price is calculated automatically, with the order sent straight to me. This is exactly the kind of site I can build for your business.",
       featured_cta: "Open Live Site →",
-      featured_device_mobile: "Works great on phone",
-      featured_device_tablet: "and tablet",
-      featured_device_desktop: "too — try it on your phone",
+      featured_device_mobile: "Works great on phones",
+      featured_device_tablet: "on tablets",
+      featured_device_desktop: "and on computers",
 
       p1_category: "Auto Service", p1_title: "Service Calculator",
       p1_desc: "Website with services, pricing and an interactive calculator for customer requests.",
@@ -77,7 +77,7 @@
       p4_mock_title: "Orders", p4_status_new: "New", p4_status_progress: "Processing", p4_status_done: "Shipped",
 
       p5_category: "Contact Forms", p5_title: "Clear Contact Form",
-      p5_desc: "A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email check against common domain endings, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.",
+      p5_desc: "A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email format check, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.",
       p5_mock_title: "New Order", p5_label_name: "Name", p5_ph_name: "John Smith",
       p5_label_email: "Email", p5_ph_email: "name@mail.com",
       p5_label_phone: "Phone", p5_ph_phone: "512 345 678",
@@ -155,7 +155,7 @@
     },
 
     pl: {
-      meta_title: "Tworzenie Stron i Rozwiązania Biznesowe | WEBWORKS",
+      meta_title: "Tworzenie stron i rozwiązania biznesowe | WEBWORKS",
       meta_description: "Strony internetowe, kalkulatory online, konfiguratory produktów i narzędzia biznesowe dla małych i średnich firm w Europie.",
 
       nav_services: "Usługi", nav_projects: "Projekty", nav_process: "Proces", nav_contact: "Kontakt", nav_cta: "Rozpocznij projekt",
@@ -163,11 +163,11 @@
       hero_title: "Praktyczne narzędzia webowe dla firm, które chcą, by wszystko po prostu działało.",
       hero_sub: "Strony internetowe, kalkulatory online, konfiguratory i systemy zamówień dla małych i średnich firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
-      stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "przyjazne mobilnie",
+      stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "gotowe na telefony",
 
       services_title: "Usługi",
       services_intro: "Praktyczne rozwiązania webowe dla małych i średnich firm — od pojedynczej strony docelowej po pełny konfigurator z automatyzacją zamówień.",
-      service_1_t: "Strony firmowe", service_1_d: "Przejrzyste, szybkie strony, które jasno pokazują czym się zajmujesz i ułatwiają kontakt.",
+      service_1_t: "Strony firmowe", service_1_d: "Przejrzyste, szybkie strony, które jasno pokazują, czym się zajmujesz, i ułatwiają kontakt.",
       service_2_t: "Strony docelowe (Landing Page)", service_2_d: "Jednostronicowe witryny skupione wokół jednej oferty i jednego jasnego działania.",
       service_3_t: "Kalkulatory online", service_3_d: "Interaktywne kalkulatory cen lub wycen, z których klienci korzystają samodzielnie.",
       service_4_t: "Konfiguratory produktów", service_4_d: "Konfiguratory krok po kroku do wyboru komponentów, opcji i dodatków.",
@@ -192,13 +192,13 @@
       projects_intro: "Koncepcje demonstracyjne pokazujące, jak mógłby wyglądać i działać gotowy produkt — nie są to realizacje dla klientów.",
       project_demo_tag: "Koncepcja demo",
 
-      featured_badge: "Projekt na żywo — to nie demo",
+      featured_badge: "Prawdziwy projekt — to nie demo",
       featured_title: "Arduino / ESP32 Firmware Studio",
       featured_desc: "Prawdziwa, działająca strona zamówień, którą sam zbudowałem i prowadzę — wybierasz sterownik, moduły i opcje, cena liczy się automatycznie, a zamówienie trafia prosto do mnie. Dokładnie taką stronę mogę zbudować dla Twojej firmy.",
-      featured_cta: "Otwórz stronę na żywo →",
+      featured_cta: "Otwórz działającą stronę →",
       featured_device_mobile: "Świetnie działa na telefonie",
-      featured_device_tablet: "i tablecie",
-      featured_device_desktop: "też — sprawdź na swoim telefonie",
+      featured_device_tablet: "na tablecie",
+      featured_device_desktop: "i na komputerze",
 
       p1_category: "Serwis samochodowy", p1_title: "Kalkulator serwisowy",
       p1_desc: "Strona z usługami, cennikiem i interaktywnym kalkulatorem dla zgłoszeń klientów.",
@@ -206,7 +206,7 @@
       p1_opt_v1: "Samochód kompaktowy", p1_opt_v2: "Sedan", p1_opt_v3: "SUV / Van",
       p1_opt_s1: "Przegląd", p1_opt_s2: "Wymiana klocków", p1_opt_s3: "Pełny remont hamulców",
 
-      p2_category: "Fryzjer męski (barbershop)", p2_title: "Strona z rezerwacją",
+      p2_category: "Barbershop", p2_title: "Strona z rezerwacją",
       p2_desc: "Nowoczesna strona prezentacyjna z usługami, cenami i możliwością zgłoszenia wizyty.",
       p2_mock_title: "Zarezerwuj wizytę", p2_service1: "Strzyżenie", p2_service2: "Trymowanie brody", p2_service3: "Strzyżenie i broda",
       p2_mock_cta: "Zgłoś wizytę",
@@ -223,15 +223,15 @@
       p4_mock_title: "Zamówienia", p4_status_new: "Nowe", p4_status_progress: "W realizacji", p4_status_done: "Wysłane",
 
       p5_category: "Formularze kontaktowe", p5_title: "Przejrzysty formularz kontaktowy",
-      p5_desc: "Demo przejrzystego, łatwego do zrozumienia formularza kontaktowego z walidacją na żywo — sprawdzenie imienia, weryfikacja e-maila pod kątem typowych końcówek domen oraz pole telefonu z prawdziwym wyborem kraju/numeru kierunkowego, dzięki czemu numer jest sprawdzany pod kątem właściwej długości dla wybranego kraju. Ten podgląd niczego nie wysyła — wersja produkcyjna łączyłaby się z e-mailem, Google Sheets lub Twoim CRM.",
+      p5_desc: "Demo przejrzystego, łatwego w obsłudze formularza kontaktowego z walidacją na żywo — sprawdzenie imienia, sprawdzenie formatu adresu e-mail oraz pole telefonu z prawdziwym wyborem kraju i numeru kierunkowego, dzięki czemu numer jest sprawdzany pod kątem właściwej długości dla wybranego kraju. Ten podgląd niczego nie wysyła — wersja produkcyjna łączyłaby się z e-mailem, Google Sheets lub Twoim systemem CRM.",
       p5_mock_title: "Nowe zamówienie", p5_label_name: "Imię", p5_ph_name: "Jan Kowalski",
-      p5_label_email: "Email", p5_ph_email: "imie@mail.com",
+      p5_label_email: "E-mail", p5_ph_email: "imie@mail.com",
       p5_label_phone: "Telefon", p5_ph_phone: "512 345 678",
       p5_submit: "Wyślij zapytanie",
       p5_demo_sent: "Tylko demo — tu pojawiłoby się potwierdzenie prawdziwego zgłoszenia.",
-      p5_email_latin_only: "⚠ Adres Email można wpisywać tylko literami łacińskimi i cyframi (cyrylica i znaki specjalne jak * / są niedozwolone)",
+      p5_email_latin_only: "⚠ Adres e-mail można wpisywać tylko literami łacińskimi i cyframi (cyrylica i znaki specjalne, takie jak * /, są niedozwolone)",
 
-      process_title: "Jak to wygląda", process_intro: "Krótki, jasny proces od pierwszej wiadomości do działającej strony.",
+      process_title: "Jak wygląda współpraca", process_intro: "Krótki, jasny proces od pierwszej wiadomości do działającej strony.",
       process_1_t: "Rozmowa", process_1_d: "Omawiamy, czego potrzebujesz, dla kogo jest strona i jak wygląda sukces projektu.",
       process_2_t: "Budowa", process_2_d: "Projektuję i buduję stronę lub narzędzie, informując Cię na bieżąco o postępach.",
       process_3_t: "Weryfikacja", process_3_d: "Testujesz wszystko, a my dopracowujemy szczegóły, by pasowały do Twojej pracy.",
@@ -239,7 +239,7 @@
 
       why_title: "Dlaczego warto ze mną pracować", why_intro: "Bez kosztów agencji, bez wyolbrzymionych obietnic — po prostu bezpośrednia współpraca.",
       why_1_t: "Praktyczne rozwiązania", why_1_d: "Dopasowane do realnych potrzeb Twojej firmy, bez zbędnych funkcji, których nigdy nie użyjesz.",
-      why_2_t: "Przyjazność mobilna", why_2_d: "Każdy projekt działa poprawnie na telefonie, nie tylko na ekranie komputera.",
+      why_2_t: "Wygoda na telefonie", why_2_d: "Każdy projekt działa poprawnie na telefonie, nie tylko na ekranie komputera.",
       why_3_t: "Jasna komunikacja", why_3_d: "Zawsze wiesz, na jakim etapie jest projekt i co będzie dalej.",
       why_4_t: "Funkcje na zamówienie", why_4_d: "Kalkulatory, konfiguratory i formularze dopasowane do Twojego procesu.",
       why_5_t: "Szybka realizacja", why_5_d: "Niewielkie, skoncentrowane projekty realizowane sprawnie i bez uproszczeń.",
@@ -251,7 +251,7 @@
       case_task_d: "Pozwolić klientom samodzielnie skompletować zamówienie na firmware Arduino / ESP32 i od razu zobaczyć cenę — bez telefonów i długiej wymiany wiadomości.",
       case_solution_t: "Rozwiązanie",
       case_sol_1: "Konfigurator: Arduino ⇄ ESP32, sterownik, wyświetlacze, diody LED i 4 kategorie modułów",
-      case_sol_2: "Cena na żywo w PLN plus aktualny kurs EUR",
+      case_sol_2: "Cena liczona na bieżąco w PLN oraz aktualny kurs EUR",
       case_sol_3: "Ceny pochodzą z cennika w Google Sheets — zmiana tam od razu aktualizuje stronę",
       case_sol_4: "Zamówienia trafiają do arkusza z numerem i statusem; klient dostaje e-mail w swoim języku przy każdej zmianie statusu",
       case_result_t: "Efekt",
@@ -279,20 +279,20 @@
 
       inquiry_title: "Opowiedz mi o swoim projekcie", inquiry_intro: "Napisz w języku, w którym Ci najwygodniej — opisz, czego potrzebujesz, a odpowiem mailem.",
       inquiry_label_name: "Twoje imię", inquiry_ph_name: "Jan Kowalski",
-      inquiry_label_email: "Twój email", inquiry_ph_email: "imie@mail.com",
+      inquiry_label_email: "Twój e-mail", inquiry_ph_email: "imie@mail.com",
       inquiry_label_phone: "Telefon (opcjonalnie)", inquiry_ph_phone: "512 345 678",
       inquiry_messenger_question: "Pod tym numerem dostępne są też:",
       inquiry_messenger_none: "Brak",
       inquiry_label_message: "Co ma się znaleźć na Twojej stronie?", inquiry_ph_message: "Opisz swoją firmę, co strona powinna robić, przykłady, które Ci się podobają...",
       inquiry_err_name: "Podaj swoje imię.",
-      inquiry_err_email_required: "Podaj swój email.",
-      inquiry_err_email_invalid: "Podaj poprawny adres email.",
+      inquiry_err_email_required: "Podaj swój e-mail.",
+      inquiry_err_email_invalid: "Podaj poprawny adres e-mail.",
       inquiry_err_phone_invalid: "Sprawdź numer telefonu dla wybranego kraju.",
       inquiry_err_message: "Opisz swój projekt.",
       inquiry_submit: "Wyślij",
       inquiry_sending: "Wysyłanie...",
       inquiry_send_again: "Aby wysłać kolejne zgłoszenie, zmień lub dopisz coś w opisie projektu.",
-      inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez telefonowania.",
+      inquiry_note: "Trafia prosto do mnie — pisz w swoim języku, bez dzwonienia.",
       inquiry_sent: "Wysłano! Odpowiem mailem.",
       inquiry_sent_btn: "Wysłano ✓",
       contact_whatsapp_link: "Napisz do mnie",
@@ -342,9 +342,9 @@
       featured_title: "Arduino / ESP32 Firmware Studio",
       featured_desc: "Eine echte, live geschaltete Bestellseite, die ich selbst gebaut habe und betreibe — Controller, Module und Optionen auswählen, der Preis wird automatisch berechnet, und die Bestellung geht direkt an mich. Genau so eine Seite kann ich auch für Ihr Unternehmen bauen.",
       featured_cta: "Live-Seite öffnen →",
-      featured_device_mobile: "Funktioniert super auf dem Handy",
-      featured_device_tablet: "und Tablet",
-      featured_device_desktop: "auch — probieren Sie es auf Ihrem Handy aus",
+      featured_device_mobile: "Funktioniert super auf dem Smartphone",
+      featured_device_tablet: "auf dem Tablet",
+      featured_device_desktop: "und am Computer",
 
       p1_category: "Kfz-Service", p1_title: "Service-Rechner",
       p1_desc: "Website mit Leistungen, Preisen und einem interaktiven Rechner für Kundenanfragen.",
@@ -361,15 +361,15 @@
       p3_desc: "Konfigurator zur Auswahl von Controllern, Displays und zusätzlichen Modulen mit automatischer Preisberechnung — entwickelt für Arduino- / ESP32-Hardwareprojekte.",
       p3_mock_title: "Board-Konfigurator", p3_mock_label1: "Controller", p3_mock_label2: "Display", p3_mock_total_label: "Konfigurationssumme",
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
-      p3_opt_d1: "Keins", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT Touch",
+      p3_opt_d1: "Kein Display", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT Touch",
       p3_mod1: "WLAN-Modul", p3_mod2: "Relaismodul", p3_mod3: "Sensor-Kit",
 
       p4_category: "Business-Tools", p4_title: "Bestellverwaltung",
-      p4_desc: "Bestellformular verbunden mit Google Sheets, inklusive automatischer E-Mail-Benachrichtigungen und Statusverwaltung.",
+      p4_desc: "Mit Google Sheets verbundenes Bestellformular, inklusive automatischer E-Mail-Benachrichtigungen und Statusverwaltung.",
       p4_mock_title: "Bestellungen", p4_status_new: "Neu", p4_status_progress: "In Bearbeitung", p4_status_done: "Versendet",
 
       p5_category: "Kontaktformulare", p5_title: "Übersichtliches Kontaktformular",
-      p5_desc: "Eine Demo eines übersichtlichen, leicht verständlichen Kontaktformulars mit Live-Validierung — echte Namensprüfung, E-Mail-Prüfung anhand gängiger Domain-Endungen und ein Telefonfeld mit echter Länder-/Vorwahl-Auswahl, sodass die Nummer gegen die passende Länge für das gewählte Land geprüft wird. Diese Vorschau sendet nichts — eine Live-Version würde mit E-Mail, Google Sheets oder Ihrem CRM verbunden.",
+      p5_desc: "Eine Demo eines übersichtlichen, leicht verständlichen Kontaktformulars mit Live-Validierung — echte Namensprüfung, Prüfung des E-Mail-Formats und ein Telefonfeld mit echter Länder-/Vorwahl-Auswahl, sodass die Nummer gegen die passende Länge für das gewählte Land geprüft wird. Diese Vorschau sendet nichts — eine Live-Version würde mit E-Mail, Google Sheets oder Ihrem CRM verbunden.",
       p5_mock_title: "Neue Bestellung", p5_label_name: "Name", p5_ph_name: "Max Mustermann",
       p5_label_email: "E-Mail", p5_ph_email: "name@mail.com",
       p5_label_phone: "Telefon", p5_ph_phone: "123 4567890",
@@ -398,13 +398,13 @@
       case_solution_t: "Lösung",
       case_sol_1: "Konfigurator: Arduino ⇄ ESP32, Controller, Displays, LEDs und 4 Modulkategorien",
       case_sol_2: "Live-Preis in PLN plus aktueller EUR-Kurs",
-      case_sol_3: "Preise kommen aus einer Google-Sheets-Preisliste — dort ändern, und die Website ist aktuell",
+      case_sol_3: "Preise kommen aus einer Google-Sheets-Preisliste — dort ändern, und die Website ist sofort aktuell",
       case_sol_4: "Bestellungen landen mit Nummer und Status in einer Tabelle; der Kunde bekommt bei jeder Statusänderung eine E-Mail in seiner Sprache",
       case_result_t: "Ergebnis",
       case_result_d: "Der Kunde stellt die Bestellung selbst zusammen und sieht den Preis — in seiner Sprache, am Handy oder am Computer. Ich erhalte eine vollständige, strukturierte Bestellung in der Tabelle und per E-Mail, und der Kunde wird automatisch auf dem Laufenden gehalten.",
       case_fact_langs: "Sprachen der Website",
-      case_fact_countries: "Länder bei der Telefonnummer",
-      case_fact_statuses: "Bestellstatus mit Auto-E-Mail",
+      case_fact_countries: "Länder bei der Vorwahl-Auswahl",
+      case_fact_statuses: "Bestellstatus mit automatischer E-Mail",
       case_fact_bp: "Lighthouse Best Practices",
 
       guar_title: "Garantien",
@@ -421,9 +421,9 @@
 
       share_copy: "Link kopieren", share_copied: "Kopiert!", share_button: "Teilen", share_channel_title: "Seite teilen",
 
-      contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns bauen.", contact_cta: "Kontaktieren Sie mich",
+      contact_line1: "Haben Sie ein Projekt?", contact_line2: "Lassen Sie es uns umsetzen.", contact_cta: "Kontaktieren Sie mich",
 
-      inquiry_title: "Erzählen Sie mir von Ihrem Projekt", inquiry_intro: "Schreiben Sie in der Sprache, die Ihnen am leichtesten fällt — beschreiben Sie, was Sie möchten, ich antworte per E-Mail.",
+      inquiry_title: "Erzählen Sie mir von Ihrem Projekt", inquiry_intro: "Schreiben Sie in der Sprache, die Ihnen am leichtesten fällt — beschreiben Sie, was Sie möchten, und ich antworte per E-Mail.",
       inquiry_label_name: "Ihr Name", inquiry_ph_name: "Max Mustermann",
       inquiry_label_email: "Ihre E-Mail", inquiry_ph_email: "name@mail.com",
       inquiry_label_phone: "Telefon (optional)", inquiry_ph_phone: "512 345 678",
@@ -437,7 +437,7 @@
       inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt.",
       inquiry_submit: "Senden",
       inquiry_sending: "Wird gesendet...",
-      inquiry_send_again: "Um eine weitere zu senden, ändern oder ergänzen Sie etwas in der Projektbeschreibung.",
+      inquiry_send_again: "Um eine weitere Anfrage zu senden, ändern oder ergänzen Sie etwas in der Projektbeschreibung.",
       inquiry_note: "Geht direkt an mich — schreiben Sie in Ihrer eigenen Sprache, kein Anruf nötig.",
       inquiry_sent: "Gesendet! Ich melde mich per E-Mail.",
       inquiry_sent_btn: "Gesendet ✓",
@@ -489,8 +489,8 @@
       featured_desc: "Настоящий, работающий сайт для приёма заказов, который я сам разработал и веду — выбираете контроллер, модули и опции, цена считается автоматически, а заказ приходит прямо мне. Именно такой сайт я могу сделать и для вашего бизнеса.",
       featured_cta: "Открыть рабочий сайт →",
       featured_device_mobile: "Отлично работает на телефоне",
-      featured_device_tablet: "и планшете",
-      featured_device_desktop: "тоже — проверьте на своём телефоне",
+      featured_device_tablet: "на планшете",
+      featured_device_desktop: "и на компьютере",
 
       p1_category: "Автосервис", p1_title: "Калькулятор услуг",
       p1_desc: "Сайт с услугами, ценами и интерактивным калькулятором для заявок клиентов.",
@@ -514,8 +514,8 @@
       p4_desc: "Форма заказа, связанная с Google Sheets, с автоматическими email-уведомлениями и управлением статусами заказов.",
       p4_mock_title: "Заказы", p4_status_new: "Новый", p4_status_progress: "В обработке", p4_status_done: "Отправлен",
 
-      p5_category: "Формы контактов", p5_title: "Понятная форма контактной информации",
-      p5_desc: "Демонстрация понятной формы контактной информации с проверкой полей в реальном времени — реальная проверка имени, проверка email по распространённым окончаниям доменов и поле телефона с настоящим выбором страны/кода, при котором номер проверяется на нужное количество цифр под выбранную страну. Эта форма ничего не отправляет — рабочая версия подключалась бы к email, Google Sheets или вашей CRM.",
+      p5_category: "Контактные формы", p5_title: "Понятная контактная форма",
+      p5_desc: "Демонстрация понятной контактной формы с проверкой полей в реальном времени — проверка имени, проверка формата email и поле телефона с настоящим выбором страны и кода, благодаря которому номер проверяется на нужное количество цифр для выбранной страны. Эта демо-форма ничего не отправляет — рабочая версия подключалась бы к email, Google Таблицам или вашей CRM.",
       p5_mock_title: "Новый заказ", p5_label_name: "Имя", p5_ph_name: "Иван Иванов",
       p5_label_email: "Email", p5_ph_email: "name@mail.com",
       p5_label_phone: "Телефон", p5_ph_phone: "512 345 678",
@@ -524,12 +524,12 @@
       p5_email_latin_only: "⚠ Email можно вводить только латинскими буквами и цифрами (кириллица и спецсимволы вроде * / не допускаются)",
 
       process_title: "Как проходит работа", process_intro: "Короткий и понятный процесс — от первого сообщения до работающего сайта.",
-      process_1_t: "Обсуждение", process_1_d: "Обсуждаем, что вам нужно, для кого это, и как выглядит результат.",
+      process_1_t: "Обсуждение", process_1_d: "Обсуждаем, что вам нужно, для кого это и каким должен быть результат.",
       process_2_t: "Разработка", process_2_d: "Проектирую и создаю сайт или инструмент, держу вас в курсе по ходу работы.",
       process_3_t: "Проверка", process_3_d: "Вы тестируете всё, а мы дорабатываем детали под ваш рабочий процесс.",
       process_4_t: "Запуск", process_4_d: "Проект публикуется, и вы получаете всё необходимое для дальнейшей работы с ним.",
 
-      why_title: "Почему стоит работать со мной", why_intro: "Без наценки агентства, без завышенных обещаний — просто прямая работа напрямую.",
+      why_title: "Почему стоит работать со мной", why_intro: "Без наценки агентства, без завышенных обещаний — просто работа напрямую.",
       why_1_t: "Практичные решения", why_1_d: "Создаются под реальные потребности вашего бизнеса, без лишних функций, которыми вы никогда не воспользуетесь.",
       why_2_t: "Удобство на мобильных", why_2_d: "Каждый проект корректно работает на телефоне, а не только на экране компьютера.",
       why_3_t: "Понятная коммуникация", why_3_d: "Вы всегда знаете, на каком этапе находится проект и что будет дальше.",
@@ -544,7 +544,7 @@
       case_solution_t: "Решение",
       case_sol_1: "Конфигуратор: Arduino ⇄ ESP32, контроллер, дисплеи, светодиоды и 4 категории модулей",
       case_sol_2: "Цена считается на лету в PLN плюс актуальный курс EUR",
-      case_sol_3: "Цены берутся из прайс-листа в Google Таблицах — меняешь там, и сайт обновляется",
+      case_sol_3: "Цены берутся из прайс-листа в Google Таблицах — достаточно изменить их там, и сайт обновится",
       case_sol_4: "Заказы попадают в таблицу с номером и статусом; клиент получает письмо на своём языке при каждой смене статуса",
       case_result_t: "Результат",
       case_result_d: "Клиент сам собирает заказ и видит цену — на своём языке, с телефона или компьютера. Я получаю полный, структурированный заказ в таблицу и на почту, а клиент автоматически в курсе, на каком этапе его заказ.",
@@ -596,7 +596,6 @@
   /* ========================================================
      APPLY LANGUAGE
      ======================================================== */
-  var STORAGE_KEY = "webworks_lang";
   var SUPPORTED = ["en", "pl", "de", "ru"];
 
   function applyLanguage(lang){
@@ -636,18 +635,8 @@
       buttons[j].setAttribute("aria-pressed", isActive ? "true" : "false");
     }
 
-    try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* localStorage unavailable — ignore */ }
-
     refreshInquiryTextsForLanguage();
     refreshCountryNames();
-  }
-
-  function getInitialLanguage(){
-    try {
-      var saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && SUPPORTED.indexOf(saved) !== -1) return saved;
-    } catch (e) { /* ignore */ }
-    return "en";
   }
 
   /* ========================================================
@@ -798,7 +787,10 @@
     navLinkButtons[n].addEventListener("click", playNavClickSound);
   }
 
-  applyLanguage(getInitialLanguage());
+  // The site is for all of Europe: every visit — direct, shared link or
+  // copied link — starts in English, and each visitor picks their own
+  // language with the switcher. The choice is deliberately not saved.
+  applyLanguage("en");
 
   /* ========================================================
      MOBILE NAV
