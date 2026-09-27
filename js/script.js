@@ -1219,8 +1219,18 @@
     };
   }
 
+  // Only count real visitors: the live GitHub Pages address, not a local
+  // copy (file://, VS Code Live Server on 127.0.0.1) and not automated
+  // browsers (tests, Lighthouse) — those were inflating the statistics.
+  function isRealVisit(){
+    if (location.hostname !== "vpauk81.github.io") return false;
+    if (navigator.webdriver) return false;
+    return !/Headless|Lighthouse|PageSpeed/i.test(navigator.userAgent || "");
+  }
+
   function sendVisitBeacon(eventName){
     if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1) return;
+    if (!isRealVisit()) return;
     try {
       var payload = Object.assign({ type: "visit", event: eventName }, buildVisitorContext());
       var formData = new URLSearchParams();

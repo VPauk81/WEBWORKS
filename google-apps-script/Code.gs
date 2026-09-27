@@ -62,7 +62,7 @@ function doPost(e) {
     // дописывает строку на лист "Visits" и обновляет Дашборд.
     if (data.type === "visit") {
 
-      logVisit(data);
+      if (!isTestVisit(data.pageUrl, data.userAgent)) logVisit(data);
 
       return ContentService
         .createTextOutput(JSON.stringify({ status: "ok" }))
@@ -86,11 +86,19 @@ function doPost(e) {
 // ==========================================================
 
 function nextOrderId() {
-  const props = PropertiesService.getScriptProperties();
-  let last = Number(props.getProperty("ORDER_NUM") || 0);
-  last++;
-  props.setProperty("ORDER_NUM", String(last));
-  return "WW-" + String(last).padStart(5, "0");
+  // Lock so two inquiries arriving at the same moment can't both read the
+  // same counter and get the same ID. Held only for this tiny read+write.
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const props = PropertiesService.getScriptProperties();
+    let last = Number(props.getProperty("ORDER_NUM") || 0);
+    last++;
+    props.setProperty("ORDER_NUM", String(last));
+    return "WW-" + String(last).padStart(5, "0");
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function ensureHeaderRow(sheet) {
@@ -495,7 +503,21 @@ const VCOL_BROWSERLANG = 4;
 const VCOL_TIMEZONE = 5;
 const VCOL_DOMAIN = 6;
 const VCOL_DEVICE = 11;
+const VCOL_PAGE = 13;
+const VCOL_UA = 14;
 const VCOL_COUNTRY = 15;
+
+// Настоящий посетитель = страница открыта с живого адреса сайта и не
+// автоматическим браузером. Локальные копии (file://, Live Server на
+// 127.0.0.1) и тесты/Lighthouse раздували статистику — такие визиты
+// больше не записываются, а уже записанные не учитываются на Дашборде
+// (сами строки в листе Visits не удаляются).
+const SITE_ORIGIN = "https://vpauk81.github.io/";
+function isTestVisit(pageUrl, userAgent) {
+  const url = String(pageUrl || "");
+  if (url && url.indexOf(SITE_ORIGIN) !== 0) return true;
+  return /Headless|Lighthouse|PageSpeed/i.test(String(userAgent || ""));
+}
 
 const EVENT_LABELS = {
   pageview: "Просмотр страницы",
@@ -724,6 +746,20 @@ function bump(counter, dateKey, rawDate, todayKey, yesterdayKey, day7, day30) {
   if (rawDate >= day30) counter.last30++;
 }
 
+// "Дата заявки" (столбец D). Скрипт пишет туда строку "27.09.2026 16:05",
+// но Google Таблицы сами превращают такую строку в настоящую дату —
+// поэтому getValues() возвращает объект Date, а не текст. Раньше код
+// ожидал только текст, не находил в "Sun Sep 27 2026 …" точек и молча
+// пропускал ВСЕ заявки (на Дашборде: "Пока нет заявок", 0 отправленных).
+// Принимаем оба варианта.
+function parseInquiryDate(raw) {
+  if (Object.prototype.toString.call(raw) === "[object Date]") return isNaN(raw.getTime()) ? null : raw;
+  const m = String(raw || "").trim().match(/^(\d{1,2})\.(\d{1,2})\.(\d{4})(?:\s+(\d{1,2}):(\d{2}))?/);
+  if (!m) return null;
+  const d = new Date(Number(m[3]), Number(m[2]) - 1, Number(m[1]), Number(m[4] || 0), Number(m[5] || 0));
+  return isNaN(d.getTime()) ? null : d;
+}
+
 function computeStats() {
 
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -760,6 +796,7 @@ function computeStats() {
     const device = r[VCOL_DEVICE] || "unknown";
 
     if (!(rawDate instanceof Date) || isNaN(rawDate.getTime())) return;
+    if (isTestVisit(r[VCOL_PAGE], r[VCOL_UA])) return;
 
     const dateKey = Utilities.formatDate(rawDate, tz, "yyyy-MM-dd");
     const isPageview = eventRaw === eventLabel("pageview");
@@ -806,7 +843,7 @@ function computeStats() {
     .slice(0, 10);
 
   // Заявки — считаем прямо из основного листа (столбец D — дата
-  // создания как готовая строка, столбец E — язык).
+  // создания, столбец E — язык).
   const sheet = ss.getSheetByName(SHEET_NAME);
   const inquiriesSent = emptyCounter();
   const byInquiryLang = {};
@@ -815,13 +852,9 @@ function computeStats() {
   if (lastRow >= 2) {
     const data = sheet.getRange(2, 4, lastRow - 1, 2).getValues();
     data.forEach(function(r){
-      const label = String(r[0] || "");
-      const lang = r[1] || "unknown";
-      if (!label) return;
-
-      const parts = label.split(" ")[0].split(".");
-      if (parts.length !== 3) return;
-      const asDate = new Date(Number(parts[2]), Number(parts[1]) - 1, Number(parts[0]));
+      const asDate = parseInquiryDate(r[0]);
+      if (!asDate) return;
+      const lang = String(r[1] || "").trim().toLowerCase() || "unknown";
       const dateKey = Utilities.formatDate(asDate, tz, "yyyy-MM-dd");
 
       bump(inquiriesSent, dateKey, asDate, todayKey, yesterdayKey, day7, day30);
