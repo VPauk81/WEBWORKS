@@ -98,7 +98,7 @@
     max-width:420px;
     padding-top:6px;
     color:var(--ink-soft);
-    font-size:16px;
+    font-size:17px;
   }
 
   .btn{
@@ -308,7 +308,7 @@
     margin-bottom:8px;
   }
   .hero-sub{
-    font-size:14px;
+    font-size:16px;
     color:var(--muted-dark);
     max-width:480px;
     margin-bottom:14px;
@@ -325,7 +325,7 @@
   }
   .hero-stat{ display:flex; flex-direction:column; gap:1px; }
   .hero-stat .num{ font-family:var(--font-head); font-size:17px; font-weight:600; color:var(--accent-on-dark); }
-  .hero-stat .label{ font-size:11px; color:var(--muted-dark); }
+  .hero-stat .label{ font-size:12px; color:var(--muted-dark); }
 
   .hero-photo{
     border-radius:8px;
@@ -355,7 +355,7 @@
   }
   .service-row .num{ font-family:var(--font-head); color:var(--accent); font-size:14px; }
   .service-row h3{ font-size:19px; }
-  .service-row p{ color:var(--ink-soft); font-size:15px; }
+  .service-row p{ color:var(--ink-soft); font-size:16px; }
 
   @media (max-width: 700px){
     .service-row{ grid-template-columns:36px 1fr; }
@@ -392,7 +392,7 @@
     transform:translate(-50%,-50%);
   }
   .build-cell h3{ font-size:16px; margin-bottom:8px; }
-  .build-cell p{ font-size:14px; color:var(--ink-soft); }
+  .build-cell p{ font-size:15px; color:var(--ink-soft); }
 
   @media (max-width: 900px){ .build-grid{ grid-template-columns:repeat(2, 1fr); } }
   @media (max-width: 500px){ .build-grid{ grid-template-columns:1fr; } }
@@ -441,11 +441,11 @@
     100%{ box-shadow:0 0 0 0 rgba(255,255,255,0); opacity:1; }
   }
   .featured-project h3{ font-size:22px; margin-bottom:10px; }
-  .featured-project p.desc{ margin-bottom:16px; max-width:460px; }
+  .featured-project p.desc{ font-size:17px; margin-bottom:16px; max-width:480px; }
   .featured-devices{
     display:flex; flex-wrap:wrap; gap:16px;
     margin:12px 0 0; padding:0;
-    font-size:13px; color:var(--ink-soft);
+    font-size:14px; color:var(--ink-soft);
   }
   .featured-device{ display:inline-flex; align-items:center; gap:6px; }
   .featured-device .check{ color:var(--accent); font-weight:700; }
@@ -539,11 +539,11 @@
     margin-bottom:8px;
   }
   .case-col h4{ font-family:var(--font-head); font-size:16px; margin-bottom:6px; }
-  .case-col p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
+  .case-col p{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
   .case-list{ list-style:none; margin:0; padding:0; }
   .case-list li{
     position:relative; padding-left:18px; margin-bottom:7px;
-    font-size:14px; color:var(--ink-soft); line-height:1.5;
+    font-size:15px; color:var(--ink-soft); line-height:1.5;
   }
   .case-list li::before{ content:"✓"; position:absolute; left:0; color:var(--accent-text); font-weight:700; }
   .case-facts{
@@ -552,7 +552,7 @@
   }
   .case-fact{ display:flex; flex-direction:column; gap:2px; }
   .case-fact .num{ font-family:var(--font-head); font-size:28px; font-weight:700; color:var(--accent-text); line-height:1.1; }
-  .case-fact span:last-child{ font-size:13px; color:var(--ink-soft); }
+  .case-fact span:last-child{ font-size:14px; color:var(--ink-soft); }
 
   @media (max-width: 860px){
     .case-grid{ grid-template-columns:1fr; gap:18px; }
@@ -617,7 +617,7 @@
   }
   .project-category{ font-size:16px; font-weight:600; color:var(--accent); font-family:var(--font-head); margin-bottom:6px; }
   .project h3{ font-size:21px; margin-bottom:8px; }
-  .project p.desc{ color:var(--ink-soft); margin-bottom:12px; max-width:440px; }
+  .project p.desc{ font-size:17px; color:var(--ink-soft); margin-bottom:12px; max-width:460px; }
   /* Project 1 — feature checklist above the "Open demo site" button */
   .project-features{ margin:0 0 18px; }
 
@@ -699,7 +699,7 @@
   .order-field{ margin-bottom:16px; }
   .order-field label{
     display:block;
-    font-size:12px;
+    font-size:13px;
     font-family:var(--font-head);
     color:var(--ink-soft);
     margin-bottom:6px;
@@ -826,7 +826,7 @@
     margin-bottom:14px;
   }
   .process-step h3{ font-size:17px; margin-bottom:6px; }
-  .process-step p{ font-size:14px; color:var(--muted-dark); }
+  .process-step p{ font-size:15px; color:var(--muted-dark); }
 
   @media (max-width: 800px){
     .process-grid{ grid-template-columns:1fr; gap:22px; }
@@ -846,7 +846,7 @@
   }
   .why-item:nth-child(2n){ border-right:none; }
   .why-item h3{ font-size:16px; margin-bottom:5px; }
-  .why-item p{ font-size:14px; color:var(--ink-soft); }
+  .why-item p{ font-size:15px; color:var(--ink-soft); }
 
   @media (max-width: 700px){
     .why-list{ grid-template-columns:1fr; }
@@ -866,7 +866,7 @@
   }
   .guarantee-icon{ width:32px; height:32px; color:var(--accent); margin-bottom:10px; }
   .guarantee h3{ font-size:17px; margin-bottom:6px; }
-  .guarantee p{ font-size:14px; color:var(--ink-soft); line-height:1.55; }
+  .guarantee p{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
 
   /* Lighthouse-style score rings: the green arc length = --score %. */
   .quality{
@@ -881,7 +881,7 @@
     align-items:center;
   }
   .quality-head h3{ font-size:17px; margin-bottom:6px; }
-  .quality-head p{ font-size:13px; color:var(--ink-soft); line-height:1.5; }
+  .quality-head p{ font-size:14px; color:var(--ink-soft); line-height:1.5; }
   .quality-scores{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
   .score{ display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
   .score-ring{
@@ -895,7 +895,7 @@
     background:var(--white);
     font-family:var(--font-head); font-size:20px; font-weight:700; color:#0A6E3E;
   }
-  .score-label{ font-size:13px; color:var(--ink-soft); }
+  .score-label{ font-size:14px; color:var(--ink-soft); }
 
   @media (max-width: 860px){
     .guarantee-grid{ grid-template-columns:1fr; }
@@ -930,7 +930,7 @@
   }
   .inquiry-form.is-open{ display:block; }
   .inquiry-form h3{ font-size:19px; margin-bottom:6px; }
-  .inquiry-intro{ font-size:13px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
+  .inquiry-intro{ font-size:14px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
   .inquiry-form textarea{
     width:100%;
     background:var(--white);
@@ -958,13 +958,13 @@
   }
   .messenger-field label{
     display:block;
-    font-size:12px;
+    font-size:13px;
     font-family:var(--font-head);
     color:var(--ink-soft);
     margin-bottom:6px;
   }
   .messenger-options{ display:flex; gap:16px; flex-wrap:wrap; }
-  .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:13px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
+  .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:14px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
   .messenger-opt input{ accent-color:var(--accent); width:15px; height:15px; }
 
   .inquiry-form .btn{ width:100%; margin-top:4px; position:relative; }
@@ -992,14 +992,14 @@
     to{ transform:rotate(360deg); }
   }
   .inquiry-form .btn.error{ background:#c0392b; }
-  .inquiry-send-again-notice{ display:none; font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .inquiry-send-again-notice{ display:none; font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-send-again-notice.visible{ display:block; }
-  .inquiry-note{ font-size:12px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .inquiry-note{ font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-status{
     display:none;
     align-items:center;
     gap:8px;
-    font-size:14px;
+    font-size:15px;
     font-weight:600;
     color:var(--accent);
     background:var(--accent-soft);
@@ -1017,7 +1017,7 @@
      the visitor tries to submit with something still wrong. */
   .inquiry-form-error{
     margin-top:8px;
-    font-size:13px;
+    font-size:14px;
     font-weight:600;
     color:#c0392b;
     min-height:0;
@@ -1050,7 +1050,7 @@
     display:flex; align-items:center; gap:7px;
     font-family:var(--font-head); font-size:13px; color:var(--accent-on-dark); margin-bottom:6px;
   }
-  .channel dd{ margin:0; font-size:15px; color:var(--muted-dark); }
+  .channel dd{ margin:0; font-size:16px; color:var(--muted-dark); }
   .channel dd a{ display:inline-flex; align-items:center; gap:8px; transition:color .15s ease; }
   .channel dd a:hover{ color:var(--white); }
   .channel-icon{ width:18px; height:18px; flex-shrink:0; fill:currentColor; }
