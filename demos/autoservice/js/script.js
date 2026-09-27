@@ -130,7 +130,8 @@
   });
 
   // Подсветка текущего раздела в меню
-  const navLinks = [...nav.querySelectorAll("a")];
+  // Только якоря на этой странице (кнопка «Назад» ведёт на другой сайт)
+  const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
   const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
   const sectionObserver = new IntersectionObserver(
     (entries) => {
@@ -458,7 +459,7 @@
     [".lang__toggle", "pop"],
     ['a[href="#booking"], .form [type="submit"]', "cta"],
     ["#copyLink, #soundToggle", null], // у них свой звук
-    [".nav a, .footer__nav a, .btn, .burger, .tab, .map", "tap"],
+    [".nav a, .footer__nav a, .footer__tools a, .btn, .burger, .tab, .map", "tap"],
   ];
   document.addEventListener(
     "click",

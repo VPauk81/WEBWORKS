@@ -11,6 +11,8 @@ window.I18N = {
     "meta.desc":
       "Диагностика, ТО, ремонт двигателя и ходовой, шиномонтаж. Гарантия 12 месяцев, онлайн-запись.",
 
+    "nav.back": "Назад",
+    "nav.backFull": "Назад на WEBWORKS",
     "nav.services": "Услуги",
     "nav.prices": "Цены",
     "nav.process": "Как работаем",
@@ -238,6 +240,8 @@ window.I18N = {
     "meta.desc":
       "Diagnostyka, przeglądy, naprawa silnika i zawieszenia, wymiana opon. 12 miesięcy gwarancji, rezerwacja online.",
 
+    "nav.back": "Wstecz",
+    "nav.backFull": "Wróć do WEBWORKS",
     "nav.services": "Usługi",
     "nav.prices": "Cennik",
     "nav.process": "Jak pracujemy",
@@ -465,6 +469,8 @@ window.I18N = {
     "meta.desc":
       "Diagnose, Inspektion, Motor- und Fahrwerksreparatur, Reifenservice. 12 Monate Garantie, Online-Terminbuchung.",
 
+    "nav.back": "Zurück",
+    "nav.backFull": "Zurück zu WEBWORKS",
     "nav.services": "Leistungen",
     "nav.prices": "Preise",
     "nav.process": "Ablauf",

@@ -1829,4 +1829,35 @@
     }
   }
 
+  /* ========================================================
+     DEEP LINK TO A DEMO CARD — e.g. .../WEBWORKS/#project1
+     The AutoService demo's "Back" buttons link here: open that
+     card (a collapsed <details>) and scroll it into view below
+     the sticky header.
+     ======================================================== */
+  function openCardFromHash(){
+    var id = decodeURIComponent(location.hash.slice(1));
+    if (!/^project\d+$/.test(id)) return;
+    var card = document.getElementById(id);
+    if (!card || card.tagName !== "DETAILS") return;
+    card.open = true;
+    var offset = 12;
+    var header = document.querySelector("header");
+    if (header){
+      var pos = window.getComputedStyle(header).position;
+      if (pos === "fixed" || pos === "sticky"){ offset += header.offsetHeight; }
+    }
+    var top = card.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo(0, Math.max(0, top));
+  }
+  openCardFromHash();
+  window.addEventListener("hashchange", openCardFromHash);
+  // Images above the card can still shift the layout while loading —
+  // re-align once everything is in, unless the visitor already scrolled.
+  var userScrolled = false;
+  ["wheel", "touchstart", "keydown"].forEach(function(evt){
+    window.addEventListener(evt, function(){ userScrolled = true; }, { once: true, passive: true });
+  });
+  window.addEventListener("load", function(){ if (!userScrolled){ openCardFromHash(); } });
+
 })();

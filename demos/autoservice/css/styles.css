@@ -261,6 +261,41 @@ p {
   transform: scaleX(1);
 }
 
+/* «Назад» — возврат на портфолио WEBWORKS */
+.nav .nav__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: -7px 0;
+  padding: 6px 13px 6px 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  color: var(--text);
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav .nav__back::after {
+  display: none;
+}
+
+.nav .nav__back:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.nav__back .ico,
+.footer__tools a .ico {
+  width: 16px;
+  height: 16px;
+  color: var(--accent);
+  transition: transform 0.2s ease;
+}
+
+.nav__back:hover .ico,
+.footer__tools a:hover .ico {
+  transform: translateX(-3px);
+}
+
 .header__actions {
   display: flex;
   align-items: center;
@@ -1615,8 +1650,8 @@ p {
   }
 }
 
-/* Меню-бургер: телефоны и планшеты (полное меню — от 1024px, iPad в альбомной ориентации) */
-@media (max-width: 1023px) {
+/* Меню-бургер: телефоны и планшеты (полное меню — от 1100px) */
+@media (max-width: 1099px) {
   :root {
     --header-h: 68px;
   }
@@ -1663,6 +1698,20 @@ p {
 
   .nav a::after {
     display: none;
+  }
+
+  .nav .nav__back {
+    margin: 0;
+    padding: 16px 0;
+    gap: 10px;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    color: var(--accent);
+  }
+
+  .nav .nav__back:hover {
+    background: transparent;
   }
 
   .header__actions {
