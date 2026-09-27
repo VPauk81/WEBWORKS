@@ -19,7 +19,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 44;
+  var PAGE_BUILD = 45;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=44">
+<link rel="stylesheet" href="css/style.css?v=45">
 </head>
 <body>
 
@@ -312,13 +312,16 @@
       </div>
     </details>
 
-    <!-- PROJECT 1 — Auto Service / Service Calculator -->
+    <!-- PROJECT 1 — Auto Service / full demo website.
+         The complete site lives in demos/autoservice/ (its own index.html,
+         css/ and js/) and opens in a new tab; the card shows a real
+         screenshot of it, same frame style as the featured project. -->
     <details class="project-toggle" id="project1">
       <summary class="project-summary">
         <span class="project-summary-text">
           <span class="project-category" data-i18n="p1_category">Auto Service</span>
           <span class="project-summary-line">
-            <span class="project-summary-title" data-i18n="p1_title">Service Calculator</span>
+            <span class="project-summary-title" data-i18n="p1_title">Car Service Website</span>
             <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
           </span>
         </span>
@@ -326,36 +329,23 @@
       </summary>
     <div class="project">
       <div class="project-mock">
-        <div class="project-photo">
-          <img src="images/avtoservis.jpg?v=8" alt="Auto service diagnostics" loading="lazy">
-        </div>
-        <div class="mock">
-          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-          <div class="mock-title" data-i18n="p1_mock_title">Brake Service Estimate</div>
-          <div class="mock-row">
-            <label for="calc1Vehicle" data-i18n="p1_mock_label1">Vehicle type</label>
-            <select id="calc1Vehicle">
-              <option value="40" data-i18n="p1_opt_v1">Compact car</option>
-              <option value="55" data-i18n="p1_opt_v2">Sedan</option>
-              <option value="80" data-i18n="p1_opt_v3">SUV / Van</option>
-            </select>
+        <a class="featured-frame" href="demos/autoservice/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">AutoService — demo</span>
           </div>
-          <div class="mock-row">
-            <label for="calc1Service" data-i18n="p1_mock_label2">Service type</label>
-            <select id="calc1Service">
-              <option value="60" data-i18n="p1_opt_s1">Inspection</option>
-              <option value="140" data-i18n="p1_opt_s2">Pad replacement</option>
-              <option value="230" data-i18n="p1_opt_s3">Full brake overhaul</option>
-            </select>
-          </div>
-          <div class="mock-total">
-            <span data-i18n="p1_mock_total_label">Estimated total</span>
-            <span class="amount">€<span id="calc1Total">100</span></span>
-          </div>
-        </div>
+          <img src="images/autoservice-demo.jpg?v=1" alt="Screenshot of the AutoService demo website" loading="lazy">
+        </a>
       </div>
       <div>
-        <p class="desc" data-i18n="p1_desc">Website with services, pricing and an interactive calculator for customer requests.</p>
+        <p class="desc" data-i18n="p1_desc">A complete website for a car service: services with prices, a price list, reviews, FAQ and online booking.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p1_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p1_feat_2">Online booking: make, model, year and engine type</li>
+          <li data-i18n="p1_feat_3">Price list with tabs, GDPR consent in the form</li>
+          <li data-i18n="p1_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/autoservice/index.html" target="_blank" rel="noopener" data-i18n="p1_cta">Open demo site →</a>
       </div>
     </div>
     </details>
@@ -800,6 +790,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=44" defer></script>
+<script src="js/script.js?v=45" defer></script>
 </body>
 </html>

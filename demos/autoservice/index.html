@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0c0d10" />
+    <title data-i18n="meta.title">AutoService — car repair and servicing</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Diagnostics, servicing, engine and suspension repair, tyres. 12-month warranty, online booking."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <!-- SVG icons -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-diag" viewBox="0 0 24 24"><path d="M3 12h4l2-5 4 10 2-5h6" /></symbol>
+      <symbol id="i-oil" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" /></symbol>
+      <symbol id="i-engine" viewBox="0 0 24 24"><path d="M4 10h2V7h6v2h3l2 2h3v7h-3l-2 2H8l-2-2H4z" /><path d="M9 4h4M11 4v3" /></symbol>
+      <symbol id="i-susp" viewBox="0 0 24 24"><path d="M12 2v3M8 5h8M9 8l6 2-6 2 6 2-6 2 6 2M8 21h8M12 18v3" /></symbol>
+      <symbol id="i-brake" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /><circle cx="12" cy="12" r="3" /><path d="M17 5.5a9 9 0 0 1 2.5 4" /></symbol>
+      <symbol id="i-tire" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4" /><path d="M12 3v5M12 16v5M3 12h5M16 12h5" /></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z" /></symbol>
+      <symbol id="i-snow" viewBox="0 0 24 24"><path d="M12 2v20M4 7l16 10M20 7 4 17M9 3l3 3 3-3M9 21l3-3 3 3" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+      <symbol id="i-box" viewBox="0 0 24 24"><path d="m3 7 9-4 9 4-9 4z" /><path d="M3 7v10l9 4 9-4V7M12 11v10" /></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19.3z" /><path d="M9 10h.01M12 10h.01M15 10h.01" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="m17 9 5 6M22 9l-5 6" /></symbol>
+      <symbol id="i-caret"viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-star"viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+    </svg>
+
+    <!-- Header -->
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="AutoService">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 3a13 13 0 1 0 13 13" />
+              <path d="M16 16 25 7" />
+              <circle cx="16" cy="16" r="2.4" />
+            </svg>
+          </span>
+          <span class="logo__text">Auto<b>Service</b></span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a href="#services" data-i18n="nav.services">Services</a>
+          <a href="#prices" data-i18n="nav.prices">Prices</a>
+          <a href="#process" data-i18n="nav.process">How it works</a>
+          <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <a class="header__phone" data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a>
+          <div class="lang" id="lang">
+            <button
+              type="button"
+              class="lang__toggle"
+              id="langToggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="langMenu"
+              data-i18n-attr="aria-label:lang.label"
+              aria-label="Choose language"
+            >
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#booking" data-i18n="cta.book">Book now</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">Open Mon–Sat · Online booking 24/7</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">
+              Repairs that make you <span class="accent">want to drive</span>
+            </h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              Diagnostics, servicing and repairs for all makes and models. Every job is agreed
+              with you in advance, we show you the replaced parts, and everything comes with a
+              12-month warranty.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#booking">
+                <span data-i18n="hero.cta">Book a service</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="#prices" data-i18n="hero.cta2">View prices</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">30 min</strong><span data-i18n="hero.f1">computer diagnostics</span></li>
+              <li><strong data-i18n="hero.f2v">12 months</strong><span data-i18n="hero.f2">warranty on all work</span></li>
+              <li><strong>4.9 ★</strong><span data-i18n="hero.f3">average customer rating</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual">
+            <div class="gauge-card">
+              <div class="gauge-wrap">
+                <svg class="gauge" viewBox="0 0 300 300" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="arcGrad" x1="0" y1="1" x2="1" y2="0">
+                      <stop offset="0" stop-color="#ffb020" />
+                      <stop offset="1" stop-color="#ff5a1f" />
+                    </linearGradient>
+                  </defs>
+                  <circle cx="150" cy="150" r="118" class="gauge__track" />
+                  <circle cx="150" cy="150" r="118" class="gauge__value" stroke="url(#arcGrad)" />
+                  <g class="gauge__ticks" id="ticks"></g>
+                  <g class="gauge__needle" id="needle">
+                    <path d="M150 150 L146 148 L150 52 L154 148 Z" />
+                  </g>
+                  <circle cx="150" cy="150" r="14" class="gauge__hub" />
+                  <circle cx="150" cy="150" r="5" fill="#ff5a1f" />
+                </svg>
+                <div class="gauge-card__readout">
+                  <span class="gauge-card__num" id="rpm">0</span>
+                  <span class="gauge-card__unit" data-i18n="hero.rpm">rpm × 1000</span>
+                </div>
+              </div>
+              <div class="gauge-card__status">
+                <div>
+                  <span class="label" data-i18n="hero.bays">Free bays today</span>
+                  <strong data-i18n="hero.baysv">3 of 8</strong>
+                </div>
+                <div>
+                  <span class="label" data-i18n="hero.slot">Next available slot</span>
+                  <strong>14:30</strong>
+                </div>
+              </div>
+            </div>
+            <div class="chip chip--a"><svg class="ico"><use href="#i-shield" /></svg><span data-i18n="hero.chip1">12-month warranty</span></div>
+            <div class="chip chip--b"><svg class="ico"><use href="#i-box" /></svg><span data-i18n="hero.chip2">Parts in stock</span></div>
+          </div>
+        </div>
+
+        <div class="marquee" data-i18n-attr="aria-label:brands.label" aria-label="Makes we service">
+          <div class="marquee__track">
+            <span>Volkswagen</span><span>BMW</span><span>Mercedes-Benz</span><span>Audi</span><span>Škoda</span>
+            <span>Peugeot</span><span>Renault</span><span>Opel</span><span>Toyota</span><span>Ford</span>
+            <span>Volvo</span><span>Fiat</span><span>Kia</span><span>Hyundai</span><span>Tesla</span>
+            <span aria-hidden="true">Volkswagen</span><span aria-hidden="true">BMW</span>
+            <span aria-hidden="true">Mercedes-Benz</span><span aria-hidden="true">Audi</span>
+            <span aria-hidden="true">Škoda</span><span aria-hidden="true">Peugeot</span>
+            <span aria-hidden="true">Renault</span><span aria-hidden="true">Opel</span>
+            <span aria-hidden="true">Toyota</span><span aria-hidden="true">Ford</span>
+            <span aria-hidden="true">Volvo</span><span aria-hidden="true">Fiat</span>
+            <span aria-hidden="true">Kia</span><span aria-hidden="true">Hyundai</span><span aria-hidden="true">Tesla</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services -->
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section__head reveal">
+            <p class="kicker" data-i18n="services.kicker">Services</p>
+            <h2 data-i18n="services.title">Everything your car needs, under one roof</h2>
+            <p class="section__sub" data-i18n="services.sub">
+              Eight specialist areas, 8 lifts and dealer-level equipment. Prices shown are for labour;
+              parts are charged at list price, with no rush surcharge.
+            </p>
+          </div>
+
+          <div class="services">
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-diag" /></svg></div>
+              <h3 data-i18n="s1.t">Computer diagnostics</h3>
+              <p data-i18n="s1.d">We read fault codes from every control unit, test sensors and give you a clear report.</p>
+              <div class="service__meta"><span data-i18n="s1.p">from €49</span><span data-i18n="s1.m">30 min</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-oil" /></svg></div>
+              <h3 data-i18n="s2.t">Servicing</h3>
+              <p data-i18n="s2.d">Oil, filters and fluids changed according to the manufacturer's schedule.</p>
+              <div class="service__meta"><span data-i18n="s2.p">from €89</span><span data-i18n="s2.m">1 hour</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-engine" /></svg></div>
+              <h3 data-i18n="s3.t">Engine repair</h3>
+              <p data-i18n="s3.d">Timing belts and chains, gaskets, injectors, full rebuilds with warranty.</p>
+              <div class="service__meta"><span data-i18n="s3.p">from €150</span><span data-i18n="s3.m">1–5 days</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-susp" /></svg></div>
+              <h3 data-i18n="s4.t">Suspension</h3>
+              <p data-i18n="s4.d">Shock absorbers, control arms, bushings and 3D wheel alignment.</p>
+              <div class="service__meta"><span data-i18n="s4.p">from €60</span><span data-i18n="s4.m">from 1 hour</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-brake" /></svg></div>
+              <h3 data-i18n="s5.t">Brakes</h3>
+              <p data-i18n="s5.d">Pads, discs, callipers and brake fluid replacement.</p>
+              <div class="service__meta"><span data-i18n="s5.p">from €70</span><span data-i18n="s5.m">45 min</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-tire" /></svg></div>
+              <h3 data-i18n="s6.t">Tyres</h3>
+              <p data-i18n="s6.d">Seasonal changeover, balancing, puncture repair and tyre storage.</p>
+              <div class="service__meta"><span data-i18n="s6.p">from €40</span><span data-i18n="s6.m">40 min</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-bolt" /></svg></div>
+              <h3 data-i18n="s7.t">Electrics &amp; hybrids</h3>
+              <p data-i18n="s7.d">Wiring, starters, alternators, lighting and hybrid/EV system checks.</p>
+              <div class="service__meta"><span data-i18n="s7.p">from €55</span><span data-i18n="s7.m">from 1 hour</span></div>
+            </article>
+            <article class="service reveal">
+              <div class="service__icon"><svg class="ico"><use href="#i-snow" /></svg></div>
+              <h3 data-i18n="s8.t">Air conditioning</h3>
+              <p data-i18n="s8.d">Regas, leak detection and antibacterial treatment of the system.</p>
+              <div class="service__meta"><span data-i18n="s8.p">from €79</span><span data-i18n="s8.m">1 hour</span></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why us -->
+      <section class="section section--alt" id="about">
+        <div class="container why">
+          <div class="why__left reveal">
+            <p class="kicker" data-i18n="why.kicker">Why us</p>
+            <h2 data-i18n="why.title">Honest service, no surprises on the invoice</h2>
+            <p class="section__sub" data-i18n="why.sub">
+              We never do unnecessary work. Diagnostics and a quote come first — the repair starts
+              only after you approve it.
+            </p>
+            <div class="stats">
+              <div class="stat"><strong data-count="12">0</strong><span data-i18n="why.st1">years in business</span></div>
+              <div class="stat"><strong data-count="25000" data-suffix="+">0</strong><span data-i18n="why.st2">cars repaired</span></div>
+              <div class="stat"><strong data-count="8">0</strong><span data-i18n="why.st3">service bays</span></div>
+              <div class="stat"><strong data-count="98" data-suffix="%">0</strong><span data-i18n="why.st4">customers come back</span></div>
+            </div>
+          </div>
+
+          <div class="features">
+            <div class="feature reveal">
+              <svg class="ico"><use href="#i-shield" /></svg>
+              <div>
+                <h3 data-i18n="why.f1t">12-month warranty</h3>
+                <p data-i18n="why.f1d">On all work and on every part we fit. No small print.</p>
+              </div>
+            </div>
+            <div class="feature reveal">
+              <svg class="ico"><use href="#i-eye" /></svg>
+              <div>
+                <h3 data-i18n="why.f2t">Full transparency</h3>
+                <p data-i18n="why.f2d">Photos and videos from the lift sent to your phone; old parts are returned to you.</p>
+              </div>
+            </div>
+            <div class="feature reveal">
+              <svg class="ico"><use href="#i-clock" /></svg>
+              <div>
+                <h3 data-i18n="why.f3t">On time, guaranteed</h3>
+                <p data-i18n="why.f3d">We tell you when the car will be ready. If we're late, you get 10% off labour.</p>
+              </div>
+            </div>
+            <div class="feature reveal">
+              <svg class="ico"><use href="#i-box" /></svg>
+              <div>
+                <h3 data-i18n="why.f4t">Parts in stock</h3>
+                <p data-i18n="why.f4d">Over 5,000 items on the shelf — OEM and quality-approved alternatives.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Process -->
+      <section class="section" id="process">
+        <div class="container">
+          <div class="section__head reveal">
+            <p class="kicker" data-i18n="process.kicker">How it works</p>
+            <h2 data-i18n="process.title">Four steps to a car that runs right</h2>
+          </div>
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step__num">01</span>
+              <h3 data-i18n="p1.t">Booking</h3>
+              <p data-i18n="p1.d">Book online or give us a call — we'll find a time that suits you.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">02</span>
+              <h3 data-i18n="p2.t">Diagnostics</h3>
+              <p data-i18n="p2.d">We find the root cause of the problem and show it to you.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">03</span>
+              <h3 data-i18n="p3.t">Quote</h3>
+              <p data-i18n="p3.d">We agree the list of work and the exact price before any repair begins.</p>
+            </li>
+            <li class="step reveal">
+              <span class="step__num">04</span>
+              <h3 data-i18n="p4.t">Done</h3>
+              <p data-i18n="p4.d">You get your car back with an itemised invoice and a warranty certificate.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- Prices -->
+      <section class="section section--alt" id="prices">
+        <div class="container">
+          <div class="section__head reveal">
+            <p class="kicker" data-i18n="prices.kicker">Prices</p>
+            <h2 data-i18n="prices.title">Prices for popular jobs</h2>
+            <p class="section__sub" data-i18n="prices.sub">
+              All prices include VAT. The final cost depends on your car model — we'll confirm the exact
+              price after an inspection.
+            </p>
+          </div>
+
+          <div class="tabs reveal" role="tablist">
+            <button class="tab is-active" role="tab" aria-selected="true" data-tab="to" data-i18n="tab.to">Servicing</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="engine" data-i18n="tab.engine">Engine</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="chassis" data-i18n="tab.chassis">Chassis</button>
+            <button class="tab" role="tab" aria-selected="false" data-tab="tires" data-i18n="tab.tires">Tyres</button>
+          </div>
+
+          <div class="price-panels reveal">
+            <ul class="price-list is-active" data-panel="to">
+              <li><span data-i18n="pr.to1">Oil and oil filter change</span><b>€89</b></li>
+              <li><span data-i18n="pr.to2">Pre-inspection check (MOT / TÜV / APK)</span><b>€39</b></li>
+              <li><span data-i18n="pr.to3">Cabin (pollen) filter replacement</span><b>€29</b></li>
+              <li><span data-i18n="pr.to4">Brake fluid replacement</span><b>€69</b></li>
+              <li><span data-i18n="pr.to5">Coolant replacement</span><b>€79</b></li>
+              <li><span data-i18n="pr.to6">Full service per manufacturer schedule</span><b data-i18n="pr.to6p">from €249</b></li>
+            </ul>
+            <ul class="price-list" data-panel="engine">
+              <li><span data-i18n="pr.en1">Computer diagnostics</span><b>€49</b></li>
+              <li><span data-i18n="pr.en2">Spark plug replacement</span><b data-i18n="pr.en2p">from €59</b></li>
+              <li><span data-i18n="pr.en3">Timing belt kit replacement</span><b data-i18n="pr.en3p">from €390</b></li>
+              <li><span data-i18n="pr.en4">Injector cleaning on a test bench</span><b>€149</b></li>
+              <li><span data-i18n="pr.en5">Valve cover gasket replacement</span><b data-i18n="pr.en5p">from €120</b></li>
+              <li><span data-i18n="pr.en6">Engine overhaul</span><b data-i18n="pr.en6p">from €2,500</b></li>
+            </ul>
+            <ul class="price-list" data-panel="chassis">
+              <li><span data-i18n="pr.ch1">Suspension check</span><b data-i18n="pr.ch1p">free</b></li>
+              <li><span data-i18n="pr.ch2">3D wheel alignment</span><b>€89</b></li>
+              <li><span data-i18n="pr.ch3">Shock absorber replacement (each)</span><b data-i18n="pr.ch3p">from €90</b></li>
+              <li><span data-i18n="pr.ch4">Control arm replacement</span><b data-i18n="pr.ch4p">from €80</b></li>
+              <li><span data-i18n="pr.ch5">Brake pads replacement (per axle)</span><b>€70</b></li>
+              <li><span data-i18n="pr.ch6">Brake discs replacement (per axle)</span><b data-i18n="pr.ch6p">from €110</b></li>
+            </ul>
+            <ul class="price-list" data-panel="tires">
+              <li><span data-i18n="pr.ti1">Seasonal wheel changeover R13–R16</span><b>€40</b></li>
+              <li><span data-i18n="pr.ti2">Seasonal wheel changeover R17–R21</span><b>€55</b></li>
+              <li><span data-i18n="pr.ti3">Wheel balancing (per wheel)</span><b>€10</b></li>
+              <li><span data-i18n="pr.ti4">Puncture repair</span><b data-i18n="pr.ti4p">from €25</b></li>
+              <li><span data-i18n="pr.ti5">Tyre storage (per season)</span><b>€60</b></li>
+              <li><span data-i18n="pr.ti6">Alloy wheel straightening</span><b data-i18n="pr.ti6p">from €60</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section" id="reviews">
+        <div class="container">
+          <div class="section__head reveal">
+            <p class="kicker" data-i18n="reviews.kicker">Reviews</p>
+            <h2 data-i18n="reviews.title">What our customers say</h2>
+          </div>
+          <div class="reviews">
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="5/5">
+                <svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg>
+              </div>
+              <blockquote data-i18n="r1">
+                “I came in with a knocking noise in the suspension. They showed me on the lift exactly
+                what needed replacing and stuck to the quote to the cent. Got videos during the repair,
+                too.”
+              </blockquote>
+              <figcaption><span class="avatar">T</span><div><b>Thomas</b><span>Volkswagen Golf</span></div></figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="5/5">
+                <svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg>
+              </div>
+              <blockquote data-i18n="r2">
+                “I've had my car serviced here for three years. Always on time, the car comes back
+                clean, and the mechanic tells me what to keep an eye on before the next visit.”
+              </blockquote>
+              <figcaption><span class="avatar">A</span><div><b>Anna</b><span>Toyota RAV4</span></div></figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="review__stars" aria-label="5/5">
+                <svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg>
+              </div>
+              <blockquote data-i18n="r3">
+                “Another garage quoted me €1,800. Here they found the real cause — a €90 sensor.
+                This is the only place I take my car now.”
+              </blockquote>
+              <figcaption><span class="avatar">M</span><div><b>Marco</b><span>BMW 3 Series</span></div></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section--alt" id="faq">
+        <div class="container faq-wrap">
+          <div class="section__head reveal">
+            <p class="kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 data-i18n="faq.title">Frequently asked questions</h2>
+            <p class="section__sub" data-i18n="faq.sub">Can't find your answer? Give us a call — our service advisor will help right away.</p>
+          </div>
+          <div class="faq reveal">
+            <details open>
+              <summary data-i18n="faq.q1">Will servicing here affect my manufacturer warranty?</summary>
+              <p data-i18n="faq.a1">No. Under EU rules you are free to service your car at an independent garage without losing the manufacturer's warranty. We follow the official service schedule, use approved oils and parts, and update your service book.</p>
+            </details>
+            <details>
+              <summary data-i18n="faq.q2">Can I bring my own parts?</summary>
+              <p data-i18n="faq.a2">Yes. We'll fit your parts, but in that case the warranty covers our labour only.</p>
+            </details>
+            <details>
+              <summary data-i18n="faq.q3">How long is the wait without an appointment?</summary>
+              <p data-i18n="faq.a3">Usually 20–40 minutes for simple jobs. To skip the wait, book online — it takes a minute.</p>
+            </details>
+            <details>
+              <summary data-i18n="faq.q4">Which payment methods do you accept?</summary>
+              <p data-i18n="faq.a4">Cash, debit and credit cards, Apple Pay and Google Pay, bank transfer, and invoices for business customers.</p>
+            </details>
+            <details>
+              <summary data-i18n="faq.q5">Do you have a waiting area?</summary>
+              <p data-i18n="faq.a5">Yes: coffee, Wi-Fi and a window into the workshop, so you can watch the work on your car.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking & contacts -->
+      <section class="section" id="booking">
+        <div class="container booking">
+          <div class="booking__form-wrap reveal">
+            <p class="kicker" data-i18n="book.kicker">Online booking</p>
+            <h2 data-i18n="book.title">Book a time that suits you</h2>
+            <p class="section__sub" data-i18n="book.sub">We'll call you back within 10 minutes during opening hours to confirm.</p>
+
+            <form class="form" id="bookingForm" novalidate>
+              <div class="field">
+                <label for="f-name" data-i18n="f.name">Name</label>
+                <input id="f-name" name="name" type="text" autocomplete="name" data-i18n-attr="placeholder:f.nameph" placeholder="Your name" required />
+              </div>
+              <div class="field">
+                <label for="f-phone" data-i18n="f.phone">Phone</label>
+                <input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+00 000 000 0000" required />
+              </div>
+              <div class="field">
+                <label for="f-make" data-i18n="f.make">Make</label>
+                <select id="f-make" name="make">
+                  <option value="" data-i18n="f.makeph">Select make</option>
+                  <!-- марки подставляются из cars.js -->
+                  <option value="other" data-i18n="f.makeOther">Other make</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-model" data-i18n="f.model">Model</label>
+                <select id="f-model" name="model" disabled></select>
+                <input id="f-model-text" name="modelText" type="text" hidden />
+              </div>
+              <div class="field">
+                <label for="f-year" data-i18n="f.year">Year</label>
+                <select id="f-year" name="year">
+                  <option value="" data-i18n="f.yearph">Select year</option>
+                  <!-- годы подставляются из script.js -->
+                  <option value="older" data-i18n="f.yearOlder">Older</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-fuel" data-i18n="f.fuel">Engine</label>
+                <select id="f-fuel" name="fuel">
+                  <option value="" data-i18n="f.fuelph">Select engine</option>
+                  <option value="petrol" data-i18n="f.fuelPetrol">Petrol</option>
+                  <option value="diesel" data-i18n="f.fuelDiesel">Diesel</option>
+                  <option value="lpg" data-i18n="f.fuelLpg">LPG (gas)</option>
+                  <option value="petrol-lpg" data-i18n="f.fuelPetrolLpg">Petrol / LPG</option>
+                  <option value="hybrid" data-i18n="f.fuelHybrid">Hybrid</option>
+                  <option value="electric" data-i18n="f.fuelElectric">Electric</option>
+                </select>
+              </div>
+              <div class="field field--full">
+                <label for="f-service" data-i18n="f.service">Service</label>
+                <select id="f-service" name="service">
+                  <option data-i18n="s1.t">Computer diagnostics</option>
+                  <option data-i18n="s2.t">Servicing</option>
+                  <option data-i18n="s3.t">Engine repair</option>
+                  <option data-i18n="s4.t">Suspension</option>
+                  <option data-i18n="s5.t">Brakes</option>
+                  <option data-i18n="s6.t">Tyres</option>
+                  <option data-i18n="s7.t">Electrics &amp; hybrids</option>
+                  <option data-i18n="s8.t">Air conditioning</option>
+                  <option data-i18n="f.other">Other</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="f-date" data-i18n="f.date">Date</label>
+                <input id="f-date" name="date" type="date" />
+              </div>
+              <div class="field">
+                <label for="f-time" data-i18n="f.time">Time</label>
+                <select id="f-time" name="time">
+                  <option data-i18n="f.t1">Morning (08:00–12:00)</option>
+                  <option data-i18n="f.t2">Midday (12:00–15:00)</option>
+                  <option data-i18n="f.t3">Afternoon (15:00–18:00)</option>
+                </select>
+              </div>
+              <div class="field field--full">
+                <label for="f-msg" data-i18n="f.msg">What's the problem?</label>
+                <textarea id="f-msg" name="message" rows="3" data-i18n-attr="placeholder:f.msgph" placeholder="For example: knocking from the front right over bumps"></textarea>
+              </div>
+              <label class="consent field--full">
+                <input type="checkbox" name="consent" required />
+                <span data-i18n="f.consent">I agree to the processing of my personal data in accordance with the <a href="#privacy">Privacy Policy</a> (GDPR).</span>
+              </label>
+              <button class="btn btn--primary btn--block field--full" type="submit">
+                <span data-i18n="f.submit">Send request</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </button>
+            </form>
+
+            <div class="form-success" id="formSuccess" hidden>
+              <div class="form-success__icon"><svg class="ico"><use href="#i-check" /></svg></div>
+              <h3 data-i18n="ok.title">Request sent!</h3>
+              <p data-i18n="ok.text">We'll call you back shortly to confirm your appointment.</p>
+              <button class="btn btn--ghost" type="button" id="formReset" data-i18n="ok.again">Send another request</button>
+            </div>
+          </div>
+
+          <aside class="contacts reveal" id="contacts">
+            <a class="map" data-contact-href="map" href="#" target="_blank" rel="noopener">
+              <svg viewBox="0 0 400 260" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+                <rect width="400" height="260" class="map__bg" />
+                <path class="map__road map__road--big" d="M-10 180 C 90 150, 160 210, 260 160 S 380 120, 420 140" />
+                <path class="map__road" d="M120 -10 L 150 280" />
+                <path class="map__road" d="M300 -10 L 270 280" />
+                <path class="map__road" d="M-10 70 L 420 90" />
+                <path class="map__road map__road--thin" d="M40 -10 L 60 280 M 210 -10 L 205 280 M -10 230 L 420 245" />
+                <rect x="160" y="100" width="36" height="46" rx="4" class="map__block" />
+                <rect x="220" y="104" width="40" height="30" rx="4" class="map__block" />
+                <rect x="70" y="100" width="42" height="40" rx="4" class="map__block" />
+                <rect x="310" y="30" width="60" height="44" rx="4" class="map__block" />
+              </svg>
+              <span class="map__pin"><svg class="ico"><use href="#i-pin" /></svg></span>
+              <span class="map__cta" data-i18n="c.map">Open in Google Maps</span>
+            </a>
+            <ul class="contacts__list">
+              <li>
+                <svg class="ico"><use href="#i-pin" /></svg>
+                <div><span data-i18n="c.address">Address</span><b data-contact="address">Your Street 1, 00000 Your City, Country</b></div>
+              </li>
+              <li>
+                <svg class="ico"><use href="#i-phone" /></svg>
+                <div><span data-i18n="c.phone">Phone</span><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></div>
+              </li>
+              <li>
+                <svg class="ico"><use href="#i-chat" /></svg>
+                <div><span>WhatsApp</span><a data-contact-href="whatsapp" href="https://wa.me/000000000000" target="_blank" rel="noopener" data-i18n="c.wa">Message us</a></div>
+              </li>
+              <li>
+                <svg class="ico"><use href="#i-mail" /></svg>
+                <div><span data-i18n="c.email">Email</span><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></div>
+              </li>
+              <li>
+                <svg class="ico"><use href="#i-clock" /></svg>
+                <div>
+                  <span data-i18n="c.hours">Opening hours</span>
+                  <b><span data-i18n="c.wd">Mon–Fri</span> <span data-contact="hoursWeekdays">08:00–18:00</span></b>
+                  <b><span data-i18n="c.sat">Sat</span> <span data-contact="hoursSaturday">09:00–14:00</span></b>
+                  <b class="muted" data-i18n="c.sun">Sun — closed</b>
+                </div>
+              </li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <a href="#top" class="logo" aria-label="AutoService">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M16 3a13 13 0 1 0 13 13" />
+              <path d="M16 16 25 7" />
+              <circle cx="16" cy="16" r="2.4" />
+            </svg>
+          </span>
+          <span class="logo__text">Auto<b>Service</b></span>
+        </a>
+        <nav class="footer__nav">
+          <a href="#services" data-i18n="nav.services">Services</a>
+          <a href="#prices" data-i18n="nav.prices">Prices</a>
+          <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#booking" data-i18n="nav.booking">Booking</a>
+        </nav>
+        <div class="footer__tools">
+          <button type="button" class="pill-btn" id="copyLink">
+            <svg class="ico"><use href="#i-copy" /></svg>
+            <span data-i18n="copy.btn">Copy link</span>
+          </button>
+          <button
+            type="button"
+            class="pill-btn"
+            id="soundToggle"
+            aria-pressed="true"
+            data-i18n-attr="aria-label:sound.label;title:sound.label"
+            aria-label="Click sounds"
+            title="Click sounds"
+          >
+            <svg class="ico sound-on"><use href="#i-sound" /></svg>
+            <svg class="ico sound-off"><use href="#i-mute" /></svg>
+            <span data-i18n="sound.btn">Sound</span>
+          </button>
+        </div>
+        <div class="footer__legal">
+          <a href="#imprint" id="imprint" data-i18n="legal.imprint">Imprint</a>
+          <a href="#privacy" id="privacy" data-i18n="legal.privacy">Privacy Policy</a>
+          <span>© <span id="year"></span> AutoService</span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite">
+      <svg class="ico"><use href="#i-check" /></svg>
+      <span data-i18n="copy.done">Link copied!</span>
+    </div>
+
+    <a class="fab" data-contact-href="phone" href="tel:+000000000000" data-i18n-attr="aria-label:c.call" aria-label="Call us">
+      <svg class="ico"><use href="#i-phone" /></svg>
+    </a>
+
+    <script src="js/config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/cars.js"></script>
+    <script src="js/script.js"></script>
+  </body>
+</html>

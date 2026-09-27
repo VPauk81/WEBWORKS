@@ -618,6 +618,8 @@
   .project-category{ font-size:16px; font-weight:600; color:var(--accent); font-family:var(--font-head); margin-bottom:6px; }
   .project h3{ font-size:21px; margin-bottom:8px; }
   .project p.desc{ color:var(--ink-soft); margin-bottom:12px; max-width:440px; }
+  /* Project 1 — feature checklist above the "Open demo site" button */
+  .project-features{ margin:0 0 18px; }
 
   /* Themed banner above each project mockup — a real photo where one
      exists, falling back to custom line-art (own palette, no licensing

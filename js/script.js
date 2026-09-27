@@ -54,11 +54,13 @@
       featured_device_tablet: "on tablets",
       featured_device_desktop: "and on computers",
 
-      p1_category: "Auto Service", p1_title: "Service Calculator",
-      p1_desc: "Website with services, pricing and an interactive calculator for customer requests.",
-      p1_mock_title: "Brake Service Estimate", p1_mock_label1: "Vehicle type", p1_mock_label2: "Service type", p1_mock_total_label: "Estimated total",
-      p1_opt_v1: "Compact car", p1_opt_v2: "Sedan", p1_opt_v3: "SUV / Van",
-      p1_opt_s1: "Inspection", p1_opt_s2: "Pad replacement", p1_opt_s3: "Full brake overhaul",
+      p1_category: "Auto Service", p1_title: "Car Service Website",
+      p1_desc: "A complete website for a car service: services with prices, a price list, reviews, FAQ and online booking.",
+      p1_feat_1: "4 languages: EN / PL / DE / RU",
+      p1_feat_2: "Online booking: make, model, year and engine type",
+      p1_feat_3: "Price list with tabs, GDPR consent in the form",
+      p1_feat_4: "Works on phones, tablets and computers",
+      p1_cta: "Open demo site →",
 
       p2_category: "Barbershop", p2_title: "Booking Website",
       p2_desc: "Modern presentation website with services, prices and appointment request functionality.",
@@ -200,11 +202,13 @@
       featured_device_tablet: "na tablecie",
       featured_device_desktop: "i na komputerze",
 
-      p1_category: "Serwis samochodowy", p1_title: "Kalkulator serwisowy",
-      p1_desc: "Strona z usługami, cennikiem i interaktywnym kalkulatorem dla zgłoszeń klientów.",
-      p1_mock_title: "Wycena serwisu hamulców", p1_mock_label1: "Typ pojazdu", p1_mock_label2: "Rodzaj usługi", p1_mock_total_label: "Szacowana kwota",
-      p1_opt_v1: "Samochód kompaktowy", p1_opt_v2: "Sedan", p1_opt_v3: "SUV / Van",
-      p1_opt_s1: "Przegląd", p1_opt_s2: "Wymiana klocków", p1_opt_s3: "Pełny remont hamulców",
+      p1_category: "Serwis samochodowy", p1_title: "Strona serwisu samochodowego",
+      p1_desc: "Kompletna strona dla serwisu samochodowego: usługi z cenami, cennik, opinie, FAQ i rezerwacja online.",
+      p1_feat_1: "4 języki: EN / PL / DE / RU",
+      p1_feat_2: "Rezerwacja online: marka, model, rok i rodzaj silnika",
+      p1_feat_3: "Cennik z zakładkami, zgoda RODO w formularzu",
+      p1_feat_4: "Działa na telefonach, tabletach i komputerach",
+      p1_cta: "Otwórz stronę demo →",
 
       p2_category: "Barbershop", p2_title: "Strona z rezerwacją",
       p2_desc: "Nowoczesna strona prezentacyjna z usługami, cenami i możliwością zgłoszenia wizyty.",
@@ -346,11 +350,13 @@
       featured_device_tablet: "auf dem Tablet",
       featured_device_desktop: "und am Computer",
 
-      p1_category: "Kfz-Service", p1_title: "Service-Rechner",
-      p1_desc: "Website mit Leistungen, Preisen und einem interaktiven Rechner für Kundenanfragen.",
-      p1_mock_title: "Kostenvoranschlag Bremsenservice", p1_mock_label1: "Fahrzeugtyp", p1_mock_label2: "Leistung", p1_mock_total_label: "Geschätzter Preis",
-      p1_opt_v1: "Kleinwagen", p1_opt_v2: "Limousine", p1_opt_v3: "SUV / Van",
-      p1_opt_s1: "Inspektion", p1_opt_s2: "Bremsbelagwechsel", p1_opt_s3: "Komplette Bremsenüberholung",
+      p1_category: "Kfz-Service", p1_title: "Website für eine Kfz-Werkstatt",
+      p1_desc: "Eine komplette Website für eine Kfz-Werkstatt: Leistungen mit Preisen, Preisliste, Bewertungen, FAQ und Online-Terminbuchung.",
+      p1_feat_1: "4 Sprachen: EN / PL / DE / RU",
+      p1_feat_2: "Online-Termin: Marke, Modell, Baujahr und Motorart",
+      p1_feat_3: "Preisliste mit Tabs, DSGVO-Einwilligung im Formular",
+      p1_feat_4: "Funktioniert auf Smartphones, Tablets und Computern",
+      p1_cta: "Demo-Website öffnen →",
 
       p2_category: "Barbershop", p2_title: "Buchungswebsite",
       p2_desc: "Moderne Präsentationswebsite mit Leistungen, Preisen und Terminanfrage-Funktion.",
@@ -492,11 +498,13 @@
       featured_device_tablet: "на планшете",
       featured_device_desktop: "и на компьютере",
 
-      p1_category: "Автосервис", p1_title: "Калькулятор услуг",
-      p1_desc: "Сайт с услугами, ценами и интерактивным калькулятором для заявок клиентов.",
-      p1_mock_title: "Расчёт стоимости ремонта тормозов", p1_mock_label1: "Тип автомобиля", p1_mock_label2: "Вид услуги", p1_mock_total_label: "Примерная стоимость",
-      p1_opt_v1: "Компактный автомобиль", p1_opt_v2: "Седан", p1_opt_v3: "Внедорожник / Фургон",
-      p1_opt_s1: "Диагностика", p1_opt_s2: "Замена колодок", p1_opt_s3: "Полный ремонт тормозной системы",
+      p1_category: "Автосервис", p1_title: "Сайт автосервиса",
+      p1_desc: "Полноценный сайт автосервиса: услуги с ценами, прайс, отзывы, FAQ и онлайн-запись.",
+      p1_feat_1: "4 языка: EN / PL / DE / RU",
+      p1_feat_2: "Онлайн-запись: марка, модель, год и тип двигателя",
+      p1_feat_3: "Прайс с вкладками, согласие GDPR в форме",
+      p1_feat_4: "Работает на телефонах, планшетах и компьютерах",
+      p1_cta: "Открыть демо-сайт →",
 
       p2_category: "Барбершоп", p2_title: "Сайт для записи",
       p2_desc: "Современный презентационный сайт с услугами, ценами и функцией записи на приём.",
@@ -845,23 +853,6 @@
   var mobileLinks = mobilePanel.querySelectorAll("a");
   for (var m = 0; m < mobileLinks.length; m++){
     mobileLinks[m].addEventListener("click", closeMobilePanel);
-  }
-
-  /* ========================================================
-     DEMO CALCULATOR 1 — Auto Service
-     ======================================================== */
-  var calc1Vehicle = document.getElementById("calc1Vehicle");
-  var calc1Service = document.getElementById("calc1Service");
-  var calc1Total = document.getElementById("calc1Total");
-
-  function updateCalc1(){
-    var total = Number(calc1Vehicle.value) + Number(calc1Service.value);
-    calc1Total.textContent = total;
-  }
-  if (calc1Vehicle && calc1Service){
-    calc1Vehicle.addEventListener("change", updateCalc1);
-    calc1Service.addEventListener("change", updateCalc1);
-    updateCalc1();
   }
 
   /* ========================================================

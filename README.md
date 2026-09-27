@@ -11,6 +11,8 @@ index.html               Main page (markup only — styles and scripts are exter
 css/style.css            All styles
 js/script.js             Language switching, mobile nav, demo calculators, order-form demo
 images/                  Site images / screenshots
+demos/autoservice/       Full "Auto Service" demo website (own index.html, css/, js/) —
+                         opened from the Project 1 card; its screenshot is images/autoservice-demo.jpg
 google-apps-script/      Backend for the "Tell me about your project" form (see below)
 ```
 
