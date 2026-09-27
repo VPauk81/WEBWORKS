@@ -218,6 +218,7 @@ window.I18N = {
 
     "c.map": "Открыть в Google Maps",
     "c.address": "Адрес",
+    "c.addressDemo": "Ваша улица 1, 00000 Ваш город, Страна",
     "c.phone": "Телефон",
     "c.wa": "Написать нам",
     "c.email": "Почта",
@@ -448,6 +449,7 @@ window.I18N = {
 
     "c.map": "Otwórz w Google Maps",
     "c.address": "Adres",
+    "c.addressDemo": "Twoja ulica 1, 00-000 Twoje miasto, Kraj",
     "c.phone": "Telefon",
     "c.wa": "Napisz do nas",
     "c.email": "E-mail",
@@ -678,6 +680,7 @@ window.I18N = {
 
     "c.map": "In Google Maps öffnen",
     "c.address": "Adresse",
+    "c.addressDemo": "Ihre Straße 1, 00000 Ihre Stadt, Land",
     "c.phone": "Telefon",
     "c.wa": "Schreiben Sie uns",
     "c.email": "E-Mail",

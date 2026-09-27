@@ -95,10 +95,11 @@
     max-width:520px;
   }
   .section-intro{
-    max-width:420px;
-    padding-top:6px;
+    max-width:480px;
+    padding-top:4px;
     color:var(--ink-soft);
-    font-size:18px;
+    font-size:20px;
+    line-height:1.5;
   }
 
   .btn{

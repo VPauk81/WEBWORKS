@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Own EN/PL/DE/RU switcher — phones must not machine-translate the page -->
+    <meta name="google" content="notranslate" />
     <meta name="theme-color" content="#0c0d10" />
     <title data-i18n="meta.title">AutoService — car repair and servicing</title>
     <meta
@@ -16,7 +18,7 @@
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Unbounded:wght@500;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css?v=2" />
     <script>document.documentElement.classList.add("js");</script>
   </head>
   <body>
@@ -590,7 +592,7 @@
             <ul class="contacts__list">
               <li>
                 <svg class="ico"><use href="#i-pin" /></svg>
-                <div><span data-i18n="c.address">Address</span><b data-contact="address">Your Street 1, 00000 Your City, Country</b></div>
+                <div><span data-i18n="c.address">Address</span><b data-contact="address" data-i18n="c.addressDemo">Your Street 1, 00000 Your City, Country</b></div>
               </li>
               <li>
                 <svg class="ico"><use href="#i-phone" /></svg>
@@ -678,9 +680,9 @@
       <svg class="ico"><use href="#i-phone" /></svg>
     </a>
 
-    <script src="js/config.js"></script>
-    <script src="js/i18n.js"></script>
-    <script src="js/cars.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/config.js?v=2"></script>
+    <script src="js/i18n.js?v=2"></script>
+    <script src="js/cars.js?v=2"></script>
+    <script src="js/script.js?v=2"></script>
   </body>
 </html>

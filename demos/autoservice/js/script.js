@@ -12,7 +12,13 @@
   };
   document.querySelectorAll("[data-contact]").forEach((el) => {
     const value = cfg[el.dataset.contact];
-    if (value) el.textContent = value;
+    if (!value) return;
+    // Still the placeholder from the markup (e.g. the demo address) — keep
+    // it translatable. A real value from config.js replaces it and is shown
+    // the same in every language.
+    if (el.dataset.i18n && value === el.textContent.trim()) return;
+    el.removeAttribute("data-i18n");
+    el.textContent = value;
   });
   document.querySelectorAll("[data-contact-href]").forEach((el) => {
     const make = hrefs[el.dataset.contactHref];
