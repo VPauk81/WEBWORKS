@@ -66,6 +66,7 @@
       p2_desc: "Modern presentation website with services, prices and appointment request functionality.",
       p2_mock_title: "Book an Appointment", p2_service1: "Haircut", p2_service2: "Beard trim", p2_service3: "Haircut & beard",
       p2_mock_cta: "Request Appointment",
+      p2_day1: "M", p2_day2: "T", p2_day3: "W", p2_day4: "T", p2_day5: "F", p2_day6: "S", p2_day7: "S",
 
       p3_category: "Electronics", p3_title: "Product Configurator",
       p3_desc: "Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.",
@@ -214,6 +215,7 @@
       p2_desc: "Nowoczesna strona prezentacyjna z usługami, cenami i możliwością zgłoszenia wizyty.",
       p2_mock_title: "Zarezerwuj wizytę", p2_service1: "Strzyżenie", p2_service2: "Trymowanie brody", p2_service3: "Strzyżenie i broda",
       p2_mock_cta: "Zgłoś wizytę",
+      p2_day1: "P", p2_day2: "W", p2_day3: "Ś", p2_day4: "C", p2_day5: "P", p2_day6: "S", p2_day7: "N",
 
       p3_category: "Elektronika", p3_title: "Konfigurator produktu",
       p3_desc: "Konfigurator do wyboru sterowników, wyświetlaczy i dodatkowych modułów, z automatycznym przeliczaniem ceny — zbudowany pod projekty na Arduino / ESP32.",
@@ -362,6 +364,7 @@
       p2_desc: "Moderne Präsentationswebsite mit Leistungen, Preisen und Terminanfrage-Funktion.",
       p2_mock_title: "Termin buchen", p2_service1: "Haarschnitt", p2_service2: "Bartschnitt", p2_service3: "Haarschnitt & Bart",
       p2_mock_cta: "Termin anfragen",
+      p2_day1: "M", p2_day2: "D", p2_day3: "M", p2_day4: "D", p2_day5: "F", p2_day6: "S", p2_day7: "S",
 
       p3_category: "Elektronik", p3_title: "Produktkonfigurator",
       p3_desc: "Konfigurator zur Auswahl von Controllern, Displays und zusätzlichen Modulen mit automatischer Preisberechnung — entwickelt für Arduino- / ESP32-Hardwareprojekte.",
@@ -510,6 +513,7 @@
       p2_desc: "Современный презентационный сайт с услугами, ценами и функцией записи на приём.",
       p2_mock_title: "Записаться на приём", p2_service1: "Стрижка", p2_service2: "Оформление бороды", p2_service3: "Стрижка и борода",
       p2_mock_cta: "Отправить заявку",
+      p2_day1: "П", p2_day2: "В", p2_day3: "С", p2_day4: "Ч", p2_day5: "П", p2_day6: "С", p2_day7: "В",
 
       p3_category: "Электроника", p3_title: "Конфигуратор продукта",
       p3_desc: "Конфигуратор для выбора контроллеров, дисплеев и дополнительных модулей с автоматическим расчётом цены — создан для проектов на Arduino / ESP32.",

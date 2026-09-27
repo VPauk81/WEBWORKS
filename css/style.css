@@ -537,17 +537,17 @@
   .case-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:22px; }
   .case-step{
     display:inline-flex; align-items:center; justify-content:center;
-    width:30px; height:30px; border-radius:50%;
+    width:34px; height:34px; border-radius:50%;
     background:var(--accent); color:var(--white);
-    font-family:var(--font-head); font-size:13px; font-weight:600;
+    font-family:var(--font-head); font-size:14px; font-weight:600;
     margin-bottom:8px;
   }
-  .case-col h4{ font-family:var(--font-head); font-size:16px; margin-bottom:6px; }
-  .case-col p{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
+  .case-col h4{ font-family:var(--font-head); font-size:19px; margin-bottom:8px; }
+  .case-col p{ font-size:17px; color:var(--ink-soft); line-height:1.55; }
   .case-list{ list-style:none; margin:0; padding:0; }
   .case-list li{
-    position:relative; padding-left:18px; margin-bottom:7px;
-    font-size:15px; color:var(--ink-soft); line-height:1.5;
+    position:relative; padding-left:20px; margin-bottom:8px;
+    font-size:17px; color:var(--ink-soft); line-height:1.5;
   }
   .case-list li::before{ content:"✓"; position:absolute; left:0; color:var(--accent-text); font-weight:700; }
   .case-facts{
@@ -555,8 +555,8 @@
     margin-top:22px; padding-top:18px; border-top:1px solid var(--line);
   }
   .case-fact{ display:flex; flex-direction:column; gap:2px; }
-  .case-fact .num{ font-family:var(--font-head); font-size:28px; font-weight:700; color:var(--accent-text); line-height:1.1; }
-  .case-fact span:last-child{ font-size:14px; color:var(--ink-soft); }
+  .case-fact .num{ font-family:var(--font-head); font-size:32px; font-weight:700; color:var(--accent-text); line-height:1.1; }
+  .case-fact span:last-child{ font-size:16px; color:var(--ink-soft); line-height:1.35; }
 
   @media (max-width: 860px){
     .case-grid{ grid-template-columns:1fr; gap:18px; }
@@ -621,7 +621,7 @@
   }
   .project-category{ font-size:16px; font-weight:600; color:var(--accent); font-family:var(--font-head); margin-bottom:6px; }
   .project h3{ font-size:21px; margin-bottom:8px; }
-  .project p.desc{ font-size:17px; color:var(--ink-soft); margin-bottom:12px; max-width:460px; }
+  .project p.desc{ font-size:18px; line-height:1.55; color:var(--ink-soft); margin-bottom:14px; max-width:500px; }
   /* Project 1 — feature checklist above the "Open demo site" button */
   .project-features{ margin:0 0 18px; }
 
@@ -651,25 +651,25 @@
   }
   .mock-window{ display:flex; gap:6px; margin-bottom:12px; }
   .mock-dot{ width:8px; height:8px; border-radius:50%; background:var(--line); }
-  .mock-title{ font-family:var(--font-head); font-size:14px; margin-bottom:10px; }
+  .mock-title{ font-family:var(--font-head); font-size:16px; margin-bottom:12px; }
   .mock-row{ display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:8px 12px; margin-bottom:8px; }
-  .mock-row label{ font-size:13px; color:var(--ink-soft); }
+  .mock-row label{ font-size:15px; color:var(--ink-soft); }
   .mock-row select{
     background:var(--white); border:1px solid var(--line); border-radius:3px;
-    padding:8px 10px; font-size:13px; min-width:0; width:100%; max-width:160px; flex:1 1 auto;
+    padding:9px 10px; font-size:15px; min-width:0; width:100%; max-width:200px; flex:1 1 auto;
   }
   .mock-total{
     display:flex; justify-content:space-between; align-items:baseline;
     margin-top:12px; padding-top:10px; border-top:1px solid var(--line);
     font-family:var(--font-head);
   }
-  .mock-total .amount{ font-size:22px; color:var(--accent-text); }
+  .mock-total .amount{ font-size:25px; color:var(--accent-text); }
 
   .mock-list-row{
-    display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); font-size:13px;
+    display:flex; justify-content:space-between; padding:11px 0; border-bottom:1px solid var(--line); font-size:15px; gap:10px;
   }
   .mock-list-row:last-child{ border-bottom:none; }
-  .badge{ font-size:11px; font-family:var(--font-head); padding:2px 8px; border-radius:10px; }
+  .badge{ font-size:13px; font-family:var(--font-head); padding:3px 10px; border-radius:10px; white-space:nowrap; }
   .badge--new{ background:#EFE6D6; color:#8A5A1E; }
   .badge--progress{ background:var(--accent-soft); color:var(--accent-text); }
   .badge--done{ background:#E2EEE7; color:var(--accent-text); }
@@ -677,13 +677,19 @@
   .calendar-mini{ display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-top:6px; }
   .calendar-mini span{
     aspect-ratio:1; display:flex; align-items:center; justify-content:center;
-    font-size:11px; border-radius:3px; background:var(--white); border:1px solid var(--line); color:var(--ink-soft);
+    font-size:13px; border-radius:3px; background:var(--white); border:1px solid var(--line); color:var(--ink-soft);
   }
   .calendar-mini span.on{ background:var(--accent); color:#fff; border-color:var(--accent); }
 
   .mock-checks{ display:flex; flex-direction:column; gap:10px; margin:14px 0; }
-  .mock-checks label{ display:flex; align-items:center; gap:10px; font-size:13px; color:var(--ink); }
+  .mock-checks label{ display:flex; align-items:center; gap:10px; font-size:15px; color:var(--ink); }
   .mock-checks input{ accent-color:var(--accent); width:15px; height:15px; }
+
+  /* Demo contact form inside the Project 5 card only (not the real inquiry form) */
+  .project .order-field label{ font-size:15px; }
+  .project .field-with-check input{ font-size:16px; }
+  .project .order-demo-status{ font-size:15px; }
+  .project .email-inline-error{ font-size:13px; }
 
   @media (max-width: 820px){
     .project{ grid-template-columns:1fr; gap:24px; }
