@@ -652,8 +652,42 @@
     var Ctx = window.AudioContext || window.webkitAudioContext;
     if (!Ctx) return null;
     if (!uiAudioCtx){ uiAudioCtx = new Ctx(); }
-    if (uiAudioCtx.state === "suspended"){ uiAudioCtx.resume(); }
+    // "suspended" (not unlocked yet) or iOS "interrupted" (after a call,
+    // Siri, switching apps) — both need resume() to make sound again.
+    if (uiAudioCtx.state !== "running"){ try { uiAudioCtx.resume(); } catch (e) { /* ignore */ } }
     return uiAudioCtx;
+  }
+
+  // Same helper as the Arduino/ESP32 site's playTone(): one short tone,
+  // optionally sliding from startFreq to endFreq.
+  function playTone(startFreq, endFreq, duration, waveType, volume, startDelay){
+    try {
+      var ctx = getUiAudioContext();
+      if (!ctx) return;
+      var now = ctx.currentTime + (startDelay || 0);
+      var osc = ctx.createOscillator();
+      var gain = ctx.createGain();
+      osc.type = waveType || "sine";
+      osc.frequency.setValueAtTime(startFreq, now);
+      if (endFreq && endFreq !== startFreq){
+        osc.frequency.exponentialRampToValueAtTime(endFreq, now + duration * 0.7);
+      }
+      var vol = volume || 0.1;
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(vol, now + duration * 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.03);
+    } catch (e) { /* Web Audio unavailable — silently skip the sound */ }
+  }
+
+  // Checkboxes — a short "tick", different for checking vs unchecking
+  // (copied from the Arduino/ESP32 site's playCheckboxSound()).
+  function playCheckboxSound(isChecked){
+    if (isChecked){ playTone(720, 980, 0.07, "triangle", 0.09); }
+    else { playTone(520, 340, 0.07, "triangle", 0.07); }
   }
 
   // Language switch — a quick, light two-note "pop".
@@ -1659,10 +1693,47 @@
      correct link to share, even when this page is opened locally
      from disk during editing/testing.
      ======================================================== */
-  var collapsibles = document.querySelectorAll("details.case-study, details.project-toggle");
-  for (var ci = 0; ci < collapsibles.length; ci++){
-    collapsibles[ci].addEventListener("toggle", function(){ playNavClickSound(); });
+  /* ========================================================
+     SOUND ON EVERY BUTTON + reliable audio on phones
+     ======================================================== */
+  // Phones (iPhone especially) only allow audio that starts inside a
+  // real tap, and drop sounds played a moment later (e.g. "Copied!"
+  // after the clipboard answers). Unlocking the shared AudioContext on
+  // every first touch/key — with a 1-sample silent buffer — keeps it
+  // running so all later sounds are audible.
+  function unlockUiAudio(){
+    var ctx = getUiAudioContext();
+    if (!ctx) return;
+    try {
+      var src = ctx.createBufferSource();
+      src.buffer = ctx.createBuffer(1, 1, 22050);
+      src.connect(ctx.destination);
+      src.start(0);
+    } catch (e) { /* ignore */ }
   }
+  ["pointerdown", "touchstart", "keydown"].forEach(function(evt){
+    document.addEventListener(evt, unlockUiAudio, { capture: true, passive: true });
+  });
+
+  // Every clickable thing that doesn't already have its own sound gets
+  // the short nav "tick": Share + its WhatsApp/Telegram/Viber/Email
+  // items, the country picker and its options, the case-study / demo
+  // fold-out buttons, contact links, the demo form button, footer links…
+  // Capture phase, so handlers that stopPropagation() (Share) still count.
+  var OWN_SOUND = ".lang-switch button, .cta-btn, .nav-links a, #copyLinkBtn";
+  document.addEventListener("click", function(e){
+    var el = e.target && e.target.closest ? e.target.closest("button, a, summary, .country-option, [role='button']") : null;
+    if (!el || el.matches(OWN_SOUND)) return;
+    playNavClickSound();
+  }, true);
+
+  // Checkboxes (messengers, calculator modules, "None") and dropdowns.
+  document.addEventListener("change", function(e){
+    var t = e.target;
+    if (!t) return;
+    if (t.type === "checkbox" || t.type === "radio"){ playCheckboxSound(t.checked); }
+    else if (t.tagName === "SELECT"){ playNavClickSound(); }
+  }, true);
 
   var SITE_URL = "https://vpauk81.github.io/WEBWORKS/";
 
@@ -1673,11 +1744,13 @@
 
   if (copyLinkBtn){
     copyLinkBtn.addEventListener("click", function(){
+      // Play right on the tap — phones drop sounds that start later,
+      // and the clipboard can take a moment (or ask permission) first.
+      playCopyClickSound();
       var label = copyLinkBtn.querySelector("span");
       var originalKey = label ? label.getAttribute("data-i18n") : null;
 
       function showCopied(){
-        playCopyClickSound();
         copyLinkBtn.classList.add("is-copied");
         if (label){
           var lang = document.documentElement.getAttribute("lang") || "en";
