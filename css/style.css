@@ -820,28 +820,28 @@
   }
   .process-grid::before{
     content:"";
-    position:absolute; left:0; right:0; top:19px;
+    position:absolute; left:0; right:0; top:20px;
     height:1px; background:var(--line-dark);
   }
   .process-step{ padding-right:28px; position:relative; }
   .process-step .step-num{
     display:flex; align-items:center; justify-content:center;
-    width:34px; height:34px;
+    width:40px; height:40px;
     border:1px solid var(--accent);
     border-radius:50%;
     font-family:var(--font-head);
-    font-size:14px;
+    font-size:16px;
     background:var(--navy);
     position:relative; z-index:2;
     margin-bottom:14px;
   }
-  .process-step h3{ font-size:17px; margin-bottom:6px; }
-  .process-step p{ font-size:15px; color:var(--muted-dark); }
+  .process-step h3{ font-size:20px; margin-bottom:8px; }
+  .process-step p{ font-size:17px; line-height:1.55; color:var(--muted-dark); }
 
   @media (max-width: 800px){
     .process-grid{ grid-template-columns:1fr; gap:22px; }
-    .process-grid::before{ left:19px; top:0; bottom:0; right:auto; width:1px; height:auto; }
-    .process-step{ padding-left:56px; padding-right:0; }
+    .process-grid::before{ left:20px; top:0; bottom:0; right:auto; width:1px; height:auto; }
+    .process-step{ padding-left:60px; padding-right:0; }
     .process-step .step-num{ position:absolute; left:0; top:0; margin-bottom:0; }
   }
 
@@ -855,8 +855,8 @@
     border-right:1px solid var(--line);
   }
   .why-item:nth-child(2n){ border-right:none; }
-  .why-item h3{ font-size:16px; margin-bottom:5px; }
-  .why-item p{ font-size:15px; color:var(--ink-soft); }
+  .why-item h3{ font-size:19px; margin-bottom:6px; }
+  .why-item p{ font-size:17px; line-height:1.55; color:var(--ink-soft); }
 
   @media (max-width: 700px){
     .why-list{ grid-template-columns:1fr; }
@@ -874,9 +874,9 @@
     border-radius:8px;
     background:var(--white);
   }
-  .guarantee-icon{ width:32px; height:32px; color:var(--accent); margin-bottom:10px; }
-  .guarantee h3{ font-size:17px; margin-bottom:6px; }
-  .guarantee p{ font-size:15px; color:var(--ink-soft); line-height:1.55; }
+  .guarantee-icon{ width:36px; height:36px; color:var(--accent); margin-bottom:10px; }
+  .guarantee h3{ font-size:20px; margin-bottom:8px; }
+  .guarantee p{ font-size:17px; color:var(--ink-soft); line-height:1.55; }
 
   /* Lighthouse-style score rings: the green arc length = --score %. */
   .quality{
@@ -890,22 +890,22 @@
     gap:20px;
     align-items:center;
   }
-  .quality-head h3{ font-size:17px; margin-bottom:6px; }
-  .quality-head p{ font-size:14px; color:var(--ink-soft); line-height:1.5; }
+  .quality-head h3{ font-size:20px; margin-bottom:6px; }
+  .quality-head p{ font-size:16px; color:var(--ink-soft); line-height:1.5; }
   .quality-scores{ display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; }
   .score{ display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; }
   .score-ring{
-    width:72px; height:72px; border-radius:50%;
+    width:84px; height:84px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     background:conic-gradient(#0C9D58 calc(var(--score) * 1%), #DDEFE5 0);
   }
   .score-num{
-    width:58px; height:58px; border-radius:50%;
+    width:68px; height:68px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     background:var(--white);
-    font-family:var(--font-head); font-size:20px; font-weight:700; color:#0A6E3E;
+    font-family:var(--font-head); font-size:23px; font-weight:700; color:#0A6E3E;
   }
-  .score-label{ font-size:14px; color:var(--ink-soft); }
+  .score-label{ font-size:16px; color:var(--ink-soft); }
 
   @media (max-width: 860px){
     .guarantee-grid{ grid-template-columns:1fr; }
@@ -931,7 +931,7 @@
      they wrote, in whatever language they wrote it in. */
   .inquiry-form{
     display:none;
-    max-width:460px;
+    max-width:540px;
     background:var(--paper-alt);
     border-radius:8px;
     padding:22px;
@@ -939,15 +939,15 @@
     color:var(--ink);
   }
   .inquiry-form.is-open{ display:block; }
-  .inquiry-form h3{ font-size:19px; margin-bottom:6px; }
-  .inquiry-intro{ font-size:14px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
+  .inquiry-form h3{ font-size:22px; margin-bottom:8px; }
+  .inquiry-intro{ font-size:16px; color:var(--ink-soft); margin-bottom:16px; line-height:1.5; }
   .inquiry-form textarea{
     width:100%;
     background:var(--white);
     border:1px solid var(--line);
     border-radius:3px;
     padding:10px 12px;
-    font-size:14px;
+    font-size:16px;
     font-family:var(--font-body);
     color:var(--ink);
     resize:vertical;
@@ -955,6 +955,11 @@
     transition:border-color .15s ease;
   }
   .inquiry-form textarea:focus-visible{ border-color:var(--accent); }
+  /* 16px inputs: bigger text and no iPhone auto-zoom when a field is tapped */
+  .inquiry-form .order-field label{ font-size:15px; }
+  .inquiry-form .field-with-check input{ font-size:16px; }
+  .inquiry-form .country-select-btn{ font-size:15px; }
+  .inquiry-form .email-inline-error{ font-size:14px; }
 
   /* Hidden until the phone number above is fully valid — same
      "appears + highlighted" behavior as the Arduino/ESP32 order
@@ -968,14 +973,14 @@
   }
   .messenger-field label{
     display:block;
-    font-size:13px;
+    font-size:15px;
     font-family:var(--font-head);
     color:var(--ink-soft);
     margin-bottom:6px;
   }
   .messenger-options{ display:flex; gap:16px; flex-wrap:wrap; }
-  .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:14px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
-  .messenger-opt input{ accent-color:var(--accent); width:15px; height:15px; }
+  .messenger-opt{ display:flex !important; align-items:center; gap:6px; font-size:16px; color:var(--ink); font-family:var(--font-body); margin-bottom:0 !important; }
+  .messenger-opt input{ accent-color:var(--accent); width:17px; height:17px; }
 
   .inquiry-form .btn{ width:100%; margin-top:4px; position:relative; }
   .inquiry-form .btn:disabled{ opacity:1; cursor:default; background:var(--accent); }
@@ -1002,14 +1007,14 @@
     to{ transform:rotate(360deg); }
   }
   .inquiry-form .btn.error{ background:#c0392b; }
-  .inquiry-send-again-notice{ display:none; font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .inquiry-send-again-notice{ display:none; font-size:15px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-send-again-notice.visible{ display:block; }
-  .inquiry-note{ font-size:13px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
+  .inquiry-note{ font-size:15px; color:var(--ink-soft); margin-top:10px; line-height:1.4; }
   .inquiry-status{
     display:none;
     align-items:center;
     gap:8px;
-    font-size:15px;
+    font-size:17px;
     font-weight:600;
     color:var(--accent);
     background:var(--accent-soft);
@@ -1027,7 +1032,7 @@
      the visitor tries to submit with something still wrong. */
   .inquiry-form-error{
     margin-top:8px;
-    font-size:14px;
+    font-size:16px;
     font-weight:600;
     color:#c0392b;
     min-height:0;
