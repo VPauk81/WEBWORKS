@@ -516,7 +516,7 @@ p {
 .hero__lead {
   max-width: 540px;
   margin-top: 24px;
-  font-size: 1.12rem;
+  font-size: 1.24rem;
   color: var(--muted);
 }
 
@@ -545,7 +545,7 @@ p {
 }
 
 .hero__facts span {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--muted);
 }
 
@@ -771,7 +771,7 @@ p {
 .section__sub {
   margin-top: 18px;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 1.16rem;
 }
 
 .kicker {
@@ -849,7 +849,7 @@ p {
 
 .service p {
   margin-top: 10px;
-  font-size: 0.93rem;
+  font-size: 1.02rem;
   color: var(--muted);
   flex-grow: 1;
 }
@@ -860,7 +860,7 @@ p {
   margin-top: 24px;
   padding-top: 18px;
   border-top: 1px dashed var(--line-strong);
-  font-size: 0.88rem;
+  font-size: 0.95rem;
 }
 
 .service__meta span:first-child {
@@ -881,7 +881,7 @@ p {
 
 .stats {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1px;
   margin-top: 44px;
   border-radius: var(--radius);
@@ -904,8 +904,11 @@ p {
 }
 
 .stat span {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--muted);
+  display: block;
+  overflow-wrap: break-word;
+  hyphens: auto;
 }
 
 .features {
@@ -937,7 +940,7 @@ p {
 .feature p {
   margin-top: 8px;
   color: var(--muted);
-  font-size: 0.93rem;
+  font-size: 1.02rem;
 }
 
 /* Шаги */
@@ -983,7 +986,7 @@ p {
 .step p {
   margin-top: 10px;
   color: var(--muted);
-  font-size: 0.93rem;
+  font-size: 1.02rem;
 }
 
 /* Цены */
@@ -1043,6 +1046,7 @@ p {
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
+  font-size: 1.05rem;
   padding: 22px 28px;
   border-bottom: 1px solid var(--line);
 }
@@ -1102,7 +1106,7 @@ p {
 .review blockquote {
   flex-grow: 1;
   margin: 22px 0 28px;
-  font-size: 1rem;
+  font-size: 1.08rem;
   line-height: 1.7;
 }
 
@@ -1119,7 +1123,7 @@ p {
 }
 
 .review figcaption span:not(.avatar) {
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--muted);
 }
 
@@ -1162,6 +1166,7 @@ p {
 .faq summary {
   position: relative;
   padding: 22px 64px 22px 26px;
+  font-size: 1.06rem;
   font-weight: 700;
   cursor: pointer;
   list-style: none;
@@ -1195,6 +1200,7 @@ p {
 
 .faq details p {
   padding: 0 26px 24px;
+  font-size: 1.05rem;
   color: var(--muted);
 }
 
@@ -1257,7 +1263,7 @@ p {
 }
 
 .field label {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   font-weight: 700;
   color: var(--muted);
 }
@@ -1304,7 +1310,7 @@ p {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--muted);
   cursor: pointer;
 }
@@ -1470,7 +1476,7 @@ p {
 }
 
 .contacts__list span {
-  font-size: 0.8rem;
+  font-size: 0.88rem;
   color: var(--muted);
 }
 
@@ -1501,7 +1507,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  font-size: 0.9rem;
+  font-size: 0.97rem;
   color: var(--muted);
 }
 
@@ -1587,7 +1593,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
-  font-size: 0.85rem;
+  font-size: 0.92rem;
   color: var(--muted);
 }
 
@@ -1724,7 +1730,8 @@ p {
   .why,
   .faq-wrap,
   .booking {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr): колонка не расширяется под длинные слова (польский, немецкий) */
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero__inner {
@@ -1797,6 +1804,10 @@ p {
 
   .gauge-card {
     padding: 22px;
+  }
+
+  .stat {
+    padding: 20px 16px;
   }
 
   .chip {
