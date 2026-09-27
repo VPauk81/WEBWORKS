@@ -1,8 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" translate="no">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- The site has its own EN/PL/DE/RU switcher, so phones must NOT machine-translate
+     it: in-app browsers (Viber, etc.) otherwise auto-run Google Translate on the
+     English default and the visitor sees garbled, error-ridden text. -->
+<meta name="google" content="notranslate">
 
 <!-- SELF-HEALING CACHE CHECK — runs before anything else loads.
      GitHub Pages' CDN and browsers cache this HTML page itself, so
@@ -15,7 +19,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 41;
+  var PAGE_BUILD = 42;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -30,13 +34,13 @@
   } catch (e) { /* fetch unavailable — ignore */ }
 })();
 </script>
-<title data-i18n="meta_title">Web Development &amp; Business Solutions | WEBWORKS</title>
+<title data-i18n="meta_title">Web Development & Business Solutions | WEBWORKS</title>
 <meta name="description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="WEBWORKS">
-<meta property="og:title" data-i18n="meta_title" content="Web Development &amp; Business Solutions | WEBWORKS">
+<meta property="og:title" data-i18n="meta_title" content="Web Development & Business Solutions | WEBWORKS">
 <meta property="og:description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
 <meta property="og:url" content="https://vpauk81.github.io/WEBWORKS/">
 <meta property="og:locale" content="en_US">
@@ -47,7 +51,9 @@
      PNG/JPG to images/ and point this at it (e.g. images/og-image.jpg) —
      without it most platforms (Facebook, LinkedIn, WhatsApp, Telegram) show
      no preview image at all. -->
-<meta property="og:image" content="https://vpauk81.github.io/WEBWORKS/images/og-image.jpg">
+<meta property="og:image" content="https://vpauk81.github.io/WEBWORKS/images/og-image.jpg?v=2">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:alt" content="WEBWORKS — web development for small and medium businesses">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 
@@ -55,9 +61,9 @@
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" data-i18n="meta_title" content="Web Development &amp; Business Solutions | WEBWORKS">
+<meta name="twitter:title" data-i18n="meta_title" content="Web Development & Business Solutions | WEBWORKS">
 <meta name="twitter:description" data-i18n="meta_description" content="Websites, online calculators, product configurators and business tools for small and medium businesses across Europe.">
-<meta name="twitter:image" content="https://vpauk81.github.io/WEBWORKS/images/og-image.jpg">
+<meta name="twitter:image" content="https://vpauk81.github.io/WEBWORKS/images/og-image.jpg?v=2">
 
 <!-- Structured data — helps Google show a richer result (name, service type, area served).
      Update sameAs with your real profiles once you have them (LinkedIn, GitHub, etc.). -->
@@ -91,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=41">
+<link rel="stylesheet" href="css/style.css?v=42">
 </head>
 <body>
 
@@ -794,6 +800,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=41" defer></script>
+<script src="js/script.js?v=42" defer></script>
 </body>
 </html>

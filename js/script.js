@@ -639,6 +639,7 @@
     try { localStorage.setItem(STORAGE_KEY, lang); } catch (e) { /* localStorage unavailable — ignore */ }
 
     refreshInquiryTextsForLanguage();
+    refreshCountryNames();
   }
 
   function getInitialLanguage(){
@@ -918,6 +919,27 @@
   // Reusable country/dial-code picker (flag + code + digit count),
   // shared by the Project 5 demo form and the real inquiry form below
   // — same behavior, own instance per set of element IDs.
+  // Country name in the page's current language ("Polska", "Польша", …)
+  // via the browser's own Intl data; English name as the fallback.
+  function localCountryName(c){
+    try {
+      var lang = document.documentElement.getAttribute("lang") || "en";
+      return new Intl.DisplayNames([lang], { type: "region" }).of(c.iso2.toUpperCase()) || c.name;
+    } catch (e) { return c.name; }
+  }
+
+  // Called from applyLanguage() — which also runs once before
+  // COUNTRY_CODES is assigned, hence the guard.
+  function refreshCountryNames(){
+    if (!COUNTRY_CODES) return;
+    var opts = document.querySelectorAll(".country-option");
+    for (var i = 0; i < opts.length; i++){
+      var c = COUNTRY_CODES[Number(opts[i].getAttribute("data-index"))];
+      var nameEl = opts[i].querySelector(".country-option-name");
+      if (c && nameEl){ nameEl.textContent = localCountryName(c); }
+    }
+  }
+
   function createCountrySelect(ids, onSelect){
     var btn = document.getElementById(ids.btn);
     var box = document.getElementById(ids.box);
@@ -934,7 +956,7 @@
       return '<div class="country-option" role="option" data-index="' + i + '" tabindex="-1">' +
         '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="' + c.iso2 + '" loading="lazy">' +
         '<span class="country-option-code">' + c.code + '</span>' +
-        '<span class="country-option-name">' + c.name + '</span>' +
+        '<span class="country-option-name">' + localCountryName(c) + '</span>' +
         '</div>';
     }).join("");
 
@@ -943,7 +965,7 @@
       codeText.textContent = country.code;
       flagImg.src = "https://flagcdn.com/24x18/" + country.iso2 + ".png";
       flagImg.alt = country.iso2;
-      btn.title = country.name;
+      btn.title = localCountryName(country);
       if (onSelect){ onSelect(country); }
     }
 
