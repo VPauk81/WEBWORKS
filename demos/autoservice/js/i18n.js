@@ -156,6 +156,7 @@ window.I18N = {
     "reviews.title": "Что говорят клиенты",
     r1: "«Приехал со стуком в подвеске. Показали на подъёмнике, что именно менять, и уложились в смету до цента. Ещё и видео присылали во время ремонта.»",
     r2: "«Обслуживаю здесь машину уже три года. Всегда вовремя, машину отдают чистой, а мастер подсказывает, что проверить к следующему визиту.»",
+    "r3.car": "BMW 3 серии",
     r3: "«В другом сервисе насчитали ремонт на 1 800 €. Тут нашли реальную причину — датчик за 90 €. Теперь езжу только сюда.»",
 
     "faq.kicker": "Вопросы",
@@ -385,6 +386,7 @@ window.I18N = {
     "reviews.title": "Co mówią nasi klienci",
     r1: "„Przyjechałem ze stukiem w zawieszeniu. Na podnośniku pokazali mi dokładnie, co trzeba wymienić, i zmieścili się w wycenie co do centa. Do tego filmy w trakcie naprawy.”",
     r2: "„Serwisuję tu auto od trzech lat. Zawsze na czas, samochód wraca czysty, a mechanik podpowiada, na co zwrócić uwagę przed kolejną wizytą.”",
+    "r3.car": "BMW serii 3",
     r3: "„W innym warsztacie wycenili naprawę na 1 800 €. Tutaj znaleźli prawdziwą przyczynę — czujnik za 90 €. Teraz jeżdżę tylko tutaj.”",
 
     "faq.kicker": "FAQ",
@@ -614,6 +616,7 @@ window.I18N = {
     "reviews.title": "Das sagen unsere Kunden",
     r1: "„Ich kam mit einem Klopfen im Fahrwerk. Auf der Hebebühne wurde mir genau gezeigt, was getauscht werden muss, und der Kostenvoranschlag wurde auf den Cent eingehalten. Dazu Videos während der Reparatur.“",
     r2: "„Ich lasse mein Auto seit drei Jahren hier warten. Immer pünktlich, das Auto kommt sauber zurück, und der Mechaniker sagt mir, worauf ich bis zum nächsten Besuch achten sollte.“",
+    "r3.car": "BMW 3er",
     r3: "„Eine andere Werkstatt wollte 1.800 € für die Reparatur. Hier fand man die wahre Ursache — einen Sensor für 90 €. Seitdem fahre ich nur noch hierher.“",
 
     "faq.kicker": "FAQ",

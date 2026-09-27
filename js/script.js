@@ -154,7 +154,18 @@
       inquiry_sent_btn: "Sent ✓",
       contact_whatsapp_link: "Message me",
       contact_github_link: "View on GitHub",
-      footer_rights: "All rights reserved."
+      footer_rights: "All rights reserved.",
+
+      /* Attribute texts: screen-reader labels, image alt text, hover tooltips */
+      aria_nav_main: "Main menu", aria_nav_mobile: "Mobile menu", aria_nav_footer: "Footer menu",
+      aria_lang: "Language", aria_menu: "Menu",
+      alt_hero: "Writing code for a client project",
+      alt_featured: "Screenshot of the live Arduino / ESP32 Firmware Studio site",
+      alt_p1: "Screenshot of the AutoService demo website",
+      alt_p2: "Barbershop", alt_p3: "Electronics circuit board", alt_p4: "Business tools", alt_p5: "Contact form",
+      title_p2_demo: "Demo interface — not a live booking system",
+      title_p5_demo: "Demo interface — not a live order form",
+      title_inquiry_submit: "Sends your message"
     },
 
     pl: {
@@ -303,7 +314,17 @@
       inquiry_sent_btn: "Wysłano ✓",
       contact_whatsapp_link: "Napisz do mnie",
       contact_github_link: "Zobacz na GitHub",
-      footer_rights: "Wszelkie prawa zastrzeżone."
+      footer_rights: "Wszelkie prawa zastrzeżone.",
+
+      aria_nav_main: "Menu główne", aria_nav_mobile: "Menu mobilne", aria_nav_footer: "Menu w stopce",
+      aria_lang: "Język", aria_menu: "Menu",
+      alt_hero: "Pisanie kodu do projektu klienta",
+      alt_featured: "Zrzut ekranu działającej strony Arduino / ESP32 Firmware Studio",
+      alt_p1: "Zrzut ekranu strony demo AutoService",
+      alt_p2: "Barbershop", alt_p3: "Płytka elektroniczna", alt_p4: "Narzędzia biznesowe", alt_p5: "Formularz kontaktowy",
+      title_p2_demo: "Interfejs demo — to nie jest prawdziwy system rezerwacji",
+      title_p5_demo: "Interfejs demo — to nie jest prawdziwy formularz zamówienia",
+      title_inquiry_submit: "Wysyła Twoją wiadomość"
     },
 
     de: {
@@ -452,7 +473,17 @@
       inquiry_sent_btn: "Gesendet ✓",
       contact_whatsapp_link: "Schreiben Sie mir",
       contact_github_link: "Auf GitHub ansehen",
-      footer_rights: "Alle Rechte vorbehalten."
+      footer_rights: "Alle Rechte vorbehalten.",
+
+      aria_nav_main: "Hauptmenü", aria_nav_mobile: "Mobiles Menü", aria_nav_footer: "Fußzeilenmenü",
+      aria_lang: "Sprache", aria_menu: "Menü",
+      alt_hero: "Code für ein Kundenprojekt schreiben",
+      alt_featured: "Screenshot der Live-Website Arduino / ESP32 Firmware Studio",
+      alt_p1: "Screenshot der AutoService-Demo-Website",
+      alt_p2: "Barbershop", alt_p3: "Elektronik-Platine", alt_p4: "Business-Tools", alt_p5: "Kontaktformular",
+      title_p2_demo: "Demo-Oberfläche — kein echtes Buchungssystem",
+      title_p5_demo: "Demo-Oberfläche — kein echtes Bestellformular",
+      title_inquiry_submit: "Sendet Ihre Nachricht"
     },
 
     ru: {
@@ -601,7 +632,17 @@
       inquiry_sent_btn: "Отправлено ✓",
       contact_whatsapp_link: "Написать мне",
       contact_github_link: "Смотреть на GitHub",
-      footer_rights: "Все права защищены."
+      footer_rights: "Все права защищены.",
+
+      aria_nav_main: "Главное меню", aria_nav_mobile: "Мобильное меню", aria_nav_footer: "Меню в подвале",
+      aria_lang: "Язык", aria_menu: "Меню",
+      alt_hero: "Написание кода для клиентского проекта",
+      alt_featured: "Скриншот работающего сайта Arduino / ESP32 Firmware Studio",
+      alt_p1: "Скриншот демо-сайта AutoService",
+      alt_p2: "Барбершоп", alt_p3: "Электронная плата", alt_p4: "Бизнес-инструменты", alt_p5: "Контактная форма",
+      title_p2_demo: "Демо-интерфейс — не настоящая система записи",
+      title_p5_demo: "Демо-интерфейс — не настоящая форма заказа",
+      title_inquiry_submit: "Отправляет ваше сообщение"
     }
   };
 
@@ -637,6 +678,22 @@
       var pNode = placeholderNodes[pi];
       var pKey = pNode.getAttribute("data-i18n-placeholder");
       if (dict[pKey] !== undefined){ pNode.setAttribute("placeholder", dict[pKey]); }
+    }
+
+    /* Same idea for attributes that aren't visible text but still get
+       read out or shown: image alt text (screen readers / search),
+       hover tooltips (title) and screen-reader labels (aria-label). */
+    var ATTR_MAP = [
+      ["data-i18n-alt", "alt"],
+      ["data-i18n-title", "title"],
+      ["data-i18n-aria", "aria-label"]
+    ];
+    for (var ai = 0; ai < ATTR_MAP.length; ai++){
+      var attrNodes = document.querySelectorAll("[" + ATTR_MAP[ai][0] + "]");
+      for (var an = 0; an < attrNodes.length; an++){
+        var aKey = attrNodes[an].getAttribute(ATTR_MAP[ai][0]);
+        if (dict[aKey] !== undefined){ attrNodes[an].setAttribute(ATTR_MAP[ai][1], dict[aKey]); }
+      }
     }
 
     if (dict.meta_title){ document.title = dict.meta_title; }
@@ -959,6 +1016,15 @@
       var nameEl = opts[i].querySelector(".country-option-name");
       if (c && nameEl){ nameEl.textContent = localCountryName(c); }
     }
+    // Selected-country buttons: hover tooltip + flag alt in the current language
+    var pickers = document.querySelectorAll(".country-select-btn[data-country-index]");
+    for (var k = 0; k < pickers.length; k++){
+      var sel = COUNTRY_CODES[Number(pickers[k].getAttribute("data-country-index"))];
+      if (!sel) continue;
+      pickers[k].title = localCountryName(sel);
+      var flag = pickers[k].querySelector("img");
+      if (flag){ flag.alt = localCountryName(sel); }
+    }
   }
 
   function createCountrySelect(ids, onSelect){
@@ -975,7 +1041,8 @@
 
     dropdown.innerHTML = COUNTRY_CODES.map(function(c, i){
       return '<div class="country-option" role="option" data-index="' + i + '" tabindex="-1">' +
-        '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="' + c.iso2 + '" loading="lazy">' +
+        // Decorative: the country name is written right next to the flag
+        '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="" loading="lazy">' +
         '<span class="country-option-code">' + c.code + '</span>' +
         '<span class="country-option-name">' + localCountryName(c) + '</span>' +
         '</div>';
@@ -985,8 +1052,9 @@
       selected = country;
       codeText.textContent = country.code;
       flagImg.src = "https://flagcdn.com/24x18/" + country.iso2 + ".png";
-      flagImg.alt = country.iso2;
+      flagImg.alt = localCountryName(country);
       btn.title = localCountryName(country);
+      btn.setAttribute("data-country-index", COUNTRY_CODES.indexOf(country));
       if (onSelect){ onSelect(country); }
     }
 
