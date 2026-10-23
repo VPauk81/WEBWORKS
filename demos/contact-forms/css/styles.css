@@ -141,7 +141,7 @@ button { cursor: pointer; }
 .card p { color: var(--muted); font-size: 16.5px; }
 
 /* Demo */
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 22px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 22px; }
 .stat { padding: 18px 22px; background: rgba(255, 255, 255, .07); border: 1px solid rgba(255, 255, 255, .14); border-radius: 16px; display: flex; flex-direction: column; }
 .stat span { font-size: 14.5px; color: rgba(255, 255, 255, .7); }
 .stat strong { font-family: var(--font-display); font-size: 30px; }
@@ -256,7 +256,7 @@ button { cursor: pointer; }
 .js .reveal.is-in { opacity: 1; transform: none; }
 .hero__inner > *, .demo > *, .cta > *, .msg > * { min-width: 0; }
 
-@media (max-width: 1100px) {
+@media (max-width: 1240px) {
   .burger { display: grid; }
   .nav { position: absolute; top: var(--header-h); left: 0; right: 0; flex-direction: column; align-items: stretch; gap: 2px; padding: 12px 20px 20px; background: var(--ink-d); border-bottom: 1px solid rgba(255, 255, 255, .12); display: none; }
   .nav.is-open { display: flex; }
@@ -291,4 +291,17 @@ button { cursor: pointer; }
   html { scroll-behavior: auto; }
   .marquee__track { animation: none; }
   .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* small-phone safety */
+.stat span { overflow-wrap: anywhere; }
+@media (max-width: 380px) {
+  .header__inner { gap: 8px; }
+  .header__actions { gap: 6px; }
+  .logo__text { font-size: 18px; }
+  .logo__mark { width: 34px; height: 34px; }
+  .lang__toggle { padding: 0 9px; gap: 4px; }
+  .lang__caret { display: none; }
+  .burger { width: 40px; height: 40px; }
+  .stat { padding: 10px 8px; }
 }

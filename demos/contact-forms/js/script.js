@@ -116,7 +116,7 @@
   burger.addEventListener("click", () => setMenu(!nav.classList.contains("is-open")));
   $$("a", nav).forEach((a) => a.addEventListener("click", () => setMenu(false)));
   window.addEventListener("resize", () => {
-    if (window.innerWidth > 1100) setMenu(false);
+    if (window.innerWidth > 1240) setMenu(false);
   });
   document.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
@@ -274,6 +274,7 @@
         country = COUNTRIES.find((x) => x.iso === c.iso);
         $("#ccFlag").src = flagUrl(country.iso);
         $("#ccCode").textContent = country.code;
+        $("#phoneErr").textContent = tx("err.phone", country.digits);
         ccBtn.setAttribute("aria-label", c.name);
         setCc(false);
         placeholder();
