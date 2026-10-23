@@ -85,7 +85,10 @@
       p4_mock_title: "Orders", p4_status_new: "New", p4_status_progress: "Processing", p4_status_done: "Shipped",
 
       p5_category: "Contact Forms", p5_title: "Clear Contact Form",
-      p5_desc: "A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email format check, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.",
+      p5_desc: "A complete site for contact forms: live validation, a phone field with a country picker, an inbox view and the e-mails you and your customer receive.",
+      p5_feat_1: "4 languages: EN / PL / DE / RU", p5_feat_2: "Working demo: send a message and see your inbox",
+      p5_feat_3: "Phone check by country, e-mail and name validation", p5_feat_4: "Works on phones, tablets and computers",
+      p5_cta: "Open demo site →",
       p5_mock_title: "New Order", p5_label_name: "Name", p5_ph_name: "John Smith",
       p5_label_email: "Email", p5_ph_email: "name@mail.com",
       p5_label_phone: "Phone", p5_ph_phone: "512 345 678",
@@ -167,7 +170,7 @@
       alt_hero: "Writing code for a client project",
       alt_featured: "Screenshot of the live Arduino / ESP32 Firmware Studio site",
       alt_p1: "Screenshot of the AutoService demo website",
-      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Screenshot of the OrderFlow business tools demo website", alt_p5: "Contact form",
+      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Screenshot of the OrderFlow business tools demo website", alt_p5: "Screenshot of the ClearForm contact forms demo website",
       title_p5_demo: "Demo interface — not a live order form",
       title_inquiry_submit: "Sends your message"
     },
@@ -249,7 +252,10 @@
       p4_mock_title: "Zamówienia", p4_status_new: "Nowe", p4_status_progress: "W realizacji", p4_status_done: "Wysłane",
 
       p5_category: "Formularze kontaktowe", p5_title: "Przejrzysty formularz kontaktowy",
-      p5_desc: "Demo przejrzystego, łatwego w obsłudze formularza kontaktowego z walidacją na żywo — sprawdzenie imienia, sprawdzenie formatu adresu e-mail oraz pole telefonu z prawdziwym wyborem kraju i numeru kierunkowego, dzięki czemu numer jest sprawdzany pod kątem właściwej długości dla wybranego kraju. Ten podgląd niczego nie wysyła — wersja produkcyjna łączyłaby się z e-mailem, Google Sheets lub Twoim systemem CRM.",
+      p5_desc: "Kompletna strona o formularzach kontaktowych: walidacja na żywo, pole telefonu z wyborem kraju, widok skrzynki i e-maile dla Ciebie i klienta.",
+      p5_feat_1: "4 języki: EN / PL / DE / RU", p5_feat_2: "Działające demo: wyślij wiadomość i zobacz skrzynkę",
+      p5_feat_3: "Kontrola telefonu wg kraju, walidacja e-maila i imienia", p5_feat_4: "Działa na telefonach, tabletach i komputerach",
+      p5_cta: "Otwórz stronę demo →",
       p5_mock_title: "Nowe zamówienie", p5_label_name: "Imię", p5_ph_name: "Jan Kowalski",
       p5_label_email: "E-mail", p5_ph_email: "imie@mail.com",
       p5_label_phone: "Telefon", p5_ph_phone: "512 345 678",
@@ -330,7 +336,7 @@
       alt_hero: "Pisanie kodu do projektu klienta",
       alt_featured: "Zrzut ekranu działającej strony Arduino / ESP32 Firmware Studio",
       alt_p1: "Zrzut ekranu strony demo AutoService",
-      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Zrzut ekranu strony demo narzędzi biznesowych OrderFlow", alt_p5: "Formularz kontaktowy",
+      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Zrzut ekranu strony demo narzędzi biznesowych OrderFlow", alt_p5: "Zrzut ekranu strony demo formularzy kontaktowych ClearForm",
       title_p5_demo: "Interfejs demo — to nie jest prawdziwy formularz zamówienia",
       title_inquiry_submit: "Wysyła Twoją wiadomość"
     },
@@ -412,7 +418,10 @@
       p4_mock_title: "Bestellungen", p4_status_new: "Neu", p4_status_progress: "In Bearbeitung", p4_status_done: "Versendet",
 
       p5_category: "Kontaktformulare", p5_title: "Übersichtliches Kontaktformular",
-      p5_desc: "Eine Demo eines übersichtlichen, leicht verständlichen Kontaktformulars mit Live-Validierung — echte Namensprüfung, Prüfung des E-Mail-Formats und ein Telefonfeld mit echter Länder-/Vorwahl-Auswahl, sodass die Nummer gegen die passende Länge für das gewählte Land geprüft wird. Diese Vorschau sendet nichts — eine Live-Version würde mit E-Mail, Google Sheets oder Ihrem CRM verbunden.",
+      p5_desc: "Eine komplette Website zu Kontaktformularen: Live-Prüfung, Telefonfeld mit Länderauswahl, Posteingang und die E-Mails an Sie und Ihren Kunden.",
+      p5_feat_1: "4 Sprachen: EN / PL / DE / RU", p5_feat_2: "Funktionierende Demo: Nachricht senden und Posteingang ansehen",
+      p5_feat_3: "Telefonprüfung nach Land, E-Mail- und Namensprüfung", p5_feat_4: "Funktioniert auf Smartphones, Tablets und Computern",
+      p5_cta: "Demo-Website öffnen →",
       p5_mock_title: "Neue Bestellung", p5_label_name: "Name", p5_ph_name: "Max Mustermann",
       p5_label_email: "E-Mail", p5_ph_email: "name@mail.com",
       p5_label_phone: "Telefon", p5_ph_phone: "123 4567890",
@@ -493,7 +502,7 @@
       alt_hero: "Code für ein Kundenprojekt schreiben",
       alt_featured: "Screenshot der Live-Website Arduino / ESP32 Firmware Studio",
       alt_p1: "Screenshot der AutoService-Demo-Website",
-      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Screenshot der OrderFlow Business-Tools-Demo-Website", alt_p5: "Kontaktformular",
+      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Screenshot der OrderFlow Business-Tools-Demo-Website", alt_p5: "Screenshot der ClearForm Kontaktformular-Demo-Website",
       title_p5_demo: "Demo-Oberfläche — kein echtes Bestellformular",
       title_inquiry_submit: "Sendet Ihre Nachricht"
     },
@@ -575,7 +584,10 @@
       p4_mock_title: "Заказы", p4_status_new: "Новый", p4_status_progress: "В обработке", p4_status_done: "Отправлен",
 
       p5_category: "Контактные формы", p5_title: "Понятная контактная форма",
-      p5_desc: "Демонстрация понятной контактной формы с проверкой полей в реальном времени — проверка имени, проверка формата email и поле телефона с настоящим выбором страны и кода, благодаря которому номер проверяется на нужное количество цифр для выбранной страны. Эта демо-форма ничего не отправляет — рабочая версия подключалась бы к email, Google Таблицам или вашей CRM.",
+      p5_desc: "Полноценный сайт о контактных формах: проверка на лету, поле телефона с выбором страны, входящие и письма, которые получаете вы и ваш клиент.",
+      p5_feat_1: "4 языка: EN / PL / DE / RU", p5_feat_2: "Рабочее демо: отправьте сообщение и посмотрите входящие",
+      p5_feat_3: "Проверка телефона по стране, email и имени", p5_feat_4: "Работает на телефонах, планшетах и компьютерах",
+      p5_cta: "Открыть демо-сайт →",
       p5_mock_title: "Новый заказ", p5_label_name: "Имя", p5_ph_name: "Иван Иванов",
       p5_label_email: "Email", p5_ph_email: "name@mail.com",
       p5_label_phone: "Телефон", p5_ph_phone: "512 345 678",
@@ -656,7 +668,7 @@
       alt_hero: "Написание кода для клиентского проекта",
       alt_featured: "Скриншот работающего сайта Arduino / ESP32 Firmware Studio",
       alt_p1: "Скриншот демо-сайта AutoService",
-      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Скриншот демо-сайта бизнес-инструментов OrderFlow", alt_p5: "Контактная форма",
+      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Скриншот демо-сайта бизнес-инструментов OrderFlow", alt_p5: "Скриншот демо-сайта контактных форм ClearForm",
       title_p5_demo: "Демо-интерфейс — не настоящая форма заказа",
       title_inquiry_submit: "Отправляет ваше сообщение"
     }

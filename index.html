@@ -478,7 +478,9 @@
     </div>
     </details>
 
-<!-- PROJECT 5 — Contact Form with live validation -->
+    <!-- PROJECT 5 — Contact Forms / full demo website.
+         The complete site lives in demos/contact-forms/ (its own index.html,
+         css/ and js/) and opens in a new tab; same frame style as Project 1. -->
     <details class="project-toggle" id="project5">
       <summary class="project-summary">
         <span class="project-summary-text">
@@ -492,59 +494,23 @@
       </summary>
     <div class="project">
       <div class="project-mock">
-        <div class="project-photo">
-          <img src="images/forma kontakt.jpg?v=8" alt="Contact form" data-i18n-alt="alt_p5" loading="lazy">
-        </div>
-        <div class="mock order-form-mock">
-          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-          <div class="mock-title" data-i18n="p5_mock_title">New Order</div>
-
-          <div class="order-field" id="orderNameField">
-            <label for="orderName" data-i18n="p5_label_name">Name</label>
-            <div class="field-with-check">
-              <input type="text" id="orderName" autocomplete="name" data-i18n-placeholder="p5_ph_name" placeholder="John Smith">
-              <span class="field-check">✔</span>
-            </div>
+        <a class="featured-frame" href="demos/contact-forms/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">ClearForm — demo</span>
           </div>
-
-          <div class="order-field" id="orderEmailField">
-            <label for="orderEmail" data-i18n="p5_label_email">Email</label>
-            <div class="field-with-check">
-              <input type="email" id="orderEmail" autocomplete="email" inputmode="email" data-i18n-placeholder="p5_ph_email" placeholder="name@mail.com">
-              <span class="field-check">✔</span>
-            </div>
-            <!-- Reserved-height inline warning, same as my other order forms — keeps the
-                 layout from jumping when the message appears/disappears. -->
-            <span class="email-inline-error" id="orderEmailInlineError" data-i18n="p5_email_latin_only">⚠ Email can only be entered using Latin letters and digits (Cyrillic is not allowed)</span>
-          </div>
-
-          <div class="order-field" id="orderPhoneField">
-            <label for="orderPhoneNumber" data-i18n="p5_label_phone">Phone</label>
-            <div class="phone-row">
-              <!-- Custom country/dial-code picker with real flag images (flagcdn.com) —
-                   same approach used on my Arduino/ESP32 firmware order site, so flags
-                   render reliably on every OS/browser instead of relying on emoji flags. -->
-              <div class="country-select-wrap" id="countrySelectBox">
-                <button type="button" class="country-select-btn" id="countrySelectBtn" aria-haspopup="listbox" aria-expanded="false">
-                  <img class="country-flag-img" id="countrySelectFlagImg" src="" alt="">
-                  <span id="countrySelectCodeText">+48</span>
-                  <span class="country-select-arrow">▼</span>
-                </button>
-                <div class="country-select-dropdown" id="countrySelectDropdown" role="listbox"></div>
-              </div>
-              <div class="field-with-check phone-field-wrap">
-                <input type="tel" id="orderPhoneNumber" inputmode="tel" placeholder="_ _ _&#160;&#160;_ _ _&#160;&#160;_ _ _">
-                <span class="field-check">✔</span>
-              </div>
-            </div>
-          </div>
-
-          <button type="button" class="btn btn--primary" id="orderDemoSubmit" data-i18n="p5_submit" title="Demo interface — not a live order form" data-i18n-title="title_p5_demo">Send Request</button>
-          <p class="order-demo-status" id="orderDemoStatus" data-i18n="p5_demo_sent">Demo only — this is where a real submission confirmation would appear.</p>
-        </div>
+          <img src="images/contact-forms-demo.jpg?v=1" alt="Screenshot of the ClearForm contact forms demo website" data-i18n-alt="alt_p5" loading="lazy">
+        </a>
       </div>
       <div>
-        <p class="desc" data-i18n="p5_desc">A demo of a clean, easy-to-understand contact form with live validation — a real name check, an email format check, and a phone field with a real country/dial-code picker, so the number is checked against the right length for the chosen country. This preview doesn't send anything; a live version would connect to email, Google Sheets, or your CRM.</p>
+        <p class="desc" data-i18n="p5_desc">A complete site for contact forms: live validation, a phone field with a country picker, an inbox view and the e-mails you and your customer receive.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p5_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p5_feat_2">Working demo: send a message and see your inbox</li>
+          <li data-i18n="p5_feat_3">Phone check by country, e-mail and name validation</li>
+          <li data-i18n="p5_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/contact-forms/index.html" target="_blank" rel="noopener" data-i18n="p5_cta">Open demo site →</a>
       </div>
     </div>
     </details>
@@ -797,6 +763,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=59" defer></script>
+<script src="js/script.js?v=60" defer></script>
 </body>
 </html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#0c2623" />
+    <title data-i18n="meta.title">ClearForm — Contact Forms</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Clear contact forms with live validation, a country-aware phone field and instant delivery to your e-mail, Google Sheets or CRM."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-check-ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></symbol>
+      <symbol id="i-phone-ui" viewBox="0 0 24 24"><rect x="7" y="2.5" width="10" height="19" rx="2.5" /><path d="M11 18.5h2" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10 14" /><path d="M21 3 14.5 21l-4.5-7-7-4.5z" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 10h18M3 15h18M9 4v16" /></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16" /><path d="m8 15 3-4 3 2 5-6" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+    </svg>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="ClearForm">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="6" y="7" width="20" height="18" rx="3" /><path d="M11 13h10M11 18h6" /></svg>
+          </span>
+          <span class="logo__text">Clear<b>Form</b></span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a class="nav__back" href="https://vpauk81.github.io/WEBWORKS/#project5">
+            <svg class="ico"><use href="#i-back" /></svg>
+            <span data-i18n="nav.back">Back</span>
+          </a>
+          <a href="#features" data-i18n="nav.features">Features</a>
+          <a href="#demo" data-i18n="nav.demo">Live demo</a>
+          <a href="#how" data-i18n="nav.how">How it works</a>
+          <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="lang" id="lang">
+            <button type="button" class="lang__toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" data-i18n-attr="aria-label:lang.label" aria-label="Choose language">
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#demo" data-i18n="cta.try">Try the demo</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">Contact forms that get finished</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">A contact form people <em>actually send</em></h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              Short, friendly and checked live: a real name check, a valid e-mail and a phone field that knows every country.
+              Each message reaches you instantly — and the customer gets a reply.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#demo">
+                <span data-i18n="hero.cta">Try the live form</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="#features" data-i18n="hero.cta2">See what is inside</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">0</strong><span data-i18n="hero.f1">typos in e-mails and phones</span></li>
+              <li><strong data-i18n="hero.f2v">30+</strong><span data-i18n="hero.f2">countries in the phone picker</span></li>
+              <li><strong data-i18n="hero.f3v">24/7</strong><span data-i18n="hero.f3">messages accepted</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="float-card float-card--a">
+              <span class="float-card__ico"><svg class="ico"><use href="#i-mail" /></svg></span>
+              <span><b data-i18n="hero.fc1">New message</b><small data-i18n="hero.fc1s">Delivered to your inbox</small></span>
+            </div>
+            <div class="panel">
+              <div class="panel__bar"><i></i><i></i><i></i><span data-i18n="demo.form">Contact us</span></div>
+              <div class="panel__body">
+                <div class="pf"><label data-i18n="f.name">Name</label><div class="pf__box"><span>Anna Kowalska</span><span class="pf__ok">✔</span></div></div>
+                <div class="pf"><label data-i18n="f.email">E-mail</label><div class="pf__box"><span>anna@example.com</span><span class="pf__ok">✔</span></div></div>
+                <div class="pf"><label data-i18n="f.phone">Phone</label><div class="pf__box"><span class="pf__phone"><img src="https://flagcdn.com/w40/pl.png" alt="" width="22" height="16" />+48 512 345 678</span><span class="pf__ok">✔</span></div></div>
+                <div class="pf__btn" data-i18n="f.submit">Send message</div>
+              </div>
+            </div>
+            <div class="float-card float-card--b">
+              <span class="float-card__ico float-card__ico--green"><svg class="ico"><use href="#i-sheet" /></svg></span>
+              <span><b data-i18n="hero.fc2">Saved to Sheets</b><small data-i18n="hero.fc2s">New row added</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marqueeTrack">
+          <span data-i18n="mq.1">Live validation</span><span data-i18n="mq.2">Phone by country</span><span data-i18n="mq.3">Spam protection</span><span data-i18n="mq.4">E-mail alerts</span><span data-i18n="mq.5">Google Sheets</span><span data-i18n="mq.6">GDPR ready</span>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <section class="section" id="features">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="ft.kicker">Features</p>
+            <h2 class="section__title" data-i18n="ft.title">Everything a good contact form needs</h2>
+            <p class="section__lead" data-i18n="ft.lead">Small details that decide whether a visitor writes to you — or leaves.</p>
+          </header>
+          <div class="grid grid--4">
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-check-ring" /></svg></span>
+              <h3 data-i18n="c1.title">Live validation</h3>
+              <p data-i18n="c1.text">Names and e-mails are checked as the visitor types, so mistakes are fixed before sending.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-phone-ui" /></svg></span>
+              <h3 data-i18n="c2.title">Smart phone field</h3>
+              <p data-i18n="c2.text">A country picker with flags and dial codes — the number is checked against the right length.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-shield" /></svg></span>
+              <h3 data-i18n="c3.title">Spam protection</h3>
+              <p data-i18n="c3.text">Invisible checks keep bots out without annoying puzzles for real people.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-send" /></svg></span>
+              <h3 data-i18n="c4.title">Instant delivery</h3>
+              <p data-i18n="c4.text">Messages go to your e-mail, a Google Sheet or your CRM — and the customer gets an auto-reply.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live demo -->
+      <section class="section section--dark" id="demo">
+        <div class="container">
+          <header class="section__head section__head--light reveal">
+            <p class="kicker" data-i18n="demo.kicker">Live demo</p>
+            <h2 class="section__title" data-i18n="demo.title">Write a message — and see what you receive</h2>
+            <p class="section__lead" data-i18n="demo.lead">This is a working form: fill it in and watch the checks, then see your inbox and both e-mails. Nothing is really sent.</p>
+          </header>
+
+          <div class="stats reveal">
+            <div class="stat"><span data-i18n="demo.s1">Messages</span><strong id="statMsgs">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s2">Unread</span><strong id="statNew">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s3">Avg. reply time</span><strong data-i18n="demo.s3v">&lt; 1 h</strong></div>
+          </div>
+
+          <div class="demo reveal">
+            <form class="order" id="contactForm" novalidate>
+              <h3 data-i18n="demo.form">Contact us</h3>
+
+              <div class="field" data-field="name">
+                <label for="fName" data-i18n="f.name">Name</label>
+                <div class="control">
+                  <input id="fName" type="text" autocomplete="name" data-i18n-attr="placeholder:f.name.ph" placeholder="John Smith" />
+                  <span class="tick">✔</span>
+                </div>
+                <p class="field__err" data-i18n="err.name">Please enter your name (letters only, at least 2).</p>
+              </div>
+
+              <div class="field" data-field="email">
+                <label for="fEmail" data-i18n="f.email">E-mail</label>
+                <div class="control">
+                  <input id="fEmail" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" />
+                  <span class="tick">✔</span>
+                </div>
+                <p class="field__err" id="emailErr" data-i18n="err.email">Please enter a valid e-mail address.</p>
+              </div>
+
+              <div class="field" data-field="phone">
+                <label for="fPhone" data-i18n="f.phone">Phone</label>
+                <div class="phone" id="phoneBox">
+                  <div class="cc" id="cc">
+                    <button type="button" class="cc__btn" id="ccBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="Country">
+                      <img id="ccFlag" src="https://flagcdn.com/w40/pl.png" alt="" width="24" height="17" />
+                      <span id="ccCode">+48</span>
+                      <i></i>
+                    </button>
+                    <div class="cc__list" id="ccList" role="listbox" hidden></div>
+                  </div>
+                  <input id="fPhone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="512 345 678" />
+                  <span class="tick">✔</span>
+                </div>
+                <p class="field__err" id="phoneErr">Enter 9 digits for this country.</p>
+              </div>
+
+              <div class="field" data-field="topic">
+                <label for="fTopic" data-i18n="f.topic">Topic</label>
+                <div class="control">
+                  <select id="fTopic">
+                    <option value="0" data-i18n="tp.1">General question</option>
+                    <option value="1" data-i18n="tp.2">Price quote</option>
+                    <option value="2" data-i18n="tp.3">Support</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="field" data-field="msg">
+                <label for="fMsg" data-i18n="f.msg">Message</label>
+                <div class="control">
+                  <textarea id="fMsg" maxlength="300" data-i18n-attr="placeholder:f.msg.ph" placeholder="How can we help?"></textarea>
+                </div>
+                <div class="field__hint"><span id="msgCount">0 / 300</span></div>
+                <p class="field__err" data-i18n="err.msg">Please write at least 10 characters.</p>
+              </div>
+
+              <label class="check">
+                <input id="fConsent" type="checkbox" />
+                <span data-i18n="f.consent">I agree to the processing of my data to answer this message (GDPR).</span>
+              </label>
+              <p class="field__err field__err--block" id="consentErr" data-i18n="err.consent" hidden>Please tick the consent box to continue.</p>
+
+              <button type="submit" class="btn btn--primary btn--block">
+                <span data-i18n="f.submit">Send message</span>
+                <svg class="ico"><use href="#i-send" /></svg>
+              </button>
+              <p class="order__note" data-i18n="f.note">Demo only — nothing is sent anywhere.</p>
+            </form>
+
+            <div class="board">
+              <div class="board__head">
+                <h3 data-i18n="demo.board">Your inbox</h3>
+                <button type="button" class="link-btn" id="resetDemo" data-i18n="demo.reset">Reset demo</button>
+              </div>
+              <div class="inbox" id="inbox" role="list" aria-label="Inbox"></div>
+              <p class="board__hint" data-i18n="demo.hint">Every message arrives with the topic, contact details and time.</p>
+
+              <div class="mails" id="mails" hidden>
+                <div class="mail">
+                  <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail1.head">E-mail to you</span></div>
+                  <p class="mail__to" id="mail1To"></p>
+                  <p class="mail__subj" id="mail1Subj"></p>
+                  <p class="mail__body" id="mail1Body"></p>
+                </div>
+                <div class="mail mail--b">
+                  <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail2.head">Auto-reply to the customer</span></div>
+                  <p class="mail__to" id="mail2To"></p>
+                  <p class="mail__subj" id="mail2Subj"></p>
+                  <p class="mail__body" id="mail2Body"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section" id="how">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="how.kicker">How it works</p>
+            <h2 class="section__title" data-i18n="how.title">Up and running in three steps</h2>
+          </header>
+          <ol class="steps">
+            <li class="step reveal"><span class="step__n">1</span><h3 data-i18n="how.1t">We design the form</h3><p data-i18n="how.1p">Fields, colours, texts and languages are adapted to your brand and your customers.</p></li>
+            <li class="step reveal"><span class="step__n">2</span><h3 data-i18n="how.2t">We connect delivery</h3><p data-i18n="how.2p">Messages go to your e-mail, a Google Sheet or a CRM — whichever you already use.</p></li>
+            <li class="step reveal"><span class="step__n">3</span><h3 data-i18n="how.3t">You get clean leads</h3><p data-i18n="how.3p">Only valid names, e-mails and phone numbers arrive, and every customer gets a confirmation.</p></li>
+          </ol>
+
+          <div class="benefits">
+            <div class="benefit reveal"><svg class="ico"><use href="#i-bolt" /></svg><span data-i18n="b.1">Replies in minutes, not days</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-shield" /></svg><span data-i18n="b.2">GDPR consent built in</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-chart" /></svg><span data-i18n="b.3">More finished forms</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-globe" /></svg><span data-i18n="b.4">4 languages out of the box</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="section section--tint" id="pricing">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="pr.kicker">Pricing</p>
+            <h2 class="section__title" data-i18n="pr.title">Clear one-time prices</h2>
+            <p class="section__lead" data-i18n="pr.lead">Example packages for this demo. No monthly fees for the form itself.</p>
+          </header>
+          <div class="grid grid--3">
+            <article class="plan reveal">
+              <h3 data-i18n="pl1.name">Start</h3>
+              <p class="plan__price">€190</p>
+              <ul>
+                <li data-i18n="pl1.a">Contact form with live validation</li>
+                <li data-i18n="pl1.b">Messages to your e-mail</li>
+                <li data-i18n="pl1.c">Works on all devices</li>
+              </ul>
+            </article>
+            <article class="plan plan--hot reveal">
+              <span class="plan__flag" data-i18n="pl.pop">Most popular</span>
+              <h3 data-i18n="pl2.name">Business</h3>
+              <p class="plan__price">€390</p>
+              <ul>
+                <li data-i18n="pl2.a">Everything in Start</li>
+                <li data-i18n="pl2.b">Phone picker with country check</li>
+                <li data-i18n="pl2.c">Auto-reply to the customer</li>
+                <li data-i18n="pl2.d">Google Sheets log</li>
+              </ul>
+            </article>
+            <article class="plan reveal">
+              <h3 data-i18n="pl3.name">Pro</h3>
+              <p class="plan__price">€690</p>
+              <ul>
+                <li data-i18n="pl3.a">Everything in Business</li>
+                <li data-i18n="pl3.b">4 site languages</li>
+                <li data-i18n="pl3.c">CRM connection</li>
+                <li data-i18n="pl3.d">3 months support</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section" id="reviews">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="rv.kicker">Reviews</p>
+            <h2 class="section__title" data-i18n="rv.title">What business owners say</h2>
+          </header>
+          <div class="grid grid--3">
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.1">“We stopped getting messages with wrong phone numbers. Every lead is someone we can really call.”</blockquote>
+              <figcaption><b data-i18n="rv.1n">Piotr N.</b><span data-i18n="rv.1r">Renovation company</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.2">“The auto-reply calms customers right away. They know we saw their message.”</blockquote>
+              <figcaption><b data-i18n="rv.2n">Julia M.</b><span data-i18n="rv.2r">Dental clinic</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.3">“Simple, fast and looks great on a phone. More visitors finish the form than before.”</blockquote>
+              <figcaption><b data-i18n="rv.3n">Stefan W.</b><span data-i18n="rv.3r">Law office</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section--tint" id="faq">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 class="section__title" data-i18n="faq.title">Good questions</h2>
+          </header>
+          <div class="faq">
+            <details class="reveal"><summary data-i18n="q1">Where do the messages go?</summary><p data-i18n="a1">To your e-mail, a Google Sheet, your CRM — or all of them at once. You choose.</p></details>
+            <details class="reveal"><summary data-i18n="q2">Will it add the form to my existing site?</summary><p data-i18n="a2">Yes. The form can be embedded into any site or published as a separate page on your domain.</p></details>
+            <details class="reveal"><summary data-i18n="q3">How is spam handled?</summary><p data-i18n="a3">Hidden checks and rate limits block bots, so real visitors never have to solve puzzles.</p></details>
+            <details class="reveal"><summary data-i18n="q4">Is customer data safe?</summary><p data-i18n="a4">Data goes only where you send it. The form asks for GDPR consent and collects only what you need.</p></details>
+            <details class="reveal"><summary data-i18n="q5">Can I change the fields?</summary><p data-i18n="a5">Yes — fields, topics, texts and auto-reply are fully adjustable, in all site languages.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contacts">
+        <div class="container">
+          <div class="cta reveal">
+            <div>
+              <h2 data-i18n="ct.title">Ready for a form that works?</h2>
+              <p data-i18n="ct.lead">Tell us about your business and we will suggest the simplest setup. Answer within one working day.</p>
+            </div>
+            <ul class="cta__list">
+              <li><svg class="ico"><use href="#i-phone" /></svg><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></li>
+              <li><svg class="ico"><use href="#i-mail" /></svg><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></li>
+              <li><svg class="ico"><use href="#i-pin" /></svg><span data-contact="address" data-i18n="ct.addr">Your Street 1, 00000 Your City, Country</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> ClearForm</span>
+        <span data-i18n="ft.demo">Demo website — no real messages or e-mails are sent.</span>
+        <a href="#top" data-i18n="ft.top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="js/config.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=1"></script>
+  </body>
+</html>
