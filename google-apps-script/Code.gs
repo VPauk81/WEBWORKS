@@ -483,7 +483,7 @@ function checkStatusChanges(e) {
 // СТАТИСТИКА ПОСЕЩЕНИЙ (лист "Visits")
 // Лёгкие "маячки" без IP/геолокации — только то, что браузер
 // отдаёт сам (язык, часовой пояс, referrer, устройство). Страна —
-// это ДОГАДКА по часовому поясу самого посетителя (см. TZ_COUNTRY
+// это ДОГАДКА по часовому поясу самого посетителя (см. TZ_BY_COUNTRY
 // ниже), а не настоящая геолокация по IP.
 // ==========================================================
 const VISITS_SHEET_NAME = "Visits";
@@ -569,93 +569,343 @@ function pathHasEvent_(path, key) {
   });
 }
 
-// Грубая догадка о стране ТОЛЬКО по часовому поясу браузера
-// посетителя (Intl API) — без IP, без сторонних сервисов, без
-// вопросов по GDPR. Покрывает Европу (основной рынок сайта) плюс
-// несколько популярных зон за её пределами.
-const TZ_COUNTRY = {
-  "Europe/Warsaw": "Польша",
-  "Europe/Berlin": "Германия",
-  "Europe/Paris": "Франция",
-  "Europe/London": "Великобритания",
-  "Europe/Madrid": "Испания",
-  "Europe/Rome": "Италия",
-  "Europe/Amsterdam": "Нидерланды",
-  "Europe/Brussels": "Бельгия",
-  "Europe/Vienna": "Австрия",
-  "Europe/Zurich": "Швейцария",
-  "Europe/Prague": "Чехия",
-  "Europe/Bratislava": "Словакия",
-  "Europe/Lisbon": "Португалия",
-  "Europe/Copenhagen": "Дания",
-  "Europe/Oslo": "Норвегия",
-  "Europe/Stockholm": "Швеция",
-  "Europe/Helsinki": "Финляндия",
-  "Europe/Dublin": "Ирландия",
-  "Europe/Athens": "Греция",
-  "Europe/Budapest": "Венгрия",
-  "Europe/Bucharest": "Румыния",
-  "Europe/Sofia": "Болгария",
-  "Europe/Zagreb": "Хорватия",
-  "Europe/Ljubljana": "Словения",
-  "Europe/Belgrade": "Сербия",
-  "Europe/Kiev": "Украина",
-  "Europe/Kyiv": "Украина",
-  "Europe/Moscow": "Россия",
-  "Europe/Minsk": "Беларусь",
-  "Europe/Vilnius": "Литва",
-  "Europe/Riga": "Латвия",
-  "Europe/Tallinn": "Эстония",
-  "Europe/Luxembourg": "Люксембург",
-  "Europe/Malta": "Мальта",
-  "Europe/Nicosia": "Кипр", "Asia/Nicosia": "Кипр",
-  "Europe/Chisinau": "Молдова",
-  "Europe/Skopje": "Северная Македония",
-  "Europe/Sarajevo": "Босния и Герцеговина",
-  "Europe/Podgorica": "Черногория",
-  "Europe/Tirane": "Албания",
-  "Europe/Vaduz": "Лихтенштейн",
-  "Europe/Monaco": "Монако",
-  "Europe/Andorra": "Андорра",
-  "Europe/San_Marino": "Сан-Марино",
-  "Europe/Vatican": "Ватикан",
-  "Europe/Gibraltar": "Гибралтар",
-  "Atlantic/Reykjavik": "Исландия",
-  "America/New_York": "США", "America/Chicago": "США",
-  "America/Los_Angeles": "США", "America/Denver": "США",
-  "America/Toronto": "Канада", "America/Vancouver": "Канада",
-  "Asia/Dubai": "ОАЭ",
-  "Europe/Istanbul": "Турция", "Asia/Istanbul": "Турция"
-};
-
-// Страна определяется в 3 шага, от точного к грубому, и НИКОГДА не
-// остаётся пустой — для любого языка сайта:
-//   1) часовой пояс браузера (TZ_COUNTRY выше) — самое точное;
-//   2) язык/регион самого браузера (напр. "fr-FR" → Франция,
-//      "de-AT" → Австрия, "cs" → Чехия) — помечается "(по браузеру)";
+// =======================
+// СТРАНА ПОСЕТИТЕЛЯ — без IP и сторонних сервисов (GDPR): по часовому
+// поясу браузера, а если он общий/неизвестен ("UTC") — по региону и
+// языку браузера. Страна определяется в 3 шага, от точного к грубому, и
+// НИКОГДА не остаётся пустой — для любого языка сайта:
+//   1) часовой пояс браузера — самое точное. Таблица ниже — ПОЛНЫЙ
+//      официальный список часовых поясов IANA (tzdata, zone.tab): 418
+//      зон + 131 старое название, которое браузеры ещё отдают
+//      (Asia/Calcutta, Europe/Kiev, …) = 549 названий, 247 стран;
+//   2) регион/язык самого браузера ("de-AT" → Австрия, "cs" → Чехия) —
+//      помечается "(по браузеру)";
 //   3) язык, на котором смотрели сайт — помечается "(по языку)".
-const ISO2_COUNTRY = {
-  PL: "Польша", DE: "Германия", FR: "Франция", GB: "Великобритания",
-  UK: "Великобритания", IE: "Ирландия", ES: "Испания", IT: "Италия",
-  NL: "Нидерланды", BE: "Бельгия", AT: "Австрия", CH: "Швейцария",
-  CZ: "Чехия", SK: "Словакия", PT: "Португалия", DK: "Дания",
-  NO: "Норвегия", SE: "Швеция", FI: "Финляндия", GR: "Греция",
-  HU: "Венгрия", RO: "Румыния", BG: "Болгария", HR: "Хорватия",
-  SI: "Словения", RS: "Сербия", UA: "Украина", RU: "Россия",
-  BY: "Беларусь", LT: "Литва", LV: "Латвия", EE: "Эстония",
-  LU: "Люксембург", MT: "Мальта", CY: "Кипр", MD: "Молдова",
-  IS: "Исландия", TR: "Турция", US: "США", CA: "Канада",
-  AE: "ОАЭ", KZ: "Казахстан", GE: "Грузия", AM: "Армения", IL: "Израиль"
+// ISO-код страны -> часовые пояса IANA через пробел
+// =======================
+const TZ_BY_COUNTRY = {
+  AD: "Europe/Andorra",
+  AE: "Asia/Dubai",
+  AF: "Asia/Kabul",
+  AG: "America/Antigua",
+  AI: "America/Anguilla",
+  AL: "Europe/Tirane",
+  AM: "Asia/Yerevan",
+  AO: "Africa/Luanda",
+  AQ: "Antarctica/Casey Antarctica/Davis Antarctica/DumontDUrville Antarctica/Mawson Antarctica/McMurdo Antarctica/Palmer Antarctica/Rothera Antarctica/Syowa Antarctica/Troll Antarctica/Vostok",
+  AR: "America/Argentina/Buenos_Aires America/Argentina/Catamarca America/Argentina/ComodRivadavia America/Argentina/Cordoba America/Argentina/Jujuy America/Argentina/La_Rioja America/Argentina/Mendoza America/Argentina/Rio_Gallegos America/Argentina/Salta America/Argentina/San_Juan America/Argentina/San_Luis America/Argentina/Tucuman America/Argentina/Ushuaia America/Buenos_Aires America/Catamarca America/Cordoba America/Jujuy America/Mendoza America/Rosario",
+  AS: "Pacific/Pago_Pago Pacific/Samoa US/Samoa",
+  AT: "Europe/Vienna",
+  AU: "Antarctica/Macquarie Australia/ACT Australia/Adelaide Australia/Brisbane Australia/Broken_Hill Australia/Canberra Australia/Currie Australia/Darwin Australia/Eucla Australia/Hobart Australia/LHI Australia/Lindeman Australia/Lord_Howe Australia/Melbourne Australia/NSW Australia/North Australia/Perth Australia/Queensland Australia/South Australia/Sydney Australia/Tasmania Australia/Victoria Australia/West Australia/Yancowinna",
+  AW: "America/Aruba",
+  AX: "Europe/Mariehamn",
+  AZ: "Asia/Baku",
+  BA: "Europe/Sarajevo",
+  BB: "America/Barbados",
+  BD: "Asia/Dacca Asia/Dhaka",
+  BE: "CET Europe/Brussels MET",
+  BF: "Africa/Ouagadougou",
+  BG: "Europe/Sofia",
+  BH: "Asia/Bahrain",
+  BI: "Africa/Bujumbura",
+  BJ: "Africa/Porto-Novo",
+  BL: "America/St_Barthelemy",
+  BM: "Atlantic/Bermuda",
+  BN: "Asia/Brunei",
+  BO: "America/La_Paz",
+  BQ: "America/Kralendijk",
+  BR: "America/Araguaina America/Bahia America/Belem America/Boa_Vista America/Campo_Grande America/Cuiaba America/Eirunepe America/Fortaleza America/Maceio America/Manaus America/Noronha America/Porto_Acre America/Porto_Velho America/Recife America/Rio_Branco America/Santarem America/Sao_Paulo Brazil/Acre Brazil/DeNoronha Brazil/East Brazil/West",
+  BS: "America/Nassau",
+  BT: "Asia/Thimbu Asia/Thimphu",
+  BW: "Africa/Gaborone",
+  BY: "Europe/Minsk",
+  BZ: "America/Belize",
+  CA: "America/Atikokan America/Blanc-Sablon America/Cambridge_Bay America/Creston America/Dawson America/Dawson_Creek America/Edmonton America/Fort_Nelson America/Glace_Bay America/Goose_Bay America/Halifax America/Inuvik America/Iqaluit America/Moncton America/Montreal America/Nipigon America/Pangnirtung America/Rainy_River America/Rankin_Inlet America/Regina America/Resolute America/St_Johns America/Swift_Current America/Thunder_Bay America/Toronto America/Vancouver America/Whitehorse America/Winnipeg America/Yellowknife Canada/Atlantic Canada/Central Canada/Eastern Canada/Mountain Canada/Newfoundland Canada/Pacific Canada/Saskatchewan Canada/Yukon",
+  CC: "Indian/Cocos",
+  CD: "Africa/Kinshasa Africa/Lubumbashi",
+  CF: "Africa/Bangui",
+  CG: "Africa/Brazzaville",
+  CH: "Europe/Zurich",
+  CI: "Africa/Abidjan Africa/Timbuktu Iceland",
+  CK: "Pacific/Rarotonga",
+  CL: "America/Coyhaique America/Punta_Arenas America/Santiago Chile/Continental Chile/EasterIsland Pacific/Easter",
+  CM: "Africa/Douala",
+  CN: "Asia/Chongqing Asia/Chungking Asia/Harbin Asia/Kashgar Asia/Shanghai Asia/Urumqi PRC",
+  CO: "America/Bogota",
+  CR: "America/Costa_Rica",
+  CU: "America/Havana Cuba",
+  CV: "Atlantic/Cape_Verde",
+  CW: "America/Curacao",
+  CX: "Indian/Christmas",
+  CY: "Asia/Famagusta Asia/Nicosia Europe/Nicosia",
+  CZ: "Europe/Prague",
+  DE: "Atlantic/Jan_Mayen Europe/Berlin Europe/Busingen",
+  DJ: "Africa/Djibouti",
+  DK: "Europe/Copenhagen",
+  DM: "America/Dominica",
+  DO: "America/Santo_Domingo",
+  DZ: "Africa/Algiers",
+  EC: "America/Guayaquil Pacific/Galapagos",
+  EE: "Europe/Tallinn",
+  EG: "Africa/Cairo Egypt",
+  EH: "Africa/El_Aaiun",
+  ER: "Africa/Asmara",
+  ES: "Africa/Ceuta Atlantic/Canary Europe/Madrid",
+  ET: "Africa/Addis_Ababa",
+  FI: "Europe/Helsinki",
+  FJ: "Pacific/Fiji",
+  FK: "Atlantic/Stanley",
+  FM: "Pacific/Chuuk Pacific/Kosrae Pacific/Pohnpei",
+  FO: "Atlantic/Faeroe Atlantic/Faroe",
+  FR: "Europe/Paris",
+  GA: "Africa/Libreville",
+  GB: "Europe/Belfast Europe/London GB GB-Eire",
+  GD: "America/Grenada",
+  GE: "Asia/Tbilisi",
+  GF: "America/Cayenne",
+  GG: "Europe/Guernsey",
+  GH: "Africa/Accra",
+  GI: "Europe/Gibraltar",
+  GL: "America/Danmarkshavn America/Godthab America/Nuuk America/Scoresbysund America/Thule",
+  GM: "Africa/Banjul",
+  GN: "Africa/Conakry",
+  GP: "America/Guadeloupe",
+  GQ: "Africa/Malabo",
+  GR: "EET Europe/Athens",
+  GS: "Atlantic/South_Georgia",
+  GT: "America/Guatemala",
+  GU: "Pacific/Guam",
+  GW: "Africa/Bissau",
+  GY: "America/Guyana",
+  HK: "Asia/Hong_Kong Hongkong",
+  HN: "America/Tegucigalpa",
+  HR: "Europe/Zagreb",
+  HT: "America/Port-au-Prince",
+  HU: "Europe/Budapest",
+  ID: "Asia/Jakarta Asia/Jayapura Asia/Makassar Asia/Pontianak Asia/Ujung_Pandang",
+  IE: "Eire Europe/Dublin",
+  IL: "Asia/Jerusalem Asia/Tel_Aviv Israel",
+  IM: "Europe/Isle_of_Man",
+  IN: "Asia/Calcutta Asia/Kolkata",
+  IO: "Indian/Chagos",
+  IQ: "Asia/Baghdad",
+  IR: "Asia/Tehran Iran",
+  IS: "Atlantic/Reykjavik",
+  IT: "Europe/Rome",
+  JE: "Europe/Jersey",
+  JM: "America/Jamaica Jamaica",
+  JO: "Asia/Amman",
+  JP: "Asia/Tokyo Japan",
+  KE: "Africa/Asmera Africa/Nairobi",
+  KG: "Asia/Bishkek",
+  KH: "Asia/Phnom_Penh",
+  KI: "Pacific/Enderbury Pacific/Kanton Pacific/Kiritimati Pacific/Tarawa",
+  KM: "Indian/Comoro",
+  KN: "America/St_Kitts",
+  KP: "Asia/Pyongyang",
+  KR: "Asia/Seoul ROK",
+  KW: "Asia/Kuwait",
+  KY: "America/Cayman",
+  KZ: "Asia/Almaty Asia/Aqtau Asia/Aqtobe Asia/Atyrau Asia/Oral Asia/Qostanay Asia/Qyzylorda",
+  LA: "Asia/Vientiane",
+  LB: "Asia/Beirut",
+  LC: "America/St_Lucia",
+  LI: "Europe/Vaduz",
+  LK: "Asia/Colombo",
+  LR: "Africa/Monrovia",
+  LS: "Africa/Maseru",
+  LT: "Europe/Vilnius",
+  LU: "Europe/Luxembourg",
+  LV: "Europe/Riga",
+  LY: "Africa/Tripoli Libya",
+  MA: "Africa/Casablanca",
+  MC: "Europe/Monaco",
+  MD: "Europe/Chisinau Europe/Tiraspol",
+  ME: "Europe/Podgorica",
+  MF: "America/Marigot",
+  MG: "Indian/Antananarivo",
+  MH: "Kwajalein Pacific/Kwajalein Pacific/Majuro",
+  MK: "Europe/Skopje",
+  ML: "Africa/Bamako",
+  MM: "Asia/Rangoon Asia/Yangon",
+  MN: "Asia/Choibalsan Asia/Hovd Asia/Ulaanbaatar Asia/Ulan_Bator",
+  MO: "Asia/Macao Asia/Macau",
+  MP: "Pacific/Saipan",
+  MQ: "America/Martinique",
+  MR: "Africa/Nouakchott",
+  MS: "America/Montserrat",
+  MT: "Europe/Malta",
+  MU: "Indian/Mauritius",
+  MV: "Indian/Maldives",
+  MW: "Africa/Blantyre",
+  MX: "America/Bahia_Banderas America/Cancun America/Chihuahua America/Ciudad_Juarez America/Ensenada America/Hermosillo America/Matamoros America/Mazatlan America/Merida America/Mexico_City America/Monterrey America/Ojinaga America/Santa_Isabel America/Tijuana Mexico/BajaNorte Mexico/BajaSur Mexico/General",
+  MY: "Asia/Kuala_Lumpur Asia/Kuching",
+  MZ: "Africa/Maputo",
+  NA: "Africa/Windhoek",
+  NC: "Pacific/Noumea",
+  NE: "Africa/Niamey",
+  NF: "Pacific/Norfolk",
+  NG: "Africa/Lagos",
+  NI: "America/Managua",
+  NL: "Europe/Amsterdam",
+  NO: "Europe/Oslo",
+  NP: "Asia/Kathmandu Asia/Katmandu",
+  NR: "Pacific/Nauru",
+  NU: "Pacific/Niue",
+  NZ: "Antarctica/South_Pole NZ NZ-CHAT Pacific/Auckland Pacific/Chatham",
+  OM: "Asia/Muscat",
+  PA: "America/Coral_Harbour America/Panama EST",
+  PE: "America/Lima",
+  PF: "Pacific/Gambier Pacific/Marquesas Pacific/Tahiti",
+  PG: "Pacific/Bougainville Pacific/Port_Moresby Pacific/Truk Pacific/Yap",
+  PH: "Asia/Manila",
+  PK: "Asia/Karachi",
+  PL: "Europe/Warsaw Poland",
+  PM: "America/Miquelon",
+  PN: "Pacific/Pitcairn",
+  PR: "America/Puerto_Rico America/Virgin",
+  PS: "Asia/Gaza Asia/Hebron",
+  PT: "Atlantic/Azores Atlantic/Madeira Europe/Lisbon Portugal WET",
+  PW: "Pacific/Palau",
+  PY: "America/Asuncion",
+  QA: "Asia/Qatar",
+  RE: "Indian/Reunion",
+  RO: "Europe/Bucharest",
+  RS: "Europe/Belgrade",
+  RU: "Asia/Anadyr Asia/Barnaul Asia/Chita Asia/Irkutsk Asia/Kamchatka Asia/Khandyga Asia/Krasnoyarsk Asia/Magadan Asia/Novokuznetsk Asia/Novosibirsk Asia/Omsk Asia/Sakhalin Asia/Srednekolymsk Asia/Tomsk Asia/Ust-Nera Asia/Vladivostok Asia/Yakutsk Asia/Yekaterinburg Europe/Astrakhan Europe/Kaliningrad Europe/Kirov Europe/Moscow Europe/Samara Europe/Saratov Europe/Ulyanovsk Europe/Volgograd W-SU",
+  RW: "Africa/Kigali",
+  SA: "Asia/Riyadh",
+  SB: "Pacific/Guadalcanal Pacific/Ponape",
+  SC: "Indian/Mahe",
+  SD: "Africa/Khartoum",
+  SE: "Europe/Stockholm",
+  SG: "Asia/Singapore Singapore",
+  SH: "Atlantic/St_Helena",
+  SI: "Europe/Ljubljana",
+  SJ: "Arctic/Longyearbyen",
+  SK: "Europe/Bratislava",
+  SL: "Africa/Freetown",
+  SM: "Europe/San_Marino",
+  SN: "Africa/Dakar",
+  SO: "Africa/Mogadishu",
+  SR: "America/Paramaribo",
+  SS: "Africa/Juba",
+  ST: "Africa/Sao_Tome",
+  SV: "America/El_Salvador",
+  SX: "America/Lower_Princes",
+  SY: "Asia/Damascus",
+  SZ: "Africa/Mbabane",
+  TC: "America/Grand_Turk",
+  TD: "Africa/Ndjamena",
+  TF: "Indian/Kerguelen",
+  TG: "Africa/Lome",
+  TH: "Asia/Bangkok",
+  TJ: "Asia/Dushanbe",
+  TK: "Pacific/Fakaofo",
+  TL: "Asia/Dili",
+  TM: "Asia/Ashgabat Asia/Ashkhabad",
+  TN: "Africa/Tunis",
+  TO: "Pacific/Tongatapu",
+  TR: "Asia/Istanbul Europe/Istanbul Turkey",
+  TT: "America/Port_of_Spain",
+  TV: "Pacific/Funafuti",
+  TW: "Asia/Taipei ROC",
+  TZ: "Africa/Dar_es_Salaam",
+  UA: "Europe/Kiev Europe/Kyiv Europe/Simferopol Europe/Uzhgorod Europe/Zaporozhye",
+  UG: "Africa/Kampala",
+  UM: "Pacific/Midway Pacific/Wake",
+  US: "America/Adak America/Anchorage America/Atka America/Boise America/Chicago America/Denver America/Detroit America/Fort_Wayne America/Indiana/Indianapolis America/Indiana/Knox America/Indiana/Marengo America/Indiana/Petersburg America/Indiana/Tell_City America/Indiana/Vevay America/Indiana/Vincennes America/Indiana/Winamac America/Indianapolis America/Juneau America/Kentucky/Louisville America/Kentucky/Monticello America/Knox_IN America/Los_Angeles America/Louisville America/Menominee America/Metlakatla America/New_York America/Nome America/North_Dakota/Beulah America/North_Dakota/Center America/North_Dakota/New_Salem America/Phoenix America/Shiprock America/Sitka America/Yakutat HST MST Navajo Pacific/Honolulu Pacific/Johnston US/Alaska US/Aleutian US/Arizona US/Central US/East-Indiana US/Eastern US/Hawaii US/Indiana-Starke US/Michigan US/Mountain US/Pacific",
+  UY: "America/Montevideo",
+  UZ: "Asia/Samarkand Asia/Tashkent",
+  VA: "Europe/Vatican",
+  VC: "America/St_Vincent",
+  VE: "America/Caracas",
+  VG: "America/Tortola",
+  VI: "America/St_Thomas",
+  VN: "Asia/Ho_Chi_Minh Asia/Saigon",
+  VU: "Pacific/Efate",
+  WF: "Pacific/Wallis",
+  WS: "Pacific/Apia",
+  YE: "Asia/Aden",
+  YT: "Indian/Mayotte",
+  ZA: "Africa/Johannesburg",
+  ZM: "Africa/Lusaka",
+  ZW: "Africa/Harare",
 };
 
+const COUNTRY_NAMES_RU = {
+  AD: "Андорра", AE: "ОАЭ", AF: "Афганистан", AG: "Антигуа и Барбуда",
+  AI: "Ангилья", AL: "Албания", AM: "Армения", AO: "Ангола",
+  AQ: "Антарктида", AR: "Аргентина", AS: "Американское Самоа", AT: "Австрия",
+  AU: "Австралия", AW: "Аруба", AX: "Аландские о-ва", AZ: "Азербайджан",
+  BA: "Босния и Герцеговина", BB: "Барбадос", BD: "Бангладеш", BE: "Бельгия",
+  BF: "Буркина-Фасо", BG: "Болгария", BH: "Бахрейн", BI: "Бурунди",
+  BJ: "Бенин", BL: "Сен-Бартелеми", BM: "Бермудские о-ва", BN: "Бруней",
+  BO: "Боливия", BQ: "Бонэйр, Синт-Эстатиус и Саба", BR: "Бразилия", BS: "Багамы",
+  BT: "Бутан", BV: "о-в Буве", BW: "Ботсвана", BY: "Беларусь",
+  BZ: "Белиз", CA: "Канада", CC: "Кокосовые о-ва", CD: "Конго - Киншаса",
+  CF: "Центрально-Африканская Республика", CG: "Конго - Браззавиль", CH: "Швейцария", CI: "Кот-д’Ивуар",
+  CK: "о-ва Кука", CL: "Чили", CM: "Камерун", CN: "Китай",
+  CO: "Колумбия", CR: "Коста-Рика", CU: "Куба", CV: "Кабо-Верде",
+  CW: "Кюрасао", CX: "о-в Рождества", CY: "Кипр", CZ: "Чехия",
+  DE: "Германия", DJ: "Джибути", DK: "Дания", DM: "Доминика",
+  DO: "Доминиканская Республика", DZ: "Алжир", EC: "Эквадор", EE: "Эстония",
+  EG: "Египет", EH: "Западная Сахара", ER: "Эритрея", ES: "Испания",
+  ET: "Эфиопия", FI: "Финляндия", FJ: "Фиджи", FK: "Фолклендские о-ва",
+  FM: "Федеративные Штаты Микронезии", FO: "Фарерские о-ва", FR: "Франция", GA: "Габон",
+  GB: "Великобритания", GD: "Гренада", GE: "Грузия", GF: "Французская Гвиана",
+  GG: "Гернси", GH: "Гана", GI: "Гибралтар", GL: "Гренландия",
+  GM: "Гамбия", GN: "Гвинея", GP: "Гваделупа", GQ: "Экваториальная Гвинея",
+  GR: "Греция", GS: "Южная Георгия и Южные Сандвичевы о-ва", GT: "Гватемала", GU: "Гуам",
+  GW: "Гвинея-Бисау", GY: "Гайана", HK: "Гонконг", HM: "о-ва Херд и Макдональд",
+  HN: "Гондурас", HR: "Хорватия", HT: "Гаити", HU: "Венгрия",
+  ID: "Индонезия", IE: "Ирландия", IL: "Израиль", IM: "О-в Мэн",
+  IN: "Индия", IO: "Британская территория в Индийском океане", IQ: "Ирак", IR: "Иран",
+  IS: "Исландия", IT: "Италия", JE: "Джерси", JM: "Ямайка",
+  JO: "Иордания", JP: "Япония", KE: "Кения", KG: "Киргизия",
+  KH: "Камбоджа", KI: "Кирибати", KM: "Коморы", KN: "Сент-Китс и Невис",
+  KP: "Северная Корея", KR: "Южная Корея", KW: "Кувейт", KY: "о-ва Кайман",
+  KZ: "Казахстан", LA: "Лаос", LB: "Ливан", LC: "Сент-Люсия",
+  LI: "Лихтенштейн", LK: "Шри-Ланка", LR: "Либерия", LS: "Лесото",
+  LT: "Литва", LU: "Люксембург", LV: "Латвия", LY: "Ливия",
+  MA: "Марокко", MC: "Монако", MD: "Молдова", ME: "Черногория",
+  MF: "Сен-Мартен", MG: "Мадагаскар", MH: "Маршалловы о-ва", MK: "Северная Македония",
+  ML: "Мали", MM: "Мьянма", MN: "Монголия", MO: "Макао",
+  MP: "Северные Марианские о-ва", MQ: "Мартиника", MR: "Мавритания", MS: "Монтсеррат",
+  MT: "Мальта", MU: "Маврикий", MV: "Мальдивы", MW: "Малави",
+  MX: "Мексика", MY: "Малайзия", MZ: "Мозамбик", NA: "Намибия",
+  NC: "Новая Каледония", NE: "Нигер", NF: "о-в Норфолк", NG: "Нигерия",
+  NI: "Никарагуа", NL: "Нидерланды", NO: "Норвегия", NP: "Непал",
+  NR: "Науру", NU: "Ниуэ", NZ: "Новая Зеландия", OM: "Оман",
+  PA: "Панама", PE: "Перу", PF: "Французская Полинезия", PG: "Папуа — Новая Гвинея",
+  PH: "Филиппины", PK: "Пакистан", PL: "Польша", PM: "Сен-Пьер и Микелон",
+  PN: "о-ва Питкэрн", PR: "Пуэрто-Рико", PS: "Палестина", PT: "Португалия",
+  PW: "Палау", PY: "Парагвай", QA: "Катар", RE: "Реюньон",
+  RO: "Румыния", RS: "Сербия", RU: "Россия", RW: "Руанда",
+  SA: "Саудовская Аравия", SB: "Соломоновы о-ва", SC: "Сейшельские о-ва", SD: "Судан",
+  SE: "Швеция", SG: "Сингапур", SH: "о-в Св. Елены", SI: "Словения",
+  SJ: "Шпицберген и Ян-Майен", SK: "Словакия", SL: "Сьерра-Леоне", SM: "Сан-Марино",
+  SN: "Сенегал", SO: "Сомали", SR: "Суринам", SS: "Южный Судан",
+  ST: "Сан-Томе и Принсипи", SV: "Сальвадор", SX: "Синт-Мартен", SY: "Сирия",
+  SZ: "Эсватини", TC: "Тёркс и Кайкос", TD: "Чад", TF: "Французские Южные территории",
+  TG: "Того", TH: "Таиланд", TJ: "Таджикистан", TK: "Токелау",
+  TL: "Восточный Тимор", TM: "Туркменистан", TN: "Тунис", TO: "Тонга",
+  TR: "Турция", TT: "Тринидад и Тобаго", TV: "Тувалу", TW: "Тайвань",
+  TZ: "Танзания", UA: "Украина", UG: "Уганда", UM: "Внешние малые о-ва (США)",
+  US: "США", UY: "Уругвай", UZ: "Узбекистан", VA: "Ватикан",
+  VC: "Сент-Винсент и Гренадины", VE: "Венесуэла", VG: "Виргинские о-ва (Великобритания)", VI: "Виргинские о-ва (США)",
+  VN: "Вьетнам", VU: "Вануату", WF: "Уоллис и Футуна", WS: "Самоа",
+  YE: "Йемен", YT: "Майотта", ZA: "ЮАР", ZM: "Замбия",
+  ZW: "Зимбабве",
+  XK: "Косово"
+};
+
+// Язык браузера без региона -> страна (грубо, только когда нет региона)
 const BROWSER_LANG_COUNTRY = {
-  pl: "Польша", fr: "Франция", it: "Италия", es: "Испания",
-  nl: "Нидерланды", cs: "Чехия", sk: "Словакия", uk: "Украина",
-  be: "Беларусь", lt: "Литва", lv: "Латвия", et: "Эстония",
-  hu: "Венгрия", ro: "Румыния", bg: "Болгария", hr: "Хорватия",
-  sl: "Словения", sr: "Сербия", el: "Греция", pt: "Португалия",
-  da: "Дания", sv: "Швеция", fi: "Финляндия", nb: "Норвегия",
-  no: "Норвегия", tr: "Турция", ka: "Грузия", hy: "Армения"
+  pl: "PL", fr: "FR", it: "IT", es: "ES", nl: "NL", cs: "CZ", sk: "SK",
+  uk: "UA", be: "BY", lt: "LT", lv: "LV", et: "EE", hu: "HU", ro: "RO",
+  bg: "BG", hr: "HR", sl: "SI", sr: "RS", el: "GR", pt: "PT", da: "DK",
+  sv: "SE", fi: "FI", nb: "NO", no: "NO", tr: "TR", ka: "GE", hy: "AM"
 };
 
 const LANG_COUNTRY_FALLBACK = {
@@ -665,15 +915,35 @@ const LANG_COUNTRY_FALLBACK = {
   en: "Англоязычный регион (по языку)"
 };
 
-function guessCountry(timezone, browserLang, siteLang) {
-  const byTimezone = TZ_COUNTRY[String(timezone || "")];
-  if (byTimezone) return byTimezone;
+// Название зоны (и старой, и новой) -> ISO-код страны; "" если зона не
+// привязана к стране (UTC, Etc/GMT+1, …)
+let TZ_LOOKUP_ = null;
+function tzCountryIso_(timezone) {
+  const name = String(timezone || "").trim();
+  if (!name) return "";
 
-  const parts = String(browserLang || "").split(/[-_]/);
-  const region = (parts[1] || "").toUpperCase();
-  if (region && ISO2_COUNTRY[region]) return ISO2_COUNTRY[region] + " (по браузеру)";
-  const byBrowserLang = BROWSER_LANG_COUNTRY[(parts[0] || "").toLowerCase()];
-  if (byBrowserLang) return byBrowserLang + " (по браузеру)";
+  if (!TZ_LOOKUP_) {
+    TZ_LOOKUP_ = {};
+    Object.keys(TZ_BY_COUNTRY).forEach(function(iso){
+      TZ_BY_COUNTRY[iso].split(" ").forEach(function(zone){ TZ_LOOKUP_[zone] = iso; });
+    });
+  }
+
+  return TZ_LOOKUP_[name] || "";
+}
+
+function guessCountry(timezone, browserLang, siteLang) {
+  const iso = tzCountryIso_(timezone);
+  if (iso) return COUNTRY_NAMES_RU[iso] || iso;
+
+  const lang = String(browserLang || "");
+  let region = (lang.match(/[-_]([A-Za-z]{2})(?:[-_]|$)/) || [])[1];
+  region = region ? region.toUpperCase() : "";
+  if (region === "UK") region = "GB";
+  if (region && COUNTRY_NAMES_RU[region]) return COUNTRY_NAMES_RU[region] + " (по браузеру)";
+
+  const byLang = BROWSER_LANG_COUNTRY[lang.split(/[-_]/)[0].toLowerCase()];
+  if (byLang) return COUNTRY_NAMES_RU[byLang] + " (по браузеру)";
 
   return LANG_COUNTRY_FALLBACK[String(siteLang || "")] || "Не определено";
 }
@@ -684,23 +954,26 @@ function countryKey(label) {
   return String(label || "Не определено").replace(/\s*\(по [^)]*\)\s*$/, "") || "Не определено";
 }
 
-// Один раз дозаполняет столбец "Страна" у старых строк Visits, где он
-// пустой (строки, записанные до появления/улучшения этой догадки).
+// Один раз заново определяет "Страну" у строк Visits, где она пустая
+// или была слабой догадкой ("по языку", "Не определено") — теперь, с
+// полной таблицей часовых поясов, многие из них определятся точно.
+// Точные ответы не трогаем.
 function backfillVisitCountries(sheet) {
   const props = PropertiesService.getScriptProperties();
-  if (props.getProperty("VISITS_COUNTRY_BACKFILL_V2") === "done") return;
+  if (props.getProperty("VISITS_COUNTRY_BACKFILL_V3") === "done") return;
 
   const lastRow = sheet.getLastRow();
   if (lastRow >= 2) {
     const rows = sheet.getRange(2, 1, lastRow - 1, VISITS_HEADERS.length).getValues();
     const countries = rows.map(function(r){
       const current = String(r[VCOL.country] || "").trim();
-      return [current || guessCountry(r[VCOL.timezone], r[VCOL.browserLang], r[VCOL.siteLang])];
+      if (current && !/\(по |Не определено/.test(current)) return [current];
+      return [guessCountry(r[VCOL.timezone], r[VCOL.browserLang], r[VCOL.siteLang])];
     });
     sheet.getRange(2, VCOL.country + 1, countries.length, 1).setValues(countries);
   }
 
-  props.setProperty("VISITS_COUNTRY_BACKFILL_V2", "done");
+  props.setProperty("VISITS_COUNTRY_BACKFILL_V3", "done");
 }
 
 // Время визита у самого посетителя (по его часовому поясу)
