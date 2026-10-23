@@ -876,7 +876,7 @@
       playLangClickSound();
       applyLanguage(this.getAttribute("data-lang"));
       closeMobilePanel();
-      trackEvent("language_view");
+      sendVisitBeacon("language_view");
     });
   }
 
@@ -1228,14 +1228,47 @@
     return !/Headless|Lighthouse|PageSpeed/i.test(navigator.userAgent || "");
   }
 
+  // One visitor = one row in the Visits sheet. Each visit gets a random ID
+  // that lives only as long as the tab is open (sessionStorage — nothing
+  // is kept between visits); every event of the visit carries it, and the
+  // sheet updates that visitor's row: Page view → Language change → …
+  // Each event is sent once per visit (a language: once per language).
+  var visitSession = null;
+
+  function getVisitSession(){
+    if (visitSession) return visitSession;
+    try {
+      var saved = JSON.parse(sessionStorage.getItem("ww_visit") || "null");
+      if (saved && saved.id && saved.sent) visitSession = saved;
+    } catch (err) { /* storage unavailable — keep the visit in memory only */ }
+    if (!visitSession){
+      visitSession = {
+        id: "v" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10),
+        sent: {}
+      };
+    }
+    return visitSession;
+  }
+
+  function saveVisitSession(){
+    try { sessionStorage.setItem("ww_visit", JSON.stringify(visitSession)); } catch (err) { /* ignore */ }
+  }
+
   function sendVisitBeacon(eventName){
     if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1) return;
     if (!isRealVisit()) return;
     try {
-      var payload = Object.assign({ type: "visit", event: eventName }, buildVisitorContext());
+      var session = getVisitSession();
+      var lang = document.documentElement.getAttribute("lang") || "en";
+      var sentKey = eventName === "language_view" ? eventName + ":" + lang : eventName;
+      if (session.sent[sentKey]) return;
+      session.sent[sentKey] = 1;
+      saveVisitSession();
+
+      var payload = Object.assign({ type: "visit", event: eventName, visitId: session.id }, buildVisitorContext());
       var formData = new URLSearchParams();
       formData.append("data", JSON.stringify(payload));
-      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData }).catch(function(){});
+      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: formData, keepalive: true }).catch(function(){});
     } catch (err) { /* statistics must never break the site */ }
   }
 
@@ -1680,6 +1713,7 @@
         if (inquiryStatus){ inquiryStatus.classList.add("is-shown"); }
         if (inquirySendAgainNotice){ inquirySendAgainNotice.classList.add("visible"); }
         playInquirySendSuccessSound();
+        sendVisitBeacon("inquiry_sent");
       }
 
       function sendByEmailInstead(){

@@ -404,6 +404,10 @@ const STATUS_LANG = {
 
 function checkStatusChanges(e) {
 
+  // Галочки очистки статистики (Visits / Дашборд) обрабатываем тем же
+  // установленным триггером — отдельный не нужен
+  if (handleControlEdit_(e)) return;
+
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(5000);
@@ -484,34 +488,31 @@ function checkStatusChanges(e) {
 // ==========================================================
 const VISITS_SHEET_NAME = "Visits";
 
-// Порядок столбцов 0-14 не менять и не переставлять — на него
-// завязаны индексы в computeStats(). Новые поля добавлять только
-// в конец списка (как "Страна" здесь), иначе старые уже записанные
-// строки съедут относительно новых заголовков.
+// Один посетитель = одна строка. Она создаётся при первом действии
+// и ОБНОВЛЯЕТСЯ по мере следующих: "Событие" всегда показывает ПОСЛЕДНЕЕ
+// действие, "Путь посетителя" — всю цепочку. Порядок столбцов не менять:
+// на него завязаны индексы VCOL ниже. Новые поля — только в конец.
 const VISITS_HEADERS = [
   "Дата/время (моё, Europe/Warsaw)", "Метка времени (raw)", "Событие",
   "Язык сайта", "Язык браузера", "Часовой пояс (посетителя)",
   "Источник (домен)", "Referrer (полный)", "UTM Source", "UTM Medium",
   "UTM Campaign", "Устройство", "Разрешение экрана", "Страница",
-  "User-Agent", "Страна (догадка по часовому поясу)"
+  "User-Agent", "Страна (догадка по часовому поясу)",
+  "Время у посетителя", "ID визита", "Путь посетителя", "Языки",
+  "Последнее действие"
 ];
 
-// 0-based индексы для computeStats()
-const VCOL_EVENT = 2;
-const VCOL_SITELANG = 3;
-const VCOL_BROWSERLANG = 4;
-const VCOL_TIMEZONE = 5;
-const VCOL_DOMAIN = 6;
-const VCOL_DEVICE = 11;
-const VCOL_PAGE = 13;
-const VCOL_UA = 14;
-const VCOL_COUNTRY = 15;
+// Номера столбцов (0-based) листа "Visits"
+const VCOL = {
+  time: 0, raw: 1, event: 2, siteLang: 3, browserLang: 4, timezone: 5,
+  domain: 6, device: 11, page: 13, ua: 14, country: 15,
+  localTime: 16, id: 17, path: 18, langs: 19, last: 20
+};
 
 // Настоящий посетитель = страница открыта с живого адреса сайта и не
 // автоматическим браузером. Локальные копии (file://, Live Server на
 // 127.0.0.1) и тесты/Lighthouse раздували статистику — такие визиты
-// больше не записываются, а уже записанные не учитываются на Дашборде
-// (сами строки в листе Visits не удаляются).
+// не записываются и не учитываются (сами строки в листе не удаляются).
 const SITE_ORIGIN = "https://vpauk81.github.io/";
 function isTestVisit(pageUrl, userAgent) {
   const url = String(pageUrl || "");
@@ -519,15 +520,38 @@ function isTestVisit(pageUrl, userAgent) {
   return /Headless|Lighthouse|PageSpeed/i.test(String(userAgent || ""));
 }
 
+// Роботы (превью ссылок в мессенджерах, поисковики, проверялки сайта)
+// не должны попадать в статистику посетителей
+const BOT_USER_AGENT = /bot|crawl|spider|slurp|preview|facebookexternalhit|whatsapp\/|headless|lighthouse|pingdom|uptime|monitor|curl\/|wget|python|httpclient|okhttp|go-http/i;
+function isBotUserAgent_(ua) {
+  const s = String(ua || "");
+  return !s || BOT_USER_AGENT.test(s);
+}
+
+function cut_(value, max) {
+  const s = String(value || "");
+  return s.length > max ? s.slice(0, max) : s;
+}
+
+// Столбец "Событие" — человекочитаемое название. Статистика сравнивает
+// по техническим ключам и переводит обратно через eventKeyFromLabel()
 const EVENT_LABELS = {
   pageview: "Просмотр страницы",
   language_view: "Смена языка",
   inquiry_form_opened: "Открыли форму заявки",
-  inquiry_started: "Начали заполнять заявку"
+  inquiry_started: "Начали заполнять заявку",
+  inquiry_sent: "Отправили заявку"
 };
 
 function eventLabel(key) {
   return EVENT_LABELS[key] || key;
+}
+
+// Подпись -> технический ключ. Если подпись неизвестна (старые строки
+// могут хранить ключ как есть) — возвращаем её же
+function eventKeyFromLabel(label) {
+  const found = Object.keys(EVENT_LABELS).find(function(key){ return EVENT_LABELS[key] === label; });
+  return found || label;
 }
 
 // Грубая догадка о стране ТОЛЬКО по часовому поясу браузера
@@ -655,13 +679,29 @@ function backfillVisitCountries(sheet) {
   if (lastRow >= 2) {
     const rows = sheet.getRange(2, 1, lastRow - 1, VISITS_HEADERS.length).getValues();
     const countries = rows.map(function(r){
-      const current = String(r[VCOL_COUNTRY] || "").trim();
-      return [current || guessCountry(r[VCOL_TIMEZONE], r[VCOL_BROWSERLANG], r[VCOL_SITELANG])];
+      const current = String(r[VCOL.country] || "").trim();
+      return [current || guessCountry(r[VCOL.timezone], r[VCOL.browserLang], r[VCOL.siteLang])];
     });
-    sheet.getRange(2, VCOL_COUNTRY + 1, countries.length, 1).setValues(countries);
+    sheet.getRange(2, VCOL.country + 1, countries.length, 1).setValues(countries);
   }
 
   props.setProperty("VISITS_COUNTRY_BACKFILL_V2", "done");
+}
+
+// Время визита у самого посетителя (по его часовому поясу)
+function visitorLocalTime(date, timezone) {
+  try {
+    return Utilities.formatDate(date, String(timezone || "").trim(), "dd.MM.yyyy HH:mm");
+  } catch (e) {
+    return "";
+  }
+}
+
+// "de-DE" / "de_DE" -> "de"; пустое -> "unknown"
+function normalizeLangCode(value) {
+  const s = String(value || "").toLowerCase().trim();
+  if (!s) return "unknown";
+  return s.split("-")[0].split("_")[0];
 }
 
 function getOrCreateVisitsSheet() {
@@ -672,20 +712,32 @@ function getOrCreateVisitsSheet() {
     sheet = ss.insertSheet(VISITS_SHEET_NAME);
   }
 
-  // Заголовки перезаписываются каждый раз (дёшево и безопасно) —
-  // так и переименование столбца, и новые столбцы В КОНЦЕ списка
-  // подхватятся сами, без ручной миграции. Существующие данные не
-  // трогаем — новые столбцы только дописываются справа.
-  sheet.getRange(1, 1, 1, VISITS_HEADERS.length).setValues([VISITS_HEADERS]);
-  sheet.getRange(1, 1, 1, VISITS_HEADERS.length).setFontWeight("bold");
-  sheet.setFrozenRows(1);
+  // Заголовки обновляются, только если что-то изменилось (так лишний раз
+  // не пишем в Таблицу на каждое событие); новые столбцы — в конец,
+  // существующие данные не трогаем.
+  const hasAny = sheet.getLastRow() > 0;
+  const current = hasAny
+    ? sheet.getRange(1, 1, 1, VISITS_HEADERS.length).getValues()[0]
+    : [];
+  const changed = VISITS_HEADERS.some(function(title, i){ return String(current[i] || "") !== title; });
 
-  // Столбец "Страна" — последний справа (P), поэтому выделяем его цветом,
-  // чтобы его было сразу видно.
-  sheet.getRange(1, VCOL_COUNTRY + 1).setBackground("#1baf7a").setFontColor("#ffffff");
-  sheet.setColumnWidth(VCOL_COUNTRY + 1, 200);
+  if (changed) {
+    sheet.getRange(1, 1, 1, VISITS_HEADERS.length).setValues([VISITS_HEADERS]).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+
+    // Столбец "Страна" выделен цветом, чтобы его было сразу видно
+    sheet.getRange(1, VCOL.country + 1).setBackground("#1baf7a").setFontColor("#ffffff");
+    sheet.setColumnWidth(1, 190);
+    sheet.setColumnWidth(VCOL.event + 1, 190);
+    sheet.setColumnWidth(VCOL.timezone + 1, 170);
+    sheet.setColumnWidth(VCOL.country + 1, 200);
+    sheet.setColumnWidth(VCOL.path + 1, 420);
+    sheet.setColumnWidth(VCOL.langs + 1, 100);
+    sheet.setColumnWidth(VCOL.last + 1, 150);
+  }
 
   backfillVisitCountries(sheet);
+  ensureVisitsControls_(sheet);
 
   return sheet;
 }
@@ -701,29 +753,163 @@ function extractDomain(url) {
   }
 }
 
+// =======================
+// ЗАПИСЬ ВИЗИТА — как на сайте Arduino/ESP32:
+//  1. Роботы не записываются.
+//  2. Один посетитель = одна строка. ID визита создаёт сайт (случайный,
+//     живёт, пока открыта вкладка). Первое событие создаёт строку, все
+//     следующие ОБНОВЛЯЮТ её:
+//       "Событие"            — последнее действие ("Смена языка", …)
+//       "Путь посетителя"    — вся цепочка: Просмотр страницы → … → …
+//       "Языки"              — языки сайта, которые он видел (en, ru, …)
+//       "Язык сайта"         — текущий язык
+//       "Последнее действие" — время последнего события
+//  3. Длинные поля (User-Agent, referrer, страница) обрезаются.
+//  4. Когда подробных строк больше VISITS_MAX_ROWS, старые (старше
+//     VISITS_KEEP_DAYS дней) сами сворачиваются в сводный лист
+//     "VisitsArchive" — цифры в статистике не меняются.
+//  5. Дашборд пересобирается не на каждое событие, а не чаще раза в
+//     DASHBOARD_REFRESH_SECONDS.
+// =======================
+const VISITS_KEEP_DAYS = 45;
+const VISITS_MAX_ROWS = 1500;
+const DASHBOARD_REFRESH_SECONDS = 120;
+
 function logVisit(data) {
-  const sheet = getOrCreateVisitsSheet();
-  const now = new Date();
 
-  sheet.appendRow([
-    Utilities.formatDate(now, APP_TIMEZONE, "dd.MM.yyyy HH:mm"),
-    now,
-    eventLabel(data.event || "pageview"),
-    data.siteLang || "",
-    data.browserLang || "",
-    data.timezone || "",
-    extractDomain(data.referrer),
-    data.referrer || "",
-    data.utmSource || "",
-    data.utmMedium || "",
-    data.utmCampaign || "",
-    data.device || "",
-    data.screen || "",
-    data.pageUrl || "",
-    data.userAgent || "",
-    guessCountry(data.timezone, data.browserLang, data.siteLang)
-  ]);
+  if (isBotUserAgent_(data.userAgent)) return;
 
+  const lock = LockService.getScriptLock();
+  let locked = false;
+
+  try {
+    lock.waitLock(10000);
+    locked = true;
+  } catch (e) {
+    // не дождались — всё равно записываем
+  }
+
+  try {
+
+    const sheet = getOrCreateVisitsSheet();
+    const now = new Date();
+    const label = eventLabel(data.event || "pageview");
+    const visitId = String(data.visitId || "").trim();
+    const lang = String(data.siteLang || "").trim();
+    const nowText = Utilities.formatDate(now, APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+
+    let row = 0;
+
+    if (visitId) {
+      const last = sheet.getLastRow();
+      if (last > 1) {
+        const found = sheet.getRange(2, VCOL.id + 1, last - 1, 1)
+          .createTextFinder(visitId).matchEntireCell(true).findNext();
+        if (found) row = found.getRow();
+      }
+    }
+
+    if (row) {
+
+      // ---- тот же посетитель: обновляем строку ----
+      const cur = sheet.getRange(row, VCOL.event + 1, 1, VCOL.last - VCOL.event + 1).getValues()[0];
+      const steps = String(cur[VCOL.path - VCOL.event] || "").split(" → ").filter(Boolean);
+      if (steps[steps.length - 1] !== label) steps.push(label);
+
+      const langs = String(cur[VCOL.langs - VCOL.event] || "").split(",")
+        .map(function(s){ return s.trim(); }).filter(Boolean);
+      if (lang && langs.indexOf(lang) === -1) langs.push(lang);
+
+      sheet.getRange(row, VCOL.event + 1).setValue(label);
+      if (lang) sheet.getRange(row, VCOL.siteLang + 1).setValue(lang);
+      sheet.getRange(row, VCOL.path + 1, 1, 3).setValues([[steps.join(" → "), langs.join(", "), nowText]]);
+
+    } else {
+
+      // ---- новый посетитель: новая строка ----
+      sheet.appendRow([
+        nowText,
+        now,                                   // сырая дата — для статистики
+        label,
+        lang,
+        data.browserLang || "",
+        data.timezone || "",
+        extractDomain(data.referrer),
+        cut_(data.referrer, 200),
+        cut_(data.utmSource, 60),
+        cut_(data.utmMedium, 60),
+        cut_(data.utmCampaign, 60),
+        data.device || "",
+        data.screen || "",
+        cut_(data.pageUrl, 120),
+        cut_(data.userAgent, 140),
+        guessCountry(data.timezone, data.browserLang, data.siteLang),
+        visitorLocalTime(now, data.timezone),
+        visitId,
+        label,
+        lang,
+        nowText
+      ]);
+
+      const lastRow = sheet.getLastRow();
+      sheet.getRange(lastRow, 1, 1, VISITS_HEADERS.length).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
+      sheet.setRowHeight(lastRow, 21);
+
+      // Лист разросся — сворачиваем старые визиты в сводку
+      if (lastRow - 1 > VISITS_MAX_ROWS) {
+        archiveVisitsOlderThan_(new Date(now.getTime() - VISITS_KEEP_DAYS * 24 * 60 * 60 * 1000));
+      }
+    }
+
+    SpreadsheetApp.flush();
+
+  } finally {
+    if (locked) lock.releaseLock();
+  }
+
+  refreshDashboardThrottled_();
+}
+
+// Что "значит" строка листа Visits для статистики. Старая строка (без
+// ID визита) — одно событие. Новая (одна строка на посетителя) —
+// просмотр страницы на первом языке, смена языка на каждом следующем
+// и по одному событию воронки из "Пути посетителя"
+function visitRowEvents_(row) {
+
+  const label = String(row[VCOL.event] || "");
+  const id = String(row[VCOL.id] || "").trim();
+
+  if (!id) {
+    return [{ event: eventKeyFromLabel(label || "pageview"), siteLang: row[VCOL.siteLang] }];
+  }
+
+  const path = String(row[VCOL.path] || "");
+  const langs = String(row[VCOL.langs] || "").split(",")
+    .map(function(s){ return s.trim(); }).filter(Boolean);
+  const out = [{ event: "pageview", siteLang: langs[0] || row[VCOL.siteLang] }];
+
+  langs.slice(1).forEach(function(l){ out.push({ event: "language_view", siteLang: l }); });
+
+  if (path.indexOf(EVENT_LABELS.inquiry_form_opened) !== -1) {
+    out.push({ event: "inquiry_form_opened", siteLang: row[VCOL.siteLang] });
+  }
+  if (path.indexOf(EVENT_LABELS.inquiry_started) !== -1) {
+    out.push({ event: "inquiry_started", siteLang: row[VCOL.siteLang] });
+  }
+
+  return out;
+}
+
+// Дашборд пересобирается не на каждое событие (это тяжело), а не чаще
+// раза в DASHBOARD_REFRESH_SECONDS
+function refreshDashboardThrottled_() {
+  try {
+    const cache = CacheService.getScriptCache();
+    if (cache.get("dashboard:fresh")) return;
+    cache.put("dashboard:fresh", "1", DASHBOARD_REFRESH_SECONDS);
+  } catch (e) {
+    // кэша нет — просто обновляем
+  }
   updateDashboard();
 }
 
@@ -773,10 +959,10 @@ function computeStats() {
   const day30 = new Date(now.getTime() - 30 * 86400000);
   const day35 = new Date(now.getTime() - 34 * 86400000);
 
-  const totals = {
-    pageviews: emptyCounter(),
-    formOpened: emptyCounter(),
-    inquiryStarted: emptyCounter()
+  const totalsByEvent = {
+    pageview: emptyCounter(),
+    inquiry_form_opened: emptyCounter(),
+    inquiry_started: emptyCounter()
   };
   const bySiteLang = {};
   const byDevice = {};
@@ -784,45 +970,75 @@ function computeStats() {
   const byCountry = {};
   const dailyMap = {};
 
+  // Для свёрнутых визитов известен только день, поэтому окна 7 / 30
+  // дней сравниваем по дате
+  const day7Key = Utilities.formatDate(day7, tz, "yyyy-MM-dd");
+  const day30Key = Utilities.formatDate(day30, tz, "yyyy-MM-dd");
+
+  function bumpW(counter, dateKey, rawDate, weight, byDay) {
+    counter.allTime += weight;
+    if (dateKey === todayKey) counter.today += weight;
+    if (dateKey === yesterdayKey) counter.yesterday += weight;
+    if (byDay ? dateKey >= day7Key : rawDate >= day7) counter.last7 += weight;
+    if (byDay ? dateKey >= day30Key : rawDate >= day30) counter.last30 += weight;
+  }
+
+  // weight — сколько визитов представляет запись (1 для строки листа
+  // "Visits", число из колонки "Количество" для сводки "VisitsArchive")
+  function addVisit(eventName, dateKey, rawDate, siteLang, device, domain, country, weight, byDay) {
+
+    if (!totalsByEvent[eventName]) totalsByEvent[eventName] = emptyCounter();
+    bumpW(totalsByEvent[eventName], dateKey, rawDate, weight, byDay);
+
+    // Язык, который реально был на экране: и при заходе, и при каждой
+    // смене языка (сайт всегда открывается на английском)
+    if (eventName === "pageview" || eventName === "language_view") {
+      const sl = siteLang || "en";
+      bySiteLang[sl] = (bySiteLang[sl] || 0) + weight;
+    }
+
+    // Устройство / источник / страна / дни — только по заходу на сайт,
+    // иначе один визит задвоился бы через события воронки
+    if (eventName === "pageview") {
+      const dev = device || "unknown";
+      byDevice[dev] = (byDevice[dev] || 0) + weight;
+      const dom = domain || "Прямой заход";
+      byDomain[dom] = (byDomain[dom] || 0) + weight;
+      byCountry[country] = (byCountry[country] || 0) + weight;
+      dailyMap[dateKey] = (dailyMap[dateKey] || 0) + weight;
+    }
+  }
+
   const rows = (visitsSheet && visitsSheet.getLastRow() > 1)
     ? visitsSheet.getRange(2, 1, visitsSheet.getLastRow() - 1, VISITS_HEADERS.length).getValues()
     : [];
 
   rows.forEach(function(r){
-    const rawDate = r[1];
-    const eventRaw = r[VCOL_EVENT] || "";
-    const siteLang = r[VCOL_SITELANG] || "unknown";
-    const domain = r[VCOL_DOMAIN] || "";
-    const device = r[VCOL_DEVICE] || "unknown";
+    const rawDate = r[VCOL.raw];
+    if (Object.prototype.toString.call(rawDate) !== "[object Date]" || isNaN(rawDate.getTime())) return;
+    if (isTestVisit(r[VCOL.page], r[VCOL.ua])) return;
 
-    if (!(rawDate instanceof Date) || isNaN(rawDate.getTime())) return;
-    if (isTestVisit(r[VCOL_PAGE], r[VCOL_UA])) return;
-
+    const country = countryKey(r[VCOL.country] ||
+      guessCountry(r[VCOL.timezone], r[VCOL.browserLang], r[VCOL.siteLang]));
     const dateKey = Utilities.formatDate(rawDate, tz, "yyyy-MM-dd");
-    const isPageview = eventRaw === eventLabel("pageview");
 
-    if (isPageview) {
-      bump(totals.pageviews, dateKey, rawDate, todayKey, yesterdayKey, day7, day30);
-      bySiteLang[siteLang] = (bySiteLang[siteLang] || 0) + 1;
-      byDevice[device] = (byDevice[device] || 0) + 1;
-      byDomain[domain] = (byDomain[domain] || 0) + 1;
-
-      const country = countryKey(r[VCOL_COUNTRY] ||
-        guessCountry(r[VCOL_TIMEZONE], r[VCOL_BROWSERLANG], r[VCOL_SITELANG]));
-      byCountry[country] = (byCountry[country] || 0) + 1;
-
-      if (rawDate >= day35) {
-        dailyMap[dateKey] = (dailyMap[dateKey] || 0) + 1;
-      }
-    }
-
-    if (eventRaw === eventLabel("inquiry_form_opened")) {
-      bump(totals.formOpened, dateKey, rawDate, todayKey, yesterdayKey, day7, day30);
-    }
-    if (eventRaw === eventLabel("inquiry_started")) {
-      bump(totals.inquiryStarted, dateKey, rawDate, todayKey, yesterdayKey, day7, day30);
-    }
+    // Одна строка = один посетитель: из неё получаем просмотр, смены
+    // языка и шаги воронки (см. visitRowEvents_)
+    visitRowEvents_(r).forEach(function(ev){
+      addVisit(ev.event, dateKey, rawDate, ev.siteLang, r[VCOL.device], r[VCOL.domain], country, 1, false);
+    });
   });
+
+  // Свёрнутые (старые) визиты из листа "VisitsArchive"
+  readVisitsArchive_().forEach(function(a){
+    addVisit(a.event, a.date, a.rawDate, a.siteLang, a.device, a.domain, countryKey(a.country), a.count, true);
+  });
+
+  const totals = {
+    pageviews: totalsByEvent.pageview,
+    formOpened: totalsByEvent.inquiry_form_opened,
+    inquiryStarted: totalsByEvent.inquiry_started
+  };
 
   // Календарь — последние 35 дней, включая дни без единого визита
   const dailySeries = [];
@@ -877,6 +1093,296 @@ function computeStats() {
     dailySeries: dailySeries
   };
 
+}
+
+// =======================
+// СВОДНЫЙ ЛИСТ "VisitsArchive" — сжатая таблица прошлых визитов: одна
+// строка на сочетание день + событие + языки + устройство + источник +
+// страна и число таких визитов. Статистика читает и подробный лист
+// "Visits", и этот, поэтому после очистки/сворачивания цифры остаются.
+// =======================
+const VISITS_ARCHIVE_SHEET_NAME = "VisitsArchive";
+const VISITS_ARCHIVE_HEADERS = [
+  "Дата", "Событие", "Язык сайта", "Язык браузера",
+  "Устройство", "Источник (домен)", "Страна", "Количество"
+];
+
+function getOrCreateVisitsArchiveSheet_() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  let sheet = ss.getSheetByName(VISITS_ARCHIVE_SHEET_NAME);
+
+  if (!sheet) {
+    sheet = ss.insertSheet(VISITS_ARCHIVE_SHEET_NAME);
+    sheet.getRange(1, 1, 1, VISITS_ARCHIVE_HEADERS.length)
+      .setValues([VISITS_ARCHIVE_HEADERS]).setFontWeight("bold");
+    sheet.setFrozenRows(1);
+    sheet.setColumnWidths(1, VISITS_ARCHIVE_HEADERS.length, 130);
+    // текстом — чтобы даты/языки не превращались в другие типы
+    sheet.getRange(1, 1, sheet.getMaxRows(), 7).setNumberFormat("@");
+  }
+
+  return sheet;
+}
+
+// Строки сводки как объекты (для computeStats)
+function readVisitsArchive_() {
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_ARCHIVE_SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 2) return [];
+
+  const rows = sheet.getRange(2, 1, sheet.getLastRow() - 1, VISITS_ARCHIVE_HEADERS.length).getValues();
+  const out = [];
+
+  rows.forEach(function(r){
+    const count = Number(r[7]) || 0;
+    if (!count) return;
+
+    const date = Object.prototype.toString.call(r[0]) === "[object Date]"
+      ? Utilities.formatDate(r[0], APP_TIMEZONE, "yyyy-MM-dd")
+      : String(r[0] || "").trim();
+
+    const m = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!m) return;
+
+    out.push({
+      date: date,
+      rawDate: new Date(Number(m[1]), Number(m[2]) - 1, Number(m[3]), 12, 0, 0),
+      event: eventKeyFromLabel(String(r[1] || "pageview")),
+      siteLang: String(r[2] || ""),
+      browserLang: String(r[3] || ""),
+      device: String(r[4] || ""),
+      domain: String(r[5] || ""),
+      country: String(r[6] || ""),
+      count: count
+    });
+  });
+
+  return out;
+}
+
+// Если удалить все строки до самого низа листа, Таблицы ругаются
+// ("нельзя удалить все не закреплённые строки") — оставляем запасную
+function ensureSpareRow_(sheet) {
+  if (sheet.getMaxRows() <= sheet.getLastRow()) {
+    sheet.insertRowsAfter(sheet.getMaxRows(), 1);
+  }
+}
+
+// Сворачивает в сводку все подробные визиты раньше cutoff и удаляет их
+// из листа "Visits". Тестовые визиты (с localhost и т.п.) в сводку не
+// попадают — они просто удаляются. Возвращает, сколько строк убрано.
+function archiveVisitsOlderThan_(cutoff) {
+
+  const sheet = getOrCreateVisitsSheet();
+  const last = sheet.getLastRow();
+  if (last < 2) return 0;
+
+  const tz = APP_TIMEZONE;
+  const rows = sheet.getRange(2, 1, last - 1, VISITS_HEADERS.length).getValues();
+
+  const agg = {};        // ключ -> строка сводки
+  const oldRows = [];    // номера строк листа (1-based), подлежащие удалению
+
+  rows.forEach(function(r, i){
+
+    const raw = r[VCOL.raw];
+    if (Object.prototype.toString.call(raw) !== "[object Date]" || isNaN(raw.getTime()) || raw >= cutoff) return;
+
+    oldRows.push(i + 2);
+    if (isTestVisit(r[VCOL.page], r[VCOL.ua])) return;
+
+    const country = countryKey(r[VCOL.country] ||
+      guessCountry(r[VCOL.timezone], r[VCOL.browserLang], r[VCOL.siteLang]));
+
+    visitRowEvents_(r).forEach(function(ev){
+      const rec = [
+        Utilities.formatDate(raw, tz, "yyyy-MM-dd"),
+        eventLabel(ev.event),
+        String(ev.siteLang || ""),
+        normalizeLangCode(r[VCOL.browserLang]),
+        String(r[VCOL.device] || ""),
+        String(r[VCOL.domain] || "") || "Прямой заход",
+        country
+      ];
+      const key = rec.join("\u0001");
+      if (!agg[key]) agg[key] = rec.concat([0]);
+      agg[key][7]++;
+    });
+  });
+
+  if (!oldRows.length) return 0;
+
+  // Добавляем к уже имеющейся сводке
+  const arch = getOrCreateVisitsArchiveSheet_();
+
+  if (arch.getLastRow() > 1) {
+    arch.getRange(2, 1, arch.getLastRow() - 1, VISITS_ARCHIVE_HEADERS.length).getValues().forEach(function(r){
+      const date = Object.prototype.toString.call(r[0]) === "[object Date]"
+        ? Utilities.formatDate(r[0], tz, "yyyy-MM-dd") : String(r[0] || "").trim();
+      const rec = [date, String(r[1] || ""), String(r[2] || ""), String(r[3] || ""),
+        String(r[4] || ""), String(r[5] || ""), String(r[6] || "")];
+      const key = rec.join("\u0001");
+      if (!agg[key]) agg[key] = rec.concat([0]);
+      agg[key][7] += Number(r[7]) || 0;
+    });
+  }
+
+  const out = Object.keys(agg).map(function(k){ return agg[k]; })
+    .sort(function(a, b){ return a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0; });
+
+  if (out.length) {
+    arch.getRange(2, 1, Math.max(arch.getMaxRows() - 1, 1), VISITS_ARCHIVE_HEADERS.length).clearContent();
+
+    if (arch.getMaxRows() < out.length + 1) {
+      arch.insertRowsAfter(arch.getMaxRows(), out.length + 1 - arch.getMaxRows());
+    }
+
+    arch.getRange(2, 1, out.length, 7).setNumberFormat("@");
+    arch.getRange(2, 1, out.length, VISITS_ARCHIVE_HEADERS.length).setValues(out);
+  }
+
+  ensureSpareRow_(sheet);
+
+  // Удаляем убранные строки снизу вверх сплошными блоками
+  let end = oldRows.length - 1;
+  while (end >= 0) {
+    let start = end;
+    while (start > 0 && oldRows[start - 1] === oldRows[start] - 1) start--;
+    sheet.deleteRows(oldRows[start], end - start + 1);
+    end = start - 1;
+  }
+
+  return oldRows.length;
+}
+
+// Ручная команда (Выполнить в редакторе): свернуть визиты старше
+// VISITS_KEEP_DAYS дней — подробности последних дней остаются
+function archiveOldVisits() {
+  const moved = archiveVisitsOlderThan_(new Date(Date.now() - VISITS_KEEP_DAYS * 24 * 60 * 60 * 1000));
+  updateDashboard();
+  Logger.log("Свёрнуто в сводку визитов: " + moved);
+}
+
+// =======================
+// ГАЛОЧКИ ОЧИСТКИ — в листах "Visits" (W1, Y1) и "Дашборд" (A3, F3).
+// Работают и в приложении Google Таблицы на телефоне. После выполнения
+// галочка снимается сама, результат пишется рядом (Visits!AA1 и строка
+// "Обновлено" на Дашборде).
+//   🧹 Очистить лист  — старые визиты сворачиваются в "VisitsArchive",
+//                        лист Visits пустой, статистика СОХРАНЯЕТСЯ
+//   🗑 Удалить ВСЁ     — стираются Visits и сводка, статистика с НУЛЯ
+// (заявки в листе "Заявки" не затрагиваются)
+// Срабатывают через уже установленный триггер checkStatusChanges
+// ("При редактировании") — отдельный триггер не нужен.
+// =======================
+const VISITS_CTRL = { keep: 23, all: 25, note: 27 };   // W, Y, AA
+const DASH_CTRL = { row: 3, keep: 1, all: 6 };         // A3, F3
+const CLEAR_NOTE_PROP = "VISITS_LAST_ACTION";
+
+function ensureVisitsControls_(sheet) {
+
+  if (sheet.getMaxColumns() < 28) {
+    sheet.insertColumnsAfter(sheet.getMaxColumns(), 28 - sheet.getMaxColumns());
+  }
+
+  if (String(sheet.getRange(1, VISITS_CTRL.keep, 1, 3).getValues()[0].join("")).trim() !== "") return;
+
+  sheet.getRange(1, VISITS_CTRL.keep).insertCheckboxes().setValue(false).setHorizontalAlignment("center");
+  sheet.getRange(1, VISITS_CTRL.keep + 1).setValue("🧹 Очистить лист (статистика сохранится)").setFontWeight("bold");
+
+  sheet.getRange(1, VISITS_CTRL.all).insertCheckboxes().setValue(false).setHorizontalAlignment("center");
+  sheet.getRange(1, VISITS_CTRL.all + 1).setValue("🗑 Удалить ВСЁ (статистика с нуля)")
+    .setFontWeight("bold").setFontColor("#c0392b");
+
+  sheet.setColumnWidth(VISITS_CTRL.keep, 60);
+  sheet.setColumnWidth(VISITS_CTRL.keep + 1, 290);
+  sheet.setColumnWidth(VISITS_CTRL.all, 60);
+  sheet.setColumnWidth(VISITS_CTRL.all + 1, 260);
+  sheet.setColumnWidth(VISITS_CTRL.note, 380);
+}
+
+// Свернуть всё из Visits в сводку, лист Visits — пустой
+function clearVisitsKeepStats_() {
+  const moved = archiveVisitsOlderThan_(new Date(Date.now() + 24 * 60 * 60 * 1000));
+  updateDashboard();
+  return "Visits очищен (визитов убрано: " + moved + "), статистика сохранена";
+}
+
+// Удалить и Visits, и сводку
+function clearVisitsAll_() {
+  const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
+  const visits = getOrCreateVisitsSheet();
+  const last = visits.getLastRow();
+
+  if (last > 1) {
+    ensureSpareRow_(visits);
+    visits.deleteRows(2, last - 1);
+  }
+
+  const arch = ss.getSheetByName(VISITS_ARCHIVE_SHEET_NAME);
+  if (arch && arch.getLastRow() > 1) {
+    arch.getRange(2, 1, arch.getLastRow() - 1, VISITS_ARCHIVE_HEADERS.length).clearContent();
+  }
+
+  updateDashboard();
+  return "удалено всё: Visits (" + Math.max(last - 1, 0) + " строк) и сводка — статистика с нуля";
+}
+
+// Вызывается из checkStatusChanges(e). Возвращает true, если правка была
+// нажатием на галочку очистки (тогда статусы заявок проверять не нужно)
+function handleControlEdit_(e) {
+
+  if (!e || !e.range) return false;
+
+  const sheet = e.range.getSheet();
+  const name = sheet.getName();
+  const col = e.range.getColumn();
+  const row = e.range.getRow();
+
+  let action = "";
+
+  if (name === VISITS_SHEET_NAME && row === 1) {
+    if (col === VISITS_CTRL.keep) action = "keep";
+    if (col === VISITS_CTRL.all) action = "all";
+  } else if (name === DASHBOARD_SHEET_NAME && row === DASH_CTRL.row) {
+    if (col === DASH_CTRL.keep) action = "keep";
+    if (col === DASH_CTRL.all) action = "all";
+  }
+
+  if (!action) return false;
+  if (e.range.getNumRows() !== 1 || e.range.getNumColumns() !== 1) return true;
+  if (e.range.getValue() !== true) return true;     // галочку сняли — ничего не делаем
+
+  const lock = LockService.getScriptLock();
+  let message = "";
+
+  try {
+    lock.waitLock(20000);
+    message = action === "keep" ? clearVisitsKeepStats_() : clearVisitsAll_();
+  } catch (err) {
+    message = "ошибка: " + err;
+  } finally {
+    try { lock.releaseLock(); } catch (x) { /* замок не был взят */ }
+  }
+
+  const stamp = Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm") + " — " + message;
+  PropertiesService.getScriptProperties().setProperty(CLEAR_NOTE_PROP, stamp);
+
+  const visits = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
+  if (visits) {
+    visits.getRange(1, VISITS_CTRL.note).setValue(stamp);
+    visits.getRange(1, VISITS_CTRL.keep).setValue(false);   // галочки снимаются сами
+    visits.getRange(1, VISITS_CTRL.all).setValue(false);
+  }
+
+  // Дашборд мог быть пересобран выше — снимаем галочки и на нём
+  const dash = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(DASHBOARD_SHEET_NAME);
+  if (dash) {
+    dash.getRange(DASH_CTRL.row, DASH_CTRL.keep).setValue(false);
+    dash.getRange(DASH_CTRL.row, DASH_CTRL.all).setValue(false);
+    dash.getRange("A2").setValue(dashboardUpdatedText_());
+  }
+
+  return true;
 }
 
 // Необязательная защита: задай в Свойствах скрипта (Настройки
@@ -973,6 +1479,14 @@ function pct(part, total) {
   return Math.round((part / total) * 100) + "%";
 }
 
+// Строка "Обновлено" на Дашборде + что делали галочками в последний раз
+function dashboardUpdatedText_() {
+  let text = "Обновлено: " + Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+  const note = PropertiesService.getScriptProperties().getProperty(CLEAR_NOTE_PROP);
+  if (note) text += "   ·   Последняя очистка: " + note;
+  return text;
+}
+
 function updateDashboard() {
 
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
@@ -1003,8 +1517,17 @@ function updateDashboard() {
 
   sheet.getRange("A2:H2").merge();
   sheet.getRange("A2")
-    .setValue("Обновлено: " + Utilities.formatDate(new Date(), tz, "dd.MM.yyyy HH:mm"))
+    .setValue(dashboardUpdatedText_())
     .setFontColor("#898781").setFontStyle("italic");
+
+  // --- Очистка статистики одной галочкой (как на листе Visits) ---------
+  // Подписи длиннее ячейки — переливаются на соседние пустые ячейки.
+  sheet.getRange(DASH_CTRL.row, DASH_CTRL.keep).insertCheckboxes().setValue(false).setHorizontalAlignment("center");
+  sheet.getRange(DASH_CTRL.row, DASH_CTRL.keep + 1)
+    .setValue("🧹 Очистить лист Visits (статистика сохранится)").setFontWeight("bold");
+  sheet.getRange(DASH_CTRL.row, DASH_CTRL.all).insertCheckboxes().setValue(false).setHorizontalAlignment("center");
+  sheet.getRange(DASH_CTRL.row, DASH_CTRL.all + 1)
+    .setValue("🗑 Удалить ВСЁ (статистика с нуля)").setFontWeight("bold").setFontColor("#c0392b");
 
   // --- KPI: просмотры -------------------------------------
   sheet.getRange("A4:E4").merge();
@@ -1203,7 +1726,7 @@ function updateDashboard() {
   // --- Пояснение внизу -------------------------------------------
   sheet.getRange("A83:H83").merge();
   sheet.getRange("A83")
-    .setValue("ℹ️ Без IP/геолокации: страна — догадка по часовому поясу браузера, а если он не распознан — по языку браузера или сайта. Язык — по тому, что реально было показано на экране. Обновляется автоматически при каждом визите и заявке.")
+    .setValue("ℹ️ Без IP/геолокации: страна — догадка по часовому поясу браузера, а если он не распознан — по языку браузера или сайта. Один визит = один посетитель (пока открыта вкладка), язык — какие языки он реально видел. Обновляется автоматически (не чаще раза в пару минут) и при каждой заявке.")
     .setFontColor("#898781").setFontStyle("italic").setWrap(true);
 
   sheet.setFrozenRows(2);
