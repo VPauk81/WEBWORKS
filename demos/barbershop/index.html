@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Own EN/PL/DE/RU switcher — phones must not machine-translate the page -->
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#0d0c0b" />
+    <title data-i18n="meta.title">Crown &amp; Blade — Barbershop</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Classic barbershop: haircuts, fades, hot towel shaves and beard design. Online booking 24/7."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <!-- SVG icons -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.8" /><circle cx="6" cy="18" r="2.8" /><path d="M8.2 7.8 20 18M8.2 16.2 20 6" /></symbol>
+      <symbol id="i-razor" viewBox="0 0 24 24"><path d="M3 17 17 3l4 4L7 21z" /><path d="m12 8 4 4" /></symbol>
+      <symbol id="i-steam" viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="7" rx="3.5" /><path d="M8 4c-1 1.5 1 2.5 0 4M12 4c-1 1.5 1 2.5 0 4M16 4c-1 1.5 1 2.5 0 4" /></symbol>
+      <symbol id="i-comb" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="6" rx="1.5" /><path d="M6 13v5M9 13v5M12 13v5M15 13v5M18 13v5" /></symbol>
+      <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z" /></symbol>
+      <symbol id="i-spark" viewBox="0 0 24 24"><path d="m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z" /><path d="M19 17v4M17 19h4" /></symbol>
+      <symbol id="i-coffee" viewBox="0 0 24 24"><path d="M4 10h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z" /><path d="M16 12h2a2.5 2.5 0 0 1 0 5h-2M7 3c-1 1.2 1 2 0 3.5M11 3c-1 1.2 1 2 0 3.5" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+      <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></symbol>
+      <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" /><path d="M4 21c1-4 4-6 8-6s7 2 8 6" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6" /></symbol>
+      <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2" /><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1" /></symbol>
+      <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12" /></symbol>
+      <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z" /><path d="m17 9 5 6M22 9l-5 6" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+    </svg>
+
+    <!-- Header -->
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="Crown &amp; Blade">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M5 11l5 4 6-8 6 8 5-4-2 12H7z" />
+              <path d="M8 27h16" />
+            </svg>
+          </span>
+          <span class="logo__text">Crown <b>&amp;</b> Blade</span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a class="nav__back" href="https://vpauk81.github.io/WEBWORKS/#project2">
+            <svg class="ico"><use href="#i-back" /></svg>
+            <span data-i18n="nav.back">Back</span>
+          </a>
+          <a href="#services" data-i18n="nav.services">Services</a>
+          <a href="#barbers" data-i18n="nav.barbers">Barbers</a>
+          <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <a class="header__phone" data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a>
+          <div class="lang" id="lang">
+            <button
+              type="button"
+              class="lang__toggle"
+              id="langToggle"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="langMenu"
+              data-i18n-attr="aria-label:lang.label"
+              aria-label="Choose language"
+            >
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#booking" data-i18n="cta.book">Book now</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><span class="dot" id="openDot"></span><span id="openStatus" data-i18n="hero.eyebrow">Open Mon–Sat · Online booking 24/7</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">A proper cut, <em>done properly</em></h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              Classic barbershop craft for modern men — precise cuts, hot towel shaves and beard design. Pick your
+              barber and book your chair in under a minute.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#booking">
+                <span data-i18n="hero.cta">Book your chair</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="#services" data-i18n="hero.cta2">Services &amp; prices</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">Since 2012</strong><span data-i18n="hero.f1">three chairs, one standard</span></li>
+              <li><strong data-i18n="hero.f2v">4.9 ★</strong><span data-i18n="hero.f2">from 1,240 reviews</span></li>
+              <li><strong data-i18n="hero.f3v">24/7</strong><span data-i18n="hero.f3">online booking</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="mirror">
+              <div class="mirror__shine"></div>
+              <div class="pole">
+                <span class="pole__cap pole__cap--top"></span>
+                <span class="pole__glass"><span class="pole__stripes"></span></span>
+                <span class="pole__cap pole__cap--bottom"></span>
+              </div>
+              <svg class="mirror__scissors" viewBox="0 0 120 120">
+                <g class="blade blade--a"><path d="M40 82 108 14" /><circle cx="30" cy="92" r="14" /></g>
+                <g class="blade blade--b"><path d="M40 38 108 106" /><circle cx="30" cy="28" r="14" /></g>
+                <circle class="pin" cx="62" cy="60" r="3.5" />
+              </svg>
+              <span class="chip chip--a"><svg class="ico"><use href="#i-steam" /></svg><span data-i18n="hero.chip1">Hot towel included</span></span>
+              <span class="chip chip--b"><svg class="ico"><use href="#i-user" /></svg><span data-i18n="hero.chip2">Walk-ins welcome</span></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marqueeTrack">
+          <span data-i18n="mq.1">Classic cuts</span><i></i>
+          <span data-i18n="mq.2">Skin fades</span><i></i>
+          <span data-i18n="mq.3">Hot towel shaves</span><i></i>
+          <span data-i18n="mq.4">Beard design</span><i></i>
+          <span data-i18n="mq.5">Grey blending</span><i></i>
+          <span data-i18n="mq.6">Kids welcome</span><i></i>
+        </div>
+      </div>
+
+      <!-- Services & prices -->
+      <section class="section" id="services">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="services.title">Services &amp; prices</h2>
+            <p class="section__lead" data-i18n="services.lead">Clear prices, no surprises. Add any service straight to your booking.</p>
+          </div>
+
+          <div class="tabs reveal" role="tablist" id="priceTabs">
+            <button type="button" role="tab" id="tab-cuts" aria-selected="true" aria-controls="panel-cuts" data-tab="cuts" data-i18n="tab.cuts">Haircuts</button>
+            <button type="button" role="tab" id="tab-beard" aria-selected="false" aria-controls="panel-beard" data-tab="beard" tabindex="-1" data-i18n="tab.beard">Beard &amp; shave</button>
+            <button type="button" role="tab" id="tab-combo" aria-selected="false" aria-controls="panel-combo" data-tab="combo" tabindex="-1" data-i18n="tab.combo">Combos</button>
+            <button type="button" role="tab" id="tab-extras" aria-selected="false" aria-controls="panel-extras" data-tab="extras" tabindex="-1" data-i18n="tab.extras">Extras</button>
+          </div>
+
+          <div class="panels reveal">
+            <ul class="price-list" role="tabpanel" id="panel-cuts" aria-labelledby="tab-cuts">
+              <li class="price-row" data-id="cut" data-min="30" data-price="25">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.cut.name">Classic haircut</h3><span class="dots"></span><strong class="price">€25</strong></div>
+                  <p data-i18n="svc.cut.desc">Scissor or clipper cut, wash and style.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">30 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="cut"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="fade" data-min="45" data-price="30">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.fade.name">Skin fade</h3><span class="dots"></span><strong class="price">€30</strong></div>
+                  <p data-i18n="svc.fade.desc">Precision fade blended to the skin, with razor-finished edges.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">45 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="fade"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="kids" data-min="30" data-price="18">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.kids.name">Kids haircut</h3><span class="dots"></span><strong class="price">€18</strong></div>
+                  <p data-i18n="svc.kids.desc">For boys under 12 — patient, quick and fun.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">30 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="kids"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="wash" data-min="15" data-price="8">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.wash.name">Wash &amp; style</h3><span class="dots"></span><strong class="price">€8</strong></div>
+                  <p data-i18n="svc.wash.desc">Shampoo, scalp massage and styling with premium products.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">15 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="wash"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+            </ul>
+
+            <ul class="price-list" role="tabpanel" id="panel-beard" aria-labelledby="tab-beard" hidden>
+              <li class="price-row" data-id="beard" data-min="30" data-price="18">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.beard.name">Beard trim &amp; shape</h3><span class="dots"></span><strong class="price">€18</strong></div>
+                  <p data-i18n="svc.beard.desc">Length, line-up and shape designed around your face.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">30 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="beard"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="shave" data-min="40" data-price="28">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.shave.name">Hot towel shave</h3><span class="dots"></span><strong class="price">€28</strong></div>
+                  <p data-i18n="svc.shave.desc">Straight-razor shave with hot towels and aftershave balm.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">40 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="shave"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="line" data-min="15" data-price="10">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.line.name">Neck &amp; edge clean-up</h3><span class="dots"></span><strong class="price">€10</strong></div>
+                  <p data-i18n="svc.line.desc">A quick tidy of the neckline and edges between cuts.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">15 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="line"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="brows" data-min="15" data-price="7">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.brows.name">Brow &amp; ear trim</h3><span class="dots"></span><strong class="price">€7</strong></div>
+                  <p data-i18n="svc.brows.desc">Tidy brows and ears for a clean finish.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">15 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="brows"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+            </ul>
+
+            <ul class="price-list" role="tabpanel" id="panel-combo" aria-labelledby="tab-combo" hidden>
+              <li class="price-row" data-id="combo" data-min="60" data-price="40">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.combo.name">Haircut + beard</h3><span class="dots"></span><strong class="price">€40</strong></div>
+                  <p data-i18n="svc.combo.desc">The classic pairing: a full cut and beard shaping.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">60 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="combo"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="royal" data-min="90" data-price="65">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.royal.name">The Royal</h3><span class="dots"></span><strong class="price">€65</strong></div>
+                  <p data-i18n="svc.royal.desc">Haircut, beard, hot towel shave and face mask — the full ritual.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">90 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="royal"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+            </ul>
+
+            <ul class="price-list" role="tabpanel" id="panel-extras" aria-labelledby="tab-extras" hidden>
+              <li class="price-row" data-id="color" data-min="30" data-price="22">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.color.name">Grey blending</h3><span class="dots"></span><strong class="price">€22</strong></div>
+                  <p data-i18n="svc.color.desc">Subtle colour that softens grey without looking dyed.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">30 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="color"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+              <li class="price-row" data-id="facial" data-min="20" data-price="15">
+                <div class="price-row__body">
+                  <div class="price-row__top"><h3 data-i18n="svc.facial.name">Face mask &amp; massage</h3><span class="dots"></span><strong class="price">€15</strong></div>
+                  <p data-i18n="svc.facial.desc">A cleansing mask with a relaxing facial massage.</p>
+                  <span class="dur"><svg class="ico"><use href="#i-clock" /></svg><span class="dur__text">20 min</span></span>
+                </div>
+                <button type="button" class="btn-add" data-add="facial"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="svc.add">Add</span></button>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ritual -->
+      <section class="section section--paper" id="ritual">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="ritual.title">The Crown &amp; Blade ritual</h2>
+            <p class="section__lead" data-i18n="ritual.lead">Every visit follows the same four steps — so you always leave looking, and feeling, sharp.</p>
+          </div>
+          <ol class="ritual">
+            <li class="ritual__step reveal">
+              <span class="ritual__num">01</span>
+              <span class="ritual__icon"><svg class="ico"><use href="#i-user" /></svg></span>
+              <h3 data-i18n="r1.t">Consultation</h3>
+              <p data-i18n="r1.d">We talk length, shape and style before a single hair is cut.</p>
+            </li>
+            <li class="ritual__step reveal">
+              <span class="ritual__num">02</span>
+              <span class="ritual__icon"><svg class="ico"><use href="#i-drop" /></svg></span>
+              <h3 data-i18n="r2.t">Wash &amp; prep</h3>
+              <p data-i18n="r2.d">A warm wash and scalp massage to relax you and prepare the hair.</p>
+            </li>
+            <li class="ritual__step reveal">
+              <span class="ritual__num">03</span>
+              <span class="ritual__icon"><svg class="ico"><use href="#i-scissors" /></svg></span>
+              <h3 data-i18n="r3.t">The cut</h3>
+              <p data-i18n="r3.d">Precision work with scissors, clippers and the straight razor.</p>
+            </li>
+            <li class="ritual__step reveal">
+              <span class="ritual__num">04</span>
+              <span class="ritual__icon"><svg class="ico"><use href="#i-steam" /></svg></span>
+              <h3 data-i18n="r4.t">Hot towel finish</h3>
+              <p data-i18n="r4.d">Steaming towel, balm and styling — and you're done.</p>
+            </li>
+          </ol>
+          <ul class="perks reveal">
+            <li><svg class="ico"><use href="#i-shield" /></svg><span data-i18n="perk.1">Sterilised tools</span></li>
+            <li><svg class="ico"><use href="#i-spark" /></svg><span data-i18n="perk.2">Premium products</span></li>
+            <li><svg class="ico"><use href="#i-coffee" /></svg><span data-i18n="perk.3">Espresso on the house</span></li>
+            <li><svg class="ico"><use href="#i-steam" /></svg><span data-i18n="perk.4">Hot towels included</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Barbers -->
+      <section class="section" id="barbers">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="barbers.title">Meet your barbers</h2>
+            <p class="section__lead" data-i18n="barbers.lead">Three specialists, one standard. Choose who you like — or take the first free chair.</p>
+          </div>
+          <div class="barbers">
+            <article class="barber reveal" data-barber="marek">
+              <div class="barber__avatar" aria-hidden="true"><span>M</span></div>
+              <h3>Marek</h3>
+              <p class="barber__role" data-i18n="b.marek.role">Master barber</p>
+              <p class="barber__tags" data-i18n="b.marek.tags">Fades · Classic cuts</p>
+              <ul class="barber__meta">
+                <li><svg class="ico"><use href="#i-star" /></svg>4.9</li>
+                <li data-i18n="b.marek.exp">12 years</li>
+              </ul>
+              <button type="button" class="btn btn--ghost btn--sm" data-pick-barber="marek"><span data-i18n="b.book" data-name="Marek">Book with Marek</span></button>
+            </article>
+            <article class="barber reveal" data-barber="tom">
+              <div class="barber__avatar" aria-hidden="true"><span>T</span></div>
+              <h3>Tom</h3>
+              <p class="barber__role" data-i18n="b.tom.role">Beard &amp; shave specialist</p>
+              <p class="barber__tags" data-i18n="b.tom.tags">Beard design · Hot towel shave</p>
+              <ul class="barber__meta">
+                <li><svg class="ico"><use href="#i-star" /></svg>4.9</li>
+                <li data-i18n="b.tom.exp">9 years</li>
+              </ul>
+              <button type="button" class="btn btn--ghost btn--sm" data-pick-barber="tom"><span data-i18n="b.book" data-name="Tom">Book with Tom</span></button>
+            </article>
+            <article class="barber reveal" data-barber="lena">
+              <div class="barber__avatar" aria-hidden="true"><span>L</span></div>
+              <h3>Lena</h3>
+              <p class="barber__role" data-i18n="b.lena.role">Stylist</p>
+              <p class="barber__tags" data-i18n="b.lena.tags">Modern cuts · Grey blending</p>
+              <ul class="barber__meta">
+                <li><svg class="ico"><use href="#i-star" /></svg>4.8</li>
+                <li data-i18n="b.lena.exp">7 years</li>
+              </ul>
+              <button type="button" class="btn btn--ghost btn--sm" data-pick-barber="lena"><span data-i18n="b.book" data-name="Lena">Book with Lena</span></button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking -->
+      <section class="section section--booking" id="booking">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="booking.title">Book your chair</h2>
+            <p class="section__lead" data-i18n="booking.lead">Four quick steps. This is a demo — nothing is sent or saved.</p>
+          </div>
+
+          <div class="booking">
+            <div class="booking__main">
+              <ol class="stepper" id="stepper">
+                <li class="is-current"><span class="stepper__n">1</span><span class="stepper__t" data-i18n="bk.s1">Services</span></li>
+                <li><span class="stepper__n">2</span><span class="stepper__t" data-i18n="bk.s2">Barber</span></li>
+                <li><span class="stepper__n">3</span><span class="stepper__t" data-i18n="bk.s3">Date &amp; time</span></li>
+                <li><span class="stepper__n">4</span><span class="stepper__t" data-i18n="bk.s4">Your details</span></li>
+              </ol>
+
+              <form id="bookingForm" novalidate>
+                <fieldset class="step" data-step="1">
+                  <legend class="step__title" data-i18n="bk.s1.title">What would you like?</legend>
+                  <p class="step__hint" data-i18n="bk.s1.hint">Pick one or more services.</p>
+                  <div class="pick-grid" id="svcPick"></div>
+                  <p class="step__error" id="err-services" role="alert" hidden></p>
+                </fieldset>
+
+                <fieldset class="step" data-step="2" hidden>
+                  <legend class="step__title" data-i18n="bk.s2.title">Who should cut your hair?</legend>
+                  <p class="step__hint" data-i18n="bk.s2.hint">Choose a barber, or the first free chair.</p>
+                  <div class="barber-pick" id="barberPick"></div>
+                </fieldset>
+
+                <fieldset class="step" data-step="3" hidden>
+                  <legend class="step__title" data-i18n="bk.s3.title">Pick a day and time</legend>
+                  <p class="step__hint" id="slotHint" data-i18n="bk.pickday">Pick a day to see free times.</p>
+                  <div class="date-strip" id="dateStrip" role="listbox" data-i18n-attr="aria-label:bk.s3"></div>
+                  <div class="slots" id="slots" role="listbox"></div>
+                  <p class="step__error" id="err-time" role="alert" hidden></p>
+                </fieldset>
+
+                <fieldset class="step" data-step="4" hidden>
+                  <legend class="step__title" data-i18n="bk.s4.title">Your details</legend>
+                  <div class="fields">
+                    <div class="field">
+                      <label for="f-name" data-i18n="f.name">Name</label>
+                      <input id="f-name" name="name" type="text" autocomplete="name" data-i18n-attr="placeholder:f.name.ph" placeholder="Your name" />
+                      <p class="field__error" id="err-name" hidden></p>
+                    </div>
+                    <div class="field">
+                      <label for="f-phone" data-i18n="f.phone">Phone</label>
+                      <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+00 000 000 000" />
+                      <p class="field__error" id="err-phone" hidden></p>
+                    </div>
+                    <div class="field field--wide">
+                      <label for="f-email" data-i18n="f.email">Email (optional)</label>
+                      <input id="f-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="name@mail.com" />
+                      <p class="field__error" id="err-email" hidden></p>
+                    </div>
+                    <div class="field field--wide">
+                      <label for="f-notes" data-i18n="f.notes">Notes (optional)</label>
+                      <textarea id="f-notes" name="notes" rows="3" data-i18n-attr="placeholder:f.notes.ph" placeholder="Anything we should know?"></textarea>
+                    </div>
+                    <div class="consent field--wide">
+                      <input id="f-consent" name="consent" type="checkbox" />
+                      <label for="f-consent" data-i18n="f.consent">I agree to the processing of my data to handle this booking (GDPR). Demo — nothing is stored.</label>
+                      <p class="field__error" id="err-consent" hidden></p>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="step__nav">
+                  <button type="button" class="btn btn--ghost" id="btnPrev" hidden data-i18n="bk.back">Back</button>
+                  <button type="button" class="btn btn--primary" id="btnNext"><span data-i18n="bk.next">Next</span><svg class="ico"><use href="#i-arrow" /></svg></button>
+                  <button type="submit" class="btn btn--primary" id="btnConfirm" hidden><svg class="ico"><use href="#i-check" /></svg><span data-i18n="bk.confirm">Confirm booking</span></button>
+                </div>
+              </form>
+
+              <div class="success" id="success" hidden aria-live="polite">
+                <span class="success__tick"><svg class="ico"><use href="#i-check" /></svg></span>
+                <h3 data-i18n="ok.title">You're booked in!</h3>
+                <p id="okText"></p>
+                <p class="success__code"><span data-i18n="ok.code">Booking code</span><strong id="okCode">CB-00000</strong></p>
+                <div class="success__actions">
+                  <button type="button" class="btn btn--primary" id="btnIcs"><svg class="ico"><use href="#i-calendar" /></svg><span data-i18n="ok.ics">Add to calendar</span></button>
+                  <button type="button" class="btn btn--ghost" id="btnAgain" data-i18n="ok.again">Book another visit</button>
+                </div>
+              </div>
+            </div>
+
+            <aside class="summary" id="summary" aria-live="polite">
+              <h3 class="summary__title" data-i18n="sum.title">Your visit</h3>
+              <ul class="summary__list" id="sumServices"></ul>
+              <dl class="summary__facts">
+                <div><dt data-i18n="sum.barber">Barber</dt><dd id="sumBarber">—</dd></div>
+                <div><dt data-i18n="sum.when">When</dt><dd id="sumWhen">—</dd></div>
+                <div><dt data-i18n="sum.duration">Duration</dt><dd id="sumDuration">—</dd></div>
+              </dl>
+              <p class="summary__total"><span data-i18n="sum.total">Total</span><strong id="sumTotal">€0</strong></p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section section--paper" id="reviews">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="reviews.title">What clients say</h2>
+            <p class="section__lead" data-i18n="reviews.lead">Rated 4.9 from 1,240 reviews.</p>
+          </div>
+          <div class="reviews">
+            <figure class="review reveal">
+              <div class="stars" aria-hidden="true"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.1">Best fade in town. Marek listens, takes his time, and the hot towel finish is unreal.</blockquote>
+              <figcaption><span class="avatar">D</span><div><b>Daniel K.</b><span data-i18n="rv.1.c">Skin fade</span></div></figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="stars" aria-hidden="true"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.2">Booked online in a minute and was in and out on schedule. Spotless shop, great espresso.</blockquote>
+              <figcaption><span class="avatar">P</span><div><b>Piotr W.</b><span data-i18n="rv.2.c">Haircut + beard</span></div></figcaption>
+            </figure>
+            <figure class="review reveal">
+              <div class="stars" aria-hidden="true"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.3">Tom shaped my beard exactly the way I imagined it. I'm a regular now.</blockquote>
+              <figcaption><span class="avatar">L</span><div><b>Lukas B.</b><span data-i18n="rv.3.c">Beard design</span></div></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="container container--narrow">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="faq.title">Good to know</h2>
+          </div>
+          <div class="faq reveal">
+            <details><summary data-i18n="faq.q1">Do I need an appointment?</summary><p data-i18n="faq.a1">Walk-ins are welcome whenever a chair is free, but booking online guarantees your time.</p></details>
+            <details><summary data-i18n="faq.q2">What if I need to cancel or move my visit?</summary><p data-i18n="faq.a2">No problem — just let us know at least 4 hours ahead and we'll rebook you free of charge.</p></details>
+            <details><summary data-i18n="faq.q3">How can I pay?</summary><p data-i18n="faq.a3">By card, contactless, Apple Pay, Google Pay or cash.</p></details>
+            <details><summary data-i18n="faq.q4">Do you cut children's hair?</summary><p data-i18n="faq.a4">Yes — from age 3, with a quick and friendly kids' cut.</p></details>
+            <details><summary data-i18n="faq.q5">How long will my visit take?</summary><p data-i18n="faq.a5">A haircut takes about 30–45 minutes; the full Royal ritual takes around 90 minutes.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contacts -->
+      <section class="section section--contacts" id="contacts">
+        <div class="container">
+          <div class="section__head reveal">
+            <h2 class="section__title" data-i18n="contacts.title">Visit the shop</h2>
+            <p class="section__lead" data-i18n="contacts.lead">Demo contact details — replace them in js/config.js.</p>
+          </div>
+          <div class="contacts">
+            <div class="contacts__card reveal">
+              <ul class="contact-list">
+                <li><svg class="ico"><use href="#i-pin" /></svg><div><span data-i18n="c.address">Address</span><b data-contact="address" data-i18n="c.addressDemo">Your Street 1, 00000 Your City, Country</b></div></li>
+                <li><svg class="ico"><use href="#i-phone" /></svg><div><span data-i18n="c.phone">Phone</span><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></div></li>
+                <li><svg class="ico"><use href="#i-mail" /></svg><div><span data-i18n="c.email">Email</span><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></div></li>
+              </ul>
+              <a class="btn btn--ghost btn--sm" data-contact-href="map" href="#" target="_blank" rel="noopener"><svg class="ico"><use href="#i-pin" /></svg><span data-i18n="c.map">Open in Maps</span></a>
+            </div>
+            <div class="contacts__card reveal">
+              <h3 class="hours__title"><svg class="ico"><use href="#i-clock" /></svg><span data-i18n="c.hours">Opening hours</span></h3>
+              <ul class="hours" id="hoursList"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <p class="footer__brand">Crown <b>&amp;</b> Blade <span data-i18n="ft.demo">— demo concept, not a real business.</span></p>
+        <div class="footer__links">
+          <a href="https://vpauk81.github.io/WEBWORKS/#project2"><svg class="ico"><use href="#i-back" /></svg><span data-i18n="ft.back">Back to WEBWORKS</span></a>
+          <button type="button" id="copyLink"><svg class="ico"><use href="#i-copy" /></svg><span data-i18n="ft.copy">Copy link</span></button>
+        </div>
+      </div>
+    </footer>
+
+    <button type="button" class="sound-toggle" id="soundToggle" aria-pressed="true" data-i18n-attr="aria-label:ft.sound" aria-label="Sound">
+      <svg class="ico ico--on"><use href="#i-sound" /></svg>
+      <svg class="ico ico--off"><use href="#i-mute" /></svg>
+    </button>
+    <div class="toast" id="toast" role="status" aria-live="polite"><span data-i18n="ft.copied">Link copied</span></div>
+    <a class="cart" id="cart" href="#booking" hidden><svg class="ico"><use href="#i-scissors" /></svg><span id="cartText"></span><b id="cartTotal"></b><svg class="ico"><use href="#i-arrow" /></svg></a>
+
+    <script src="js/config.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=1"></script>
+  </body>
+</html>

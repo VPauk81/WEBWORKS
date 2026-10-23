@@ -63,10 +63,12 @@
       p1_cta: "Open demo site →",
 
       p2_category: "Barbershop", p2_title: "Booking Website",
-      p2_desc: "Modern presentation website with services, prices and appointment request functionality.",
-      p2_mock_title: "Book an Appointment", p2_service1: "Haircut", p2_service2: "Beard trim", p2_service3: "Haircut & beard",
-      p2_mock_cta: "Request Appointment",
-      p2_day1: "M", p2_day2: "T", p2_day3: "W", p2_day4: "T", p2_day5: "F", p2_day6: "S", p2_day7: "S",
+      p2_desc: "A complete website for a barbershop: services and prices, barbers, reviews, FAQ and a 4-step online booking.",
+      p2_feat_1: "4 languages: EN / PL / DE / RU",
+      p2_feat_2: "Booking: services, barber, day and free time slot",
+      p2_feat_3: "Confirmation with a booking code and calendar file",
+      p2_feat_4: "Works on phones, tablets and computers",
+      p2_cta: "Open demo site →",
 
       p3_category: "Electronics", p3_title: "Product Configurator",
       p3_desc: "Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.",
@@ -162,8 +164,7 @@
       alt_hero: "Writing code for a client project",
       alt_featured: "Screenshot of the live Arduino / ESP32 Firmware Studio site",
       alt_p1: "Screenshot of the AutoService demo website",
-      alt_p2: "Barbershop", alt_p3: "Electronics circuit board", alt_p4: "Business tools", alt_p5: "Contact form",
-      title_p2_demo: "Demo interface — not a live booking system",
+      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Business tools", alt_p5: "Contact form",
       title_p5_demo: "Demo interface — not a live order form",
       title_inquiry_submit: "Sends your message"
     },
@@ -223,10 +224,12 @@
       p1_cta: "Otwórz stronę demo →",
 
       p2_category: "Barbershop", p2_title: "Strona z rezerwacją",
-      p2_desc: "Nowoczesna strona prezentacyjna z usługami, cenami i możliwością zgłoszenia wizyty.",
-      p2_mock_title: "Zarezerwuj wizytę", p2_service1: "Strzyżenie", p2_service2: "Trymowanie brody", p2_service3: "Strzyżenie i broda",
-      p2_mock_cta: "Zgłoś wizytę",
-      p2_day1: "P", p2_day2: "W", p2_day3: "Ś", p2_day4: "C", p2_day5: "P", p2_day6: "S", p2_day7: "N",
+      p2_desc: "Kompletna strona dla barbershopu: usługi i ceny, fryzjerzy, opinie, FAQ i 4-krokowa rezerwacja online.",
+      p2_feat_1: "4 języki: EN / PL / DE / RU",
+      p2_feat_2: "Rezerwacja: usługi, fryzjer, dzień i wolny termin",
+      p2_feat_3: "Potwierdzenie z kodem rezerwacji i plikiem kalendarza",
+      p2_feat_4: "Działa na telefonach, tabletach i komputerach",
+      p2_cta: "Otwórz stronę demo →",
 
       p3_category: "Elektronika", p3_title: "Konfigurator produktu",
       p3_desc: "Konfigurator do wyboru sterowników, wyświetlaczy i dodatkowych modułów, z automatycznym przeliczaniem ceny — zbudowany pod projekty na Arduino / ESP32.",
@@ -321,8 +324,7 @@
       alt_hero: "Pisanie kodu do projektu klienta",
       alt_featured: "Zrzut ekranu działającej strony Arduino / ESP32 Firmware Studio",
       alt_p1: "Zrzut ekranu strony demo AutoService",
-      alt_p2: "Barbershop", alt_p3: "Płytka elektroniczna", alt_p4: "Narzędzia biznesowe", alt_p5: "Formularz kontaktowy",
-      title_p2_demo: "Interfejs demo — to nie jest prawdziwy system rezerwacji",
+      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Narzędzia biznesowe", alt_p5: "Formularz kontaktowy",
       title_p5_demo: "Interfejs demo — to nie jest prawdziwy formularz zamówienia",
       title_inquiry_submit: "Wysyła Twoją wiadomość"
     },
@@ -382,10 +384,12 @@
       p1_cta: "Demo-Website öffnen →",
 
       p2_category: "Barbershop", p2_title: "Buchungswebsite",
-      p2_desc: "Moderne Präsentationswebsite mit Leistungen, Preisen und Terminanfrage-Funktion.",
-      p2_mock_title: "Termin buchen", p2_service1: "Haarschnitt", p2_service2: "Bartschnitt", p2_service3: "Haarschnitt & Bart",
-      p2_mock_cta: "Termin anfragen",
-      p2_day1: "M", p2_day2: "D", p2_day3: "M", p2_day4: "D", p2_day5: "F", p2_day6: "S", p2_day7: "S",
+      p2_desc: "Eine komplette Website für einen Barbershop: Leistungen und Preise, Barber, Bewertungen, FAQ und Online-Buchung in 4 Schritten.",
+      p2_feat_1: "4 Sprachen: EN / PL / DE / RU",
+      p2_feat_2: "Buchung: Leistungen, Barber, Tag und freier Termin",
+      p2_feat_3: "Bestätigung mit Buchungscode und Kalenderdatei",
+      p2_feat_4: "Funktioniert auf Smartphones, Tablets und Computern",
+      p2_cta: "Demo-Website öffnen →",
 
       p3_category: "Elektronik", p3_title: "Produktkonfigurator",
       p3_desc: "Konfigurator zur Auswahl von Controllern, Displays und zusätzlichen Modulen mit automatischer Preisberechnung — entwickelt für Arduino- / ESP32-Hardwareprojekte.",
@@ -480,8 +484,7 @@
       alt_hero: "Code für ein Kundenprojekt schreiben",
       alt_featured: "Screenshot der Live-Website Arduino / ESP32 Firmware Studio",
       alt_p1: "Screenshot der AutoService-Demo-Website",
-      alt_p2: "Barbershop", alt_p3: "Elektronik-Platine", alt_p4: "Business-Tools", alt_p5: "Kontaktformular",
-      title_p2_demo: "Demo-Oberfläche — kein echtes Buchungssystem",
+      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Business-Tools", alt_p5: "Kontaktformular",
       title_p5_demo: "Demo-Oberfläche — kein echtes Bestellformular",
       title_inquiry_submit: "Sendet Ihre Nachricht"
     },
@@ -541,10 +544,12 @@
       p1_cta: "Открыть демо-сайт →",
 
       p2_category: "Барбершоп", p2_title: "Сайт для записи",
-      p2_desc: "Современный презентационный сайт с услугами, ценами и функцией записи на приём.",
-      p2_mock_title: "Записаться на приём", p2_service1: "Стрижка", p2_service2: "Оформление бороды", p2_service3: "Стрижка и борода",
-      p2_mock_cta: "Отправить заявку",
-      p2_day1: "П", p2_day2: "В", p2_day3: "С", p2_day4: "Ч", p2_day5: "П", p2_day6: "С", p2_day7: "В",
+      p2_desc: "Полноценный сайт для барбершопа: услуги и цены, барберы, отзывы, FAQ и онлайн-запись в 4 шага.",
+      p2_feat_1: "4 языка: EN / PL / DE / RU",
+      p2_feat_2: "Запись: услуги, барбер, день и свободное время",
+      p2_feat_3: "Подтверждение с кодом записи и файлом для календаря",
+      p2_feat_4: "Работает на телефонах, планшетах и компьютерах",
+      p2_cta: "Открыть демо-сайт →",
 
       p3_category: "Электроника", p3_title: "Конфигуратор продукта",
       p3_desc: "Конфигуратор для выбора контроллеров, дисплеев и дополнительных модулей с автоматическим расчётом цены — создан для проектов на Arduino / ESP32.",
@@ -639,8 +644,7 @@
       alt_hero: "Написание кода для клиентского проекта",
       alt_featured: "Скриншот работающего сайта Arduino / ESP32 Firmware Studio",
       alt_p1: "Скриншот демо-сайта AutoService",
-      alt_p2: "Барбершоп", alt_p3: "Электронная плата", alt_p4: "Бизнес-инструменты", alt_p5: "Контактная форма",
-      title_p2_demo: "Демо-интерфейс — не настоящая система записи",
+      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Бизнес-инструменты", alt_p5: "Контактная форма",
       title_p5_demo: "Демо-интерфейс — не настоящая форма заказа",
       title_inquiry_submit: "Отправляет ваше сообщение"
     }

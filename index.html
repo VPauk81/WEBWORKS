@@ -19,7 +19,7 @@
      every deploy that changes css/js/images/markup. -->
 <script>
 (function(){
-  var PAGE_BUILD = 57;
+  var PAGE_BUILD = 58;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=57">
+<link rel="stylesheet" href="css/style.css?v=58">
 </head>
 <body>
 
@@ -350,7 +350,9 @@
     </div>
     </details>
 
-    <!-- PROJECT 2 — Barbershop / Booking Website -->
+    <!-- PROJECT 2 — Barbershop / full demo website.
+         The complete site lives in demos/barbershop/ (its own index.html,
+         css/ and js/) and opens in a new tab; same frame style as Project 1. -->
     <details class="project-toggle" id="project2">
       <summary class="project-summary">
         <span class="project-summary-text">
@@ -364,23 +366,23 @@
       </summary>
     <div class="project">
       <div class="project-mock">
-        <div class="project-photo">
-          <img src="images/barbershop.jpg?v=8" alt="Barbershop" data-i18n-alt="alt_p2" loading="lazy">
-        </div>
-        <div class="mock">
-          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-          <div class="mock-title" data-i18n="p2_mock_title">Book an Appointment</div>
-          <div class="mock-list-row"><span data-i18n="p2_service1">Haircut</span><span>€25</span></div>
-          <div class="mock-list-row"><span data-i18n="p2_service2">Beard trim</span><span>€15</span></div>
-          <div class="mock-list-row"><span data-i18n="p2_service3">Haircut &amp; beard</span><span>€35</span></div>
-          <div class="calendar-mini" aria-hidden="true">
-            <span data-i18n="p2_day1">M</span><span data-i18n="p2_day2">T</span><span data-i18n="p2_day3">W</span><span class="on" data-i18n="p2_day4">T</span><span data-i18n="p2_day5">F</span><span data-i18n="p2_day6">S</span><span data-i18n="p2_day7">S</span>
+        <a class="featured-frame" href="demos/barbershop/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">Crown &amp; Blade — demo</span>
           </div>
-          <span class="btn btn--copper" style="margin-top:16px; width:100%; cursor:default;" data-i18n="p2_mock_cta" title="Demo interface — not a live booking system" data-i18n-title="title_p2_demo">Request Appointment</span>
-        </div>
+          <img src="images/barbershop-demo.jpg?v=1" alt="Screenshot of the Crown &amp; Blade barbershop demo website" data-i18n-alt="alt_p2" loading="lazy">
+        </a>
       </div>
       <div>
-        <p class="desc" data-i18n="p2_desc">Modern presentation website with services, prices and appointment request functionality.</p>
+        <p class="desc" data-i18n="p2_desc">A complete website for a barbershop: services and prices, barbers, reviews, FAQ and a 4-step online booking.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p2_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p2_feat_2">Booking: services, barber, day and free time slot</li>
+          <li data-i18n="p2_feat_3">Confirmation with a booking code and calendar file</li>
+          <li data-i18n="p2_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/barbershop/index.html" target="_blank" rel="noopener" data-i18n="p2_cta">Open demo site →</a>
       </div>
     </div>
     </details>
@@ -790,6 +792,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=57" defer></script>
+<script src="js/script.js?v=58" defer></script>
 </body>
 </html>
