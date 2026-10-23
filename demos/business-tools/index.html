@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#0f1330" />
+    <title data-i18n="meta.title">OrderFlow — Business Tools</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Order form connected to Google Sheets, automatic e-mail notifications and order status management for small businesses."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-form" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2" /><path d="M8 8h8M8 12h8M8 16h5" /></symbol>
+      <symbol id="i-sheet" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 10h18M3 15h18M9 4v16" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-status" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="m8 12 3 3 5-6" /></symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4M4 20h16" /><path d="m8 15 3-4 3 2 5-6" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+    </svg>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="OrderFlow">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M7 9h18M7 16h12M7 23h7" /><circle cx="24" cy="22" r="3.2" /></svg>
+          </span>
+          <span class="logo__text">Order<b>Flow</b></span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a class="nav__back" href="https://vpauk81.github.io/WEBWORKS/#project4">
+            <svg class="ico"><use href="#i-back" /></svg>
+            <span data-i18n="nav.back">Back</span>
+          </a>
+          <a href="#tools" data-i18n="nav.tools">Tools</a>
+          <a href="#demo" data-i18n="nav.demo">Live demo</a>
+          <a href="#how" data-i18n="nav.how">How it works</a>
+          <a href="#pricing" data-i18n="nav.pricing">Pricing</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="lang" id="lang">
+            <button type="button" class="lang__toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" data-i18n-attr="aria-label:lang.label" aria-label="Choose language">
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#demo" data-i18n="cta.try">Try the demo</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">Order management for small businesses</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">Every order in one place — <em>and every customer informed</em></h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              A clear order form that lands straight in Google Sheets, automatic e-mails to your customers and a simple
+              status board for you. No expensive software, no manual copying.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#demo">
+                <span data-i18n="hero.cta">Try the live demo</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="#tools" data-i18n="hero.cta2">See the tools</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">0 min</strong><span data-i18n="hero.f1">of manual copying</span></li>
+              <li><strong data-i18n="hero.f2v">8</strong><span data-i18n="hero.f2">automatic e-mail statuses</span></li>
+              <li><strong data-i18n="hero.f3v">24/7</strong><span data-i18n="hero.f3">orders accepted</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="float-card float-card--a">
+              <span class="float-card__ico"><svg class="ico"><use href="#i-mail" /></svg></span>
+              <span><b data-i18n="hero.fc1">E-mail sent</b><small data-i18n="hero.fc1s">Order #1042 shipped</small></span>
+            </div>
+            <div class="panel">
+              <div class="panel__bar"><i></i><i></i><i></i><span>Orders</span></div>
+              <div class="panel__row"><span>#1042 · J. Kowalski</span><em class="badge badge--done" data-i18n="st.shipped">Shipped</em></div>
+              <div class="panel__row"><span>#1041 · M. Nowak</span><em class="badge badge--progress" data-i18n="st.progress">Processing</em></div>
+              <div class="panel__row"><span>#1040 · A. Schmidt</span><em class="badge badge--new" data-i18n="st.new">New</em></div>
+              <div class="panel__row"><span>#1039 · L. Dubois</span><em class="badge badge--done" data-i18n="st.shipped">Shipped</em></div>
+              <div class="panel__total"><span data-i18n="hero.panel">This week</span><strong>€ 2 480</strong></div>
+            </div>
+            <div class="float-card float-card--b">
+              <span class="float-card__ico float-card__ico--green"><svg class="ico"><use href="#i-sheet" /></svg></span>
+              <span><b data-i18n="hero.fc2">Saved to Sheets</b><small data-i18n="hero.fc2s">New row added</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marqueeTrack">
+          <span data-i18n="mq.1">Order form</span><span data-i18n="mq.2">Google Sheets</span><span data-i18n="mq.3">E-mail notifications</span><span data-i18n="mq.4">Status board</span><span data-i18n="mq.5">Reports</span><span data-i18n="mq.6">GDPR ready</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <section class="section" id="tools">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="tools.kicker">Tools</p>
+            <h2 class="section__title" data-i18n="tools.title">Everything an order needs, from click to delivery</h2>
+            <p class="section__lead" data-i18n="tools.lead">Four small tools that work together — you can start with one and add the rest later.</p>
+          </header>
+          <div class="grid grid--4">
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-form" /></svg></span>
+              <h3 data-i18n="t1.title">Order form</h3>
+              <p data-i18n="t1.text">Short, clear and validated live — customers see mistakes before they send, so you get clean data.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-sheet" /></svg></span>
+              <h3 data-i18n="t2.title">Google Sheets</h3>
+              <p data-i18n="t2.text">Every order becomes a new row in your own spreadsheet. Sort, filter and share it like always.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-mail" /></svg></span>
+              <h3 data-i18n="t3.title">E-mail notifications</h3>
+              <p data-i18n="t3.text">The customer gets a confirmation and an update at every status change — in their own language.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-status" /></svg></span>
+              <h3 data-i18n="t4.title">Status management</h3>
+              <p data-i18n="t4.text">Move an order from New to Shipped with one click and keep a full history of every change.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Live demo -->
+      <section class="section section--dark" id="demo">
+        <div class="container">
+          <header class="section__head section__head--light reveal">
+            <p class="kicker" data-i18n="demo.kicker">Live demo</p>
+            <h2 class="section__title" data-i18n="demo.title">Place an order — and watch it arrive</h2>
+            <p class="section__lead" data-i18n="demo.lead">This is a working demo: fill in the form, then change the status in the table and see the e-mail the customer would receive. Nothing is really sent.</p>
+          </header>
+
+          <div class="stats reveal">
+            <div class="stat"><span data-i18n="demo.s1">Orders</span><strong id="statOrders">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s2">New</span><strong id="statNew">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s3">Revenue</span><strong id="statRevenue">€0</strong></div>
+          </div>
+
+          <div class="demo reveal">
+            <form class="order" id="orderForm" novalidate>
+              <h3 data-i18n="demo.form">New order</h3>
+
+              <div class="field" data-field="name">
+                <label for="fName" data-i18n="f.name">Name</label>
+                <input id="fName" type="text" autocomplete="name" data-i18n-attr="placeholder:f.name.ph" placeholder="John Smith" />
+                <p class="field__err" data-i18n="err.name">Please enter your name.</p>
+              </div>
+              <div class="field" data-field="email">
+                <label for="fEmail" data-i18n="f.email">E-mail</label>
+                <input id="fEmail" type="email" autocomplete="email" placeholder="name@example.com" />
+                <p class="field__err" data-i18n="err.email">Please enter a valid e-mail address.</p>
+              </div>
+              <div class="field-row">
+                <div class="field" data-field="product">
+                  <label for="fProduct" data-i18n="f.product">Product</label>
+                  <select id="fProduct">
+                    <option value="0" data-price="49" data-i18n="p.1">Starter kit — €49</option>
+                    <option value="1" data-price="89" data-i18n="p.2">Business pack — €89</option>
+                    <option value="2" data-price="149" data-i18n="p.3">Premium set — €149</option>
+                  </select>
+                </div>
+                <div class="field" data-field="qty">
+                  <label for="fQty" data-i18n="f.qty">Quantity</label>
+                  <div class="stepper">
+                    <button type="button" id="qtyMinus" aria-label="−">−</button>
+                    <input id="fQty" type="number" min="1" max="20" value="1" inputmode="numeric" />
+                    <button type="button" id="qtyPlus" aria-label="+">+</button>
+                  </div>
+                </div>
+              </div>
+              <label class="check" data-field="consent">
+                <input id="fConsent" type="checkbox" />
+                <span data-i18n="f.consent">I agree to the processing of my data to handle this order (GDPR).</span>
+              </label>
+              <p class="field__err field__err--block" id="consentErr" data-i18n="err.consent" hidden>Please tick the consent box to continue.</p>
+
+              <div class="order__total">
+                <span data-i18n="f.total">Total</span>
+                <strong id="orderTotal">€49</strong>
+              </div>
+              <button type="submit" class="btn btn--primary btn--block">
+                <span data-i18n="f.submit">Place order</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </button>
+            </form>
+
+            <div class="board">
+              <div class="board__head">
+                <h3 data-i18n="demo.board">Orders — Google Sheets view</h3>
+                <button type="button" class="link-btn" id="resetDemo" data-i18n="demo.reset">Reset demo</button>
+              </div>
+              <div class="sheet" role="table" aria-label="Orders">
+                <div class="sheet__cols" aria-hidden="true"><span>A</span><span>B</span><span>C</span><span>D</span></div>
+                <div class="sheet__head" role="row">
+                  <span role="columnheader" data-i18n="th.order">Order</span>
+                  <span role="columnheader" data-i18n="th.customer">Customer</span>
+                  <span role="columnheader" data-i18n="th.sum">Sum</span>
+                  <span role="columnheader" data-i18n="th.status">Status</span>
+                </div>
+                <div id="orderRows"></div>
+              </div>
+              <p class="board__hint" data-i18n="demo.hint">Tip: click a status to move the order to the next step.</p>
+
+              <div class="mail" id="mailBox" hidden>
+                <div class="mail__bar">
+                  <svg class="ico"><use href="#i-mail" /></svg>
+                  <span data-i18n="mail.head">E-mail to the customer</span>
+                </div>
+                <p class="mail__to" id="mailTo"></p>
+                <p class="mail__subj" id="mailSubj"></p>
+                <p class="mail__body" id="mailBody"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section" id="how">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="how.kicker">How it works</p>
+            <h2 class="section__title" data-i18n="how.title">Up and running in three steps</h2>
+          </header>
+          <ol class="steps">
+            <li class="step reveal"><span class="step__n">1</span><h3 data-i18n="how.1t">We set it up</h3><p data-i18n="how.1p">We connect the form to your Google account and adapt colours, texts and languages to your brand.</p></li>
+            <li class="step reveal"><span class="step__n">2</span><h3 data-i18n="how.2t">Customers order</h3><p data-i18n="how.2p">Orders arrive in your spreadsheet instantly, and the customer receives a confirmation e-mail.</p></li>
+            <li class="step reveal"><span class="step__n">3</span><h3 data-i18n="how.3t">You manage statuses</h3><p data-i18n="how.3p">Change a status in the sheet — the customer is notified automatically. That is all.</p></li>
+          </ol>
+
+          <div class="benefits">
+            <div class="benefit reveal"><svg class="ico"><use href="#i-bolt" /></svg><span data-i18n="b.1">Saves hours every week</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-shield" /></svg><span data-i18n="b.2">GDPR consent built in</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-chart" /></svg><span data-i18n="b.3">Simple reports and totals</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-globe" /></svg><span data-i18n="b.4">4 languages out of the box</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="section section--tint" id="pricing">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="pr.kicker">Pricing</p>
+            <h2 class="section__title" data-i18n="pr.title">Clear one-time prices</h2>
+            <p class="section__lead" data-i18n="pr.lead">Example packages for this demo. No monthly fees for the tools themselves.</p>
+          </header>
+          <div class="grid grid--3">
+            <article class="plan reveal">
+              <h3 data-i18n="pl1.name">Start</h3>
+              <p class="plan__price">€290</p>
+              <ul>
+                <li data-i18n="pl1.a">Order form with live validation</li>
+                <li data-i18n="pl1.b">Orders saved to Google Sheets</li>
+                <li data-i18n="pl1.c">Confirmation e-mail</li>
+              </ul>
+            </article>
+            <article class="plan plan--hot reveal">
+              <span class="plan__flag" data-i18n="pl.pop">Most popular</span>
+              <h3 data-i18n="pl2.name">Business</h3>
+              <p class="plan__price">€590</p>
+              <ul>
+                <li data-i18n="pl2.a">Everything in Start</li>
+                <li data-i18n="pl2.b">Status management with auto e-mails</li>
+                <li data-i18n="pl2.c">4 site languages</li>
+                <li data-i18n="pl2.d">Weekly report</li>
+              </ul>
+            </article>
+            <article class="plan reveal">
+              <h3 data-i18n="pl3.name">Pro</h3>
+              <p class="plan__price">€990</p>
+              <ul>
+                <li data-i18n="pl3.a">Everything in Business</li>
+                <li data-i18n="pl3.b">Custom fields and price rules</li>
+                <li data-i18n="pl3.c">Your own domain</li>
+                <li data-i18n="pl3.d">Training and 3 months support</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section" id="reviews">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="rv.kicker">Reviews</p>
+            <h2 class="section__title" data-i18n="rv.title">What business owners say</h2>
+          </header>
+          <div class="grid grid--3">
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.1">“I used to copy orders from messages into Excel. Now they simply appear — I got my evenings back.”</blockquote>
+              <figcaption><b data-i18n="rv.1n">Anna K.</b><span data-i18n="rv.1r">Candle workshop</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.2">“Customers stopped asking where their parcel is — the status e-mails answer before they ask.”</blockquote>
+              <figcaption><b data-i18n="rv.2n">Marek S.</b><span data-i18n="rv.2r">Online shop</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.3">“Everything lives in a Google Sheet I already know. No new software to learn.”</blockquote>
+              <figcaption><b data-i18n="rv.3n">Lena W.</b><span data-i18n="rv.3r">Craft bakery</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section--tint" id="faq">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 class="section__title" data-i18n="faq.title">Good questions</h2>
+          </header>
+          <div class="faq">
+            <details class="reveal"><summary data-i18n="q1">Do I need to know Google Sheets?</summary><p data-i18n="a1">Only the basics — if you can edit a table, you can manage orders. We also show you how.</p></details>
+            <details class="reveal"><summary data-i18n="q2">Are there monthly fees?</summary><p data-i18n="a2">No fees for the tools themselves. Your own Google account and domain are free or cost a few euros a year.</p></details>
+            <details class="reveal"><summary data-i18n="q3">Can customers pay online?</summary><p data-i18n="a3">Yes, a payment link can be added to the confirmation e-mail or the order page.</p></details>
+            <details class="reveal"><summary data-i18n="q4">Is customer data safe?</summary><p data-i18n="a4">Data stays in your own Google account. The form asks for GDPR consent and collects only what the order needs.</p></details>
+            <details class="reveal"><summary data-i18n="q5">Can I change the statuses?</summary><p data-i18n="a5">Yes — names, order and e-mail texts are fully adjustable, in all site languages.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contacts">
+        <div class="container">
+          <div class="cta reveal">
+            <div>
+              <h2 data-i18n="ct.title">Ready to tidy up your orders?</h2>
+              <p data-i18n="ct.lead">Tell us about your business and we will suggest the simplest setup. Answer within one working day.</p>
+            </div>
+            <ul class="cta__list">
+              <li><svg class="ico"><use href="#i-phone" /></svg><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></li>
+              <li><svg class="ico"><use href="#i-mail" /></svg><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></li>
+              <li><svg class="ico"><use href="#i-pin" /></svg><span data-contact="address" data-i18n="ct.addr">Your Street 1, 00000 Your City, Country</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> OrderFlow</span>
+        <span data-i18n="ft.demo">Demo website — no real orders or e-mails are sent.</span>
+        <a href="#top" data-i18n="ft.top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="js/config.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=1"></script>
+  </body>
+</html>

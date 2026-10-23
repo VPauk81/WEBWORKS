@@ -441,7 +441,9 @@
     </div>
     </details>
 
-    <!-- PROJECT 4 — Business Tools / Order Management -->
+    <!-- PROJECT 4 — Business Tools / full demo website.
+         The complete site lives in demos/business-tools/ (its own index.html,
+         css/ and js/) and opens in a new tab; same frame style as Project 1. -->
     <details class="project-toggle" id="project4">
       <summary class="project-summary">
         <span class="project-summary-text">
@@ -455,25 +457,28 @@
       </summary>
     <div class="project">
       <div class="project-mock">
-        <div class="project-photo">
-          <img src="images/biznes instrument.jpg?v=8" alt="Business tools" data-i18n-alt="alt_p4" loading="lazy">
-        </div>
-        <div class="mock">
-          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-          <div class="mock-title" data-i18n="p4_mock_title">Orders</div>
-          <div class="mock-list-row"><span>#1042 — J. Kowalski</span><span class="badge badge--new" data-i18n="p4_status_new">New</span></div>
-          <div class="mock-list-row"><span>#1041 — M. Nowak</span><span class="badge badge--progress" data-i18n="p4_status_progress">Processing</span></div>
-          <div class="mock-list-row"><span>#1040 — A. Schmidt</span><span class="badge badge--done" data-i18n="p4_status_done">Shipped</span></div>
-          <div class="mock-list-row"><span>#1039 — L. Dubois</span><span class="badge badge--done" data-i18n="p4_status_done">Shipped</span></div>
-        </div>
+        <a class="featured-frame" href="demos/business-tools/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">OrderFlow — demo</span>
+          </div>
+          <img src="images/business-tools-demo.jpg?v=1" alt="Screenshot of the OrderFlow business tools demo website" data-i18n-alt="alt_p4" loading="lazy">
+        </a>
       </div>
       <div>
-        <p class="desc" data-i18n="p4_desc">Order form connected to Google Sheets, with automatic email notifications and order status management.</p>
+        <p class="desc" data-i18n="p4_desc">A complete site for order management: order form, Google Sheets view, status board and the e-mail the customer receives.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p4_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p4_feat_2">Working demo: place an order and change its status</li>
+          <li data-i18n="p4_feat_3">Automatic e-mail preview at every status change</li>
+          <li data-i18n="p4_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/business-tools/index.html" target="_blank" rel="noopener" data-i18n="p4_cta">Open demo site →</a>
       </div>
     </div>
     </details>
 
-    <!-- PROJECT 5 — Contact Form with live validation -->
+<!-- PROJECT 5 — Contact Form with live validation -->
     <details class="project-toggle" id="project5">
       <summary class="project-summary">
         <span class="project-summary-text">
@@ -792,6 +797,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=58" defer></script>
+<script src="js/script.js?v=59" defer></script>
 </body>
 </html>

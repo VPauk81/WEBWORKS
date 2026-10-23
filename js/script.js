@@ -78,7 +78,10 @@
       p3_mod1: "Wi-Fi module", p3_mod2: "Relay module", p3_mod3: "Sensor kit",
 
       p4_category: "Business Tools", p4_title: "Order Management",
-      p4_desc: "Order form connected to Google Sheets, with automatic email notifications and order status management.",
+      p4_desc: "A complete site for order management: order form, Google Sheets view, status board and the e-mail the customer receives.",
+      p4_feat_1: "4 languages: EN / PL / DE / RU", p4_feat_2: "Working demo: place an order and change its status",
+      p4_feat_3: "Automatic e-mail preview at every status change", p4_feat_4: "Works on phones, tablets and computers",
+      p4_cta: "Open demo site →",
       p4_mock_title: "Orders", p4_status_new: "New", p4_status_progress: "Processing", p4_status_done: "Shipped",
 
       p5_category: "Contact Forms", p5_title: "Clear Contact Form",
@@ -164,7 +167,7 @@
       alt_hero: "Writing code for a client project",
       alt_featured: "Screenshot of the live Arduino / ESP32 Firmware Studio site",
       alt_p1: "Screenshot of the AutoService demo website",
-      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Business tools", alt_p5: "Contact form",
+      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Screenshot of the OrderFlow business tools demo website", alt_p5: "Contact form",
       title_p5_demo: "Demo interface — not a live order form",
       title_inquiry_submit: "Sends your message"
     },
@@ -239,7 +242,10 @@
       p3_mod1: "Moduł Wi-Fi", p3_mod2: "Moduł przekaźnikowy", p3_mod3: "Zestaw czujników",
 
       p4_category: "Narzędzia biznesowe", p4_title: "Zarządzanie zamówieniami",
-      p4_desc: "Formularz zamówień połączony z Google Sheets, z automatycznymi powiadomieniami e-mail i zarządzaniem statusem zamówienia.",
+      p4_desc: "Kompletna strona do zarządzania zamówieniami: formularz, widok Google Sheets, tablica statusów i e-mail, który dostaje klient.",
+      p4_feat_1: "4 języki: EN / PL / DE / RU", p4_feat_2: "Działające demo: złóż zamówienie i zmień jego status",
+      p4_feat_3: "Podgląd e-maila przy każdej zmianie statusu", p4_feat_4: "Działa na telefonach, tabletach i komputerach",
+      p4_cta: "Otwórz stronę demo →",
       p4_mock_title: "Zamówienia", p4_status_new: "Nowe", p4_status_progress: "W realizacji", p4_status_done: "Wysłane",
 
       p5_category: "Formularze kontaktowe", p5_title: "Przejrzysty formularz kontaktowy",
@@ -324,7 +330,7 @@
       alt_hero: "Pisanie kodu do projektu klienta",
       alt_featured: "Zrzut ekranu działającej strony Arduino / ESP32 Firmware Studio",
       alt_p1: "Zrzut ekranu strony demo AutoService",
-      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Narzędzia biznesowe", alt_p5: "Formularz kontaktowy",
+      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Zrzut ekranu strony demo narzędzi biznesowych OrderFlow", alt_p5: "Formularz kontaktowy",
       title_p5_demo: "Interfejs demo — to nie jest prawdziwy formularz zamówienia",
       title_inquiry_submit: "Wysyła Twoją wiadomość"
     },
@@ -399,7 +405,10 @@
       p3_mod1: "WLAN-Modul", p3_mod2: "Relaismodul", p3_mod3: "Sensor-Kit",
 
       p4_category: "Business-Tools", p4_title: "Bestellverwaltung",
-      p4_desc: "Mit Google Sheets verbundenes Bestellformular, inklusive automatischer E-Mail-Benachrichtigungen und Statusverwaltung.",
+      p4_desc: "Eine komplette Website zur Bestellverwaltung: Bestellformular, Google-Sheets-Ansicht, Status-Board und die E-Mail an den Kunden.",
+      p4_feat_1: "4 Sprachen: EN / PL / DE / RU", p4_feat_2: "Funktionierende Demo: Bestellung aufgeben und Status ändern",
+      p4_feat_3: "E-Mail-Vorschau bei jeder Statusänderung", p4_feat_4: "Funktioniert auf Smartphones, Tablets und Computern",
+      p4_cta: "Demo-Website öffnen →",
       p4_mock_title: "Bestellungen", p4_status_new: "Neu", p4_status_progress: "In Bearbeitung", p4_status_done: "Versendet",
 
       p5_category: "Kontaktformulare", p5_title: "Übersichtliches Kontaktformular",
@@ -484,7 +493,7 @@
       alt_hero: "Code für ein Kundenprojekt schreiben",
       alt_featured: "Screenshot der Live-Website Arduino / ESP32 Firmware Studio",
       alt_p1: "Screenshot der AutoService-Demo-Website",
-      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Business-Tools", alt_p5: "Kontaktformular",
+      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Screenshot der OrderFlow Business-Tools-Demo-Website", alt_p5: "Kontaktformular",
       title_p5_demo: "Demo-Oberfläche — kein echtes Bestellformular",
       title_inquiry_submit: "Sendet Ihre Nachricht"
     },
@@ -559,7 +568,10 @@
       p3_mod1: "Wi-Fi модуль", p3_mod2: "Модуль реле", p3_mod3: "Набор датчиков",
 
       p4_category: "Бизнес-инструменты", p4_title: "Управление заказами",
-      p4_desc: "Форма заказа, связанная с Google Sheets, с автоматическими email-уведомлениями и управлением статусами заказов.",
+      p4_desc: "Полноценный сайт для управления заказами: форма заказа, вид Google Sheets, доска статусов и письмо, которое получает клиент.",
+      p4_feat_1: "4 языка: EN / PL / DE / RU", p4_feat_2: "Рабочее демо: оформите заказ и смените его статус",
+      p4_feat_3: "Превью письма при каждой смене статуса", p4_feat_4: "Работает на телефонах, планшетах и компьютерах",
+      p4_cta: "Открыть демо-сайт →",
       p4_mock_title: "Заказы", p4_status_new: "Новый", p4_status_progress: "В обработке", p4_status_done: "Отправлен",
 
       p5_category: "Контактные формы", p5_title: "Понятная контактная форма",
@@ -644,7 +656,7 @@
       alt_hero: "Написание кода для клиентского проекта",
       alt_featured: "Скриншот работающего сайта Arduino / ESP32 Firmware Studio",
       alt_p1: "Скриншот демо-сайта AutoService",
-      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Бизнес-инструменты", alt_p5: "Контактная форма",
+      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Скриншот демо-сайта бизнес-инструментов OrderFlow", alt_p5: "Контактная форма",
       title_p5_demo: "Демо-интерфейс — не настоящая форма заказа",
       title_inquiry_submit: "Отправляет ваше сообщение"
     }
