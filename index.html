@@ -387,7 +387,9 @@
     </div>
     </details>
 
-    <!-- PROJECT 3 — Electronics / Product Configurator (Arduino / ESP32) -->
+    <!-- PROJECT 3 — Electronics / full demo website.
+         The complete site lives in demos/electronics/ (its own index.html,
+         css/ and js/) and opens in a new tab; same frame style as Project 1. -->
     <details class="project-toggle" id="project3">
       <summary class="project-summary">
         <span class="project-summary-text">
@@ -401,42 +403,23 @@
       </summary>
     <div class="project">
       <div class="project-mock">
-        <div class="project-photo">
-          <img src="images/elektronika.jpg?v=8" alt="Electronics circuit board" data-i18n-alt="alt_p3" loading="lazy">
-        </div>
-        <div class="mock">
-          <div class="mock-window"><span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span></div>
-          <div class="mock-title" data-i18n="p3_mock_title">Board Configurator</div>
-          <div class="mock-row">
-            <label for="calc3Board" data-i18n="p3_mock_label1">Controller</label>
-            <select id="calc3Board">
-              <option value="12" data-i18n="p3_opt_b1">Arduino Uno</option>
-              <option value="9" data-i18n="p3_opt_b2">ESP8266</option>
-              <option value="14" data-i18n="p3_opt_b3">ESP32</option>
-            </select>
+        <a class="featured-frame" href="demos/electronics/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">VoltForge — demo</span>
           </div>
-          <div class="mock-row">
-            <label for="calc3Display" data-i18n="p3_mock_label2">Display</label>
-            <select id="calc3Display">
-              <option value="0" data-i18n="p3_opt_d1">None</option>
-              <option value="6" data-i18n="p3_opt_d2">LCD 16x2</option>
-              <option value="8" data-i18n="p3_opt_d3">OLED</option>
-              <option value="15" data-i18n="p3_opt_d4">TFT touch</option>
-            </select>
-          </div>
-          <div class="mock-checks">
-            <label><input type="checkbox" class="calc3module" value="5" checked><span data-i18n="p3_mod1">Wi-Fi module</span></label>
-            <label><input type="checkbox" class="calc3module" value="7"><span data-i18n="p3_mod2">Relay module</span></label>
-            <label><input type="checkbox" class="calc3module" value="6"><span data-i18n="p3_mod3">Sensor kit</span></label>
-          </div>
-          <div class="mock-total">
-            <span data-i18n="p3_mock_total_label">Configuration total</span>
-            <span class="amount">€<span id="calc3Total">17</span></span>
-          </div>
-        </div>
+          <img src="images/electronics-demo.jpg?v=1" alt="Screenshot of the VoltForge electronics demo website" data-i18n-alt="alt_p3" loading="lazy">
+        </a>
       </div>
       <div>
-        <p class="desc" data-i18n="p3_desc">Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.</p>
+        <p class="desc" data-i18n="p3_desc">A complete site for custom Arduino / ESP32 devices: a configurator with live price and build time, ready-made kits and a quote request with the e-mails you and your customer receive.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p3_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p3_feat_2">Working configurator: pick parts, see the price and build time</li>
+          <li data-i18n="p3_feat_3">Ready-made kits and a quote request you can try</li>
+          <li data-i18n="p3_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/electronics/index.html" target="_blank" rel="noopener" data-i18n="p3_cta">Open demo site →</a>
       </div>
     </div>
     </details>
@@ -763,6 +746,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=60" defer></script>
+<script src="js/script.js?v=61" defer></script>
 </body>
 </html>

@@ -71,7 +71,7 @@
       p2_cta: "Open demo site →",
 
       p3_category: "Electronics", p3_title: "Product Configurator",
-      p3_desc: "Configurator for selecting controllers, displays and additional modules, with automatic price calculation — built for Arduino / ESP32 hardware projects.",
+      p3_desc: "A complete site for custom Arduino / ESP32 devices: a configurator with live price and build time, ready-made kits and a quote request with the e-mails you and your customer receive.",      p3_feat_1: "4 languages: EN / PL / DE / RU", p3_feat_2: "Working configurator: pick parts, see the price and build time",      p3_feat_3: "Ready-made kits and a quote request you can try", p3_feat_4: "Works on phones, tablets and computers",      p3_cta: "Open demo site →",
       p3_mock_title: "Board Configurator", p3_mock_label1: "Controller", p3_mock_label2: "Display", p3_mock_total_label: "Configuration total",
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "None", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT touch",
@@ -170,7 +170,7 @@
       alt_hero: "Writing code for a client project",
       alt_featured: "Screenshot of the live Arduino / ESP32 Firmware Studio site",
       alt_p1: "Screenshot of the AutoService demo website",
-      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Electronics circuit board", alt_p4: "Screenshot of the OrderFlow business tools demo website", alt_p5: "Screenshot of the ClearForm contact forms demo website",
+      alt_p2: "Screenshot of the Crown & Blade barbershop demo website", alt_p3: "Screenshot of the VoltForge electronics demo website", alt_p4: "Screenshot of the OrderFlow business tools demo website", alt_p5: "Screenshot of the ClearForm contact forms demo website",
       title_p5_demo: "Demo interface — not a live order form",
       title_inquiry_submit: "Sends your message"
     },
@@ -238,7 +238,7 @@
       p2_cta: "Otwórz stronę demo →",
 
       p3_category: "Elektronika", p3_title: "Konfigurator produktu",
-      p3_desc: "Konfigurator do wyboru sterowników, wyświetlaczy i dodatkowych modułów, z automatycznym przeliczaniem ceny — zbudowany pod projekty na Arduino / ESP32.",
+      p3_desc: "Kompletna strona urządzeń Arduino / ESP32 na zamówienie: konfigurator z ceną i czasem budowy na żywo, gotowe zestawy i zapytanie o wycenę z e-mailami dla Ciebie i klienta.",      p3_feat_1: "4 języki: EN / PL / DE / RU", p3_feat_2: "Działający konfigurator: wybierz części i zobacz cenę oraz czas budowy",      p3_feat_3: "Gotowe zestawy i zapytanie o wycenę do wypróbowania", p3_feat_4: "Działa na telefonach, tabletach i komputerach",      p3_cta: "Otwórz stronę demo →",
       p3_mock_title: "Konfigurator płytki", p3_mock_label1: "Sterownik", p3_mock_label2: "Wyświetlacz", p3_mock_total_label: "Suma konfiguracji",
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Brak", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT dotykowy",
@@ -336,7 +336,7 @@
       alt_hero: "Pisanie kodu do projektu klienta",
       alt_featured: "Zrzut ekranu działającej strony Arduino / ESP32 Firmware Studio",
       alt_p1: "Zrzut ekranu strony demo AutoService",
-      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Płytka elektroniczna", alt_p4: "Zrzut ekranu strony demo narzędzi biznesowych OrderFlow", alt_p5: "Zrzut ekranu strony demo formularzy kontaktowych ClearForm",
+      alt_p2: "Zrzut ekranu strony demo barbershopu Crown & Blade", alt_p3: "Zrzut ekranu strony demo elektroniki VoltForge", alt_p4: "Zrzut ekranu strony demo narzędzi biznesowych OrderFlow", alt_p5: "Zrzut ekranu strony demo formularzy kontaktowych ClearForm",
       title_p5_demo: "Interfejs demo — to nie jest prawdziwy formularz zamówienia",
       title_inquiry_submit: "Wysyła Twoją wiadomość"
     },
@@ -404,7 +404,7 @@
       p2_cta: "Demo-Website öffnen →",
 
       p3_category: "Elektronik", p3_title: "Produktkonfigurator",
-      p3_desc: "Konfigurator zur Auswahl von Controllern, Displays und zusätzlichen Modulen mit automatischer Preisberechnung — entwickelt für Arduino- / ESP32-Hardwareprojekte.",
+      p3_desc: "Eine komplette Website für Arduino- / ESP32-Geräte nach Maß: Konfigurator mit Live-Preis und Bauzeit, fertige Sets und eine Preisanfrage samt E-Mails an Sie und Ihren Kunden.",      p3_feat_1: "4 Sprachen: EN / PL / DE / RU", p3_feat_2: "Funktionierender Konfigurator: Teile wählen, Preis und Bauzeit sehen",      p3_feat_3: "Fertige Sets und eine Preisanfrage zum Ausprobieren", p3_feat_4: "Funktioniert auf Smartphones, Tablets und Computern",      p3_cta: "Demo-Website öffnen →",
       p3_mock_title: "Board-Konfigurator", p3_mock_label1: "Controller", p3_mock_label2: "Display", p3_mock_total_label: "Konfigurationssumme",
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Kein Display", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT Touch",
@@ -502,7 +502,7 @@
       alt_hero: "Code für ein Kundenprojekt schreiben",
       alt_featured: "Screenshot der Live-Website Arduino / ESP32 Firmware Studio",
       alt_p1: "Screenshot der AutoService-Demo-Website",
-      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Elektronik-Platine", alt_p4: "Screenshot der OrderFlow Business-Tools-Demo-Website", alt_p5: "Screenshot der ClearForm Kontaktformular-Demo-Website",
+      alt_p2: "Screenshot der Crown & Blade Barbershop-Demo-Website", alt_p3: "Screenshot der VoltForge Elektronik-Demo-Website", alt_p4: "Screenshot der OrderFlow Business-Tools-Demo-Website", alt_p5: "Screenshot der ClearForm Kontaktformular-Demo-Website",
       title_p5_demo: "Demo-Oberfläche — kein echtes Bestellformular",
       title_inquiry_submit: "Sendet Ihre Nachricht"
     },
@@ -570,7 +570,7 @@
       p2_cta: "Открыть демо-сайт →",
 
       p3_category: "Электроника", p3_title: "Конфигуратор продукта",
-      p3_desc: "Конфигуратор для выбора контроллеров, дисплеев и дополнительных модулей с автоматическим расчётом цены — создан для проектов на Arduino / ESP32.",
+      p3_desc: "Полноценный сайт для устройств на Arduino / ESP32 на заказ: конфигуратор с живым расчётом цены и срока, готовые наборы и заявка на расчёт с письмами, которые получаете вы и ваш клиент.",      p3_feat_1: "4 языка: EN / PL / DE / RU", p3_feat_2: "Рабочий конфигуратор: выберите детали и увидите цену и срок",      p3_feat_3: "Готовые наборы и заявка на расчёт, которую можно попробовать", p3_feat_4: "Работает на телефонах, планшетах и компьютерах",      p3_cta: "Открыть демо-сайт →",
       p3_mock_title: "Конфигуратор платы", p3_mock_label1: "Контроллер", p3_mock_label2: "Дисплей", p3_mock_total_label: "Итоговая стоимость",
       p3_opt_b1: "Arduino Uno", p3_opt_b2: "ESP8266", p3_opt_b3: "ESP32",
       p3_opt_d1: "Без дисплея", p3_opt_d2: "LCD 16x2", p3_opt_d3: "OLED", p3_opt_d4: "TFT сенсорный",
@@ -668,7 +668,7 @@
       alt_hero: "Написание кода для клиентского проекта",
       alt_featured: "Скриншот работающего сайта Arduino / ESP32 Firmware Studio",
       alt_p1: "Скриншот демо-сайта AutoService",
-      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Электронная плата", alt_p4: "Скриншот демо-сайта бизнес-инструментов OrderFlow", alt_p5: "Скриншот демо-сайта контактных форм ClearForm",
+      alt_p2: "Скриншот демо-сайта барбершопа Crown & Blade", alt_p3: "Скриншот демо-сайта электроники VoltForge", alt_p4: "Скриншот демо-сайта бизнес-инструментов OrderFlow", alt_p5: "Скриншот демо-сайта контактных форм ClearForm",
       title_p5_demo: "Демо-интерфейс — не настоящая форма заказа",
       title_inquiry_submit: "Отправляет ваше сообщение"
     }

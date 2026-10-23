@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#0a1220" />
+    <title data-i18n="meta.title">VoltForge — Custom Arduino &amp; ESP32 Devices</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Custom Arduino and ESP32 devices: pick a controller, display and modules, see the price and build time instantly, and send a quote request."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2" /><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4" /></symbol>
+      <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 9a14 14 0 0 1 19 0M5.5 12.5a9.5 9.5 0 0 1 13 0M8.6 16a5 5 0 0 1 6.8 0" /><circle cx="12" cy="19.2" r=".8" /></symbol>
+      <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 18a9 9 0 1 1 16 0" /><path d="m12 14 4-5" /><circle cx="12" cy="14" r="1.2" /></symbol>
+      <symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z" /><path d="m3 7.5 9 4.5 9-4.5M12 12v9" /></symbol>
+      <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3 5 14h6l-1 7 8-11h-6z" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5M16 7l5 5-5 5M14 4l-4 16" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+      <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 10 14" /><path d="M21 3 14.5 21l-4.5-7-7-4.5z" /></symbol>
+    </svg>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="VoltForge">
+          <span class="logo__mark">
+            <svg viewBox="0 0 32 32" aria-hidden="true"><rect x="9" y="9" width="14" height="14" rx="2.5" /><path d="M13 5v4M19 5v4M13 23v4M19 23v4M5 13h4M5 19h4M23 13h4M23 19h4" /></svg>
+          </span>
+          <span class="logo__text">Volt<b>Forge</b></span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a class="nav__back" href="https://vpauk81.github.io/WEBWORKS/#project3">
+            <svg class="ico"><use href="#i-back" /></svg>
+            <span data-i18n="nav.back">Back</span>
+          </a>
+          <a href="#features" data-i18n="nav.features">What we build</a>
+          <a href="#kits" data-i18n="nav.kits">Ready kits</a>
+          <a href="#configurator" data-i18n="nav.config">Configurator</a>
+          <a href="#how" data-i18n="nav.how">How it works</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="lang" id="lang">
+            <button type="button" class="lang__toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" data-i18n-attr="aria-label:lang.label" aria-label="Choose language">
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#configurator" data-i18n="cta.try">Build your device</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__grid" aria-hidden="true"></div>
+        <div class="hero__glow" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><span class="dot"></span><span data-i18n="hero.eyebrow">Arduino &amp; ESP32 devices, built to order</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">Your idea, <em>soldered, flashed</em> and delivered</h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              Choose a controller, a display and the modules you need — the price and build time update instantly.
+              We assemble it, write the firmware, test it and ship a device that simply works.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#configurator">
+                <span data-i18n="hero.cta">Open the configurator</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--ghost" href="#kits" data-i18n="hero.cta2">See ready kits</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">3–7</strong><span data-i18n="hero.f1">working days to build</span></li>
+              <li><strong data-i18n="hero.f2v">100%</strong><span data-i18n="hero.f2">tested before shipping</span></li>
+              <li><strong data-i18n="hero.f3v">12 mo</strong><span data-i18n="hero.f3">warranty on every device</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="float-card float-card--a">
+              <span class="float-card__ico"><svg class="ico"><use href="#i-wifi" /></svg></span>
+              <span><b data-i18n="hero.fc1">Wi-Fi connected</b><small>192.168.1.42</small></span>
+            </div>
+            <div class="board-card">
+              <div class="board-card__bar"><i></i><i></i><i></i><span>ESP32 · Weather station</span></div>
+              <svg class="pcb" viewBox="0 0 320 190" role="img">
+                <rect x="10" y="10" width="300" height="170" rx="14" class="pcb__board" />
+                <g class="pcb__traces">
+                  <path d="M60 60h60v30h50" /><path d="M60 130h80v-20h60" /><path d="M250 60v40h-40" /><path d="M250 150h-70v-25" /><path d="M30 95h30" />
+                </g>
+                <g class="pcb__pins">
+                  <circle cx="60" cy="60" r="4" /><circle cx="60" cy="130" r="4" /><circle cx="250" cy="60" r="4" /><circle cx="250" cy="150" r="4" /><circle cx="30" cy="95" r="4" />
+                </g>
+                <rect x="105" y="68" width="92" height="56" rx="6" class="pcb__chip" />
+                <text x="151" y="92" text-anchor="middle" class="pcb__chiptext">ESP32</text>
+                <text x="151" y="110" text-anchor="middle" class="pcb__chipsub">Wi-Fi · BT</text>
+                <rect x="222" y="28" width="62" height="34" rx="5" class="pcb__oled" />
+                <text x="253" y="50" text-anchor="middle" class="pcb__oledtext">23.4°C</text>
+                <circle cx="40" cy="38" r="5" class="pcb__led pcb__led--a" /><circle cx="58" cy="38" r="5" class="pcb__led pcb__led--b" />
+              </svg>
+              <div class="readout">
+                <div><span data-i18n="hero.r1">Temperature</span><b id="heroTemp">23.4 °C</b></div>
+                <div><span data-i18n="hero.r2">Humidity</span><b id="heroHum">48 %</b></div>
+                <div><span data-i18n="hero.r3">Relay</span><b class="readout__on" data-i18n="hero.r3v">ON</b></div>
+              </div>
+            </div>
+            <div class="float-card float-card--b">
+              <span class="float-card__ico float-card__ico--lime"><svg class="ico"><use href="#i-code" /></svg></span>
+              <span><b data-i18n="hero.fc2">Firmware flashed</b><small data-i18n="hero.fc2s">v1.2 · all tests passed</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marqueeTrack">
+          <span data-i18n="mq.1">Arduino</span><span data-i18n="mq.2">ESP32</span><span data-i18n="mq.3">IoT &amp; Wi-Fi</span><span data-i18n="mq.4">Sensors</span><span data-i18n="mq.5">Custom firmware</span><span data-i18n="mq.6">Prototypes</span>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <section class="section" id="features">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="ft.kicker">What we build</p>
+            <h2 class="section__title" data-i18n="ft.title">From a single sensor to a smart device</h2>
+            <p class="section__lead" data-i18n="ft.lead">Hardware and software made together, so everything works from the first power-on.</p>
+          </header>
+          <div class="grid grid--4">
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-code" /></svg></span>
+              <h3 data-i18n="c1.title">Custom firmware</h3>
+              <p data-i18n="c1.text">Clean, documented code written for your task — not a copy of a random example.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-wifi" /></svg></span>
+              <h3 data-i18n="c2.title">Wi-Fi &amp; dashboards</h3>
+              <p data-i18n="c2.text">Watch and control your device from a phone or computer, at home or from anywhere.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-gauge" /></svg></span>
+              <h3 data-i18n="c3.title">Sensors &amp; displays</h3>
+              <p data-i18n="c3.text">Temperature, humidity, light, motion — shown on an LCD, OLED or colour touch screen.</p>
+            </article>
+            <article class="card reveal">
+              <span class="card__ico"><svg class="ico"><use href="#i-shield" /></svg></span>
+              <h3 data-i18n="c4.title">Tested &amp; guaranteed</h3>
+              <p data-i18n="c4.text">Every device runs a full test before shipping and comes with a 12-month warranty.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Ready kits -->
+      <section class="section section--tint" id="kits">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="kits.kicker">Ready kits</p>
+            <h2 class="section__title" data-i18n="kits.title">Popular builds, ready to order</h2>
+            <p class="section__lead" data-i18n="kits.lead">Start from a proven setup — load it into the configurator and change anything you like.</p>
+          </header>
+          <div class="grid grid--3">
+            <article class="kit reveal" data-kit="relay">
+              <div class="kit__top"><span class="kit__ico"><svg class="ico"><use href="#i-bolt" /></svg></span><span class="kit__price"><small data-i18n="kits.from">from</small> €<b data-kit-price>0</b></span></div>
+              <h3 data-i18n="k1.name">Smart relay</h3>
+              <p data-i18n="k1.text">Switch lamps, pumps or a heater from your phone and set timers.</p>
+              <ul class="kit__tags"><li>ESP8266</li><li data-i18n="m.relay">Relay module</li><li data-i18n="fw.dash">Firmware + web dashboard</li></ul>
+              <button type="button" class="btn btn--light btn--block" data-load-kit="relay"><span data-i18n="kits.load">Load into configurator</span><svg class="ico"><use href="#i-arrow" /></svg></button>
+            </article>
+            <article class="kit kit--hot reveal" data-kit="weather">
+              <span class="kit__flag" data-i18n="kits.pop">Most popular</span>
+              <div class="kit__top"><span class="kit__ico"><svg class="ico"><use href="#i-gauge" /></svg></span><span class="kit__price"><small data-i18n="kits.from">from</small> €<b data-kit-price>0</b></span></div>
+              <h3 data-i18n="k2.name">Weather station</h3>
+              <p data-i18n="k2.text">Temperature, humidity and pressure on an OLED screen and in your browser.</p>
+              <ul class="kit__tags"><li>ESP32</li><li data-i18n="p.oled">OLED display</li><li data-i18n="m.sensors">Sensor kit</li><li data-i18n="fw.dash">Firmware + web dashboard</li></ul>
+              <button type="button" class="btn btn--primary btn--block" data-load-kit="weather"><span data-i18n="kits.load">Load into configurator</span><svg class="ico"><use href="#i-arrow" /></svg></button>
+            </article>
+            <article class="kit reveal" data-kit="desk">
+              <div class="kit__top"><span class="kit__ico"><svg class="ico"><use href="#i-chip" /></svg></span><span class="kit__price"><small data-i18n="kits.from">from</small> €<b data-kit-price>0</b></span></div>
+              <h3 data-i18n="k3.name">Desk monitor</h3>
+              <p data-i18n="k3.text">A compact room monitor with an LCD, a clock and data logging to an SD card.</p>
+              <ul class="kit__tags"><li>Arduino Uno</li><li data-i18n="p.lcd">LCD 16×2</li><li data-i18n="m.sensors">Sensor kit</li><li data-i18n="m.sd">SD card logger</li></ul>
+              <button type="button" class="btn btn--light btn--block" data-load-kit="desk"><span data-i18n="kits.load">Load into configurator</span><svg class="ico"><use href="#i-arrow" /></svg></button>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Configurator -->
+      <section class="section section--dark" id="configurator">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="demo.kicker">Configurator</p>
+            <h2 class="section__title" data-i18n="demo.title">Build your device — and see the price</h2>
+            <p class="section__lead" data-i18n="demo.lead">This is a working configurator: choose the parts, watch the total and the build time change, then send a quote request. Nothing is really sent.</p>
+          </header>
+
+          <div class="stats reveal">
+            <div class="stat"><span data-i18n="demo.s1">Quote requests</span><strong id="statOrders">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s2">In production</span><strong id="statProd">0</strong></div>
+            <div class="stat"><span data-i18n="demo.s3">Avg. build time</span><strong data-i18n="demo.s3v">5 days</strong></div>
+          </div>
+
+          <div class="demo reveal">
+            <div class="cfg">
+              <div class="cfg__group">
+                <h3><span class="cfg__n">1</span><span data-i18n="cfg.ctl">Controller</span></h3>
+                <div class="opts opts--3" id="optCtl" role="radiogroup">
+                  <label class="opt"><input type="radio" name="ctl" value="uno" /><span class="opt__body"><b>Arduino Uno</b><small data-i18n="ctl.uno">Classic, 5 V, great for learning</small></span><em></em></label>
+                  <label class="opt"><input type="radio" name="ctl" value="esp8266" /><span class="opt__body"><b>ESP8266</b><small data-i18n="ctl.esp8266">Small and cheap, built-in Wi-Fi</small></span><em></em></label>
+                  <label class="opt"><input type="radio" name="ctl" value="esp32" checked /><span class="opt__body"><b>ESP32</b><small data-i18n="ctl.esp32">Powerful, Wi-Fi + Bluetooth</small></span><em></em></label>
+                </div>
+              </div>
+
+              <div class="cfg__group">
+                <h3><span class="cfg__n">2</span><span data-i18n="cfg.disp">Display</span></h3>
+                <div class="opts opts--4" id="optDisp" role="radiogroup">
+                  <label class="opt"><input type="radio" name="disp" value="none" /><span class="opt__body"><b data-i18n="p.none">No display</b></span><em></em></label>
+                  <label class="opt"><input type="radio" name="disp" value="lcd" /><span class="opt__body"><b data-i18n="p.lcd">LCD 16×2</b></span><em></em></label>
+                  <label class="opt"><input type="radio" name="disp" value="oled" checked /><span class="opt__body"><b data-i18n="p.oled">OLED display</b></span><em></em></label>
+                  <label class="opt"><input type="radio" name="disp" value="tft" /><span class="opt__body"><b data-i18n="p.tft">TFT touch screen</b></span><em></em></label>
+                </div>
+              </div>
+
+              <div class="cfg__group">
+                <h3><span class="cfg__n">3</span><span data-i18n="cfg.mods">Extra modules</span></h3>
+                <div class="opts opts--3" id="optMods">
+                  <label class="opt opt--check"><input type="checkbox" name="mod" value="wifi" /><span class="opt__body"><b data-i18n="m.wifi">Wi-Fi module</b></span><em></em></label>
+                  <label class="opt opt--check"><input type="checkbox" name="mod" value="bt" /><span class="opt__body"><b data-i18n="m.bt">Bluetooth module</b></span><em></em></label>
+                  <label class="opt opt--check"><input type="checkbox" name="mod" value="relay" /><span class="opt__body"><b data-i18n="m.relay">Relay module</b></span><em></em></label>
+                  <label class="opt opt--check"><input type="checkbox" name="mod" value="sensors" checked /><span class="opt__body"><b data-i18n="m.sensors">Sensor kit</b></span><em></em></label>
+                  <label class="opt opt--check"><input type="checkbox" name="mod" value="sd" /><span class="opt__body"><b data-i18n="m.sd">SD card logger</b></span><em></em></label>
+                </div>
+              </div>
+
+              <div class="cfg__group">
+                <h3><span class="cfg__n">4</span><span data-i18n="cfg.fw">Firmware</span></h3>
+                <div class="opts opts--2" id="optFw" role="radiogroup">
+                  <label class="opt"><input type="radio" name="fw" value="basic" checked /><span class="opt__body"><b data-i18n="fw.basic">Basic firmware</b><small data-i18n="fw.basic.d">Reads sensors, drives the display and modules</small></span><em></em></label>
+                  <label class="opt"><input type="radio" name="fw" value="dash" /><span class="opt__body"><b data-i18n="fw.dash">Firmware + web dashboard</b><small data-i18n="fw.dash.d">Control and charts from any browser (needs Wi-Fi)</small></span><em></em></label>
+                </div>
+              </div>
+            </div>
+
+            <aside class="summary">
+              <h3 data-i18n="sum.title">Your build</h3>
+              <svg class="pcb pcb--sm" viewBox="0 0 320 170" role="img" aria-hidden="true">
+                <rect x="10" y="10" width="300" height="150" rx="14" class="pcb__board" />
+                <g class="pcb__traces"><path d="M50 50h60v30h40" /><path d="M50 120h90v-20" /><path d="M260 90h-50" /><path d="M260 130h-80" /></g>
+                <rect x="110" y="62" width="90" height="52" rx="6" class="pcb__chip" />
+                <text x="155" y="86" text-anchor="middle" class="pcb__chiptext" id="pcbLabel">ESP32</text>
+                <text x="155" y="103" text-anchor="middle" class="pcb__chipsub" id="pcbSub">Wi-Fi · BT</text>
+                <rect x="212" y="24" width="72" height="40" rx="5" class="pcb__oled pcb__part" id="pcbDisp" />
+                <rect x="30" y="24" width="26" height="18" rx="3" class="pcb__mod pcb__part" id="pcbWifi" />
+                <rect x="62" y="24" width="26" height="18" rx="3" class="pcb__mod pcb__part" id="pcbBt" />
+                <rect x="212" y="110" width="30" height="34" rx="3" class="pcb__mod pcb__part" id="pcbRelay" />
+                <rect x="248" y="110" width="30" height="34" rx="3" class="pcb__mod pcb__part" id="pcbSensors" />
+                <rect x="30" y="132" width="40" height="16" rx="3" class="pcb__mod pcb__part" id="pcbSd" />
+              </svg>
+              <ul class="parts" id="parts" aria-live="polite"></ul>
+              <div class="total">
+                <div><span data-i18n="sum.total">Total</span><strong>€<span id="totalPrice">0</span></strong></div>
+                <div class="total__days"><svg class="ico"><use href="#i-clock" /></svg><span id="totalDays"></span></div>
+              </div>
+            </aside>
+          </div>
+
+          <div class="demo demo--b reveal">
+            <form class="order" id="quoteForm" novalidate>
+              <h3 data-i18n="q.title">Send a quote request</h3>
+              <p class="order__intro" data-i18n="q.intro">We will check your build and confirm the price within one working day.</p>
+
+              <div class="field" data-field="name">
+                <label for="fName" data-i18n="f.name">Name</label>
+                <div class="control">
+                  <input id="fName" type="text" autocomplete="name" data-i18n-attr="placeholder:f.name.ph" placeholder="John Smith" />
+                  <span class="tick">✔</span>
+                </div>
+                <p class="field__err" data-i18n="err.name">Please enter your name (letters only, at least 2).</p>
+              </div>
+
+              <div class="field" data-field="email">
+                <label for="fEmail" data-i18n="f.email">E-mail</label>
+                <div class="control">
+                  <input id="fEmail" type="email" inputmode="email" autocomplete="email" placeholder="name@example.com" />
+                  <span class="tick">✔</span>
+                </div>
+                <p class="field__err" id="emailErr" data-i18n="err.email">Please enter a valid e-mail address.</p>
+              </div>
+
+              <label class="check">
+                <input id="fConsent" type="checkbox" />
+                <span data-i18n="f.consent">I agree to the processing of my data to answer this request (GDPR).</span>
+              </label>
+              <p class="field__err field__err--block" id="consentErr" data-i18n="err.consent" hidden>Please tick the consent box to continue.</p>
+
+              <button type="submit" class="btn btn--primary btn--block">
+                <span data-i18n="f.submit">Request a quote</span>
+                <svg class="ico"><use href="#i-send" /></svg>
+              </button>
+              <p class="order__note" data-i18n="f.note">Demo only — nothing is sent anywhere.</p>
+            </form>
+
+            <div class="board">
+              <div class="board__head">
+                <h3 data-i18n="demo.board">Incoming requests</h3>
+                <button type="button" class="link-btn" id="resetDemo" data-i18n="demo.reset">Reset demo</button>
+              </div>
+              <div class="inbox" id="inbox" role="list" aria-label="Requests"></div>
+              <p class="board__hint" data-i18n="demo.hint">Each request arrives with the full list of parts, the total and the build time.</p>
+
+              <div class="mails" id="mails" hidden>
+                <div class="mail">
+                  <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail1.head">E-mail to the workshop</span></div>
+                  <p class="mail__to" id="mail1To"></p>
+                  <p class="mail__subj" id="mail1Subj"></p>
+                  <p class="mail__body" id="mail1Body"></p>
+                </div>
+                <div class="mail mail--b">
+                  <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail2.head">Confirmation to the customer</span></div>
+                  <p class="mail__to" id="mail2To"></p>
+                  <p class="mail__subj" id="mail2Subj"></p>
+                  <p class="mail__body" id="mail2Body"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section" id="how">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="how.kicker">How it works</p>
+            <h2 class="section__title" data-i18n="how.title">From idea to device in three steps</h2>
+          </header>
+          <ol class="steps">
+            <li class="step reveal"><span class="step__n">1</span><h3 data-i18n="how.1t">You describe the task</h3><p data-i18n="how.1p">Pick a kit or build your own in the configurator. Tell us what the device should do.</p></li>
+            <li class="step reveal"><span class="step__n">2</span><h3 data-i18n="how.2t">We assemble and program</h3><p data-i18n="how.2p">Parts are soldered, the firmware is written and flashed, and every function is tested.</p></li>
+            <li class="step reveal"><span class="step__n">3</span><h3 data-i18n="how.3t">You get a working device</h3><p data-i18n="how.3p">It arrives ready to power on, with a short guide and support if you need it.</p></li>
+          </ol>
+
+          <div class="benefits">
+            <div class="benefit reveal"><svg class="ico"><use href="#i-clock" /></svg><span data-i18n="b.1">Fixed price and build time</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-code" /></svg><span data-i18n="b.2">Source code included</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-shield" /></svg><span data-i18n="b.3">12-month warranty</span></div>
+            <div class="benefit reveal"><svg class="ico"><use href="#i-globe" /></svg><span data-i18n="b.4">Shipping across Europe</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section section--tint" id="reviews">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="rv.kicker">Reviews</p>
+            <h2 class="section__title" data-i18n="rv.title">What our customers say</h2>
+          </header>
+          <div class="grid grid--3">
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.1">“The weather station worked right out of the box. The dashboard on my phone is exactly what I wanted.”</blockquote>
+              <figcaption><b data-i18n="rv.1n">Tomasz K.</b><span data-i18n="rv.1r">Garden enthusiast</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.2">“Clear price, clear deadline, clean code. We now order all our prototypes here.”</blockquote>
+              <figcaption><b data-i18n="rv.2n">Lena B.</b><span data-i18n="rv.2r">Small production workshop</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.3">“I asked for a small change in the firmware and got it the next day. Great support.”</blockquote>
+              <figcaption><b data-i18n="rv.3n">Oleg S.</b><span data-i18n="rv.3r">Engineering student</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section" id="faq">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 class="section__title" data-i18n="faq.title">Good questions</h2>
+          </header>
+          <div class="faq">
+            <details class="reveal"><summary data-i18n="q1">Can you build something that is not in the configurator?</summary><p data-i18n="a1">Yes. The configurator covers the most common builds; for anything else describe your task and we will prepare an individual quote.</p></details>
+            <details class="reveal"><summary data-i18n="q2">Do I get the source code?</summary><p data-i18n="a2">Always. The firmware source and a short guide are included, so you can change the device yourself later.</p></details>
+            <details class="reveal"><summary data-i18n="q3">How long does it take?</summary><p data-i18n="a3">Usually 3 to 7 working days. The exact time for your build is shown in the configurator.</p></details>
+            <details class="reveal"><summary data-i18n="q4">What if something does not work?</summary><p data-i18n="a4">Every device has a 12-month warranty. We repair or replace it and help you with setup free of charge.</p></details>
+            <details class="reveal"><summary data-i18n="q5">Which payment and delivery options are available?</summary><p data-i18n="a5">Bank transfer or card, with tracked delivery across Europe. The final price includes testing and packaging.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section section--tint" id="contacts">
+        <div class="container">
+          <div class="cta reveal">
+            <div>
+              <h2 data-i18n="ct.title">Have a device in mind?</h2>
+              <p data-i18n="ct.lead">Describe your idea and we will suggest the simplest way to build it. Answer within one working day.</p>
+            </div>
+            <ul class="cta__list">
+              <li><svg class="ico"><use href="#i-phone" /></svg><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></li>
+              <li><svg class="ico"><use href="#i-mail" /></svg><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></li>
+              <li><svg class="ico"><use href="#i-pin" /></svg><span data-contact="address" data-i18n="ct.addr">Your Street 1, 00000 Your City, Country</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> VoltForge</span>
+        <span data-i18n="ft.demo">Demo website — no real orders or e-mails are sent.</span>
+        <a href="#top" data-i18n="ft.top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="js/config.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=1"></script>
+  </body>
+</html>
