@@ -317,3 +317,7 @@ button { cursor: pointer; }
 /* safety: grid children may shrink below their content width */
 .hero__inner > *, .demo > *, .cta > * { min-width: 0; }
 .float-card--b { bottom: -22px; }
+@media (max-width: 560px) {
+  .hero__visual { padding-top: 40px; }
+  .float-card--a { top: 0; }
+}
