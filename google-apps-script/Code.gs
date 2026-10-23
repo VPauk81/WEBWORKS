@@ -538,7 +538,8 @@ function cut_(value, max) {
 const EVENT_LABELS = {
   pageview: "Просмотр страницы",
   language_view: "Смена языка",
-  inquiry_form_opened: "Открыли форму заявки",
+  // Нажали «Написать мне», форма открылась, но заявка ещё не отправлена
+  inquiry_form_opened: "Пишут свои данные",
   inquiry_started: "Начали заполнять заявку",
   inquiry_sent: "Отправили заявку"
 };
@@ -551,7 +552,21 @@ function eventLabel(key) {
 // могут хранить ключ как есть) — возвращаем её же
 function eventKeyFromLabel(label) {
   const found = Object.keys(EVENT_LABELS).find(function(key){ return EVENT_LABELS[key] === label; });
-  return found || label;
+  return found || LEGACY_EVENT_LABELS[label] || label;
+}
+
+// Прежние названия событий — в уже записанных строках, цепочках и
+// сводке они остаются, поэтому по-прежнему узнаются при подсчёте
+const LEGACY_EVENT_LABELS = {
+  "Открыли форму заявки": "inquiry_form_opened"
+};
+
+// В "Пути посетителя" есть шаг этого события (по новому или старому названию)?
+function pathHasEvent_(path, key) {
+  if (path.indexOf(EVENT_LABELS[key]) !== -1) return true;
+  return Object.keys(LEGACY_EVENT_LABELS).some(function(old){
+    return LEGACY_EVENT_LABELS[old] === key && path.indexOf(old) !== -1;
+  });
 }
 
 // Грубая догадка о стране ТОЛЬКО по часовому поясу браузера
@@ -890,10 +905,10 @@ function visitRowEvents_(row) {
 
   langs.slice(1).forEach(function(l){ out.push({ event: "language_view", siteLang: l }); });
 
-  if (path.indexOf(EVENT_LABELS.inquiry_form_opened) !== -1) {
+  if (pathHasEvent_(path, "inquiry_form_opened")) {
     out.push({ event: "inquiry_form_opened", siteLang: row[VCOL.siteLang] });
   }
-  if (path.indexOf(EVENT_LABELS.inquiry_started) !== -1) {
+  if (pathHasEvent_(path, "inquiry_started")) {
     out.push({ event: "inquiry_started", siteLang: row[VCOL.siteLang] });
   }
 
@@ -1553,7 +1568,7 @@ function updateDashboard() {
   const sent = stats.totals.inquiriesSent.allTime;
 
   const funnelRows = [
-    ["📝 Открыли форму заявки", fo, pct(fo, pv.allTime) + " от просмотров"],
+    ["📝 Пишут свои данные", fo, pct(fo, pv.allTime) + " от просмотров (нажали «Написать мне»)"],
     ["✍️ Начали заполнять", is_, pct(is_, fo) + " от открывших форму"],
     ["✅ Отправили заявку", sent, pct(sent, is_) + " от начавших"]
   ];
