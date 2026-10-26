@@ -1315,3 +1315,59 @@
   @media (max-width: 380px){
     .fold-icon{ display:none; }
   }
+
+  /* ---- Case study + demo cards: same bright coloured bars as Services / What I Build ---- */
+  .case-study, .project-toggle{
+    border:2px solid var(--fc); border-radius:16px; background:#fff;
+    box-shadow:0 12px 28px -18px var(--fc);
+    margin-bottom:16px;
+    transition:box-shadow .2s ease;
+  }
+  .case-study{ --fc:#2F7D68; --fc2:#3FB391; --fs:#E3F4EE; border-left:2px solid var(--fc); }
+  #project1{ --fc:#E2641E; --fc2:#FF9A5A; --fs:#FFEBDD; }
+  #project2{ --fc:#B8862B; --fc2:#E3B656; --fs:#FBF1D9; }
+  #project3{ --fc:#1F73C9; --fc2:#4FB0F5; --fs:#E1F0FD; }
+  #project4{ --fc:#6A4CD4; --fc2:#9B84F5; --fs:#EDE8FD; }
+  #project5{ --fc:#12A37F; --fc2:#2FD0A4; --fs:#DCF6EC; }
+  .case-study:not([open]), .project-toggle:not([open]){ animation:foldGlow 3.2s ease-in-out infinite; }
+  .case-toggle, .project-summary{
+    position:relative;
+    padding:16px 20px;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--fs) 0%, #fff 85%);
+    gap:16px;
+  }
+  .case-toggle:hover, .project-summary:hover{ background:linear-gradient(135deg, var(--fs) 20%, #fff 100%); }
+  .case-study[open] .case-toggle, .project-toggle[open] .project-summary{ border-radius:14px 14px 0 0; border-bottom:1px solid var(--line); }
+  .case-toggle::before, .project-summary::before{
+    flex-shrink:0; order:-1;
+    width:44px; height:44px; border-radius:50%;
+    display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--fc2), var(--fc));
+    box-shadow:0 8px 18px -8px var(--fc);
+    color:#fff; font:700 18px var(--font-head);
+  }
+  .case-toggle::before{ content:"★"; }
+  #project1 > .project-summary::before{ content:"1"; }
+  #project2 > .project-summary::before{ content:"2"; }
+  #project3 > .project-summary::before{ content:"3"; }
+  #project4 > .project-summary::before{ content:"4"; }
+  #project5 > .project-summary::before{ content:"5"; }
+  .case-label, .project-summary .project-category{ color:var(--fc); }
+  .case-toggle-text, .project-summary-text{ flex:1; }
+  .case-study .fold-chevron, .project-toggle .fold-chevron{ background:linear-gradient(135deg, var(--fc2), var(--fc)); width:42px; height:42px; }
+  .case-study:not([open]) .fold-chevron, .project-toggle:not([open]) .fold-chevron{ animation:foldBreatheC 2.8s ease-in-out infinite; }
+  .case-study:not([open]) .fold-chevron::before, .project-toggle:not([open]) .fold-chevron::before{ animation:foldBob 2.8s ease-in-out infinite; }
+  .case-study[open] .fold-chevron, .project-toggle[open] .fold-chevron{ transform:rotate(180deg); }
+  .case-study[open] .fold-hint--show, .project-toggle[open] .fold-hint--show{ display:none; }
+  .case-study[open] .fold-hint--hide, .project-toggle[open] .fold-hint--hide{ display:inline; }
+  @media (max-width: 700px){
+    .case-toggle, .project-summary{ padding:12px 12px; gap:10px; }
+    .case-toggle::before, .project-summary::before{ width:34px; height:34px; font-size:15px; }
+    .case-study .fold-chevron, .project-toggle .fold-chevron{ width:34px; height:34px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .case-study, .project-toggle{ animation:none !important; }
+    .case-study .fold-chevron, .project-toggle .fold-chevron,
+    .case-study .fold-chevron::before, .project-toggle .fold-chevron::before{ animation:none !important; }
+  }
