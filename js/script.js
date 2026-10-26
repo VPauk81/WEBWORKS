@@ -740,11 +740,11 @@
     /* Intro video: one file per language, same voice-over as the site language. */
     var introVideo = document.getElementById("introVideo");
     if (introVideo){
-      var wanted = "videos/webworks-" + lang + ".mp4?v=2";
+      var wanted = "videos/webworks-" + lang + ".mp4?v=3";
       if (introVideo.getAttribute("data-lang") !== lang){
         introVideo.setAttribute("data-lang", lang);
         introVideo.pause();
-        introVideo.setAttribute("poster", "images/video-poster-" + lang + ".jpg?v=1");
+        introVideo.setAttribute("poster", "images/video-poster-" + lang + ".jpg?v=2");
         introVideo.setAttribute("src", wanted);
         try { introVideo.load(); } catch (e) { /* ignore */ }
       }
