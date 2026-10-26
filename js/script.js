@@ -717,7 +717,8 @@
     v.pause();
     var frame = v.parentNode;
     if (frame && frame.classList){ frame.classList.toggle("is-portrait", portrait); }
-    v.setAttribute("poster", "images/video-poster-" + key + ".jpg?v=3");
+    v.setAttribute("data-poster", "images/video-poster-" + key + ".jpg?v=3");
+    if (v.getAttribute("data-near")){ v.setAttribute("poster", v.getAttribute("data-poster")); }
     v.setAttribute("src", "videos/webworks-" + key + ".mp4?v=5");
     try { v.load(); } catch (e) { /* ignore */ }
   }
@@ -1120,14 +1121,19 @@
 
     if (!btn || !dropdown) return api;
 
-    dropdown.innerHTML = COUNTRY_CODES.map(function(c, i){
-      return '<div class="country-option" role="option" data-index="' + i + '" tabindex="-1">' +
-        // Decorative: the country name is written right next to the flag
-        '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="" loading="lazy">' +
-        '<span class="country-option-code">' + c.code + '</span>' +
-        '<span class="country-option-name">' + localCountryName(c) + '</span>' +
-        '</div>';
-    }).join("");
+    var optionsBuilt = false;
+    function buildOptions(){
+      if (optionsBuilt) return;
+      optionsBuilt = true;
+      dropdown.innerHTML = COUNTRY_CODES.map(function(c, i){
+        return '<div class="country-option" role="option" data-index="' + i + '" tabindex="-1">' +
+          // Decorative: the country name is written right next to the flag
+          '<img class="country-flag-img" src="https://flagcdn.com/24x18/' + c.iso2 + '.png" alt="" loading="lazy">' +
+          '<span class="country-option-code">' + c.code + '</span>' +
+          '<span class="country-option-name">' + localCountryName(c) + '</span>' +
+          '</div>';
+      }).join("");
+    }
 
     function selectCountry(country){
       selected = country;
@@ -1146,6 +1152,7 @@
       btn.setAttribute("aria-expanded", "false");
     }
     function openDropdown(){
+      buildOptions();
       dropdown.classList.add("open");
       btn.setAttribute("aria-expanded", "true");
     }
@@ -1155,13 +1162,12 @@
       if (dropdown.classList.contains("open")){ closeDropdown(); } else { openDropdown(); }
     });
 
-    var options = dropdown.querySelectorAll(".country-option");
-    for (var oi = 0; oi < options.length; oi++){
-      options[oi].addEventListener("click", function(){
-        selectCountry(COUNTRY_CODES[Number(this.getAttribute("data-index"))]);
-        closeDropdown();
-      });
-    }
+    dropdown.addEventListener("click", function(e){
+      var opt = e.target.closest ? e.target.closest(".country-option") : null;
+      if (!opt) return;
+      selectCountry(COUNTRY_CODES[Number(opt.getAttribute("data-index"))]);
+      closeDropdown();
+    });
 
     document.addEventListener("click", function(e){
       if (box && !box.contains(e.target)){ closeDropdown(); }
@@ -2169,7 +2175,7 @@
       if (!running){ return; }
       requestAnimationFrame(frame);
       if (document.hidden) return;
-      if (ts - last < (window.innerWidth < 860 ? 66 : 42)) return;   // ~15 fps on phones, ~24 fps elsewhere
+      if (ts - last < ((window.innerWidth < 860 || document.documentElement.classList.contains("perf-lite")) ? 83 : 42)) return;   // ~15 fps on phones, ~24 fps elsewhere
       last = ts; tick += 1;
       ctx.clearRect(0, 0, W, H);
       ctx.textBaseline = "top";
@@ -2209,9 +2215,12 @@
     // code streams over the photo
     initCodeFx(document.getElementById("heroPhoto"), document.getElementById("codeFx"),
                { zones: [[0.02, 0.36, 0.04, 0.98], [0.72, 0.99, 0.02, 0.48]], alpha: 0.4, gap: 8.2 });
-    // code streams across the whole hero background (masked to the side margins in CSS)
-    initCodeFx(document.querySelector(".hero"), document.getElementById("heroBg"),
-               { zones: [[0, 1, 0.02, 0.98]], alpha: 0.28, gap: 11, fs: 13 });
+    // code streams across the whole hero background (masked to the side margins in CSS);
+    // skipped on weak devices ("perf-lite", set in <head>) and on phones
+    if (!document.documentElement.classList.contains("perf-lite") && window.innerWidth >= 700){
+      initCodeFx(document.querySelector(".hero"), document.getElementById("heroBg"),
+                 { zones: [[0, 1, 0.02, 0.98]], alpha: 0.28, gap: 11, fs: 13 });
+    }
   }
 
 
@@ -2353,5 +2362,19 @@
     var t = "2";
     try { var q = new URLSearchParams(location.search).get("formtheme"); if (q && /^[1-4]$/.test(q)) t = q; } catch (e) { /* ignore */ }
     f.setAttribute("data-theme", t);
+  })();
+
+  /* Intro video poster: fetched only when the video block is close to the screen. */
+  (function(){
+    var v = document.getElementById("introVideo");
+    if (!v) return;
+    function attach(){
+      v.setAttribute("data-near", "1");
+      var p = v.getAttribute("data-poster") || ("images/video-poster-" + (v.getAttribute("data-key") || "en") + ".jpg?v=3");
+      v.setAttribute("poster", p);
+    }
+    if (!("IntersectionObserver" in window)){ attach(); return; }
+    var io = new IntersectionObserver(function(e){ if (e[0].isIntersecting){ attach(); io.disconnect(); } }, { rootMargin: "400px 0px" });
+    io.observe(v);
   })();
 })();

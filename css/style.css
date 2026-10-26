@@ -2085,3 +2085,19 @@
   .inquiry-form .messenger-opt-tg:has(input:checked){ background:linear-gradient(145deg, #2aabee, #1688c8); }
   .inquiry-form .messenger-opt-none:has(input:checked){ background:linear-gradient(145deg, #6f778c, #4a5164); color:#fff; }
   .inquiry-form .messenger-opt:has(input:checked) .messenger-icon{ background:rgba(255,255,255,.28); box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.8); }
+
+  /* ==========================================================
+     PERFORMANCE II
+     - sections below the fold are only laid out / painted when they get close to the screen
+     - "perf-lite" (weak CPU / little memory / data saver): every infinite animation plays once and stops,
+       heavy layers (blur, hero canvas, glows) are off
+     ========================================================== */
+  #services, #what-i-build, #projects, #process, #why, #guarantees{
+    content-visibility:auto; contain-intrinsic-size:auto 560px;
+  }
+  .perf-lite *, .perf-lite *::before, .perf-lite *::after{ animation-iteration-count:1 !important; }
+  .perf-lite .hero-bg{ display:none; }
+  .perf-lite .site-header{ backdrop-filter:none; -webkit-backdrop-filter:none; background:#f6f5f0; }
+  .perf-lite #process::before, .perf-lite #why::before, .perf-lite #guarantees::before, .perf-lite #contact::before{ display:none; }
+  .perf-lite .hero-photo .code-fx{ mix-blend-mode:normal; }
+  @media (max-width: 860px){ .site-header{ backdrop-filter:none; -webkit-backdrop-filter:none; background:#f6f5f0; } }
