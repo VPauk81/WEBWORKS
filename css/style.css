@@ -1855,3 +1855,23 @@
     .hero-bg{ display:none; }                 /* the full-hero code canvas is the costliest layer */
   }
   @keyframes cheapBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+
+  /* ---- inquiry card: soft tinted background instead of white; Send is "greyed" until the form is valid ---- */
+  .inquiry-form{
+    background:linear-gradient(160deg, #fdeeff 0%, #efe7ff 52%, #e0f1ff 100%);
+  }
+  .inquiry-form .field-with-check input, .inquiry-form textarea, .inquiry-form .country-select-btn, .inquiry-form .messenger-opt{
+    background:#fbf9ff;
+  }
+  .inquiry-form .field-with-check input:focus, .inquiry-form textarea:focus{ background:#ffffff; }
+  .inquiry-form #inquirySubmit:not(:disabled):not(.sending):not(.error):not(.is-ready){
+    background:#d8d1f0; color:#7d75a6; box-shadow:none; cursor:not-allowed;
+  }
+  .inquiry-form #inquirySubmit.is-ready:not(:disabled):not(.sending):not(.error){
+    background:linear-gradient(120deg, #7a5cff 0%, #ff4f9a 100%); color:#fff;
+    box-shadow:0 14px 26px -12px rgba(122,92,255,.85);
+    animation:cheapBreathe 2.4s ease-in-out infinite;
+    cursor:pointer;
+  }
+  .inquiry-form #inquirySubmit{ transition:background .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease; }
+  @media (prefers-reduced-motion: reduce){ .inquiry-form #inquirySubmit.is-ready{ animation:none !important; } }

@@ -1422,6 +1422,7 @@
     inquirySubmitBtn.textContent = (TRANSLATIONS[langReset] && TRANSLATIONS[langReset].inquiry_submit) || "Send";
     if (inquiryStatus){ inquiryStatus.classList.remove("is-shown"); }
     if (inquirySendAgainNotice){ inquirySendAgainNotice.classList.remove("visible"); }
+    if (typeof syncInquirySubmitReady === "function"){ syncInquirySubmitReady(); }
   }
 
   /* --------------------------------------------------------
@@ -1506,6 +1507,30 @@
     for (var si = 0; si < shaken.length; si++){ shaken[si].classList.remove("error-scroll"); }
   }
 
+  // Is the whole form filled in correctly? (same rules as validateInquiryForm, but silent)
+  function isInquiryFormValid(){
+    var name = inquiryNameInput.value.trim();
+    var email = inquiryEmailInput.value.trim();
+    var message = inquiryMessageInput.value.trim();
+    var phoneRaw = inquiryPhoneNumberInput ? inquiryPhoneNumberInput.value.trim() : "";
+    if (!name || !message) return false;
+    if (inquiryEmailHadInvalidChars || !email || !isRealisticEmail(email)) return false;
+    if (phoneRaw){
+      var digits = phoneRaw.replace(/\D/g, "").length;
+      var country = inquiryCountrySelect.getSelectedCountry();
+      if (digits !== (country ? country.digits : 6)) return false;
+    }
+    return true;
+  }
+
+  // The Send button looks (and behaves) inactive until every field is filled in correctly.
+  function syncInquirySubmitReady(){
+    if (!inquirySubmitBtn) return;
+    var ready = !inquiryAlreadySent && isInquiryFormValid();
+    inquirySubmitBtn.classList.toggle("is-ready", ready);
+    inquirySubmitBtn.setAttribute("aria-disabled", ready ? "false" : "true");
+  }
+
   function validateInquiryForm(scrollToError){
     var name = inquiryNameInput.value.trim();
     var email = inquiryEmailInput.value.trim();
@@ -1567,12 +1592,14 @@
         errors[0].el.classList.add("error-scroll");
       }
 
+      syncInquirySubmitReady();
       return false;
     }
 
     currentInquiryErrorKey = "";
     if (inquiryFormError){ inquiryFormError.textContent = ""; }
     lastShownInquiryError = "";
+    syncInquirySubmitReady();
     return true;
   }
 
@@ -1853,6 +1880,14 @@
       }
     });
   }
+
+
+  // Phone length depends on the chosen country, and the button must start in its "not ready" look.
+  (function(){
+    var dd = document.getElementById("inquiryCountrySelectDropdown");
+    if (dd){ dd.addEventListener("click", function(){ setTimeout(syncInquirySubmitReady, 0); }); }
+    syncInquirySubmitReady();
+  })();
 
   // "Начали заполнять заявку" — первый ввод в любое из полей формы
   ["inquiryName", "inquiryEmail", "inquiryPhoneNumber"].forEach(function(id){
