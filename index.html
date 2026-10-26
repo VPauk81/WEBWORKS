@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=83">
+<link rel="stylesheet" href="css/style.css?v=84">
 </head>
 <body>
 
@@ -651,8 +651,14 @@
          to me. Lets a client describe their project in whatever language
          is easiest for them, in writing, instead of a phone call. -->
     <div class="inquiry-form" id="projectForm">
-      <h3 data-i18n="inquiry_title">Tell me about your project</h3>
+      <div class="inquiry-head">
+        <span class="inquiry-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="M21 3 14.5 21l-4.5-7-7-4.5z"/></svg></span>
+        <div class="inquiry-headtext">
+          <h3 data-i18n="inquiry_title">Tell me about your project</h3>
       <p class="inquiry-intro" data-i18n="inquiry_intro">Write in whatever language is easiest for you — describe what you want, and I'll reply by email.</p>
+        </div>
+      </div>
+      <div class="inquiry-body">
 
       <div class="order-field" id="inquiryNameField">
         <label for="inquiryName" data-i18n="inquiry_label_name">Your name</label>
@@ -710,6 +716,7 @@
       <p class="inquiry-status" id="inquiryStatus" data-i18n="inquiry_sent">Sent! I'll get back to you by email.</p>
       <p class="inquiry-send-again-notice" id="inquirySendAgainNotice" data-i18n="inquiry_send_again">To send another one, change or add something to the project description.</p>
       <p class="inquiry-note" data-i18n="inquiry_note">Sent straight to me — write in your own language, no phone call needed.</p>
+    </div>
     </div>
 
     <dl class="channels">
