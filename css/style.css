@@ -1792,13 +1792,6 @@
     transition:border-color .15s ease, background .15s ease, color .15s ease;
   }
   .inquiry-form .messenger-opt input{ width:16px; height:16px; }
-  .inquiry-form .messenger-opt:has(#inquiryWhatsapp:checked){ background:#dcf8e6; border-color:#25d366; color:#0b7a3a; }
-  .inquiry-form .messenger-opt:has(#inquiryViber:checked){ background:#ece4ff; border-color:#7360f2; color:#4a3bb8; }
-  .inquiry-form .messenger-opt:has(#inquiryTelegram:checked){ background:#dff1ff; border-color:#2aabee; color:#126fa8; }
-  .inquiry-form .messenger-opt:has(#inquiryMsgNone:checked){ background:#eceaf3; border-color:#8a84a8; color:#4a4666; }
-  .inquiry-form #inquiryWhatsapp{ accent-color:#25d366; }
-  .inquiry-form #inquiryViber{ accent-color:#7360f2; }
-  .inquiry-form #inquiryTelegram{ accent-color:#2aabee; }
 
   .inquiry-form #inquirySubmit{
     min-height:48px; margin-top:6px; border-radius:12px; font-size:16.5px; font-weight:700;
@@ -1875,3 +1868,36 @@
   }
   .inquiry-form #inquirySubmit{ transition:background .25s ease, color .25s ease, box-shadow .25s ease, transform .2s ease; }
   @media (prefers-reduced-motion: reduce){ .inquiry-form #inquirySubmit.is-ready{ animation:none !important; } }
+
+  /* ---- messenger chips: coloured round brand icons like on the Arduino / ESP32 site ---- */
+  .inquiry-form .messenger-options{ gap:8px 10px; }
+  .inquiry-form .messenger-opt{
+    position:relative; display:flex !important; align-items:center; gap:8px;
+    padding:6px 14px 6px 6px; border:1.5px solid #e2dbf7; border-radius:999px; background:#fbf9ff; color:#5a5280;
+    font:600 14.5px var(--font-body); cursor:pointer;
+    transition:background .2s ease, border-color .2s ease, color .2s ease, transform .15s ease, box-shadow .2s ease;
+  }
+  .inquiry-form .messenger-opt:hover{ transform:translateY(-2px); box-shadow:0 8px 16px -10px #7a5cff; }
+  .inquiry-form .messenger-opt input{ position:absolute; opacity:0; width:1px; height:1px; pointer-events:none; }
+  .inquiry-form .messenger-icon{
+    width:30px; height:30px; border-radius:50%; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center; background:#bdb6d6; transition:background .2s ease;
+  }
+  .inquiry-form .messenger-icon svg{ width:18px; height:18px; display:block; }
+  .inquiry-form .messenger-opt-wa .messenger-icon{ background:#a9d9c0; }
+  .inquiry-form .messenger-opt-vb .messenger-icon{ background:#d3aee0; }
+  .inquiry-form .messenger-opt-tg .messenger-icon{ background:#a7d4ea; }
+  .inquiry-form .messenger-opt:has(input:checked){ border-color:transparent; color:#fff; box-shadow:0 10px 20px -10px currentColor; }
+  .inquiry-form .messenger-opt:has(input:checked) .messenger-icon{ background:rgba(255,255,255,.28); }
+  .inquiry-form .messenger-opt-wa:has(input:checked){ background:#25D366; }
+  .inquiry-form .messenger-opt-vb:has(input:checked){ background:#9a18c9; }
+  .inquiry-form .messenger-opt-tg:has(input:checked){ background:#229ED9; }
+  .inquiry-form .messenger-opt-none{ padding:6px 16px; color:#7d75a6; }
+  .inquiry-form .messenger-opt-none:has(input:checked){ background:#6b7280; color:#fff; }
+  .inquiry-form .messenger-opt:has(input:checked)::after{ content:"\2713"; font-weight:800; margin-left:2px; }
+  .inquiry-form .messenger-opt:has(input:focus-visible){ outline:2px solid #7a5cff; outline-offset:2px; }
+
+  /* description counter, as under the description fields on the Arduino / ESP32 site */
+  .inquiry-form .module-desc-counter{ display:block; font-size:13px; color:#7b72a3; margin:5px 3px 0; }
+  .inquiry-form .module-desc-counter.desc-counter-warning{ color:#c0392b; font-weight:600; }
+  .inquiry-form .messenger-field.visible{ background:rgba(255,255,255,.6); border:1.5px dashed #cfc4f3; border-radius:16px; padding:10px 12px 12px; }

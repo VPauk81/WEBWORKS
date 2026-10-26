@@ -155,7 +155,8 @@
       inquiry_err_email_required: "Please enter your email.",
       inquiry_err_email_invalid: "Please enter a valid email address.",
       inquiry_err_phone_invalid: "Check the phone number for the selected country.",
-      inquiry_err_message: "Please describe your project.",
+      inquiry_err_message: "Please describe your project in more detail (at least 20 characters).",
+      inquiry_msg_counter: "Characters entered: {len} (minimum {min})",
       inquiry_submit: "Send",
       inquiry_sending: "Sending...",
       inquiry_send_again: "To send another one, change or add something to the project description.",
@@ -324,7 +325,8 @@
       inquiry_err_email_required: "Podaj swój e-mail.",
       inquiry_err_email_invalid: "Podaj poprawny adres e-mail.",
       inquiry_err_phone_invalid: "Sprawdź numer telefonu dla wybranego kraju.",
-      inquiry_err_message: "Opisz swój projekt.",
+      inquiry_err_message: "Opisz swój projekt dokładniej (co najmniej 20 znaków).",
+      inquiry_msg_counter: "Wpisano znaków: {len} (minimum {min})",
       inquiry_submit: "Wyślij",
       inquiry_sending: "Wysyłanie...",
       inquiry_send_again: "Aby wysłać kolejne zgłoszenie, zmień lub dopisz coś w opisie projektu.",
@@ -492,7 +494,8 @@
       inquiry_err_email_required: "Bitte geben Sie Ihre E-Mail-Adresse ein.",
       inquiry_err_email_invalid: "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
       inquiry_err_phone_invalid: "Überprüfen Sie die Telefonnummer für das ausgewählte Land.",
-      inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt.",
+      inquiry_err_message: "Bitte beschreiben Sie Ihr Projekt genauer (mindestens 20 Zeichen).",
+      inquiry_msg_counter: "Eingegebene Zeichen: {len} (mindestens {min})",
       inquiry_submit: "Senden",
       inquiry_sending: "Wird gesendet...",
       inquiry_send_again: "Um eine weitere Anfrage zu senden, ändern oder ergänzen Sie etwas in der Projektbeschreibung.",
@@ -660,7 +663,8 @@
       inquiry_err_email_required: "Пожалуйста, введите ваш email.",
       inquiry_err_email_invalid: "Введите корректный адрес email.",
       inquiry_err_phone_invalid: "Проверьте номер телефона для выбранной страны.",
-      inquiry_err_message: "Опишите, пожалуйста, ваш проект.",
+      inquiry_err_message: "Опишите проект подробнее (минимум 20 символов).",
+      inquiry_msg_counter: "Введено символов: {len} (минимум {min})",
       inquiry_submit: "Отправить",
       inquiry_sending: "Отправка...",
       inquiry_send_again: "Чтобы отправить ещё раз — измените или допишите что-то в описании проекта.",
@@ -1507,13 +1511,24 @@
     for (var si = 0; si < shaken.length; si++){ shaken[si].classList.remove("error-scroll"); }
   }
 
+  // Minimum length of the project description (same rule as on the Arduino / ESP32 site).
+  var INQUIRY_MESSAGE_MIN = 20;
+  function updateInquiryMessageCounter(){
+    var box = document.getElementById("inquiryMessageCounter");
+    if (!box || !inquiryMessageInput) return;
+    var len = inquiryMessageInput.value.trim().length;
+    var tpl = inquiryErrorText("inquiry_msg_counter") || "Characters entered: {len} (minimum {min})";
+    box.textContent = tpl.split("{len}").join(len).split("{min}").join(INQUIRY_MESSAGE_MIN);
+    box.classList.toggle("desc-counter-warning", len < INQUIRY_MESSAGE_MIN);
+  }
+
   // Is the whole form filled in correctly? (same rules as validateInquiryForm, but silent)
   function isInquiryFormValid(){
     var name = inquiryNameInput.value.trim();
     var email = inquiryEmailInput.value.trim();
     var message = inquiryMessageInput.value.trim();
     var phoneRaw = inquiryPhoneNumberInput ? inquiryPhoneNumberInput.value.trim() : "";
-    if (!name || !message) return false;
+    if (!name || message.length < INQUIRY_MESSAGE_MIN) return false;
     if (inquiryEmailHadInvalidChars || !email || !isRealisticEmail(email)) return false;
     if (phoneRaw){
       var digits = phoneRaw.replace(/\D/g, "").length;
@@ -1562,7 +1577,7 @@
       }
     }
 
-    if (!message){
+    if (message.length < INQUIRY_MESSAGE_MIN){
       errors.push({ key: "inquiry_err_message", el: inquiryMessageField });
     }
 
@@ -1608,6 +1623,7 @@
   // Called from applyLanguage(), which also runs once before these vars
   // are assigned, hence the guards.
   function refreshInquiryTextsForLanguage(){
+    updateInquiryMessageCounter();
     if (inquiryFormError && currentInquiryErrorKey){
       inquiryFormError.textContent = inquiryErrorText(currentInquiryErrorKey);
       // Same message, just translated — don't buzz again for it.
@@ -1768,6 +1784,7 @@
     }
 
     inquiryMessageInput.addEventListener("input", function(){
+      updateInquiryMessageCounter();
       validateInquiryForm(false);
       resetInquirySubmitLock();
     });
@@ -1887,6 +1904,7 @@
     var dd = document.getElementById("inquiryCountrySelectDropdown");
     if (dd){ dd.addEventListener("click", function(){ setTimeout(syncInquirySubmitReady, 0); }); }
     syncInquirySubmitReady();
+    updateInquiryMessageCounter();
   })();
 
   // "Начали заполнять заявку" — первый ввод в любое из полей формы
