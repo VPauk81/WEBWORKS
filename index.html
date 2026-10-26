@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=66">
+<link rel="stylesheet" href="css/style.css?v=67">
 </head>
 <body>
 
@@ -202,13 +202,22 @@
 <!-- ==========================================================
      SERVICES
      ========================================================== -->
-<section class="section" id="services">
-  <div class="wrap">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="services_title">Services</h2>
-      <p class="section-intro" data-i18n="services_intro">Practical web solutions for small and medium businesses — from a single landing page to a full configurator with order automation.</p>
-    </div>
-
+<section class="section fold-section" id="services">
+  <details class="fold">
+    <summary class="fold-summary">
+      <span class="wrap fold-inner">
+        <span class="fold-text">
+          <h2 class="section-title" data-i18n="services_title">Services</h2>
+          <span class="section-intro" data-i18n="services_intro">Practical web solutions for small and medium businesses — from a single landing page to a full configurator with order automation.</span>
+        </span>
+        <span class="fold-cta" aria-hidden="true">
+          <span class="fold-hint fold-hint--show" data-i18n="fold_show">Show</span>
+          <span class="fold-hint fold-hint--hide" data-i18n="fold_hide">Hide</span>
+          <span class="case-chevron fold-chevron"></span>
+        </span>
+      </span>
+    </summary>
+    <div class="wrap fold-body">
     <div class="service-list">
       <div class="service-row"><span class="num">01</span><h3 data-i18n="service_1_t">Business Websites</h3><p data-i18n="service_1_d">Clear, fast websites that explain what you do and make it easy to get in touch.</p></div>
       <div class="service-row"><span class="num">02</span><h3 data-i18n="service_2_t">Landing Pages</h3><p data-i18n="service_2_d">Focused single-page sites built around one offer and one clear action.</p></div>
@@ -220,21 +229,29 @@
       <div class="service-row"><span class="num">08</span><h3 data-i18n="service_8_t">Custom Business Tools</h3><p data-i18n="service_8_d">Small internal tools built around how your business actually works.</p></div>
       <div class="service-row"><span class="num">09</span><h3 data-i18n="service_9_t">Mobile-friendly Websites</h3><p data-i18n="service_9_d">Every project is built and tested to work properly on a phone first.</p></div>
     </div>
-  </div>
+    </div>
+  </details>
 </section>
 
 <!-- ==========================================================
      WHAT I BUILD
      ========================================================== -->
-<section class="section" id="what-i-build">
-  <div class="wrap">
-    <div class="section-head">
-      <h2 class="section-title" data-i18n="build_title">What I Build</h2>
-      <p class="section-intro" data-i18n="build_intro">The same core pieces, combined differently for each business.</p>
-    </div>
-  </div>
-
-  <div class="build-grid">
+<section class="section fold-section" id="what-i-build">
+  <details class="fold">
+    <summary class="fold-summary">
+      <span class="wrap fold-inner">
+        <span class="fold-text">
+          <h2 class="section-title" data-i18n="build_title">What I Build</h2>
+          <span class="section-intro" data-i18n="build_intro">The same core pieces, combined differently for each business.</span>
+        </span>
+        <span class="fold-cta" aria-hidden="true">
+          <span class="fold-hint fold-hint--show" data-i18n="fold_show">Show</span>
+          <span class="fold-hint fold-hint--hide" data-i18n="fold_hide">Hide</span>
+          <span class="case-chevron fold-chevron"></span>
+        </span>
+      </span>
+    </summary>
+    <div class="build-grid">
     <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_1_t">Business Websites</h3><p data-i18n="build_1_d">A clear online presence for your business.</p></div>
     <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_2_t">Online Calculators</h3><p data-i18n="build_2_d">Instant estimates based on customer input.</p></div>
     <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_3_t">Product Configurators</h3><p data-i18n="build_3_d">Guided selection of components and options.</p></div>
@@ -244,6 +261,7 @@
     <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_7_t">Custom Web Applications</h3><p data-i18n="build_7_d">Small tools shaped around your workflow.</p></div>
     <div class="build-cell"><div class="mark"></div><h3 data-i18n="build_8_t">Mobile-first Design</h3><p data-i18n="build_8_d">Built for a phone screen, not just a desktop.</p></div>
   </div>
+  </details>
 </section>
 
 <!-- ==========================================================
@@ -765,6 +783,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=72" defer></script>
+<script src="js/script.js?v=73" defer></script>
 </body>
 </html>

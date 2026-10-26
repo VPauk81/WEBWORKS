@@ -15,6 +15,7 @@
       nav_services: "Services", nav_projects: "Projects", nav_process: "Process", nav_contact: "Contact", nav_cta: "Start a Project",
 
       hero_title: "Web tools for business that simply work.",
+      fold_show: "Show", fold_hide: "Hide",
       hero_sub: "Websites, calculators, configurators and order systems for businesses across Europe.",
       hero_cta_primary: "View Projects", hero_cta_secondary: "Start a Project",
       video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video",
@@ -183,6 +184,7 @@
       nav_services: "Usługi", nav_projects: "Projekty", nav_process: "Proces", nav_contact: "Kontakt", nav_cta: "Rozpocznij projekt",
 
       hero_title: "Narzędzia webowe dla firm, które po prostu działają.",
+      fold_show: "Pokaż", fold_hide: "Ukryj",
       hero_sub: "Strony, kalkulatory, konfiguratory i systemy zamówień dla firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
       video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający",
@@ -350,6 +352,7 @@
       nav_services: "Leistungen", nav_projects: "Projekte", nav_process: "Ablauf", nav_contact: "Kontakt", nav_cta: "Projekt starten",
 
       hero_title: "Web-Tools für Unternehmen, die einfach funktionieren.",
+      fold_show: "Anzeigen", fold_hide: "Ausblenden",
       hero_sub: "Websites, Rechner, Konfiguratoren und Bestellsysteme für Unternehmen in ganz Europa.",
       hero_cta_primary: "Projekte ansehen", hero_cta_secondary: "Projekt starten",
       video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo",
@@ -517,6 +520,7 @@
       nav_services: "Услуги", nav_projects: "Проекты", nav_process: "Процесс", nav_contact: "Контакты", nav_cta: "Начать проект",
 
       hero_title: "Веб-инструменты для бизнеса, которые просто работают.",
+      fold_show: "Показать", fold_hide: "Скрыть",
       hero_sub: "Сайты, калькуляторы, конфигураторы и системы заказов для бизнеса в Европе.",
       hero_cta_primary: "Смотреть проекты", hero_cta_secondary: "Начать проект",
       video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация",
@@ -2030,6 +2034,19 @@
   }
   openCardFromHash();
   window.addEventListener("hashchange", openCardFromHash);
+
+  /* Collapsible Services / What I Build sections: opening them from a nav link or a #hash. */
+  function openFoldFor(id){
+    var el = id ? document.getElementById(id) : null;
+    var fold = el ? el.querySelector("details.fold") : null;
+    if (fold && !fold.open){ fold.open = true; }
+  }
+  window.addEventListener("hashchange", function(){ openFoldFor(decodeURIComponent(location.hash.slice(1))); });
+  openFoldFor(decodeURIComponent(location.hash.slice(1)));
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (a){ openFoldFor(a.getAttribute("href").slice(1)); }
+  });
   // Images above the card can still shift the layout while loading —
   // re-align once everything is in, unless the visitor already scrolled.
   var userScrolled = false;

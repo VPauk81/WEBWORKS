@@ -1203,3 +1203,42 @@
   @media (max-width: 860px){
     .hero-bg{ -webkit-mask-image:none; mask-image:none; opacity:.6; }
   }
+
+  /* Collapsible sections (Services, What I Build): a compact bar with a round arrow that
+     slowly "breathes" while closed, so visitors see it is clickable. */
+  .fold-section{ padding:0; }
+  .fold-summary{ display:block; list-style:none; cursor:pointer; padding:26px 0; transition:background .15s ease; }
+  .fold-summary::-webkit-details-marker{ display:none; }
+  .fold-summary:hover{ background:var(--accent-soft); }
+  .fold-summary:focus-visible{ outline:2px solid var(--accent); outline-offset:-2px; }
+  .fold-inner{ display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .fold-text{ display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 24px; min-width:0; }
+  .fold-text .section-title{ margin:0; }
+  .fold-text .section-intro{ display:block; padding-top:0; max-width:480px; }
+  .fold-cta{ display:flex; align-items:center; gap:12px; flex-shrink:0; }
+  .fold-hint{ font-family:var(--font-head); font-size:14px; font-weight:600; color:var(--accent-text); }
+  .fold-hint--hide{ display:none; }
+  .fold[open] .fold-hint--show{ display:none; }
+  .fold[open] .fold-hint--hide{ display:inline; }
+  .fold:not([open]) .fold-chevron{ animation:foldBreathe 2.8s ease-in-out infinite; }
+  .fold:not([open]) .fold-chevron::before{ animation:foldBob 2.8s ease-in-out infinite; }
+  .fold[open] .fold-chevron{ transform:rotate(180deg); }
+  @keyframes foldBreathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(47,125,104,.5); }
+    50%{ transform:scale(1.14); box-shadow:0 0 0 12px rgba(47,125,104,0); }
+  }
+  @keyframes foldBob{
+    0%,100%{ transform:translateY(-2px) rotate(45deg); }
+    50%{ transform:translateY(1px) rotate(45deg); }
+  }
+  .fold-body{ padding-bottom:52px; }
+  .fold[open] .fold-summary{ padding-bottom:20px; }
+  .fold-section .build-grid{ margin-bottom:0; }
+  @media (max-width: 700px){
+    .fold-summary{ padding:20px 0; }
+    .fold-hint{ display:none !important; }
+    .fold-body{ padding-bottom:36px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fold:not([open]) .fold-chevron, .fold:not([open]) .fold-chevron::before{ animation:none; }
+  }
