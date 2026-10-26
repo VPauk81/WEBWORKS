@@ -2185,4 +2185,19 @@
       else if (!e.isIntersecting && visible){ visible = false; reset(); }
     }, { threshold: 0.45 }).observe(grid);
   })();
+
+  /* ========================================================
+     WHY ANIMATION — the six "Why work with me" cards pop in one after another
+     when the list scrolls into view (CSS does the rest).
+     ======================================================== */
+  (function(){
+    var list = document.getElementById("whyList");
+    if (!list) return;
+    list.classList.add("js-why");
+    if (!("IntersectionObserver" in window)){ list.classList.add("is-in"); return; }
+    var io = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting){ list.classList.add("is-in"); io.disconnect(); }
+    }, { threshold: 0.15 });
+    io.observe(list);
+  })();
 })();

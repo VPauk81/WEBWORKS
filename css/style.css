@@ -896,19 +896,67 @@
   /* ==========================================================
      9. WHY
      ========================================================== */
-  .why-list{ border-top:1px solid var(--line); display:grid; grid-template-columns:1fr 1fr; }
+  .why-list{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; }
   .why-item{
-    padding:16px 20px;
-    border-bottom:1px solid var(--line);
-    border-right:1px solid var(--line);
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-start; gap:16px;
+    padding:22px 22px 22px 20px;
+    border:2px solid var(--line);
+    border-radius:16px;
+    background:linear-gradient(135deg, var(--cs) 0%, #fff 75%);
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
   }
-  .why-item:nth-child(2n){ border-right:none; }
-  .why-item h3{ font-size:20px; margin-bottom:6px; }
-  .why-item p{ font-size:18px; line-height:1.55; color:var(--ink-soft); }
+  .why-item::before{                      /* colour bar that sweeps in on reveal */
+    content:""; position:absolute; left:0; top:0; height:4px; width:100%;
+    background:linear-gradient(90deg, var(--c), var(--c2));
+    transform:scaleX(0); transform-origin:left;
+  }
+  .why-item:hover{ transform:translateY(-5px); border-color:var(--c); box-shadow:0 18px 34px -18px var(--c); }
+  .why-num{
+    position:absolute; right:16px; top:12px;
+    font:700 15px var(--font-head); color:var(--c); opacity:.35; letter-spacing:.04em;
+  }
+  .why-ico{
+    flex-shrink:0; width:52px; height:52px; border-radius:50%;
+    display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--c2), var(--c));
+    box-shadow:0 8px 18px -8px var(--c);
+    transition:transform .35s ease;
+  }
+  .why-ico svg{ width:26px; height:26px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .why-item:hover .why-ico{ transform:rotate(-12deg) scale(1.1); }
+  .why-txt h3{ font-size:20px; line-height:1.25; margin-bottom:6px; color:var(--c); padding-right:26px; }
+  .why-txt p{ font-size:17px; line-height:1.55; color:var(--ink-soft); }
 
-  @media (max-width: 700px){
-    .why-list{ grid-template-columns:1fr; }
-    .why-item{ border-right:none; }
+  /* reveal: cards pop in one after another (js/script.js adds .is-in) */
+  .why-list.js-why .why-item{ opacity:0; transform:translateY(26px) scale(.95); }
+  .why-list.js-why.is-in .why-item{
+    opacity:1; transform:none;
+    transition:opacity .6s ease calc(var(--i) * 120ms), transform .6s cubic-bezier(.2,.9,.3,1.2) calc(var(--i) * 120ms), border-color .25s ease, box-shadow .25s ease;
+  }
+  .why-list.js-why.is-in .why-item:hover{ transform:translateY(-5px); transition-delay:0s; }
+  .why-list.is-in .why-item::before{ transform:scaleX(1); transition:transform .8s ease calc(var(--i) * 120ms + 250ms); }
+  .why-list.is-in .why-ico{ animation:whyPop .7s ease-out calc(var(--i) * 120ms + 200ms) both, whyRing 3.6s ease-out calc(var(--i) * 350ms + 1.5s) infinite; }
+  @keyframes whyPop{ 0%{ transform:scale(.4) rotate(-40deg); } 60%{ transform:scale(1.18) rotate(8deg); } 100%{ transform:scale(1) rotate(0); } }
+  @keyframes whyRing{
+    0%{ box-shadow:0 0 0 0 var(--c2), 0 8px 18px -8px var(--c); }
+    35%,100%{ box-shadow:0 0 0 14px rgba(255,255,255,0), 0 8px 18px -8px var(--c); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .why-list.js-why .why-item{ opacity:1; transform:none; }
+    .why-list.is-in .why-ico, .why-list .why-ico{ animation:none; }
+    .why-item::before{ transform:scaleX(1); }
+  }
+
+  @media (max-width: 960px){
+    .why-list{ grid-template-columns:repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 620px){
+    .why-list{ grid-template-columns:1fr; gap:12px; }
+    .why-item{ padding:16px 16px 16px 14px; gap:12px; }
+    .why-ico{ width:44px; height:44px; }
+    .why-ico svg{ width:22px; height:22px; }
+    .why-txt p{ font-size:16px; }
   }
 
   /* ==========================================================
