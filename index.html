@@ -20,14 +20,15 @@
 <script>try{var n=navigator,c=n.connection||{};if((n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.deviceMemory&&n.deviceMemory<=4)||c.saveData){document.documentElement.className+=' perf-lite'}}catch(e){}</script>
 <script>
 (function(){
-  var PAGE_BUILD = 59;
+  var PAGE_BUILD = 60;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
       .then(function(text){
         if (!text) return;
         var latest = parseInt(text, 10);
-        if (latest && latest > PAGE_BUILD){
+        // never yank a visitor who has already scrolled / is watching the video back to the top
+        if (latest && latest > PAGE_BUILD && (window.pageYOffset || 0) < 80){
           location.replace(location.pathname + "?_fresh=" + Date.now() + location.hash);
         }
       })
@@ -806,6 +807,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=86" defer></script>
+<script src="js/script.js?v=87" defer></script>
 </body>
 </html>

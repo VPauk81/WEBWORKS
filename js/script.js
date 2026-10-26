@@ -1,13 +1,18 @@
 (function(){
   "use strict";
 
-  /* Always open the page from the top: no browser "restore the old scroll position" jump to the
-     bottom, unless the address deliberately points at a card or section (#project3, #services ...). */
+  /* Open the page from the top - but ONLY until the visitor starts to touch / scroll / type.
+     (An earlier version also did this on the window "load" event; on a slow phone that event can
+     arrive seconds later and yanked people back to the top while they were already watching the video.) */
   (function(){
     try { if ("scrollRestoration" in history){ history.scrollRestoration = "manual"; } } catch (e) { /* ignore */ }
-    function toTop(){ if (!location.hash){ window.scrollTo(0, 0); } }
+    var touched = false;
+    ["wheel", "touchstart", "touchmove", "mousedown", "keydown", "pointerdown"].forEach(function(evt){
+      window.addEventListener(evt, function(){ touched = true; }, { once: true, passive: true });
+    });
+    function toTop(){ if (!touched && !location.hash && window.pageYOffset > 0){ window.scrollTo(0, 0); } }
     toTop();
-    window.addEventListener("load", function(){ toTop(); setTimeout(toTop, 120); });
+    document.addEventListener("DOMContentLoaded", toTop);
     window.addEventListener("pageshow", function(e){ if (e.persisted) toTop(); });
   })();
 
