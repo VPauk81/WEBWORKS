@@ -1695,3 +1695,31 @@
     50%{ transform:scale(1.28); box-shadow:0 0 0 12px rgba(255,212,0,0), 0 0 18px 6px rgba(255,212,0,.9); }
   }
   @media (prefers-reduced-motion: reduce){ .featured-badge .dot{ animation:none; } }
+
+  /* Live project button: warm orange-coral (stands out from the green card) and breathing */
+  .featured-cta{
+    position:relative;
+    background:linear-gradient(135deg, #ff9a2e 0%, #ff4f6d 100%);
+    color:#fff; font-weight:700;
+    box-shadow:0 12px 26px -10px rgba(255,79,109,.7);
+    animation:featuredCtaBreathe 2.4s ease-in-out infinite;
+  }
+  .featured-cta:hover{ background:linear-gradient(135deg, #ffab4d 0%, #ff6a85 100%); box-shadow:0 16px 32px -10px rgba(255,79,109,.8); }
+  @keyframes featuredCtaBreathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,120,80,.6), 0 12px 26px -10px rgba(255,79,109,.7); }
+    50%{ transform:scale(1.06); box-shadow:0 0 0 14px rgba(255,120,80,0), 0 16px 32px -10px rgba(255,79,109,.8); }
+  }
+  @media (prefers-reduced-motion: reduce){ .featured-cta{ animation:none; } }
+
+  /* contact button + title: modest on phones and small screens */
+  @media (max-width: 700px){
+    #contact .contact-title{ font-size:24px; margin-bottom:16px; }
+    #contactCtaBtn{ width:auto; max-width:none; padding:11px 24px; font-size:15px; border-radius:999px; }
+    #contactCtaBtn::after{ margin-left:8px; }
+    #contactCtaBtn::before{ inset:-3px; border-width:2px; animation-name:ctaRingSmall; }
+    #contact .contact-actions{ margin-bottom:26px; }
+  }
+  @keyframes ctaRingSmall{
+    0%{ transform:scale(1); opacity:.85; }
+    100%{ transform:scale(1.25, 1.6); opacity:0; }
+  }
