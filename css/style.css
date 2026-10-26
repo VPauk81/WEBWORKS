@@ -291,12 +291,18 @@
      4. HERO
      ========================================================== */
   .hero{
-    background:var(--navy);
+    position:relative;
+    background:
+      radial-gradient(640px 320px at 0% 55%, rgba(47,125,104,.28), transparent 72%),
+      radial-gradient(640px 320px at 100% 45%, rgba(47,125,104,.28), transparent 72%),
+      var(--navy);
     color:var(--white);
     padding:24px 0 20px;
     overflow:hidden;
   }
   .hero .wrap{
+    position:relative;
+    z-index:1;
     display:grid;
     grid-template-columns:1.15fr 0.85fr;
     gap:32px;
@@ -1183,3 +1189,13 @@
     .video-section .section-head{ padding-left:var(--pad); padding-right:var(--pad); }
     .video-frame{ border-radius:0; border-left:0; border-right:0; max-width:none; }
   }
+
+  /* hero background code streams: only the side margins stay visible, so the wide
+     dark fields beside the content are alive instead of empty */
+  .hero-bg{
+    position:absolute; inset:0; width:100%; height:100%;
+    pointer-events:none;
+    -webkit-mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.5) 14%, transparent 26%, transparent 74%, rgba(0,0,0,.5) 86%, #000 100%);
+            mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.5) 14%, transparent 26%, transparent 74%, rgba(0,0,0,.5) 86%, #000 100%);
+  }
+  @media (max-width: 860px){ .hero-bg{ display:none; } }

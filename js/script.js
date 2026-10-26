@@ -2041,46 +2041,18 @@
 
   /* ========================================================
      HERO ANIMATION
-     Scrolling code streams + key sparkles drawn on a canvas that sits over the
-     hero photo (the fingers are animated in CSS). Pauses when off-screen and does
-     nothing when the visitor prefers reduced motion.
+     Scrolling code streams drawn on canvases: one over the hero photo and one
+     across the whole hero background (visible in the side margins on wide screens).
+     Each pauses when off-screen and does nothing when the visitor prefers reduced motion.
      ======================================================== */
-  (function(){
-    var box = document.getElementById("heroPhoto");
-    var cv = document.getElementById("codeFx");
+  function initCodeFx(box, cv, o){
     if (!box || !cv || !cv.getContext) return;
-    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var ctx = cv.getContext("2d");
     var W = 0, H = 0, dpr = 1;
     var TOKENS = ["const","let","if (","return","function","=> {","</div>","<a href>","fetch(","await","{ }","[ ]","();","== 1","0x1F","for (","import","class",".map(","true","null","$('#','&& ","/* */","gpio","wifi"];
     var cols = [];
-    var sparks = [];
 
-    function resize(){
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
-      W = box.clientWidth; H = box.clientHeight;
-      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      buildColumns();
-    }
     function rnd(a, b){ return a + Math.random() * (b - a); }
-    function buildColumns(){
-      cols = [];
-      var fs = Math.max(8, Math.round(H / 24));
-      // code streams over the left screen area and over the right side
-      var zones = [[0.02, 0.36, 0.04, 0.98], [0.72, 0.99, 0.02, 0.48]];
-      for (var z = 0; z < zones.length; z++){
-        var x0 = zones[z][0] * W, x1 = zones[z][1] * W;
-        var gap = fs * 8.2;
-        for (var x = x0; x < x1; x += gap){
-          cols.push({
-            x: x + rnd(0, gap * 0.4), y0: zones[z][2] * H, y1: zones[z][3] * H,
-            fs: fs, speed: rnd(8, 22), off: rnd(0, 400),
-            items: makeLines(14)
-          });
-        }
-      }
-    }
     function makeLines(n){
       var out = [];
       for (var i = 0; i < n; i++){
@@ -2091,9 +2063,24 @@
       }
       return out;
     }
-    function spawnSpark(){
-      // little glows around the keyboard
-      sparks.push({ x: rnd(0.50, 0.80) * W, y: rnd(0.78, 0.93) * H, r: rnd(1.5, 3.2), life: 0, max: rnd(8, 18) });
+    function buildColumns(){
+      cols = [];
+      var fs = o.fs ? o.fs : Math.max(8, Math.round(H / 24));
+      for (var z = 0; z < o.zones.length; z++){
+        var x0 = o.zones[z][0] * W, x1 = o.zones[z][1] * W;
+        var gap = fs * o.gap;
+        for (var x = x0; x < x1; x += gap){
+          cols.push({ x: x + rnd(0, gap * 0.4), y0: o.zones[z][2] * H, y1: o.zones[z][3] * H,
+                      fs: fs, speed: rnd(8, 22), off: rnd(0, 400), items: makeLines(14) });
+        }
+      }
+    }
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = box.clientWidth; H = box.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildColumns();
     }
 
     var last = 0, running = true, tick = 0;
@@ -2103,7 +2090,6 @@
       if (ts - last < 42) return;               // ~24 fps
       last = ts; tick += 1;
       ctx.clearRect(0, 0, W, H);
-
       ctx.textBaseline = "top";
       for (var c = 0; c < cols.length; c++){
         var col = cols[c];
@@ -2119,21 +2105,9 @@
           var a = Math.sin(Math.PI * rel);       // fade at the top and bottom of the stream
           if (a <= 0.05) continue;
           var hot = ((tick + i * 7 + c * 3) % 60) < 2;
-          ctx.fillStyle = hot ? "rgba(190,255,235," + (0.85 * a) + ")" : "rgba(90,220,190," + (0.4 * a) + ")";
+          ctx.fillStyle = hot ? "rgba(190,255,235," + (o.alpha * 2 * a) + ")" : "rgba(90,220,190," + (o.alpha * a) + ")";
           ctx.fillText(Array(col.items[i].indent + 1).join("  ") + col.items[i].t, col.x, y);
         }
-      }
-
-      for (var s = sparks.length - 1; s >= 0; s--){
-        var sp = sparks[s]; sp.life += 1;
-        var p = sp.life / sp.max;
-        if (p >= 1){ sparks.splice(s, 1); continue; }
-        var al = Math.sin(Math.PI * p);
-        var g = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, sp.r * 4);
-        g.addColorStop(0, "rgba(160,255,240," + (0.9 * al) + ")");
-        g.addColorStop(1, "rgba(60,200,220,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(sp.x - sp.r * 4, sp.y - sp.r * 4, sp.r * 8, sp.r * 8);
       }
     }
 
@@ -2147,5 +2121,15 @@
       }).observe(box);
     }
     requestAnimationFrame(frame);
-  })();
+  }
+
+  if (!(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)){
+    // code streams over the photo
+    initCodeFx(document.getElementById("heroPhoto"), document.getElementById("codeFx"),
+               { zones: [[0.02, 0.36, 0.04, 0.98], [0.72, 0.99, 0.02, 0.48]], alpha: 0.4, gap: 8.2 });
+    // code streams across the whole hero background (masked to the side margins in CSS)
+    initCodeFx(document.querySelector(".hero"), document.getElementById("heroBg"),
+               { zones: [[0, 1, 0.02, 0.98]], alpha: 0.28, gap: 11, fs: 13 });
+  }
+
 })();
