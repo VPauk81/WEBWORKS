@@ -50,7 +50,7 @@
 
       featured_badge: "Live project — not a demo",
       featured_title: "Arduino / ESP32 Firmware Studio",
-      featured_desc: "A real ordering site I built and run myself: pick the options, the price is calculated automatically, and the order comes straight to me. I can build the same for your business.",
+      featured_desc: "A real, working ordering site: pick the options, the price is calculated automatically, and the order goes straight to the owner. I can build one like it for your business.",
       featured_cta: "Open Live Site →",
       featured_device_mobile: "Works great on phones",
       featured_device_tablet: "on tablets",
@@ -219,7 +219,7 @@
 
       featured_badge: "Prawdziwy projekt — to nie demo",
       featured_title: "Arduino / ESP32 Firmware Studio",
-      featured_desc: "Prawdziwa strona zamówień, którą sam zbudowałem i prowadzę: wybierasz opcje, cena liczy się automatycznie, a zamówienie trafia prosto do mnie. Taką samą mogę zbudować dla Twojej firmy.",
+      featured_desc: "Prawdziwa, działająca strona zamówień: wybierasz opcje, cena liczy się automatycznie, a zamówienie trafia od razu do właściciela. Taką samą mogę zbudować dla Twojej firmy.",
       featured_cta: "Otwórz działającą stronę →",
       featured_device_mobile: "Świetnie działa na telefonie",
       featured_device_tablet: "na tablecie",
@@ -387,7 +387,7 @@
 
       featured_badge: "Live-Projekt — keine Demo",
       featured_title: "Arduino / ESP32 Firmware Studio",
-      featured_desc: "Eine echte Bestellseite, die ich selbst gebaut habe und betreibe: Optionen wählen, der Preis wird automatisch berechnet, die Bestellung kommt direkt zu mir. Genau so eine Seite baue ich auch für Ihr Unternehmen.",
+      featured_desc: "Eine echte, funktionierende Bestellseite: Optionen wählen, der Preis wird automatisch berechnet, und die Bestellung geht direkt an den Betreiber. So eine Seite baue ich auch für Ihr Unternehmen.",
       featured_cta: "Live-Seite öffnen →",
       featured_device_mobile: "Funktioniert super auf dem Smartphone",
       featured_device_tablet: "auf dem Tablet",
@@ -555,7 +555,7 @@
 
       featured_badge: "Реальный проект — не демо",
       featured_title: "Arduino / ESP32 Firmware Studio",
-      featured_desc: "Настоящий сайт для заказов, который я сам разработал и веду: выбираете опции, цена считается автоматически, а заказ приходит прямо мне. Такой же сделаю и для вашего бизнеса.",
+      featured_desc: "Настоящий, работающий сайт для заказов: выбираете опции, цена считается автоматически, а заказ сразу уходит владельцу. Сделаю такой же для вашего бизнеса.",
       featured_cta: "Открыть рабочий сайт →",
       featured_device_mobile: "Отлично работает на телефоне",
       featured_device_tablet: "на планшете",
