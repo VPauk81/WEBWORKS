@@ -2012,3 +2012,57 @@
   .dev-phone{ left:65%; top:15%; width:11.5%; aspect-ratio:9 / 17; border:3px solid #cfd2e2; border-radius:9px; z-index:3; }
   .dev-phone img{ object-position:left top; }
   @media (max-width: 700px){ .inquiry-form[data-theme="2"] .inquiry-devices{ margin:0 -14px 10px; width:calc(100% + 28px); } }
+
+  /* ==========================================================
+     Inquiry form: errors that are clearly visible on the dark card + an obvious "ready" button
+     ========================================================== */
+  /* field with a problem: bright light-pink box with a thick red frame and glow */
+  .inquiry-form .error-field{
+    background:#fff0f3 !important;
+    border:3px solid #ff3355 !important;
+    border-radius:16px;
+    padding:10px 12px !important;
+    box-shadow:0 0 0 4px rgba(255,51,85,.38), 0 14px 26px -12px #ff3355 !important;
+  }
+  .inquiry-form .error-field > label{ color:#c4122f !important; }
+  .inquiry-form .error-field > label::before{ background:#ff3355 !important; }
+  .inquiry-form .error-field .module-desc-counter, .inquiry-form .error-field .module-desc-counter.desc-counter-warning{ color:#c4122f; font-weight:700; }
+  .inquiry-form .error-field input, .inquiry-form .error-field textarea{ border-color:#ffb0bd; }
+
+  /* the message line above the button: solid red banner with a warning sign */
+  .inquiry-form .inquiry-form-error{
+    display:block; margin:6px 0 10px; padding:11px 14px 11px 40px; position:relative;
+    background:#ff3355; color:#fff; font:700 15px/1.35 var(--font-body);
+    border-radius:12px; box-shadow:0 10px 22px -10px #ff3355;
+  }
+  .inquiry-form .inquiry-form-error:empty{ display:none; }
+  .inquiry-form .inquiry-form-error::before{
+    content:"!"; position:absolute; left:12px; top:50%; transform:translateY(-50%);
+    width:20px; height:20px; border-radius:50%; background:#fff; color:#ff3355;
+    display:grid; place-items:center; font:800 14px/1 var(--font-body);
+  }
+  /* the inline e-mail warning (Latin letters only) gets the same treatment */
+  .inquiry-form .email-inline-error.visible{
+    display:block; margin-top:8px; padding:8px 12px; border-radius:10px;
+    background:#ff3355; color:#fff; font-size:14px; font-weight:700; visibility:visible;
+  }
+
+  /* Send button: clearly dead until the form is right, loud green with a pulsing ring when ready */
+  .inquiry-form #inquirySubmit:not(:disabled):not(.sending):not(.error):not(.is-ready){
+    background:transparent; color:rgba(255,255,255,.6);
+    border:2px dashed rgba(255,255,255,.45); box-shadow:none; cursor:not-allowed;
+  }
+  .inquiry-form #inquirySubmit.is-ready:not(:disabled):not(.sending):not(.error){
+    background:linear-gradient(120deg, #3df08a 0%, #14c97d 100%); color:#04301b; border:0;
+    font-weight:800; letter-spacing:.02em;
+    box-shadow:0 0 0 3px rgba(255,255,255,.85), 0 16px 30px -10px rgba(61,240,138,.9);
+    animation:cheapBreathe 1.8s ease-in-out infinite;
+  }
+  .inquiry-form #inquirySubmit.is-ready:not(.loading)::after{ content:"\2192"; margin-left:10px; display:inline-block; }
+  .inquiry-form #inquirySubmit.is-ready::before{
+    content:""; position:absolute; inset:-5px; border-radius:inherit; pointer-events:none;
+    border:3px solid rgba(61,240,138,.9); animation:readyRing 1.8s ease-out infinite;
+  }
+  @keyframes readyRing{ 0%{ transform:scale(1); opacity:.9; } 100%{ transform:scale(1.07, 1.35); opacity:0; } }
+  .inquiry-form #inquirySubmit:disabled{ background:#ffffff; color:#0b6b52; }
+  @media (prefers-reduced-motion: reduce){ .inquiry-form #inquirySubmit.is-ready, .inquiry-form #inquirySubmit.is-ready::before{ animation:none; } }
