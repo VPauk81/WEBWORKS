@@ -22,7 +22,7 @@
       stat_languages: "languages supported", stat_services: "services offered", stat_mobile: "mobile-friendly",
 
       services_title: "Services",
-      services_intro: "Practical web solutions for small and medium businesses — from a single landing page to a full configurator with order automation.",
+      services_intro: "From a landing page to a full configurator.",
       service_1_t: "Business Websites", service_1_d: "Clear, fast websites that explain what you do and make it easy to get in touch.",
       service_2_t: "Landing Pages", service_2_d: "Focused single-page sites built around one offer and one clear action.",
       service_3_t: "Online Calculators", service_3_d: "Interactive price or estimate calculators your customers can use themselves.",
@@ -34,7 +34,7 @@
       service_9_t: "Mobile-friendly Websites", service_9_d: "Every project is built and tested to work properly on a phone first.",
 
       build_title: "What I Build",
-      build_intro: "The same core pieces, combined differently for each business.",
+      build_intro: "Core pieces, combined for each business.",
       build_1_t: "Business Websites", build_1_d: "A clear online presence for your business.",
       build_2_t: "Online Calculators", build_2_d: "Instant estimates based on customer input.",
       build_3_t: "Product Configurators", build_3_d: "Guided selection of components and options.",
@@ -191,7 +191,7 @@
       stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "gotowe na telefony",
 
       services_title: "Usługi",
-      services_intro: "Praktyczne rozwiązania webowe dla małych i średnich firm — od pojedynczej strony docelowej po pełny konfigurator z automatyzacją zamówień.",
+      services_intro: "Od prostej strony po pełny konfigurator.",
       service_1_t: "Strony firmowe", service_1_d: "Przejrzyste, szybkie strony, które jasno pokazują, czym się zajmujesz, i ułatwiają kontakt.",
       service_2_t: "Strony docelowe (Landing Page)", service_2_d: "Jednostronicowe witryny skupione wokół jednej oferty i jednego jasnego działania.",
       service_3_t: "Kalkulatory online", service_3_d: "Interaktywne kalkulatory cen lub wycen, z których klienci korzystają samodzielnie.",
@@ -203,7 +203,7 @@
       service_9_t: "Strony przyjazne urządzeniom mobilnym", service_9_d: "Każdy projekt jest budowany i testowany tak, by dobrze działać na telefonie.",
 
       build_title: "Co tworzę",
-      build_intro: "Te same podstawowe elementy, łączone inaczej dla każdej firmy.",
+      build_intro: "Te same elementy, dopasowane do każdej firmy.",
       build_1_t: "Strony firmowe", build_1_d: "Przejrzysta obecność online dla Twojej firmy.",
       build_2_t: "Kalkulatory online", build_2_d: "Natychmiastowe wyceny na podstawie danych klienta.",
       build_3_t: "Konfiguratory produktów", build_3_d: "Prowadzony wybór komponentów i opcji.",
@@ -359,7 +359,7 @@
       stat_languages: "unterstützte Sprachen", stat_services: "angebotene Leistungen", stat_mobile: "mobilfreundlich",
 
       services_title: "Leistungen",
-      services_intro: "Praktische Web-Lösungen für kleine und mittlere Unternehmen — von einer einzelnen Landingpage bis zum vollständigen Konfigurator mit Bestellautomatisierung.",
+      services_intro: "Von der Landingpage bis zum vollständigen Konfigurator.",
       service_1_t: "Business-Websites", service_1_d: "Klare, schnelle Websites, die zeigen, was Sie tun, und die Kontaktaufnahme leicht machen.",
       service_2_t: "Landingpages", service_2_d: "Fokussierte Einzelseiten, aufgebaut um ein Angebot und eine klare Handlung.",
       service_3_t: "Online-Rechner", service_3_d: "Interaktive Preis- oder Kostenrechner, die Ihre Kunden selbst bedienen können.",
@@ -371,7 +371,7 @@
       service_9_t: "Mobilfreundliche Websites", service_9_d: "Jedes Projekt wird zuerst für das Smartphone gebaut und getestet.",
 
       build_title: "Was ich baue",
-      build_intro: "Dieselben Grundbausteine, für jedes Unternehmen anders kombiniert.",
+      build_intro: "Bausteine, passend kombiniert für jedes Unternehmen.",
       build_1_t: "Business-Websites", build_1_d: "Eine klare Online-Präsenz für Ihr Unternehmen.",
       build_2_t: "Online-Rechner", build_2_d: "Sofortige Kostenvoranschläge auf Basis von Kundeneingaben.",
       build_3_t: "Produktkonfiguratoren", build_3_d: "Geführte Auswahl von Komponenten und Optionen.",
@@ -527,7 +527,7 @@
       stat_languages: "поддерживаемых языка", stat_services: "видов услуг", stat_mobile: "адаптация под мобильные",
 
       services_title: "Услуги",
-      services_intro: "Практичные веб-решения для малого и среднего бизнеса — от одностраничного лендинга до полноценного конфигуратора с автоматизацией заказов.",
+      services_intro: "От лендинга до полноценного конфигуратора.",
       service_1_t: "Сайты для бизнеса", service_1_d: "Понятные и быстрые сайты, которые ясно объясняют, чем вы занимаетесь, и облегчают связь с вами.",
       service_2_t: "Лендинги", service_2_d: "Одностраничные сайты, построенные вокруг одного предложения и одного чёткого действия.",
       service_3_t: "Онлайн-калькуляторы", service_3_d: "Интерактивные калькуляторы цены или стоимости, которыми клиенты пользуются самостоятельно.",
@@ -539,7 +539,7 @@
       service_9_t: "Сайты для мобильных устройств", service_9_d: "Каждый проект создаётся и тестируется в первую очередь для телефона.",
 
       build_title: "Что я создаю",
-      build_intro: "Одни и те же базовые элементы, по-разному собранные под каждый бизнес.",
+      build_intro: "Одни блоки — под любой бизнес.",
       build_1_t: "Сайты для бизнеса", build_1_d: "Понятное присутствие вашего бизнеса в интернете.",
       build_2_t: "Онлайн-калькуляторы", build_2_d: "Мгновенный расчёт стоимости по данным клиента.",
       build_3_t: "Конфигураторы продукции", build_3_d: "Пошаговый выбор комплектующих и опций.",

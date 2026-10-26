@@ -1300,3 +1300,18 @@
   @media (prefers-reduced-motion: reduce){ .fold-card{ animation:none; } }
   .fold-inner{ display:block; }
   .fold-card{ width:100%; }
+
+  /* compact fold cards on small screens */
+  @media (max-width: 700px){
+    .fold-section{ padding:8px 0; }
+    .fold-card{ gap:10px; padding:11px 12px; border-radius:14px; }
+    .fold-icon{ width:36px; height:36px; }
+    .fold-icon svg{ width:19px; height:19px; }
+    .fold-card .section-title{ font-size:18px; line-height:1.2; }
+    .fold-card .section-intro{ font-size:13px; line-height:1.35; }
+    .fold-card .case-chevron{ width:34px; height:34px; }
+    .fold-card .case-chevron::before{ width:8px; height:8px; }
+  }
+  @media (max-width: 380px){
+    .fold-icon{ display:none; }
+  }
