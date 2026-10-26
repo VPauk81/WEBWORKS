@@ -2334,4 +2334,13 @@
     }, { rootMargin: "80px 0px" });
     for (var s = 0; s < secs.length; s++){ io.observe(secs[s]); }
   })();
+
+  /* Inquiry card theme: ?formtheme=1..4 previews the other looks (default 2). */
+  (function(){
+    var f = document.getElementById("projectForm");
+    if (!f) return;
+    var t = "2";
+    try { var q = new URLSearchParams(location.search).get("formtheme"); if (q && /^[1-4]$/.test(q)) t = q; } catch (e) { /* ignore */ }
+    f.setAttribute("data-theme", t);
+  })();
 })();
