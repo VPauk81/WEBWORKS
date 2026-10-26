@@ -1500,3 +1500,37 @@
     .case-study .fold-chevron, .project-toggle .fold-chevron,
     .case-study .fold-chevron::before, .project-toggle .fold-chevron::before{ animation:none !important; }
   }
+
+  /* ---- How It Works: living aurora background instead of flat black ---- */
+  #process{
+    position:relative; overflow:hidden; isolation:isolate;
+    background:linear-gradient(135deg, #0c2a3a 0%, #134b57 45%, #1d3f8f 100%);
+    border-top:none;
+  }
+  #process::before{                       /* slowly drifting colour glows */
+    content:""; position:absolute; inset:-20%; z-index:-2;
+    background:
+      radial-gradient(38% 42% at 18% 30%, rgba(63,214,170,.55), transparent 70%),
+      radial-gradient(34% 40% at 82% 22%, rgba(120,110,255,.50), transparent 70%),
+      radial-gradient(40% 44% at 60% 90%, rgba(255,170,90,.38), transparent 70%);
+    animation:auroraDrift 16s ease-in-out infinite alternate;
+  }
+  #process::after{                        /* fine grid + soft vignette */
+    content:""; position:absolute; inset:0; z-index:-1;
+    background-image:
+      linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(80% 90% at 50% 45%, #000 20%, transparent 100%);
+            mask-image:radial-gradient(80% 90% at 50% 45%, #000 20%, transparent 100%);
+  }
+  @keyframes auroraDrift{
+    0%{ transform:translate3d(-4%, -2%, 0) scale(1); }
+    50%{ transform:translate3d(5%, 3%, 0) scale(1.12); }
+    100%{ transform:translate3d(-2%, 5%, 0) scale(1.05); }
+  }
+  #process .section-intro, #process .process-step p{ color:#dcebee; }
+  #process .process-grid::before{ background:rgba(255,255,255,.28); }
+  #process .process-step .step-num{ background:#0f3445; border-color:rgba(255,255,255,.55); }
+  #process .process-step:not(.is-on) h3{ color:#fff; }
+  @media (prefers-reduced-motion: reduce){ #process::before{ animation:none; } }
