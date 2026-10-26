@@ -2149,4 +2149,40 @@
                { zones: [[0, 1, 0.02, 0.98]], alpha: 0.28, gap: 11, fs: 13 });
   }
 
+
+  /* ========================================================
+     PROCESS ANIMATION
+     When "How It Works" scrolls into view the line grows and steps 01 -> 04 light up
+     one after another; it resets when the section leaves the screen, so it replays.
+     ======================================================== */
+  (function(){
+    var grid = document.querySelector(".process-grid");
+    if (!grid) return;
+    var steps = grid.querySelectorAll(".process-step");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var timers = [];
+    function clearTimers(){ while (timers.length){ clearTimeout(timers.pop()); } }
+    function reset(){
+      clearTimers();
+      grid.classList.remove("is-running");
+      for (var i = 0; i < steps.length; i++){ steps[i].classList.remove("is-on"); }
+    }
+    function run(){
+      reset();
+      void grid.offsetWidth;                       // restart the CSS transitions
+      if (reduce){ for (var k = 0; k < steps.length; k++){ steps[k].classList.add("is-on"); } return; }
+      grid.classList.add("is-running");
+      for (var i = 0; i < steps.length; i++){
+        (function(step, n){ timers.push(setTimeout(function(){ step.classList.add("is-on"); }, 250 + n * 900)); })(steps[i], i);
+      }
+    }
+    grid.classList.add("js-process");
+    if (!("IntersectionObserver" in window)){ run(); return; }
+    var visible = false;
+    new IntersectionObserver(function(entries){
+      var e = entries[0];
+      if (e.isIntersecting && !visible){ visible = true; run(); }
+      else if (!e.isIntersecting && visible){ visible = false; reset(); }
+    }, { threshold: 0.45 }).observe(grid);
+  })();
 })();
