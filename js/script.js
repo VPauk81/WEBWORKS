@@ -14,8 +14,8 @@
 
       nav_services: "Services", nav_projects: "Projects", nav_process: "Process", nav_contact: "Contact", nav_cta: "Start a Project",
 
-      hero_title: "Practical web tools for businesses that want things to just work.",
-      hero_sub: "Websites, online calculators, configurators and order systems for small and medium businesses across Europe.",
+      hero_title: "Web tools for business that simply work.",
+      hero_sub: "Websites, calculators, configurators and order systems for businesses across Europe.",
       hero_cta_primary: "View Projects", hero_cta_secondary: "Start a Project",
       video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video",
       stat_languages: "languages supported", stat_services: "services offered", stat_mobile: "mobile-friendly",
@@ -182,8 +182,8 @@
 
       nav_services: "Usługi", nav_projects: "Projekty", nav_process: "Proces", nav_contact: "Kontakt", nav_cta: "Rozpocznij projekt",
 
-      hero_title: "Praktyczne narzędzia webowe dla firm, które chcą, by wszystko po prostu działało.",
-      hero_sub: "Strony internetowe, kalkulatory online, konfiguratory i systemy zamówień dla małych i średnich firm w całej Europie.",
+      hero_title: "Narzędzia webowe dla firm, które po prostu działają.",
+      hero_sub: "Strony, kalkulatory, konfiguratory i systemy zamówień dla firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
       video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający",
       stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "gotowe na telefony",
@@ -349,8 +349,8 @@
 
       nav_services: "Leistungen", nav_projects: "Projekte", nav_process: "Ablauf", nav_contact: "Kontakt", nav_cta: "Projekt starten",
 
-      hero_title: "Praktische Web-Tools für Unternehmen, bei denen es einfach funktionieren soll.",
-      hero_sub: "Websites, Online-Rechner, Konfiguratoren und Bestellsysteme für kleine und mittlere Unternehmen in ganz Europa.",
+      hero_title: "Web-Tools für Unternehmen, die einfach funktionieren.",
+      hero_sub: "Websites, Rechner, Konfiguratoren und Bestellsysteme für Unternehmen in ganz Europa.",
       hero_cta_primary: "Projekte ansehen", hero_cta_secondary: "Projekt starten",
       video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo",
       stat_languages: "unterstützte Sprachen", stat_services: "angebotene Leistungen", stat_mobile: "mobilfreundlich",
@@ -516,8 +516,8 @@
 
       nav_services: "Услуги", nav_projects: "Проекты", nav_process: "Процесс", nav_contact: "Контакты", nav_cta: "Начать проект",
 
-      hero_title: "Практичные веб-инструменты для бизнеса, которому важно, чтобы всё просто работало.",
-      hero_sub: "Сайты, онлайн-калькуляторы, конфигураторы и системы заказов для малого и среднего бизнеса в Европе.",
+      hero_title: "Веб-инструменты для бизнеса, которые просто работают.",
+      hero_sub: "Сайты, калькуляторы, конфигураторы и системы заказов для бизнеса в Европе.",
       hero_cta_primary: "Смотреть проекты", hero_cta_secondary: "Начать проект",
       video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация",
       stat_languages: "поддерживаемых языка", stat_services: "видов услуг", stat_mobile: "адаптация под мобильные",
