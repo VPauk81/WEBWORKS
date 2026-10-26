@@ -1675,3 +1675,11 @@
     #contactCtaBtn, #contactCtaBtn::before, #contactCtaBtn::after{ animation:none; }
     #contactCtaBtn::before{ display:none; }
   }
+
+  /* contact block: slightly smaller title and button */
+  #contact .contact-title{ font-size:clamp(24px, 3.4vw, 36px); margin-bottom:20px; }
+  #contactCtaBtn{ padding:15px 40px; font-size:clamp(16px, 2vw, 18px); }
+  #contactCtaBtn::after{ margin-left:10px; }
+  @media (max-width: 700px){
+    #contactCtaBtn{ padding:14px 28px; max-width:340px; }
+  }
