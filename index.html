@@ -20,7 +20,7 @@
 <script>try{var n=navigator,c=n.connection||{};if((n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.deviceMemory&&n.deviceMemory<=4)||c.saveData){document.documentElement.className+=' perf-lite'}}catch(e){}</script>
 <script>
 (function(){
-  var PAGE_BUILD = 61;
+  var PAGE_BUILD = 62;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -195,7 +195,7 @@
       <h2 class="section-title" data-i18n="video_title">See it in two minutes</h2>
       <p class="section-intro" data-i18n="video_intro">A short video about the services and the five demo websites — with a voice-over in your language.</p>
     </div>
-    <p class="video-sound-note"><span class="snd-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" stroke="none"/><path class="w1" d="M15 9.2a4 4 0 0 1 0 5.6"/><path class="w2" d="M17.6 6.6a7.6 7.6 0 0 1 0 10.8"/></svg></span><span data-i18n="video_sound">The video has sound - turn your volume on.</span></p>
+    <p class="video-sound-note"><span class="snd-ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor" stroke="none"/><path class="w1" d="M15 9.2a4 4 0 0 1 0 5.6"/><path class="w2" d="M17.6 6.6a7.6 7.6 0 0 1 0 10.8"/></svg></span><span data-i18n="video_sound">The video has sound: turn it on or put on headphones.</span></p>
     <div class="video-frame">
       <button type="button" class="video-play" id="videoPlay" data-i18n-aria="video_play" aria-label="Play video"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.2v13.6a1 1 0 0 0 1.5.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z" fill="#fff"/></svg></button>
       <video id="introVideo" data-key="en" controls playsinline preload="none" src="videos/webworks-en.mp4?v=5" data-i18n-aria="video_aria" aria-label="Introduction video"></video>
@@ -808,6 +808,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=88" defer></script>
+<script src="js/script.js?v=89" defer></script>
 </body>
 </html>
