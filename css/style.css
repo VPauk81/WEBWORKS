@@ -2161,3 +2161,48 @@
   .video-frame.is-muted .video-vol #volMute{ background:linear-gradient(135deg, #7d8497, #4b5265); }
   .video-frame.no-vol-set #volDown, .video-frame.no-vol-set #volUp{ display:none; }
   @media (max-width: 700px){ .video-vol{ right:8px; top:8px; } .video-vol button{ width:42px; height:42px; } }
+
+  /* ---- own control bar under the intro video (play/pause, time, seek, volume, fullscreen) ---- */
+  .video-frame{ display:flex; flex-direction:column; }
+  .video-frame video{ cursor:pointer; }
+  .video-bar{
+    display:flex; align-items:center; gap:4px; padding:6px 8px;
+    background:linear-gradient(#0e1620, #0a1018); border-top:1px solid rgba(255,255,255,.12);
+  }
+  .vb-btn{
+    flex:0 0 auto; width:40px; height:40px; padding:0; border:0; border-radius:50%; cursor:pointer;
+    display:grid; place-items:center; background:transparent; -webkit-tap-highlight-color:transparent;
+  }
+  .vb-btn:hover{ background:rgba(255,255,255,.16); }
+  .vb-btn:focus-visible{ outline:2px solid #fff; outline-offset:1px; }
+  .vb-btn svg{ width:22px; height:22px; fill:none; stroke:#fff; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; display:block; }
+  #vbPlay{ background:linear-gradient(135deg, #ff9a2e, #ff4f6d); }
+  #vbPlay .i-pause{ display:none; }
+  .video-frame.is-running #vbPlay .i-play{ display:none; }
+  .video-frame.is-running #vbPlay .i-pause{ display:block; }
+  #volMute{ background:linear-gradient(135deg, #3a8f7a, #2a6f9a); }
+  #volMute svg{ width:24px; height:24px; }
+  .video-frame.is-muted #volMute{ background:linear-gradient(135deg, #7d8497, #4b5265); }
+  .vb-time{ flex:0 0 auto; color:#e9eef7; font:600 13px/1 var(--font-body); font-variant-numeric:tabular-nums; padding:0 6px; white-space:nowrap; }
+  .vb-seek{
+    -webkit-appearance:none; appearance:none; flex:1 1 60px; min-width:50px; height:26px; margin:0 6px; background:transparent; cursor:pointer;
+    --p:0%;
+  }
+  .vb-seek::-webkit-slider-runnable-track{ height:6px; border-radius:3px; background:linear-gradient(90deg, #ff9a2e var(--p), rgba(255,255,255,.25) var(--p)); }
+  .vb-seek::-moz-range-track{ height:6px; border-radius:3px; background:rgba(255,255,255,.25); }
+  .vb-seek::-moz-range-progress{ height:6px; border-radius:3px; background:#ff9a2e; }
+  .vb-seek::-webkit-slider-thumb{ -webkit-appearance:none; width:18px; height:18px; margin-top:-6px; border-radius:50%; background:#fff; border:3px solid #ff4f6d; }
+  .vb-seek::-moz-range-thumb{ width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid #ff4f6d; }
+  .video-play{ top:63%; }
+  @media (max-width: 700px){
+    .video-bar{ gap:0; padding:5px 4px; }
+    .vb-btn{ width:36px; height:36px; }
+    .vb-btn svg{ width:20px; height:20px; }
+    .vb-time{ font-size:12px; padding:0 3px; }
+    .vb-seek{ margin:0 3px; flex-basis:40px; min-width:36px; }
+  }
+  /* fullscreen: picture fills the screen, bar stays underneath */
+  .video-frame:fullscreen{ max-width:none; width:100%; height:100%; border-radius:0; border:0; background:#000; }
+  .video-frame:fullscreen video{ flex:1 1 auto; min-height:0; aspect-ratio:auto; object-fit:contain; }
+  .video-frame:-webkit-full-screen{ max-width:none; width:100%; height:100%; border-radius:0; border:0; background:#000; }
+  .video-frame:-webkit-full-screen video{ flex:1 1 auto; min-height:0; aspect-ratio:auto; object-fit:contain; }

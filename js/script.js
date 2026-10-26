@@ -34,7 +34,7 @@
       fold_show: "Show", fold_hide: "Hide",
       hero_sub: "Websites, calculators, configurators and order systems for businesses across Europe.",
       hero_cta_primary: "View Projects", hero_cta_secondary: "Start a Project",
-      video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video", video_play: "Play video", video_sound: "The video has sound: turn it on or put on headphones.", video_vol_group: "Volume", video_quieter: "Quieter", video_louder: "Louder", video_mute_toggle: "Sound on / off",
+      video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video", video_play: "Play video", video_sound: "The video has sound: turn it on or put on headphones.", video_vol_group: "Volume", video_quieter: "Quieter", video_louder: "Louder", video_mute_toggle: "Sound on / off", video_playpause: "Play / pause", video_full: "Fullscreen", video_seek: "Position",
       stat_languages: "languages supported", stat_services: "services offered", stat_mobile: "mobile-friendly",
 
       services_title: "Services",
@@ -204,7 +204,7 @@
       fold_show: "Pokaż", fold_hide: "Ukryj",
       hero_sub: "Strony, kalkulatory, konfiguratory i systemy zamówień dla firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
-      video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający", video_play: "Odtwórz wideo", video_sound: "Wideo ma dźwięk: włącz go lub załóż słuchawki.", video_vol_group: "Głośność", video_quieter: "Ciszej", video_louder: "Głośniej", video_mute_toggle: "Dźwięk wł./wył.",
+      video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający", video_play: "Odtwórz wideo", video_sound: "Wideo ma dźwięk: włącz go lub załóż słuchawki.", video_vol_group: "Głośność", video_quieter: "Ciszej", video_louder: "Głośniej", video_mute_toggle: "Dźwięk wł./wył.", video_playpause: "Odtwórz / pauza", video_full: "Pełny ekran", video_seek: "Pozycja",
       stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "gotowe na telefony",
 
       services_title: "Usługi",
@@ -373,7 +373,7 @@
       fold_show: "Anzeigen", fold_hide: "Ausblenden",
       hero_sub: "Websites, Rechner, Konfiguratoren und Bestellsysteme für Unternehmen in ganz Europa.",
       hero_cta_primary: "Projekte ansehen", hero_cta_secondary: "Projekt starten",
-      video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo", video_play: "Video abspielen", video_sound: "Das Video hat Ton: schalten Sie ihn ein oder setzen Sie Kopfhörer auf.", video_vol_group: "Lautstärke", video_quieter: "Leiser", video_louder: "Lauter", video_mute_toggle: "Ton an/aus",
+      video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo", video_play: "Video abspielen", video_sound: "Das Video hat Ton: schalten Sie ihn ein oder setzen Sie Kopfhörer auf.", video_vol_group: "Lautstärke", video_quieter: "Leiser", video_louder: "Lauter", video_mute_toggle: "Ton an/aus", video_playpause: "Wiedergabe / Pause", video_full: "Vollbild", video_seek: "Position",
       stat_languages: "unterstützte Sprachen", stat_services: "angebotene Leistungen", stat_mobile: "mobilfreundlich",
 
       services_title: "Leistungen",
@@ -542,7 +542,7 @@
       fold_show: "Показать", fold_hide: "Скрыть",
       hero_sub: "Сайты, калькуляторы, конфигураторы и системы заказов для бизнеса в Европе.",
       hero_cta_primary: "Смотреть проекты", hero_cta_secondary: "Начать проект",
-      video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация", video_play: "Воспроизвести видео", video_sound: "В видео есть звук: включите его или наденьте наушники.", video_vol_group: "Громкость", video_quieter: "Тише", video_louder: "Громче", video_mute_toggle: "Звук вкл./выкл.",
+      video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация", video_play: "Воспроизвести видео", video_sound: "В видео есть звук: включите его или наденьте наушники.", video_vol_group: "Громкость", video_quieter: "Тише", video_louder: "Громче", video_mute_toggle: "Звук вкл./выкл.", video_playpause: "Пуск / пауза", video_full: "На весь экран", video_seek: "Перемотка",
       stat_languages: "поддерживаемых языка", stat_services: "видов услуг", stat_mobile: "адаптация под мобильные",
 
       services_title: "Услуги",
@@ -2430,5 +2430,50 @@
     });
     v.addEventListener("volumechange", render);
     render();
+  })();
+
+  /* Own control bar under the intro video: play / pause, time, seek, volume (- / mute / +), fullscreen.
+     (The browser's own bar hides the volume control on narrow phone screens.) */
+  (function(){
+    var v = document.getElementById("introVideo");
+    var frame = v ? v.parentNode : null;
+    var pp = document.getElementById("vbPlay"), cur = document.getElementById("vbCur"), dur = document.getElementById("vbDur");
+    var seek = document.getElementById("vbSeek"), full = document.getElementById("vbFull");
+    if (!v || !pp || !seek) return;
+    var dragging = false;
+    function fmt(t){
+      if (!isFinite(t) || t < 0) return "--:--";
+      var m = Math.floor(t / 60), s = Math.floor(t % 60);
+      return m + ":" + (s < 10 ? "0" : "") + s;
+    }
+    function paint(){
+      var d = v.duration;
+      cur.textContent = fmt(v.currentTime);
+      dur.textContent = fmt(d);
+      if (!dragging && isFinite(d) && d > 0){ seek.value = Math.round(v.currentTime / d * 1000); }
+      seek.style.setProperty("--p", (seek.value / 10) + "%");
+    }
+    function state(){ frame.classList.toggle("is-running", !v.paused && !v.ended); }
+    pp.addEventListener("click", function(){
+      if (v.paused || v.ended){ var p = v.play(); if (p && p.catch){ p.catch(function(){}); } } else { v.pause(); }
+    });
+    v.addEventListener("click", function(){ pp.click(); });
+    ["play", "pause", "ended", "emptied"].forEach(function(e){ v.addEventListener(e, state); });
+    ["timeupdate", "loadedmetadata", "durationchange", "emptied"].forEach(function(e){ v.addEventListener(e, paint); });
+    seek.addEventListener("input", function(){
+      dragging = true;
+      var d = v.duration;
+      if (isFinite(d) && d > 0){ v.currentTime = seek.value / 1000 * d; }
+      paint();
+    });
+    seek.addEventListener("change", function(){ dragging = false; });
+    function fsEl(){ return document.fullscreenElement || document.webkitFullscreenElement; }
+    full.addEventListener("click", function(){
+      if (fsEl()){ (document.exitFullscreen || document.webkitExitFullscreen).call(document); return; }
+      if (frame.requestFullscreen){ frame.requestFullscreen(); }
+      else if (frame.webkitRequestFullscreen){ frame.webkitRequestFullscreen(); }
+      else if (v.webkitEnterFullscreen){ v.webkitEnterFullscreen(); }   // iPhone: only the video itself can go fullscreen
+    });
+    paint(); state();
   })();
 })();
