@@ -2021,4 +2021,115 @@
   });
   window.addEventListener("load", function(){ if (!userScrolled){ openCardFromHash(); } });
 
+
+  /* ========================================================
+     HERO ANIMATION
+     Scrolling code streams + key sparkles drawn on a canvas that sits over the
+     hero photo (the hands are animated in CSS). Pauses when off-screen and does
+     nothing when the visitor prefers reduced motion.
+     ======================================================== */
+  (function(){
+    var box = document.getElementById("heroPhoto");
+    var cv = document.getElementById("codeFx");
+    if (!box || !cv || !cv.getContext) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var ctx = cv.getContext("2d");
+    var W = 0, H = 0, dpr = 1;
+    var TOKENS = ["const","let","if (","return","function","=> {","</div>","<a href>","fetch(","await","{ }","[ ]","();","== 1","0x1F","for (","import","class",".map(","true","null","$('#','&& ","/* */","gpio","wifi"];
+    var cols = [];
+    var sparks = [];
+
+    function resize(){
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = box.clientWidth; H = box.clientHeight;
+      cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      buildColumns();
+    }
+    function rnd(a, b){ return a + Math.random() * (b - a); }
+    function buildColumns(){
+      cols = [];
+      var fs = Math.max(8, Math.round(H / 24));
+      // code streams over the left screen area and over the right side
+      var zones = [[0.02, 0.36, 0.04, 0.98], [0.72, 0.99, 0.02, 0.48]];
+      for (var z = 0; z < zones.length; z++){
+        var x0 = zones[z][0] * W, x1 = zones[z][1] * W;
+        var gap = fs * 8.2;
+        for (var x = x0; x < x1; x += gap){
+          cols.push({
+            x: x + rnd(0, gap * 0.4), y0: zones[z][2] * H, y1: zones[z][3] * H,
+            fs: fs, speed: rnd(8, 22), off: rnd(0, 400),
+            items: makeLines(14)
+          });
+        }
+      }
+    }
+    function makeLines(n){
+      var out = [];
+      for (var i = 0; i < n; i++){
+        var l = "";
+        var k = 1 + Math.floor(Math.random() * 2);
+        for (var j = 0; j < k; j++) l += TOKENS[Math.floor(Math.random() * TOKENS.length)] + " ";
+        out.push({ t: l, indent: Math.floor(Math.random() * 3) });
+      }
+      return out;
+    }
+    function spawnSpark(){
+      // little glows around the keyboard
+      sparks.push({ x: rnd(0.50, 0.80) * W, y: rnd(0.78, 0.93) * H, r: rnd(1.5, 3.2), life: 0, max: rnd(8, 18) });
+    }
+
+    var last = 0, running = true, tick = 0;
+    function frame(ts){
+      if (!running){ return; }
+      requestAnimationFrame(frame);
+      if (ts - last < 42) return;               // ~24 fps
+      last = ts; tick += 1;
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.textBaseline = "top";
+      for (var c = 0; c < cols.length; c++){
+        var col = cols[c];
+        var lh = col.fs * 1.5;
+        var span = col.y1 - col.y0;
+        var total = col.items.length * lh;
+        var shift = ((ts / 1000) * col.speed + col.off) % total;
+        ctx.font = col.fs + "px Consolas, 'Courier New', monospace";
+        for (var i = 0; i < col.items.length; i++){
+          var y = col.y0 + ((i * lh - shift) % total + total) % total;
+          if (y > col.y1 - lh) continue;
+          var rel = (y - col.y0) / span;
+          var a = Math.sin(Math.PI * rel);       // fade at the top and bottom of the stream
+          if (a <= 0.05) continue;
+          var hot = ((tick + i * 7 + c * 3) % 60) < 2;
+          ctx.fillStyle = hot ? "rgba(190,255,235," + (0.85 * a) + ")" : "rgba(90,220,190," + (0.4 * a) + ")";
+          ctx.fillText(Array(col.items[i].indent + 1).join("  ") + col.items[i].t, col.x, y);
+        }
+      }
+
+      if (Math.random() < 0.55) spawnSpark();
+      for (var s = sparks.length - 1; s >= 0; s--){
+        var sp = sparks[s]; sp.life += 1;
+        var p = sp.life / sp.max;
+        if (p >= 1){ sparks.splice(s, 1); continue; }
+        var al = Math.sin(Math.PI * p);
+        var g = ctx.createRadialGradient(sp.x, sp.y, 0, sp.x, sp.y, sp.r * 4);
+        g.addColorStop(0, "rgba(160,255,240," + (0.9 * al) + ")");
+        g.addColorStop(1, "rgba(60,200,220,0)");
+        ctx.fillStyle = g;
+        ctx.fillRect(sp.x - sp.r * 4, sp.y - sp.r * 4, sp.r * 8, sp.r * 8);
+      }
+    }
+
+    resize();
+    window.addEventListener("resize", resize);
+    if ("IntersectionObserver" in window){
+      new IntersectionObserver(function(entries){
+        var vis = entries[0].isIntersecting;
+        if (vis && !running){ running = true; requestAnimationFrame(frame); }
+        if (!vis){ running = false; }
+      }).observe(box);
+    }
+    requestAnimationFrame(frame);
+  })();
 })();
