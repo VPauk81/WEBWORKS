@@ -1174,3 +1174,12 @@
     aspect-ratio:16 / 9;
     background:var(--navy);
   }
+
+  /* intro video on phones held upright: portrait file, full width, no side padding */
+  .video-frame.is-portrait{ max-width:520px; }
+  .video-frame.is-portrait video{ aspect-ratio:3 / 4; }
+  @media (max-width: 700px){
+    .video-section .wrap{ padding-left:0; padding-right:0; }
+    .video-section .section-head{ padding-left:var(--pad); padding-right:var(--pad); }
+    .video-frame{ border-radius:0; border-left:0; border-right:0; max-width:none; }
+  }

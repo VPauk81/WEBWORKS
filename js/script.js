@@ -683,6 +683,34 @@
      ======================================================== */
   var SUPPORTED = ["en", "pl", "de", "ru"];
 
+  /* Intro video: one file per language, in two shapes — landscape 16:9 for wide screens
+     and a portrait 3:4 version (bigger text) for phones held upright. */
+  var introVideoLang = "en";
+  var portraitQuery = window.matchMedia ? window.matchMedia("(max-width: 700px) and (orientation: portrait)") : null;
+  function syncIntroVideo(lang){
+    var v = document.getElementById("introVideo");
+    if (!v) return;
+    if (lang) introVideoLang = lang;
+    var portrait = !!(portraitQuery && portraitQuery.matches);
+    var key = introVideoLang + (portrait ? "-m" : "");
+    if (v.getAttribute("data-key") === key) return;
+    v.setAttribute("data-key", key);
+    v.pause();
+    var frame = v.parentNode;
+    if (frame && frame.classList){ frame.classList.toggle("is-portrait", portrait); }
+    v.setAttribute("poster", "images/video-poster-" + key + ".jpg?v=3");
+    v.setAttribute("src", "videos/webworks-" + key + ".mp4?v=5");
+    try { v.load(); } catch (e) { /* ignore */ }
+  }
+  if (portraitQuery){
+    var onPortraitChange = function(){
+      var v = document.getElementById("introVideo");
+      if (v && v.paused) syncIntroVideo();
+    };
+    if (portraitQuery.addEventListener){ portraitQuery.addEventListener("change", onPortraitChange); }
+    else if (portraitQuery.addListener){ portraitQuery.addListener(onPortraitChange); }
+  }
+
   function applyLanguage(lang){
     if (SUPPORTED.indexOf(lang) === -1) lang = "en";
     var dict = TRANSLATIONS[lang];
@@ -737,18 +765,7 @@
     }
 
 
-    /* Intro video: one file per language, same voice-over as the site language. */
-    var introVideo = document.getElementById("introVideo");
-    if (introVideo){
-      var wanted = "videos/webworks-" + lang + ".mp4?v=4";
-      if (introVideo.getAttribute("data-lang") !== lang){
-        introVideo.setAttribute("data-lang", lang);
-        introVideo.pause();
-        introVideo.setAttribute("poster", "images/video-poster-" + lang + ".jpg?v=2");
-        introVideo.setAttribute("src", wanted);
-        try { introVideo.load(); } catch (e) { /* ignore */ }
-      }
-    }
+    syncIntroVideo(lang);
     refreshInquiryTextsForLanguage();
     refreshCountryNames();
   }
