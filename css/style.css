@@ -1534,3 +1534,100 @@
   #process .process-step .step-num{ background:#0f3445; border-color:rgba(255,255,255,.55); }
   #process .process-step:not(.is-on) h3{ color:#fff; }
   @media (prefers-reduced-motion: reduce){ #process::before{ animation:none; } }
+
+  /* ==========================================================
+     Colourful section backgrounds — no flat white / black fields
+     ========================================================== */
+  #why, #guarantees, #contact{ position:relative; overflow:hidden; isolation:isolate; border-top:none; }
+  #why::before, #guarantees::before, #contact::before,
+  #why::after, #guarantees::after, #contact::after{ content:""; position:absolute; pointer-events:none; }
+
+  /* Why Work With Me — pastel peach / pink / lavender mesh with floating glows and dots */
+  #why{ background:linear-gradient(135deg, #fff0e3 0%, #ffe1ee 42%, #e6defd 100%); }
+  #why::before{
+    inset:-20%; z-index:-2;
+    background:
+      radial-gradient(30% 36% at 12% 22%, rgba(255,160,120,.50), transparent 70%),
+      radial-gradient(32% 38% at 88% 18%, rgba(170,140,255,.48), transparent 70%),
+      radial-gradient(34% 40% at 70% 88%, rgba(255,120,170,.42), transparent 70%),
+      radial-gradient(28% 34% at 20% 90%, rgba(110,200,255,.42), transparent 70%);
+    animation:auroraDrift 18s ease-in-out infinite alternate;
+  }
+  #why::after{
+    inset:0; z-index:-1;
+    background-image:radial-gradient(rgba(255,255,255,.9) 1.6px, transparent 2px);
+    background-size:34px 34px;
+    -webkit-mask-image:radial-gradient(90% 90% at 50% 50%, #000 10%, transparent 90%);
+            mask-image:radial-gradient(90% 90% at 50% 50%, #000 10%, transparent 90%);
+    animation:dotsFloat 40s linear infinite;
+  }
+
+  /* Guarantees — fresh mint / sky / sunny gradient with drifting soft rings */
+  #guarantees{ background:linear-gradient(135deg, #d3f6ea 0%, #cfe8ff 52%, #fff1c4 100%); }
+  #guarantees::before{
+    inset:-20%; z-index:-2;
+    background:
+      radial-gradient(30% 36% at 10% 80%, rgba(60,210,160,.45), transparent 70%),
+      radial-gradient(34% 40% at 85% 15%, rgba(80,160,255,.45), transparent 70%),
+      radial-gradient(28% 34% at 62% 85%, rgba(255,205,80,.50), transparent 70%);
+    animation:auroraDrift 20s ease-in-out infinite alternate-reverse;
+  }
+  #guarantees::after{
+    inset:0; z-index:-1;
+    background:
+      radial-gradient(circle at 8% 18%, transparent 52px, rgba(255,255,255,.75) 53px, rgba(255,255,255,.75) 55px, transparent 56px),
+      radial-gradient(circle at 92% 70%, transparent 88px, rgba(255,255,255,.7) 89px, rgba(255,255,255,.7) 91px, transparent 92px),
+      radial-gradient(circle at 74% 12%, transparent 30px, rgba(255,255,255,.75) 31px, rgba(255,255,255,.75) 33px, transparent 34px),
+      radial-gradient(circle at 24% 92%, transparent 64px, rgba(255,255,255,.7) 65px, rgba(255,255,255,.7) 67px, transparent 68px);
+    animation:ringsFloat 14s ease-in-out infinite alternate;
+  }
+
+  /* Contact — vivid sunset (violet -> magenta -> orange) with moving glows and sparkles */
+  #contact{ background:linear-gradient(135deg, #4b2cc4 0%, #b0309a 48%, #ff7b4a 100%); }
+  #contact::before{
+    inset:-20%; z-index:-2;
+    background:
+      radial-gradient(34% 40% at 15% 25%, rgba(90,200,255,.55), transparent 70%),
+      radial-gradient(34% 40% at 85% 75%, rgba(255,215,90,.55), transparent 70%),
+      radial-gradient(30% 36% at 60% 10%, rgba(255,110,190,.50), transparent 70%);
+    animation:auroraDrift 15s ease-in-out infinite alternate;
+  }
+  #contact::after{
+    inset:0; z-index:-1;
+    background-image:
+      radial-gradient(rgba(255,255,255,.95) 1.4px, transparent 2px),
+      radial-gradient(rgba(255,255,255,.6) 1px, transparent 1.6px);
+    background-size:70px 70px, 43px 43px;
+    background-position:0 0, 20px 30px;
+    -webkit-mask-image:radial-gradient(90% 90% at 50% 50%, #000 10%, transparent 95%);
+            mask-image:radial-gradient(90% 90% at 50% 50%, #000 10%, transparent 95%);
+    animation:dotsFloat 55s linear infinite;
+  }
+  #contact .contact-title{ color:#fff; text-shadow:0 2px 18px rgba(60,10,90,.35); }
+  #contact .contact-title span{ color:rgba(255,255,255,.88); }
+  #contact .btn--primary{ background:#fff; color:#7a2486; box-shadow:0 10px 26px -8px rgba(60,10,90,.55); font-weight:700; }
+  #contact .btn--primary:hover{ background:#fff4ea; color:#5b1b69; box-shadow:0 16px 32px -8px rgba(60,10,90,.6); }
+  .site-footer{ background:linear-gradient(90deg, #2c1a78 0%, #5a2a92 100%); color:#e6dcff; }
+  .site-footer .footer-links a:hover{ color:#fff; }
+
+  @keyframes dotsFloat{ to{ background-position:340px 170px, 360px 200px; } }
+  @keyframes ringsFloat{
+    0%{ transform:translate3d(-14px, 8px, 0); }
+    100%{ transform:translate3d(18px, -12px, 0); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #why::before, #why::after, #guarantees::before, #guarantees::after, #contact::before, #contact::after{ animation:none; }
+  }
+
+  /* readable contact details on the colourful sunset background */
+  #contact .channels{ border-top-color:rgba(255,255,255,.35); }
+  #contact .channel dt{ color:#fff; opacity:.9; }
+  #contact .channel dd, #contact .channel dd a{ color:#fff; font-weight:500; }
+  #contact .channel dd a:hover{ color:#ffe9a8; }
+  #contact .share-copy-btn, #contact .share-toggle-btn{ background:rgba(255,255,255,.18); border-color:rgba(255,255,255,.55); color:#fff; font-size:14px; }
+  #contact .share-copy-btn:hover, #contact .share-toggle-btn:hover{ background:rgba(255,255,255,.3); }
+  #contact .inquiry-status, #contact .inquiry-send-again-notice{ color:#fff; }
+  /* Lighthouse panel: rich blue-teal instead of near-black */
+  .quality{ background:linear-gradient(135deg, #1b3f9a 0%, #0f7a78 100%); border-color:rgba(255,255,255,.35); box-shadow:0 22px 44px -26px rgba(20,60,140,.8); }
+  .score-num{ background:#123f73; }
+  .quality-head p{ color:#d6ecf0; }
