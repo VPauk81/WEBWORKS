@@ -1631,3 +1631,47 @@
   .quality{ background:linear-gradient(135deg, #1b3f9a 0%, #0f7a78 100%); border-color:rgba(255,255,255,.35); box-shadow:0 22px 44px -26px rgba(20,60,140,.8); }
   .score-num{ background:#123f73; }
   .quality-head p{ color:#d6ecf0; }
+
+  /* ---- Contact block: centred, with a big breathing "Contact Me" button ---- */
+  #contact .wrap{ text-align:center; }
+  #contact .contact-title{ font-size:clamp(28px, 4.4vw, 46px); margin-bottom:26px; }
+  #contact .contact-actions{ justify-content:center; margin-bottom:36px; }
+  #contactCtaBtn{
+    position:relative;
+    padding:20px 52px; border-radius:999px;
+    font-size:clamp(18px, 2.4vw, 22px); font-weight:800; letter-spacing:.01em;
+    background:linear-gradient(135deg, #ffffff 0%, #fff0d6 100%); color:#8a1f7a;
+    box-shadow:0 18px 38px -12px rgba(60,10,90,.65);
+    animation:ctaBreathe 2.6s ease-in-out infinite;
+  }
+  #contactCtaBtn::after{ content:"\2192"; margin-left:12px; display:inline-block; animation:ctaArrow 2.6s ease-in-out infinite; }
+  #contactCtaBtn::before{                 /* expanding halo ring */
+    content:""; position:absolute; inset:-4px; border-radius:999px;
+    border:3px solid rgba(255,255,255,.85);
+    animation:ctaRing 2.6s ease-out infinite;
+    pointer-events:none;
+  }
+  #contactCtaBtn[aria-expanded="true"]{ animation:none; }
+  #contactCtaBtn[aria-expanded="true"]::before, #contactCtaBtn[aria-expanded="true"]::after{ animation:none; }
+  #contactCtaBtn[aria-expanded="true"]::before{ display:none; }
+  @keyframes ctaBreathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 0 rgba(255,255,255,.55), 0 18px 38px -12px rgba(60,10,90,.65); }
+    50%{ transform:scale(1.08); box-shadow:0 0 0 26px rgba(255,255,255,0), 0 24px 48px -12px rgba(60,10,90,.7); }
+  }
+  @keyframes ctaRing{
+    0%{ transform:scale(1); opacity:.9; }
+    100%{ transform:scale(1.35, 1.9); opacity:0; }
+  }
+  @keyframes ctaArrow{ 0%,100%{ transform:translateX(0); } 50%{ transform:translateX(6px); } }
+  #contact .channels{ justify-content:center; text-align:center; }
+  #contact .channel dt{ justify-content:center; }
+  #contact .channel dd a{ justify-content:center; }
+  #contact .share-row{ justify-content:center; }
+  #contact .inquiry-form{ margin-left:auto; margin-right:auto; text-align:left; }
+  @media (max-width: 700px){
+    #contactCtaBtn{ padding:18px 34px; width:100%; max-width:420px; justify-content:center; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    #contactCtaBtn, #contactCtaBtn::before, #contactCtaBtn::after{ animation:none; }
+    #contactCtaBtn::before{ display:none; }
+  }
