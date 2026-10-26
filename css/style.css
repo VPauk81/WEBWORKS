@@ -1242,3 +1242,61 @@
   @media (prefers-reduced-motion: reduce){
     .fold:not([open]) .fold-chevron, .fold:not([open]) .fold-chevron::before{ animation:none; }
   }
+
+  /* ---- brighter fold bars: coloured cards like on the Firmware Studio site ---- */
+  .fold-section{ padding:16px 0; border-top:none; }
+  #services{ --fc:#2F7D68; --fc2:#3FB391; --fs:#E3F4EE; }
+  #what-i-build{ --fc:#C2772A; --fc2:#F2A444; --fs:#FCEEDB; }
+  .fold-summary{ padding:6px 0; }
+  .fold-summary:hover{ background:transparent; }
+  .fold-card{
+    display:flex; align-items:center; gap:18px;
+    padding:18px 22px;
+    border:2px solid var(--fc);
+    border-radius:16px;
+    background:linear-gradient(135deg, var(--fs) 0%, #ffffff 85%);
+    box-shadow:0 12px 28px -16px var(--fc);
+    transition:transform .2s ease, box-shadow .2s ease;
+    animation:foldGlow 3.2s ease-in-out infinite;
+  }
+  .fold-summary:hover .fold-card{ transform:translateY(-2px); box-shadow:0 18px 34px -14px var(--fc); }
+  .fold[open] .fold-card{ animation:none; }
+  .fold-icon{
+    flex-shrink:0; width:52px; height:52px; border-radius:50%;
+    display:grid; place-items:center;
+    background:linear-gradient(135deg, var(--fc2), var(--fc));
+    box-shadow:0 8px 18px -8px var(--fc);
+  }
+  .fold-icon svg{ width:26px; height:26px; fill:none; stroke:#fff; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  .fold-card .fold-text{ flex:1; }
+  .fold-card .section-title{ color:var(--fc); font-size:clamp(20px, 2.4vw, 26px); }
+  .fold-card .section-intro{ color:var(--ink-soft); font-size:15.5px; max-width:520px; }
+  .fold-card .fold-cta{ margin-left:auto; }
+  .fold-hint{
+    padding:8px 18px; border-radius:999px; font-size:14.5px;
+    background:var(--fc); color:#fff;
+  }
+  .fold-hint--hide{ background:transparent; color:var(--fc); border:1.5px solid var(--fc); }
+  .fold-card .case-chevron{ background:linear-gradient(135deg, var(--fc2), var(--fc)); width:42px; height:42px; }
+  .fold:not([open]) .fold-chevron{ animation-name:foldBreatheC; }
+  @keyframes foldBreatheC{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 0 var(--fc2); }
+    50%{ transform:scale(1.14); box-shadow:0 0 0 13px rgba(255,255,255,0); }
+  }
+  @keyframes foldGlow{
+    0%,100%{ box-shadow:0 12px 28px -16px var(--fc), 0 0 0 0 rgba(255,255,255,0); }
+    50%{ box-shadow:0 14px 34px -12px var(--fc), 0 0 0 5px var(--fs); }
+  }
+  .fold[open] .fold-summary{ padding-bottom:6px; }
+  .fold-body{ padding-top:20px; }
+  .fold-section .build-grid{ margin-top:20px; }
+  @media (max-width: 700px){
+    .fold-card{ gap:12px; padding:14px 14px; }
+    .fold-icon{ width:42px; height:42px; }
+    .fold-icon svg{ width:22px; height:22px; }
+    .fold-card .section-intro{ font-size:14px; }
+    .fold-card .case-chevron{ width:38px; height:38px; }
+  }
+  @media (prefers-reduced-motion: reduce){ .fold-card{ animation:none; } }
+  .fold-inner{ display:block; }
+  .fold-card{ width:100%; }
