@@ -740,7 +740,7 @@
     /* Intro video: one file per language, same voice-over as the site language. */
     var introVideo = document.getElementById("introVideo");
     if (introVideo){
-      var wanted = "videos/webworks-" + lang + ".mp4?v=3";
+      var wanted = "videos/webworks-" + lang + ".mp4?v=4";
       if (introVideo.getAttribute("data-lang") !== lang){
         introVideo.setAttribute("data-lang", lang);
         introVideo.pause();
