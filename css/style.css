@@ -2206,3 +2206,38 @@
   .video-frame:fullscreen video{ flex:1 1 auto; min-height:0; aspect-ratio:auto; object-fit:contain; }
   .video-frame:-webkit-full-screen{ max-width:none; width:100%; height:100%; border-radius:0; border:0; background:#000; }
   .video-frame:-webkit-full-screen video{ flex:1 1 auto; min-height:0; aspect-ratio:auto; object-fit:contain; }
+
+  /* ==========================================================
+     Phones / weak devices: keep the "breathing" attention cues visible.
+     Only transform + opacity animate here (cheap, no repaint of shadows), and they are exempt from the
+     "perf-lite plays once" rule, so the live dot, the live-site button and the case / demo arrows keep pulsing.
+     ========================================================== */
+  @keyframes cheapBreathe{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
+  @keyframes ringOut{ 0%{ transform:scale(1); opacity:.85; } 100%{ transform:scale(2.3); opacity:0; } }
+  @keyframes ringOutBtn{ 0%{ transform:scale(1); opacity:.9; } 100%{ transform:scale(1.18, 1.55); opacity:0; } }
+
+  .featured-badge .dot{ position:relative; }
+  .featured-badge .dot::after{
+    content:""; position:absolute; inset:0; border-radius:50%; background:#ffd400; pointer-events:none;
+    animation:ringOut 1.5s ease-out infinite;
+  }
+  .featured-cta::after{
+    content:""; position:absolute; inset:-2px; border-radius:inherit; border:3px solid rgba(255,120,80,.95); pointer-events:none;
+    animation:ringOutBtn 2.4s ease-out infinite;
+  }
+  .fold-chevron{ position:relative; }
+  .fold:not([open]) .fold-chevron::after, .case-study:not([open]) .fold-chevron::after, .project-toggle:not([open]) .fold-chevron::after{
+    content:""; position:absolute; inset:0; border-radius:50%; border:3px solid var(--fc2, #3fb391); pointer-events:none;
+    animation:ringOut 2.8s ease-out infinite;
+  }
+
+  .perf-lite .featured-badge .dot, .perf-lite .featured-badge .dot::after,
+  .perf-lite .featured-cta, .perf-lite .featured-cta::after,
+  .perf-lite .fold:not([open]) .fold-chevron, .perf-lite .fold:not([open]) .fold-chevron::before, .perf-lite .fold:not([open]) .fold-chevron::after,
+  .perf-lite .case-study:not([open]) .fold-chevron, .perf-lite .case-study:not([open]) .fold-chevron::before, .perf-lite .case-study:not([open]) .fold-chevron::after,
+  .perf-lite .project-toggle:not([open]) .fold-chevron, .perf-lite .project-toggle:not([open]) .fold-chevron::before, .perf-lite .project-toggle:not([open]) .fold-chevron::after,
+  .perf-lite #contactCtaBtn, .perf-lite .video-play{ animation-iteration-count:infinite !important; }
+
+  @media (prefers-reduced-motion: reduce){
+    .featured-badge .dot::after, .featured-cta::after, .fold-chevron::after{ animation:none !important; display:none; }
+  }
