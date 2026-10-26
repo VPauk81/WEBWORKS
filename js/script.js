@@ -1,6 +1,17 @@
 (function(){
   "use strict";
 
+  /* Always open the page from the top: no browser "restore the old scroll position" jump to the
+     bottom, unless the address deliberately points at a card or section (#project3, #services ...). */
+  (function(){
+    try { if ("scrollRestoration" in history){ history.scrollRestoration = "manual"; } } catch (e) { /* ignore */ }
+    function toTop(){ if (!location.hash){ window.scrollTo(0, 0); } }
+    toTop();
+    window.addEventListener("load", function(){ toTop(); setTimeout(toTop, 120); });
+    window.addEventListener("pageshow", function(e){ if (e.persisted) toTop(); });
+  })();
+
+
   /* ========================================================
      TRANSLATIONS
      Edit the text on the right-hand side of each ":" to change

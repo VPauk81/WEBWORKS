@@ -2066,3 +2066,22 @@
   @keyframes readyRing{ 0%{ transform:scale(1); opacity:.9; } 100%{ transform:scale(1.07, 1.35); opacity:0; } }
   .inquiry-form #inquirySubmit:disabled{ background:#ffffff; color:#0b6b52; }
   @media (prefers-reduced-motion: reduce){ .inquiry-form #inquirySubmit.is-ready, .inquiry-form #inquirySubmit.is-ready::before{ animation:none; } }
+
+  /* ---- messenger chips: crisp, fully coloured brand icons (no pale pastel) ---- */
+  .inquiry-form .messenger-opt{ padding:5px 15px 5px 5px; gap:9px; background:#ffffff; border:2px solid #ffffff; color:#2e2858; font-weight:700; }
+  .inquiry-form .messenger-icon{
+    width:34px; height:34px; border-radius:50%;
+    box-shadow:0 3px 8px -2px rgba(0,0,0,.45), inset 0 0 0 1.5px rgba(255,255,255,.55);
+  }
+  .inquiry-form .messenger-icon svg{ width:20px; height:20px; shape-rendering:geometricPrecision; }
+  .inquiry-form .messenger-opt-wa .messenger-icon{ background:linear-gradient(145deg, #3ee37e, #1fb457); }
+  .inquiry-form .messenger-opt-vb .messenger-icon{ background:linear-gradient(145deg, #9d84ff, #6a4fe0); }
+  .inquiry-form .messenger-opt-tg .messenger-icon{ background:linear-gradient(145deg, #3db8f0, #1b8fd0); }
+  .inquiry-form .messenger-opt-none .messenger-icon{ background:linear-gradient(145deg, #8b93a8, #5d6579); }
+  .inquiry-form .messenger-opt-none{ padding:5px 15px 5px 5px; color:#2e2858; }
+  .inquiry-form .messenger-opt:has(input:checked){ border-color:#ffffff; color:#fff; }
+  .inquiry-form .messenger-opt-wa:has(input:checked){ background:linear-gradient(145deg, #25d366, #12a24a); }
+  .inquiry-form .messenger-opt-vb:has(input:checked){ background:linear-gradient(145deg, #8a6cff, #5b3fd0); }
+  .inquiry-form .messenger-opt-tg:has(input:checked){ background:linear-gradient(145deg, #2aabee, #1688c8); }
+  .inquiry-form .messenger-opt-none:has(input:checked){ background:linear-gradient(145deg, #6f778c, #4a5164); color:#fff; }
+  .inquiry-form .messenger-opt:has(input:checked) .messenger-icon{ background:rgba(255,255,255,.28); box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.8); }
