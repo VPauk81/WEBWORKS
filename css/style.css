@@ -2136,3 +2136,28 @@
   @keyframes sndWave{ 0%,100%{ opacity:.25; } 50%{ opacity:1; } }
   @media (max-width: 700px){ .video-sound-note{ font-size:14.5px; padding:8px 14px; margin:0 var(--pad) 12px; width:auto; justify-content:flex-start; text-align:left; } }
   @media (prefers-reduced-motion: reduce){ .snd-ico .w1, .snd-ico .w2{ animation:none; } }
+
+  /* ---- own volume buttons on the intro video ---- */
+  .video-vol{
+    position:absolute; right:10px; top:10px; z-index:4;
+    display:flex; align-items:center; gap:2px; padding:4px;
+    background:rgba(8,12,22,.62); border:1.5px solid rgba(255,255,255,.35); border-radius:999px;
+  }
+  .video-vol button{
+    width:40px; height:40px; padding:0; border:0; border-radius:50%; cursor:pointer;
+    background:transparent; display:grid; place-items:center; -webkit-tap-highlight-color:transparent;
+  }
+  .video-vol button:hover{ background:rgba(255,255,255,.18); }
+  .video-vol button:focus-visible{ outline:2px solid #fff; outline-offset:1px; }
+  .video-vol svg{ width:24px; height:24px; fill:none; stroke:#fff; stroke-width:2.2; stroke-linecap:round; display:block; }
+  .video-vol #volMute{ background:linear-gradient(135deg, #ff9a2e, #ff4f6d); }
+  .video-vol #volMute svg{ width:26px; height:26px; }
+  .video-frame .vw1, .video-frame .vw2, .video-frame .vx{ display:none; }
+  .video-frame[data-vol="2"] .vw1, .video-frame[data-vol="3"] .vw1{ display:inline; }
+  .video-frame[data-vol="3"] .vw2{ display:inline; }
+  .video-frame[data-vol="1"] .vw1{ display:inline; }
+  .video-frame.is-muted .vw1, .video-frame.is-muted .vw2{ display:none !important; }
+  .video-frame.is-muted .vx{ display:inline; }
+  .video-frame.is-muted .video-vol #volMute{ background:linear-gradient(135deg, #7d8497, #4b5265); }
+  .video-frame.no-vol-set #volDown, .video-frame.no-vol-set #volUp{ display:none; }
+  @media (max-width: 700px){ .video-vol{ right:8px; top:8px; } .video-vol button{ width:42px; height:42px; } }
