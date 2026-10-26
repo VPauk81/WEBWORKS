@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=74">
+<link rel="stylesheet" href="css/style.css?v=75">
 </head>
 <body>
 
@@ -596,19 +596,19 @@
       <p class="section-intro" data-i18n="guar_intro">What you can count on when we work together.</p>
     </div>
 
-    <div class="guarantee-grid">
-      <div class="guarantee">
-        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    <div class="guarantee-grid" id="guarGrid">
+      <div class="guarantee" style="--i:0;--c:#1F73C9;--c2:#4FB0F5;--cs:#E1F0FD"><span class="g-water" aria-hidden="true"><span class="g-count" data-to="24" data-suffix="">24</span></span>
+        <span class="g-ico"><svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
         <h3 data-i18n="guar_1_t">Reply within 24 hours</h3>
         <p data-i18n="guar_1_d">Every inquiry gets a personal reply — in your language — within a day.</p>
       </div>
-      <div class="guarantee">
-        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.1-.6-.6-2.1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+      <div class="guarantee" style="--i:1;--c:#12A37F;--c2:#2FD0A4;--cs:#DCF6EC"><span class="g-water" aria-hidden="true"><span class="g-count" data-to="30" data-suffix="">30</span></span>
+        <span class="g-ico"><svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L4 17l3 3 5.3-5.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.1-.6-.6-2.1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg></span>
         <h3 data-i18n="guar_2_t">30 days of free fixes</h3>
         <p data-i18n="guar_2_d">After launch, I fix any bugs and make small text or image changes free of charge for 30 days.</p>
       </div>
-      <div class="guarantee">
-        <svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <div class="guarantee" style="--i:2;--c:#C2772A;--c2:#F2A444;--cs:#FCEEDB"><span class="g-water" aria-hidden="true"><span class="g-count" data-to="100" data-suffix="%">100%</span></span>
+        <span class="g-ico"><svg class="guarantee-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path d="M11 12l8-8M16 7l2 2M14 9l2 2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
         <h3 data-i18n="guar_3_t">The site is 100% yours</h3>
         <p data-i18n="guar_3_d">You get the full source code, the domain and every login — no lock-in, no hidden subscriptions.</p>
       </div>
@@ -617,7 +617,7 @@
     <!-- Real Google Lighthouse results for THIS site (mobile, 26.09.2026,
          median of 5 runs: 88/91/92/89/90). Re-measure and update after big
          changes — never put numbers here that weren't measured. -->
-    <div class="quality">
+    <div class="quality" id="qualityBox">
       <div class="quality-head">
         <h3 data-i18n="quality_title">Measured quality</h3>
         <p data-i18n="quality_note">Google Lighthouse results for this very site — mobile test, 26.09.2026.</p>
@@ -791,6 +791,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=76" defer></script>
+<script src="js/script.js?v=77" defer></script>
 </body>
 </html>

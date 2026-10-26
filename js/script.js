@@ -2200,4 +2200,69 @@
     }, { threshold: 0.15 });
     io.observe(list);
   })();
+
+  /* ========================================================
+     GUARANTEES ANIMATION — cards pop in with counting numbers; the Lighthouse rings
+     fill up and count to their score when the panel scrolls into view.
+     ======================================================== */
+  (function(){
+    var grid = document.getElementById("guarGrid");
+    var box = document.getElementById("qualityBox");
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function countTo(el, to, suffix, ms, delay){
+      if (reduce){ el.textContent = to + suffix; return; }
+      var t0 = null;
+      el.textContent = "0" + suffix;
+      function step(ts){
+        if (t0 === null) t0 = ts;
+        var k = Math.min(1, Math.max(0, (ts - t0 - delay) / ms));
+        var e = 1 - Math.pow(1 - k, 3);
+        el.textContent = Math.round(to * e) + suffix;
+        if (k < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    function onSeen(el, fn, threshold){
+      if (!el) return;
+      if (!("IntersectionObserver" in window)){ fn(); return; }
+      var io = new IntersectionObserver(function(entries){
+        if (entries[0].isIntersecting){ fn(); io.disconnect(); }
+      }, { threshold: threshold });
+      io.observe(el);
+    }
+    if (grid){
+      grid.classList.add("js-guar");
+      onSeen(grid, function(){
+        grid.classList.add("is-in");
+        var nums = grid.querySelectorAll(".g-count");
+        for (var i = 0; i < nums.length; i++){
+          countTo(nums[i], parseFloat(nums[i].getAttribute("data-to")), nums[i].getAttribute("data-suffix") || "", 1100, i * 160 + 300);
+        }
+      }, 0.2);
+    }
+    if (box){
+      var scores = box.querySelectorAll(".score");
+      for (var s = 0; s < scores.length; s++){ scores[s].querySelector(".score-ring").style.setProperty("--p", "0"); }
+      onSeen(box, function(){
+        for (var i = 0; i < scores.length; i++){
+          (function(sc, n){
+            var ring = sc.querySelector(".score-ring");
+            var num = sc.querySelector(".score-num");
+            var to = parseFloat(sc.style.getPropertyValue("--score")) || 0;
+            if (reduce){ ring.style.setProperty("--p", to); return; }
+            var t0 = null, delay = n * 180, ms = 1500;
+            function step(ts){
+              if (t0 === null) t0 = ts;
+              var k = Math.min(1, Math.max(0, (ts - t0 - delay) / ms));
+              var e = 1 - Math.pow(1 - k, 3);
+              ring.style.setProperty("--p", to * e);
+              num.textContent = Math.round(to * e);
+              if (k < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+          })(scores[i], i);
+        }
+      }, 0.35);
+    }
+  })();
 })();
