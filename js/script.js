@@ -2025,7 +2025,7 @@
   /* ========================================================
      HERO ANIMATION
      Scrolling code streams + key sparkles drawn on a canvas that sits over the
-     hero photo (the hands are animated in CSS). Pauses when off-screen and does
+     hero photo (the fingers are animated in CSS). Pauses when off-screen and does
      nothing when the visitor prefers reduced motion.
      ======================================================== */
   (function(){
@@ -2107,7 +2107,6 @@
         }
       }
 
-      if (Math.random() < 0.55) spawnSpark();
       for (var s = sparks.length - 1; s >= 0; s--){
         var sp = sparks[s]; sp.life += 1;
         var p = sp.life / sp.max;
