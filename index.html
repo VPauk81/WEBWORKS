@@ -97,7 +97,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=62">
+<link rel="stylesheet" href="css/style.css?v=63">
 </head>
 <body>
 
@@ -174,20 +174,9 @@
       </div>
     </div>
 
-    <!-- Animated hero picture: five feathered copies of the photo (one per fingertip) press their own key,
-         and a canvas draws scrolling code streams + key sparkles on top (js/script.js, "HERO ANIMATION"). -->
+    <!-- Animated hero picture: a canvas draws scrolling code streams over the photo (js/script.js, "HERO ANIMATION"). -->
     <div class="hero-photo" id="heroPhoto">
       <img src="images/pechatkoda.jpg?v=8" alt="Writing code for a client project" data-i18n-alt="alt_hero" fetchpriority="high" decoding="async">
-      <img class="finger f1" src="images/pechatkoda.jpg?v=8" alt="" aria-hidden="true" decoding="async" style="--x:56.8%;--y:69.5%;--dx:0%;--dy:1.5%;--t:1.35s;--d:0s">
-      <img class="finger f2" src="images/pechatkoda.jpg?v=8" alt="" aria-hidden="true" decoding="async" style="--x:61.8%;--y:75.3%;--dx:-.5%;--dy:1.4%;--t:0.95s;--d:.30s">
-      <img class="finger f3" src="images/pechatkoda.jpg?v=8" alt="" aria-hidden="true" decoding="async" style="--x:64.1%;--y:78.0%;--dx:-.4%;--dy:1.4%;--t:1.6s;--d:.75s">
-      <img class="finger f4" src="images/pechatkoda.jpg?v=8" alt="" aria-hidden="true" decoding="async" style="--x:67.1%;--y:79.3%;--dx:-.3%;--dy:1.5%;--t:1.1s;--d:.15s">
-      <img class="finger f5" src="images/pechatkoda.jpg?v=8" alt="" aria-hidden="true" decoding="async" style="--x:74.2%;--y:80.9%;--dx:-.3%;--dy:1.6%;--t:1.45s;--d:.55s">
-      <span class="keyglow" aria-hidden="true" style="left:56.6%;top:74%;--t:1.35s;--d:0s"></span>
-      <span class="keyglow" aria-hidden="true" style="left:61.2%;top:79.2%;--t:0.95s;--d:.30s"></span>
-      <span class="keyglow" aria-hidden="true" style="left:63.5%;top:82%;--t:1.6s;--d:.75s"></span>
-      <span class="keyglow" aria-hidden="true" style="left:66.5%;top:83.2%;--t:1.1s;--d:.15s"></span>
-      <span class="keyglow" aria-hidden="true" style="left:73.5%;top:84.8%;--t:1.45s;--d:.55s"></span>
       <canvas class="code-fx" id="codeFx" aria-hidden="true"></canvas>
     </div>
   </div>
