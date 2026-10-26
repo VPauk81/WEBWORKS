@@ -1198,4 +1198,8 @@
     -webkit-mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.5) 14%, transparent 26%, transparent 74%, rgba(0,0,0,.5) 86%, #000 100%);
             mask-image:linear-gradient(90deg, #000 0%, rgba(0,0,0,.5) 14%, transparent 26%, transparent 74%, rgba(0,0,0,.5) 86%, #000 100%);
   }
-  @media (max-width: 860px){ .hero-bg{ display:none; } }
+  /* phones and small screens: no side margins to show, so the code runs across the whole
+     hero, softly, behind the text */
+  @media (max-width: 860px){
+    .hero-bg{ -webkit-mask-image:none; mask-image:none; opacity:.6; }
+  }

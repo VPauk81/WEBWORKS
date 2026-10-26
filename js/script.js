@@ -2068,7 +2068,7 @@
       var fs = o.fs ? o.fs : Math.max(8, Math.round(H / 24));
       for (var z = 0; z < o.zones.length; z++){
         var x0 = o.zones[z][0] * W, x1 = o.zones[z][1] * W;
-        var gap = fs * o.gap;
+        var gap = fs * o.gap * (W < 700 ? 0.62 : 1);
         for (var x = x0; x < x1; x += gap){
           cols.push({ x: x + rnd(0, gap * 0.4), y0: o.zones[z][2] * H, y1: o.zones[z][3] * H,
                       fs: fs, speed: rnd(8, 22), off: rnd(0, 400), items: makeLines(14) });
