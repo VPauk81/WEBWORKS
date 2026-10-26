@@ -29,7 +29,7 @@
       fold_show: "Show", fold_hide: "Hide",
       hero_sub: "Websites, calculators, configurators and order systems for businesses across Europe.",
       hero_cta_primary: "View Projects", hero_cta_secondary: "Start a Project",
-      video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video",
+      video_title: "See it in two minutes", video_intro: "A short video about the services and the five demo websites — with a voice-over in your language.", video_aria: "Introduction video", video_play: "Play video",
       stat_languages: "languages supported", stat_services: "services offered", stat_mobile: "mobile-friendly",
 
       services_title: "Services",
@@ -199,7 +199,7 @@
       fold_show: "Pokaż", fold_hide: "Ukryj",
       hero_sub: "Strony, kalkulatory, konfiguratory i systemy zamówień dla firm w całej Europie.",
       hero_cta_primary: "Zobacz projekty", hero_cta_secondary: "Rozpocznij projekt",
-      video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający",
+      video_title: "Zobacz w dwie minuty", video_intro: "Krótki film o usługach i pięciu stronach demo — z lektorem w Twoim języku.", video_aria: "Film wprowadzający", video_play: "Odtwórz wideo",
       stat_languages: "obsługiwane języki", stat_services: "oferowanych usług", stat_mobile: "gotowe na telefony",
 
       services_title: "Usługi",
@@ -368,7 +368,7 @@
       fold_show: "Anzeigen", fold_hide: "Ausblenden",
       hero_sub: "Websites, Rechner, Konfiguratoren und Bestellsysteme für Unternehmen in ganz Europa.",
       hero_cta_primary: "Projekte ansehen", hero_cta_secondary: "Projekt starten",
-      video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo",
+      video_title: "In zwei Minuten erklärt", video_intro: "Ein kurzes Video über die Leistungen und die fünf Demo-Websites — mit Sprecherin in Ihrer Sprache.", video_aria: "Einführungsvideo", video_play: "Video abspielen",
       stat_languages: "unterstützte Sprachen", stat_services: "angebotene Leistungen", stat_mobile: "mobilfreundlich",
 
       services_title: "Leistungen",
@@ -537,7 +537,7 @@
       fold_show: "Показать", fold_hide: "Скрыть",
       hero_sub: "Сайты, калькуляторы, конфигураторы и системы заказов для бизнеса в Европе.",
       hero_cta_primary: "Смотреть проекты", hero_cta_secondary: "Начать проект",
-      video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация",
+      video_title: "Посмотрите за две минуты", video_intro: "Короткий ролик об услугах и пяти демо-сайтах — с озвучкой на вашем языке.", video_aria: "Видео-презентация", video_play: "Воспроизвести видео",
       stat_languages: "поддерживаемых языка", stat_services: "видов услуг", stat_mobile: "адаптация под мобильные",
 
       services_title: "Услуги",
@@ -2376,5 +2376,25 @@
     if (!("IntersectionObserver" in window)){ attach(); return; }
     var io = new IntersectionObserver(function(e){ if (e[0].isIntersecting){ attach(); io.disconnect(); } }, { rootMargin: "400px 0px" });
     io.observe(v);
+  })();
+
+  /* Big play button on top of the intro video (some phones show no native play control while the
+     video is not loaded yet). It starts the video and disappears while it plays. */
+  (function(){
+    var v = document.getElementById("introVideo");
+    var b = document.getElementById("videoPlay");
+    if (!v || !b) return;
+    var frame = v.parentNode;
+    function show(){ frame.classList.remove("is-playing"); }
+    function hide(){ frame.classList.add("is-playing"); }
+    b.addEventListener("click", function(){
+      hide();
+      var p = v.play();
+      if (p && p.catch){ p.catch(function(){ show(); }); }
+    });
+    v.addEventListener("play", hide);
+    v.addEventListener("playing", hide);
+    v.addEventListener("ended", show);
+    v.addEventListener("emptied", show);          // a new file was chosen (language / phone rotation)
   })();
 })();
