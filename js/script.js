@@ -2093,7 +2093,7 @@
       }
     }
     function resize(){
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = (window.innerWidth < 860) ? 1 : Math.min(window.devicePixelRatio || 1, 2);
       W = box.clientWidth; H = box.clientHeight;
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -2104,7 +2104,8 @@
     function frame(ts){
       if (!running){ return; }
       requestAnimationFrame(frame);
-      if (ts - last < 42) return;               // ~24 fps
+      if (document.hidden) return;
+      if (ts - last < (window.innerWidth < 860 ? 66 : 42)) return;   // ~15 fps on phones, ~24 fps elsewhere
       last = ts; tick += 1;
       ctx.clearRect(0, 0, W, H);
       ctx.textBaseline = "top";
@@ -2264,5 +2265,20 @@
         }
       }, 0.35);
     }
+  })();
+
+  /* ========================================================
+     PERFORMANCE - pause every CSS animation while its section is off-screen, and stop the
+     code canvases when the tab is hidden, so phones only animate what is actually visible.
+     ======================================================== */
+  (function(){
+    if (!("IntersectionObserver" in window)) return;
+    var secs = document.querySelectorAll("section, .site-footer");
+    var io = new IntersectionObserver(function(entries){
+      for (var i = 0; i < entries.length; i++){
+        entries[i].target.classList.toggle("anim-paused", !entries[i].isIntersecting);
+      }
+    }, { rootMargin: "80px 0px" });
+    for (var s = 0; s < secs.length; s++){ io.observe(secs[s]); }
   })();
 })();
