@@ -2241,3 +2241,7 @@
   @media (prefers-reduced-motion: reduce){
     .featured-badge .dot::after, .featured-cta::after, .fold-chevron::after{ animation:none !important; display:none; }
   }
+
+  /* demo 6: beauty studio (rose) */
+  #project6{ --fc:#D6457A; --fc2:#FF7FA8; --fs:#FDE4EE; }
+  #project6 > .project-summary::before{ content:"6"; }

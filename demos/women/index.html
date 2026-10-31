@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="google" content="notranslate" />
+    <meta name="theme-color" content="#4a1f4f" />
+    <title data-i18n="meta.title">Bloom — Beauty &amp; Nails Studio</title>
+    <meta
+      name="description"
+      data-i18n-attr="content:meta.desc"
+      content="Bloom beauty studio: nails, hair, brows and lashes, facials and massage. Choose your shade, pick a master and book online 24/7."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet" />
+    </noscript>
+    <link rel="stylesheet" href="css/styles.css?v=1" />
+    <script>document.documentElement.classList.add("js");</script>
+  </head>
+  <body>
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-flower" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.4" /><path d="M12 9.6C10.4 7.6 10.4 4.6 12 3c1.6 1.6 1.6 4.6 0 6.6zM12 14.4c1.6 2 1.6 5 0 6.6-1.6-1.6-1.6-4.6 0-6.6zM9.6 12C7.6 10.4 4.6 10.4 3 12c1.6 1.6 4.6 1.6 6.6 0zM14.4 12c2-1.6 5-1.6 6.6 0-1.6 1.6-4.6 1.6-6.6 0z" /></symbol>
+      <symbol id="i-sparkle" viewBox="0 0 24 24"><path d="M12 3l1.8 6.2L20 11l-6.2 1.8L12 19l-1.8-6.2L4 11l6.2-1.8z" /></symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24"><path d="M7 11V5.5a1.5 1.5 0 0 1 3 0V10m0-.5V4a1.5 1.5 0 0 1 3 0v5.5m0-4.5a1.5 1.5 0 0 1 3 0v5m0-3a1.5 1.5 0 0 1 3 0v7a7 7 0 0 1-7 7h-1a7 7 0 0 1-6-3.5L3.5 14a1.6 1.6 0 0 1 2.7-1.6L7 13.5" /></symbol>
+      <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="2.6" /><circle cx="6" cy="18" r="2.6" /><path d="M8 7.6 20 17M8 16.4 20 7" /></symbol>
+      <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-6 10-6 10 6 10 6-3.6 6-10 6S2 12 2 12z" /><circle cx="12" cy="12" r="2.8" /></symbol>
+      <symbol id="i-face" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M8.5 14.5c1 1.2 2.1 1.8 3.5 1.8s2.5-.6 3.5-1.8M9 9.5h.01M15 9.5h.01" /></symbol>
+      <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-9 5-14 15-14 0 10-5 15-14 15zM5 19l7-7" /></symbol>
+      <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" /></symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" /></symbol>
+      <symbol id="i-back" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6" /></symbol>
+      <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z" /></symbol>
+      <symbol id="i-caret" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol>
+      <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.8 5.8 6.2.9-4.5 4.4 1 6.3L12 17.5 6.5 20.4l1-6.3L3 9.7l6.2-.9z" /></symbol>
+      <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-9-9.5A5 5 0 0 1 12 6.6a5 5 0 0 1 9 3.9C19.5 15.4 12 20 12 20z" /></symbol>
+      <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z" /><path d="m9 12 2 2 4-4" /></symbol>
+      <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1" /><path d="M5 12v8h14v-8M12 8v12M12 8c-2.5 0-4.5-1-4.5-2.6S9 3 10.5 3C12 3 12 6 12 8zm0 0c2.5 0 4.5-1 4.5-2.6S15 3 13.5 3C12 3 12 6 12 8z" /></symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z" /></symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></symbol>
+      <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 0 0-14 0c0 5.5 7 12 7 12z" /><circle cx="12" cy="10" r="2.5" /></symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14" /></symbol>
+    </svg>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a href="#top" class="logo" aria-label="Bloom">
+          <span class="logo__mark"><svg class="ico"><use href="#i-flower" /></svg></span>
+          <span class="logo__text">Bloom<small data-i18n="logo.sub">Beauty Studio</small></span>
+        </a>
+
+        <nav class="nav" id="nav">
+          <a class="nav__back" href="https://vpauk81.github.io/WEBWORKS/#project6">
+            <svg class="ico"><use href="#i-back" /></svg>
+            <span data-i18n="nav.back">Back</span>
+          </a>
+          <a href="#services" data-i18n="nav.services">Services</a>
+          <a href="#shades" data-i18n="nav.shades">Nail shades</a>
+          <a href="#team" data-i18n="nav.team">Our team</a>
+          <a href="#reviews" data-i18n="nav.reviews">Reviews</a>
+          <a href="#faq" data-i18n="nav.faq">FAQ</a>
+          <a href="#contacts" data-i18n="nav.contacts">Contact</a>
+        </nav>
+
+        <div class="header__actions">
+          <div class="lang" id="lang">
+            <button type="button" class="lang__toggle" id="langToggle" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" data-i18n-attr="aria-label:lang.label" aria-label="Choose language">
+              <svg class="ico"><use href="#i-globe" /></svg>
+              <span id="langCurrent">EN</span>
+              <svg class="ico lang__caret"><use href="#i-caret" /></svg>
+            </button>
+            <ul class="lang__menu" id="langMenu" role="menu">
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="true" data-lang="en"><b>EN</b>English</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="pl"><b>PL</b>Polski</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="de"><b>DE</b>Deutsch</button></li>
+              <li role="none"><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru"><b>RU</b>Русский</button></li>
+            </ul>
+          </div>
+          <a class="btn btn--primary btn--sm" href="#booking" data-i18n="cta.book">Book now</a>
+          <button class="burger" id="burger" data-i18n-attr="aria-label:nav.open" aria-label="Open menu" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <section class="hero">
+        <div class="hero__blob hero__blob--a" aria-hidden="true"></div>
+        <div class="hero__blob hero__blob--b" aria-hidden="true"></div>
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <p class="eyebrow"><svg class="ico"><use href="#i-sparkle" /></svg><span data-i18n="hero.eyebrow">Beauty studio · Online booking 24/7</span></p>
+            <h1 class="hero__title" data-i18n="hero.title">Beauty that feels like <em>you</em></h1>
+            <p class="hero__lead" data-i18n="hero.lead">
+              Nails, hair, brows and lashes, facials and massage — in one calm, light studio. Choose your shade, pick your master and book in under a minute.
+            </p>
+            <div class="hero__buttons">
+              <a class="btn btn--primary" href="#booking">
+                <span data-i18n="hero.cta">Book a visit</span>
+                <svg class="ico"><use href="#i-arrow" /></svg>
+              </a>
+              <a class="btn btn--soft" href="#shades" data-i18n="hero.cta2">Try a nail shade</a>
+            </div>
+            <ul class="hero__facts">
+              <li><strong data-i18n="hero.f1v">4.9</strong><span data-i18n="hero.f1">average rating</span></li>
+              <li><strong data-i18n="hero.f2v">12 yrs</strong><span data-i18n="hero.f2">of experience</span></li>
+              <li><strong data-i18n="hero.f3v">24/7</strong><span data-i18n="hero.f3">online booking</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__visual" aria-hidden="true">
+            <div class="arch">
+              <svg class="arch__art" viewBox="0 0 360 440" role="img">
+                <defs>
+                  <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd9e4" /><stop offset=".55" stop-color="#ffb5cb" /><stop offset="1" stop-color="#f27aa2" /></linearGradient>
+                  <radialGradient id="gP" cx="50%" cy="40%" r="60%"><stop offset="0" stop-color="#fff7f2" /><stop offset="1" stop-color="#ffe0d2" /></radialGradient>
+                </defs>
+                <path d="M10 440V180C10 80 85 10 180 10s170 70 170 170v260z" fill="url(#gA)" />
+                <g transform="translate(180 205) scale(.66)">
+                  <g class="petals">
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(45)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(90)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(135)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(180)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(225)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(270)" />
+                    <ellipse rx="26" ry="70" cy="-62" fill="url(#gP)" transform="rotate(315)" />
+                  </g>
+                  <circle r="26" fill="#c9a14a" />
+                  <circle r="16" fill="#e8c878" />
+                </g>
+                <g fill="#fff" opacity=".9"><path d="M60 90l4 12 12 4-12 4-4 12-4-12-12-4 12-4z" /><path d="M300 330l3 9 9 3-9 3-3 9-3-9-9-3 9-3z" /><circle cx="300" cy="80" r="3" /><circle cx="48" cy="300" r="2.5" /></g>
+              </svg>
+            </div>
+            <div class="float-card float-card--a">
+              <span class="float-card__ico"><svg class="ico"><use href="#i-clock" /></svg></span>
+              <span><b data-i18n="hero.fc1">Free today</b><small data-i18n="hero.fc1s">15:30 · Manicure with Anna</small></span>
+            </div>
+            <div class="float-card float-card--b">
+              <span class="float-card__ico float-card__ico--gold"><svg class="ico"><use href="#i-star" /></svg></span>
+              <span><b data-i18n="hero.fc2">4.9 rating</b><small data-i18n="hero.fc2s">from 320 happy clients</small></span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Marquee -->
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee__track" id="marqueeTrack">
+          <span data-i18n="mq.1">Manicure</span><span data-i18n="mq.2">Brows &amp; lashes</span><span data-i18n="mq.3">Hair colour</span><span data-i18n="mq.4">Facials</span><span data-i18n="mq.5">Massage</span><span data-i18n="mq.6">Gift cards</span>
+        </div>
+      </div>
+
+      <!-- Services -->
+      <section class="section" id="services">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="sv.kicker">Services &amp; prices</p>
+            <h2 class="section__title" data-i18n="sv.title">Everything for a fresh, polished you</h2>
+            <p class="section__lead" data-i18n="sv.lead">Clear prices, no surprises. Add any treatment straight to your booking.</p>
+          </header>
+          <div class="tabs reveal" id="svcTabs" role="tablist"></div>
+          <div class="svc-grid" id="svcGrid"></div>
+        </div>
+      </section>
+
+      <!-- Nail shade picker -->
+      <section class="section section--rose" id="shades">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="sh.kicker">Try it first</p>
+            <h2 class="section__title" data-i18n="sh.title">Find your nail shade</h2>
+            <p class="section__lead" data-i18n="sh.lead">Tap a colour and see it on the nails. Like it? Add the manicure to your booking in one click.</p>
+          </header>
+          <div class="shades reveal">
+            <div class="shades__hand">
+              <svg viewBox="0 0 320 300" class="hand" id="handArt" role="img" data-i18n-attr="aria-label:sh.alt" aria-label="A hand with painted nails">
+                <defs>
+                  <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f8d9c9" /><stop offset="1" stop-color="#efc0aa" /></linearGradient>
+                  <linearGradient id="gloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75" /><stop offset=".5" stop-color="#fff" stop-opacity="0" /></linearGradient>
+                </defs>
+                <rect x="70" y="150" width="190" height="150" rx="50" fill="url(#skin)" />
+                <rect x="78" y="48" width="38" height="140" rx="19" fill="url(#skin)" />
+                <rect x="122" y="22" width="40" height="170" rx="20" fill="url(#skin)" />
+                <rect x="168" y="34" width="40" height="160" rx="20" fill="url(#skin)" />
+                <rect x="214" y="62" width="36" height="130" rx="18" fill="url(#skin)" />
+                <rect x="28" y="140" width="38" height="112" rx="19" fill="url(#skin)" transform="rotate(-28 47 196)" />
+                <g class="nails" id="nails">
+                  <rect x="82" y="52" width="30" height="40" rx="14" />
+                  <rect x="127" y="26" width="30" height="46" rx="14" />
+                  <rect x="173" y="38" width="30" height="44" rx="14" />
+                  <rect x="217" y="66" width="30" height="38" rx="14" />
+                  <rect x="22" y="132" width="30" height="38" rx="14" transform="rotate(-28 37 151)" />
+                </g>
+                <g fill="url(#gloss)">
+                  <rect x="86" y="56" width="10" height="26" rx="5" /><rect x="131" y="30" width="10" height="30" rx="5" /><rect x="177" y="42" width="10" height="30" rx="5" /><rect x="221" y="70" width="10" height="26" rx="5" />
+                </g>
+              </svg>
+            </div>
+            <div class="shades__panel">
+              <p class="shades__name"><span data-i18n="sh.chosen">Your shade</span> <b id="shadeName">Rose Quartz</b></p>
+              <div class="swatches" id="swatches" role="radiogroup" data-i18n-attr="aria-label:sh.title"></div>
+              <div class="shades__cta">
+                <button type="button" class="btn btn--primary" id="shadeAdd"><svg class="ico"><use href="#i-plus" /></svg><span data-i18n="sh.add">Add manicure in this shade</span></button>
+                <p class="shades__hint" data-i18n="sh.hint">Gel polish · lasts up to 3 weeks · from €38</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team -->
+      <section class="section" id="team">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="tm.kicker">Our team</p>
+            <h2 class="section__title" data-i18n="tm.title">Four masters, one standard</h2>
+            <p class="section__lead" data-i18n="tm.lead">Certified specialists who listen first and then make it beautiful.</p>
+          </header>
+          <div class="grid grid--4">
+            <article class="master reveal">
+              <span class="master__av master__av--1">A</span>
+              <h3>Anna</h3>
+              <p class="master__role" data-i18n="tm.1r">Nail master</p>
+              <p data-i18n="tm.1t">Precise, clean manicure and soft gel designs that stay perfect for weeks.</p>
+              <span class="master__rate"><svg class="ico"><use href="#i-star" /></svg>5.0</span>
+            </article>
+            <article class="master reveal">
+              <span class="master__av master__av--2">M</span>
+              <h3>Marta</h3>
+              <p class="master__role" data-i18n="tm.2r">Hair stylist</p>
+              <p data-i18n="tm.2t">Natural colour, gentle blonding and haircuts that fall right on their own.</p>
+              <span class="master__rate"><svg class="ico"><use href="#i-star" /></svg>4.9</span>
+            </article>
+            <article class="master reveal">
+              <span class="master__av master__av--3">J</span>
+              <h3>Julia</h3>
+              <p class="master__role" data-i18n="tm.3r">Brows &amp; lashes</p>
+              <p data-i18n="tm.3t">Brow shaping, lamination and lash lifts for an open, effortless look.</p>
+              <span class="master__rate"><svg class="ico"><use href="#i-star" /></svg>4.9</span>
+            </article>
+            <article class="master reveal">
+              <span class="master__av master__av--4">E</span>
+              <h3>Elena</h3>
+              <p class="master__role" data-i18n="tm.4r">Face &amp; body therapist</p>
+              <p data-i18n="tm.4t">Facials and relaxing massage that bring back glow and calm.</p>
+              <span class="master__rate"><svg class="ico"><use href="#i-star" /></svg>5.0</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why us -->
+      <section class="section section--tint">
+        <div class="container">
+          <div class="grid grid--4">
+            <div class="why reveal"><span class="why__ico"><svg class="ico"><use href="#i-shield" /></svg></span><h3 data-i18n="wy.1t">Sterile tools</h3><p data-i18n="wy.1p">Every tool is sterilised and sealed before your visit.</p></div>
+            <div class="why reveal"><span class="why__ico"><svg class="ico"><use href="#i-leaf" /></svg></span><h3 data-i18n="wy.2t">Gentle products</h3><p data-i18n="wy.2p">Professional, cruelty-free brands that are kind to skin and nails.</p></div>
+            <div class="why reveal"><span class="why__ico"><svg class="ico"><use href="#i-heart" /></svg></span><h3 data-i18n="wy.3t">A calm atmosphere</h3><p data-i18n="wy.3p">Soft light, quiet music, tea or coffee while you relax.</p></div>
+            <div class="why reveal"><span class="why__ico"><svg class="ico"><use href="#i-gift" /></svg></span><h3 data-i18n="wy.4t">Gift cards</h3><p data-i18n="wy.4p">A thoughtful present for any occasion, valid for 12 months.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Booking -->
+      <section class="section section--plum" id="booking">
+        <div class="container">
+          <header class="section__head section__head--light reveal">
+            <p class="kicker" data-i18n="bk.kicker">Online booking</p>
+            <h2 class="section__title" data-i18n="bk.title">Book your visit</h2>
+            <p class="section__lead" data-i18n="bk.lead">Four quick steps. This is a demo — nothing is really sent or saved.</p>
+          </header>
+
+          <div class="booking reveal">
+            <div class="booking__main">
+              <ol class="stepper" id="stepper">
+                <li class="is-current"><span class="stepper__n">1</span><span class="stepper__t" data-i18n="bk.s1">Services</span></li>
+                <li><span class="stepper__n">2</span><span class="stepper__t" data-i18n="bk.s2">Master</span></li>
+                <li><span class="stepper__n">3</span><span class="stepper__t" data-i18n="bk.s3">Date &amp; time</span></li>
+                <li><span class="stepper__n">4</span><span class="stepper__t" data-i18n="bk.s4">Your details</span></li>
+              </ol>
+
+              <form id="bookingForm" novalidate>
+                <fieldset class="step" data-step="1">
+                  <legend class="step__title" data-i18n="bk.s1.title">What would you like?</legend>
+                  <p class="step__hint" data-i18n="bk.s1.hint">Pick one or more treatments.</p>
+                  <div class="pick" id="svcPick"></div>
+                  <p class="step__error" id="err-services" role="alert" hidden></p>
+                </fieldset>
+
+                <fieldset class="step" data-step="2" hidden>
+                  <legend class="step__title" data-i18n="bk.s2.title">Who would you like to see?</legend>
+                  <p class="step__hint" data-i18n="bk.s2.hint">Choose a master, or the first one who is free.</p>
+                  <div class="masters-pick" id="masterPick"></div>
+                </fieldset>
+
+                <fieldset class="step" data-step="3" hidden>
+                  <legend class="step__title" data-i18n="bk.s3.title">Pick a day and time</legend>
+                  <p class="step__hint" id="slotHint" data-i18n="bk.pickday">Pick a day to see free times.</p>
+                  <div class="date-strip" id="dateStrip" role="listbox"></div>
+                  <div class="slots" id="slots" role="listbox"></div>
+                  <p class="step__error" id="err-time" role="alert" hidden></p>
+                </fieldset>
+
+                <fieldset class="step" data-step="4" hidden>
+                  <legend class="step__title" data-i18n="bk.s4.title">Your details</legend>
+                  <div class="fields">
+                    <div class="field">
+                      <label for="f-name" data-i18n="f.name">Name</label>
+                      <input id="f-name" type="text" autocomplete="name" data-i18n-attr="placeholder:f.name.ph" placeholder="Your name" />
+                      <p class="field__error" id="err-name" hidden></p>
+                    </div>
+                    <div class="field">
+                      <label for="f-phone" data-i18n="f.phone">Phone</label>
+                      <input id="f-phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+48 512 345 678" />
+                      <p class="field__error" id="err-phone" hidden></p>
+                    </div>
+                    <div class="field field--wide">
+                      <label for="f-email" data-i18n="f.email">E-mail</label>
+                      <input id="f-email" type="email" inputmode="email" autocomplete="email" placeholder="name@mail.com" />
+                      <p class="field__error" id="err-email" hidden></p>
+                    </div>
+                    <div class="field field--wide">
+                      <label for="f-notes" data-i18n="f.notes">Wishes (optional)</label>
+                      <textarea id="f-notes" rows="3" data-i18n-attr="placeholder:f.notes.ph" placeholder="Anything we should know?"></textarea>
+                    </div>
+                    <div class="consent field--wide">
+                      <input id="f-consent" type="checkbox" />
+                      <label for="f-consent" data-i18n="f.consent">I agree to the processing of my data to handle this booking (GDPR). Demo — nothing is stored.</label>
+                      <p class="field__error" id="err-consent" hidden></p>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <div class="step__nav">
+                  <button type="button" class="btn btn--soft" id="btnPrev" hidden data-i18n="bk.back">Back</button>
+                  <button type="button" class="btn btn--primary" id="btnNext"><span data-i18n="bk.next">Next</span><svg class="ico"><use href="#i-arrow" /></svg></button>
+                  <button type="submit" class="btn btn--primary" id="btnConfirm" hidden><svg class="ico"><use href="#i-check" /></svg><span data-i18n="bk.confirm">Confirm booking</span></button>
+                </div>
+              </form>
+
+              <div class="success" id="success" hidden aria-live="polite">
+                <span class="success__tick"><svg class="ico"><use href="#i-check" /></svg></span>
+                <h3 data-i18n="ok.title">You are booked in!</h3>
+                <p id="okText"></p>
+                <p class="success__code"><span data-i18n="ok.code">Booking code</span><strong id="okCode">BL-00000</strong></p>
+                <div class="mails">
+                  <div class="mail">
+                    <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail1.head">E-mail to the studio</span></div>
+                    <p class="mail__to" id="mail1To"></p>
+                    <p class="mail__subj" id="mail1Subj"></p>
+                    <p class="mail__body" id="mail1Body"></p>
+                  </div>
+                  <div class="mail mail--b">
+                    <div class="mail__bar"><svg class="ico"><use href="#i-mail" /></svg><span data-i18n="mail2.head">Confirmation to you</span></div>
+                    <p class="mail__to" id="mail2To"></p>
+                    <p class="mail__subj" id="mail2Subj"></p>
+                    <p class="mail__body" id="mail2Body"></p>
+                  </div>
+                </div>
+                <button type="button" class="btn btn--soft" id="btnAgain" data-i18n="ok.again">Make another booking</button>
+              </div>
+            </div>
+
+            <aside class="summary" aria-live="polite">
+              <h3 data-i18n="sum.title">Your visit</h3>
+              <ul class="summary__list" id="sumList"></ul>
+              <p class="summary__empty" id="sumEmpty" data-i18n="sum.empty">Nothing selected yet.</p>
+              <dl class="summary__meta">
+                <div><dt data-i18n="sum.master">Master</dt><dd id="sumMaster">—</dd></div>
+                <div><dt data-i18n="sum.when">Date &amp; time</dt><dd id="sumWhen">—</dd></div>
+                <div><dt data-i18n="sum.shade">Nail shade</dt><dd id="sumShade">—</dd></div>
+                <div><dt data-i18n="sum.dur">Duration</dt><dd id="sumDur">—</dd></div>
+              </dl>
+              <div class="summary__total"><span data-i18n="sum.total">Total</span><strong id="sumTotal">€0</strong></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Reviews -->
+      <section class="section" id="reviews">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="rv.kicker">Reviews</p>
+            <h2 class="section__title" data-i18n="rv.title">Loved by our clients</h2>
+          </header>
+          <div class="grid grid--3">
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.1">“My manicure looked perfect for three weeks. Anna is simply a magician, and the studio feels like a spa.”</blockquote>
+              <figcaption><b data-i18n="rv.1n">Katarzyna W.</b><span data-i18n="rv.1r">Gel manicure</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.2">“Marta understood exactly what I wanted. Soft balayage, no yellow, and I did not have to explain twice.”</blockquote>
+              <figcaption><b data-i18n="rv.2n">Sophie M.</b><span data-i18n="rv.2r">Balayage</span></figcaption>
+            </figure>
+            <figure class="quote reveal">
+              <div class="stars" aria-label="5 / 5"><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg><svg class="ico"><use href="#i-star" /></svg></div>
+              <blockquote data-i18n="rv.3">“Online booking took one minute and the reminder arrived on time. I came for brows and stayed for a facial.”</blockquote>
+              <figcaption><b data-i18n="rv.3n">Olga S.</b><span data-i18n="rv.3r">Brows &amp; facial</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section section--tint" id="faq">
+        <div class="container container--narrow">
+          <header class="section__head reveal">
+            <p class="kicker" data-i18n="faq.kicker">FAQ</p>
+            <h2 class="section__title" data-i18n="faq.title">Good questions</h2>
+          </header>
+          <div class="faq">
+            <details class="reveal"><summary data-i18n="q1">Can I change or cancel my booking?</summary><p data-i18n="a1">Yes. Just let us know at least 12 hours before the visit and we will move it free of charge.</p></details>
+            <details class="reveal"><summary data-i18n="q2">How long does gel polish last?</summary><p data-i18n="a2">Usually up to three weeks, depending on your nails and daily care. We give you care tips after every visit.</p></details>
+            <details class="reveal"><summary data-i18n="q3">Do you work with sensitive skin?</summary><p data-i18n="a3">Yes. Tell us about any allergies when you book and your master will choose gentle products for you.</p></details>
+            <details class="reveal"><summary data-i18n="q4">Can I bring a friend?</summary><p data-i18n="a4">Of course — book two neighbouring times or ask for a double visit and enjoy it together.</p></details>
+            <details class="reveal"><summary data-i18n="q5">What payment methods do you accept?</summary><p data-i18n="a5">Card, mobile payment and cash. Gift cards are welcome too.</p></details>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact -->
+      <section class="section" id="contacts">
+        <div class="container">
+          <div class="cta reveal">
+            <div>
+              <h2 data-i18n="ct.title">See you at Bloom</h2>
+              <p data-i18n="ct.lead">Questions about a treatment or a gift card? Write or call us — we answer within one working day.</p>
+              <p class="cta__hours"><svg class="ico"><use href="#i-clock" /></svg><span data-i18n="ct.hours">Mon–Sat 10:00–20:00 · Sun closed</span></p>
+            </div>
+            <ul class="cta__list">
+              <li><svg class="ico"><use href="#i-phone" /></svg><a data-contact="phone" data-contact-href="phone" href="tel:+000000000000">+00 000 000 0000</a></li>
+              <li><svg class="ico"><use href="#i-mail" /></svg><a data-contact="email" data-contact-href="email" href="mailto:info@your-domain.com">info@your-domain.com</a></li>
+              <li><svg class="ico"><use href="#i-pin" /></svg><span data-contact="address" data-i18n="ct.addr">Your Street 1, 00000 Your City, Country</span></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <span>© <span id="year">2026</span> Bloom Beauty Studio</span>
+        <span data-i18n="ft.demo">Demo website — no real bookings or e-mails are sent.</span>
+        <a href="#top" data-i18n="ft.top">Back to top ↑</a>
+      </div>
+    </footer>
+
+    <a class="cart" id="cart" href="#booking" hidden><svg class="ico"><use href="#i-heart" /></svg><span id="cartText"></span><b id="cartTotal"></b></a>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="js/config.js?v=1"></script>
+    <script src="js/i18n.js?v=1"></script>
+    <script src="js/script.js?v=1"></script>
+  </body>
+</html>

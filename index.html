@@ -20,7 +20,7 @@
 <script>try{var n=navigator,c=n.connection||{};if((n.hardwareConcurrency&&n.hardwareConcurrency<=4)||(n.deviceMemory&&n.deviceMemory<=4)||c.saveData){document.documentElement.className+=' perf-lite'}}catch(e){}</script>
 <script>
 (function(){
-  var PAGE_BUILD = 66;
+  var PAGE_BUILD = 67;
   try {
     fetch("version.json?_=" + Date.now(), { cache: "no-store" })
       .then(function(r){ return r.ok ? r.text() : null; })
@@ -99,7 +99,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 
-<link rel="stylesheet" href="css/style.css?v=106">
+<link rel="stylesheet" href="css/style.css?v=107">
 </head>
 <body>
 
@@ -546,6 +546,43 @@
     </div>
     </details>
 
+    <!-- PROJECT 6 — Beauty Salon (women) / full demo website.
+         The complete site lives in demos/women/ (its own index.html,
+         css/ and js/) and opens in a new tab; same frame style as Project 1. -->
+    <details class="project-toggle" id="project6">
+      <summary class="project-summary">
+        <span class="project-summary-text">
+          <span class="project-category" data-i18n="p6_category">Beauty Salon</span>
+          <span class="project-summary-line">
+            <span class="project-summary-title" data-i18n="p6_title">Beauty Studio Website</span>
+            <span class="tag" data-i18n="project_demo_tag">Demo concept</span>
+          </span>
+        </span>
+        <span class="fold-cta" aria-hidden="true"><span class="fold-hint fold-hint--show" data-i18n="fold_show">Show</span><span class="fold-hint fold-hint--hide" data-i18n="fold_hide">Hide</span><span class="case-chevron fold-chevron"></span></span>
+      </summary>
+    <div class="project">
+      <div class="project-mock">
+        <a class="featured-frame" href="demos/women/index.html" target="_blank" rel="noopener">
+          <div class="mock-window">
+            <span class="mock-dot"></span><span class="mock-dot"></span><span class="mock-dot"></span>
+            <span class="mock-url">Bloom — demo</span>
+          </div>
+          <img src="images/women-demo.jpg?v=1" alt="Screenshot of the Bloom beauty studio demo website" data-i18n-alt="alt_p6" width="960" height="600" loading="lazy" decoding="async">
+        </a>
+      </div>
+      <div>
+        <p class="desc" data-i18n="p6_desc">A complete website for a women's beauty studio: services with prices, a nail-shade picker, masters, online booking in four steps and the e-mails you and your client receive.</p>
+        <ul class="case-list project-features">
+          <li data-i18n="p6_feat_1">4 languages: EN / PL / DE / RU</li>
+          <li data-i18n="p6_feat_2">Try a nail shade and add it to your booking</li>
+          <li data-i18n="p6_feat_3">Pick a master, a day and a time, then confirm</li>
+          <li data-i18n="p6_feat_4">Works on phones, tablets and computers</li>
+        </ul>
+        <a class="btn btn--primary cta-btn" href="demos/women/index.html" target="_blank" rel="noopener" data-i18n="p6_cta">Open demo site →</a>
+      </div>
+    </div>
+    </details>
+
   </div>
 </section>
 
@@ -809,6 +846,6 @@
   </div>
 </footer>
 
-<script src="js/script.js?v=91" defer></script>
+<script src="js/script.js?v=92" defer></script>
 </body>
 </html>
