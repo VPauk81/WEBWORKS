@@ -1401,6 +1401,9 @@
       var fd = new URLSearchParams();
       fd.append("data", JSON.stringify(payload));
       fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
+      // second delivery path for browsers that drop keepalive requests while the page closes (the sheet
+      // handles a repeated "left" harmlessly)
+      if (navigator.sendBeacon){ try { navigator.sendBeacon(WEBWORKS_SCRIPT_URL, fd); } catch (e2) { /* ignore */ } }
     } catch (err) { /* statistics must never break the site */ }
   }
   window.addEventListener("pagehide", sendLeftBeacon);
