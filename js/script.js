@@ -2542,8 +2542,7 @@
     v.addEventListener("pause", function(){
       if (v.ended) return;
       wasPaused = true;
-      clearTimeout(timer);
-      timer = setTimeout(send, 1500);
+      send("stop");
     });
     v.addEventListener("ended", function(){ ended = true; send(); });
     v.addEventListener("emptied", function(){ startedSent = false; });

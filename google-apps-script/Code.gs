@@ -1151,6 +1151,21 @@ function logVisit(data) {
 
   if (isBotUserAgent_(data.userAgent)) return;
 
+  // Быстрый путь для видео: без блокировки и без проверки заголовков листа —
+  // правится одна ячейка, поэтому статус в таблице появляется сразу
+  if (data.event === "video_progress") {
+    const vSheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
+    const vId = String(data.visitId || "").trim();
+    const vLast = vSheet ? vSheet.getLastRow() : 0;
+    if (vId && vLast > 1) {
+      const found = vSheet.getRange(2, VCOL.id + 1, vLast - 1, 1)
+        .createTextFinder(vId).matchEntireCell(true).findNext();
+      if (found) writeVideoCell_(vSheet, found.getRow(), data);
+      SpreadsheetApp.flush();
+    }
+    return;
+  }
+
   const lock = LockService.getScriptLock();
   let locked = false;
 
