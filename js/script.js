@@ -2525,8 +2525,6 @@
         });
         var fd = new URLSearchParams();
         fd.append("data", JSON.stringify(payload));
-        // sendBeacon survives the page closing better than fetch
-        if (state === "left" && navigator.sendBeacon && navigator.sendBeacon(WEBWORKS_SCRIPT_URL, fd)) return;
         fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
       } catch (err) { /* statistics must never break the site */ }
     }
@@ -2544,6 +2542,9 @@
     v.addEventListener("pause", function(){
       if (v.ended) return;
       wasPaused = true;
+      // The browser pauses the video itself when the tab is closed / hidden: that pause is not
+      // the visitor's, and its "stopped" beacon would overwrite the "left the site" status.
+      if (gone || document.hidden) return;
       send("stop");
     });
     v.addEventListener("ended", function(){ ended = true; send(); });
@@ -2551,11 +2552,19 @@
     v.addEventListener("emptied", function(){ watched = 0; lastT = null; ended = false; });
     // Left the site (or hid the tab) while the video was playing; coming back with it still playing = "resume"
     // (also when the video was paused: the visitor started it and then left the site)
-    function leaving(){ if (startedSent && !v.ended && !ended) send("left"); }
+    var gone = false;
+    function leaving(){
+      if (gone) return;
+      gone = true;
+      if (startedSent && !v.ended && !ended) send("left");
+    }
     window.addEventListener("pagehide", leaving);
+    window.addEventListener("pageshow", function(){ gone = false; });
     document.addEventListener("visibilitychange", function(){
       if (document.hidden){ leaving(); wasPaused = true; }
-      else if (startedSent && !v.ended && !ended){
+      else {
+        gone = false;
+        if (!startedSent || v.ended || ended) return;
         if (!v.paused){ wasPaused = false; send("resume"); } else { send("stop"); }
       }
     });
