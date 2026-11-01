@@ -48,6 +48,13 @@ function doGet(e) {
     return getStats(e);
   }
 
+  // Открыть <адрес веб-приложения>?action=setup — сразу создаст/обновит
+  // столбцы листа Visits (в т.ч. "Просмотр видео"), не дожидаясь визита
+  if (action === "setup") {
+    setupVisitsSheet();
+    return ContentService.createTextOutput("Visits: столбцы обновлены");
+  }
+
   return ContentService.createTextOutput("OK");
 
 }
@@ -1066,6 +1073,19 @@ function getOrCreateVisitsSheet() {
   ensureVisitsControls_(sheet);
 
   return sheet;
+}
+
+// Ручной запуск (выбрать функцию в редакторе → Выполнить): приводит лист
+// Visits к актуальным столбцам сразу, без ожидания нового посетителя
+function setupVisitsSheet() {
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    getOrCreateVisitsSheet();
+    SpreadsheetApp.flush();
+  } finally {
+    lock.releaseLock();
+  }
 }
 
 function extractDomain(url) {
