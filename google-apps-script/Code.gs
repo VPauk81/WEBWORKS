@@ -554,7 +554,7 @@ function writeVideoCell_(sheet, row, data) {
     return;
   }
 
-  if (watched < 1 && state !== "end" && state !== "left") return;
+  if (watched < 1 && state !== "end") return;
 
   // Закрыли вкладку / ушли с сайта во время просмотра
   if (state === "left") {
@@ -601,10 +601,13 @@ function cut_(value, max) {
 const EVENT_LABELS = {
   pageview: "Просмотр страницы",
   language_view: "Смена языка",
-  // Нажали «Написать мне», форма открылась, но заявка ещё не отправлена
-  inquiry_form_opened: "Пишут свои данные",
-  inquiry_started: "Начали заполнять заявку",
-  inquiry_sent: "Отправили заявку"
+  // Нажали «Написать мне», форма открылась, но данные ещё не вводят
+  inquiry_form_opened: "Открыли описание",
+  // Начали вводить свои данные в форме
+  inquiry_started: "Пишут свои данные",
+  inquiry_sent: "Отправили заявку",
+  // Закрыли вкладку / ушли с сайта / свернули браузер
+  site_left: "Покинул сайт"
 };
 
 function eventLabel(key) {
@@ -620,8 +623,11 @@ function eventKeyFromLabel(label) {
 
 // Прежние названия событий — в уже записанных строках, цепочках и
 // сводке они остаются, поэтому по-прежнему узнаются при подсчёте
+// (В старых строках "Пишут свои данные" означало открытие формы, теперь это
+// ввод данных — такие старые строки в воронке могут считаться как "начали".)
 const LEGACY_EVENT_LABELS = {
-  "Открыли форму заявки": "inquiry_form_opened"
+  "Открыли форму заявки": "inquiry_form_opened",
+  "Начали заполнять заявку": "inquiry_started"
 };
 
 // В "Пути посетителя" есть шаг этого события (по новому или старому названию)?
@@ -1203,6 +1209,9 @@ function logVisit(data) {
       SpreadsheetApp.flush();
       return;
     }
+
+    // "Покинул сайт" только дописывается в уже существующую строку посетителя
+    if (data.event === "site_left" && !row) return;
 
     if (row) {
 

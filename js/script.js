@@ -1388,6 +1388,24 @@
     } catch (err) { /* statistics must never break the site */ }
   }
 
+  // "Left the site": tab closed / page left / browser minimised. Not de-duplicated per visit (the visitor
+  // may come back and act again), only against the pagehide + visibilitychange pair firing together.
+  var lastLeftSent = 0;
+  function sendLeftBeacon(){
+    if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1 || !isRealVisit()) return;
+    var now = Date.now();
+    if (now - lastLeftSent < 2000) return;
+    lastLeftSent = now;
+    try {
+      var payload = Object.assign({ type: "visit", event: "site_left", visitId: getVisitSession().id }, buildVisitorContext());
+      var fd = new URLSearchParams();
+      fd.append("data", JSON.stringify(payload));
+      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
+    } catch (err) { /* statistics must never break the site */ }
+  }
+  window.addEventListener("pagehide", sendLeftBeacon);
+  document.addEventListener("visibilitychange", function(){ if (document.hidden) sendLeftBeacon(); });
+
   var sentFunnelEvents = {};
   function trackEvent(eventName){
     if (sentFunnelEvents[eventName]) return;
