@@ -2509,9 +2509,11 @@
     if (!v) return;
     var watched = 0, lastT = null, timer = 0, ended = false;
     var startedSent = false;
-    function send(started){
+    var wasPaused = false;
+    function send(state){
       clearTimeout(timer);
-      if (started !== true && watched < 1 && !ended) return;
+      if (!state) state = ended ? "end" : "stop";
+      if (state === "stop" && watched < 1) return;
       if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1 || !isRealVisit()) return;
       try {
         var payload = Object.assign({ type: "visit", event: "video_progress", visitId: getVisitSession().id }, buildVisitorContext(), {
@@ -2519,7 +2521,7 @@
           videoDuration: Math.round(v.duration || 0),
           videoWatched: Math.round(watched),
           videoEnded: ended,
-          videoStarted: started === true
+          videoState: state
         });
         var fd = new URLSearchParams();
         fd.append("data", JSON.stringify(payload));
@@ -2528,7 +2530,8 @@
     }
     v.addEventListener("playing", function(){
       clearTimeout(timer); ended = false; lastT = v.currentTime;
-      if (!startedSent){ startedSent = true; send(true); }
+      if (!startedSent){ startedSent = true; wasPaused = false; send("start"); }
+      else if (wasPaused){ wasPaused = false; send("resume"); }
     });
     v.addEventListener("timeupdate", function(){
       var t = v.currentTime;
@@ -2538,13 +2541,18 @@
     v.addEventListener("seeking", function(){ lastT = null; });
     v.addEventListener("pause", function(){
       if (v.ended) return;
+      wasPaused = true;
       clearTimeout(timer);
       timer = setTimeout(send, 1500);
     });
     v.addEventListener("ended", function(){ ended = true; send(); });
     v.addEventListener("emptied", function(){ startedSent = false; });
     v.addEventListener("emptied", function(){ watched = 0; lastT = null; ended = false; });
-    window.addEventListener("pagehide", function(){ if (!v.paused && !v.ended) send(); });
-    document.addEventListener("visibilitychange", function(){ if (document.hidden && !v.paused && !v.ended) send(); });
+    // Left the site (or hid the tab) while the video was playing; coming back with it still playing = "resume"
+    window.addEventListener("pagehide", function(){ if (!v.paused && !v.ended) send("left"); });
+    document.addEventListener("visibilitychange", function(){
+      if (document.hidden){ if (!v.paused && !v.ended){ send("left"); wasPaused = true; } }
+      else if (!v.paused && !v.ended && wasPaused){ wasPaused = false; send("resume"); }
+    });
   })();
 })();

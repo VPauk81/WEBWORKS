@@ -528,26 +528,42 @@ function videoTimeLabel_(sec) {
 //   досмотрел до конца  -> зелёная, "✅ Досмотрел — смотрел 1 мин 28 сек из 1 мин 30 сек"
 //   остановил посередине -> жёлтая,  "⏸ Остановил на 42 сек (видео 1 мин 30 сек)"
 //   только нажал play    -> голубая,  "▶ Начал смотреть"
+//   play после паузы     -> голубая,  "▶ Продолжил смотреть с 42 сек"
+//   закрыл сайт во время -> оранжевая "🚪 Вышел с сайта на 42 сек (видео …)"
 // Если досмотрел один раз, повторные просмотры зелёную отметку не затирают.
 function writeVideoCell_(sheet, row, data) {
   const cell = sheet.getRange(row, VCOL.video + 1);
   if (String(cell.getValue() || "").indexOf("✅") === 0) return;
 
-  // Только нажали play: пишем "начал смотреть", но уже записанное
-  // (остановил / досмотрел) не затираем
-  if (data.videoStarted) {
+  const duration = Number(data.videoDuration) || 0;
+  const position = Number(data.videoPosition) || 0;
+  const watched = Number(data.videoWatched) || 0;
+  const state = String(data.videoState || (data.videoEnded ? "end" : "stop"));
+
+  // Первый play — только если ячейка ещё пустая
+  if (state === "start") {
     if (String(cell.getValue() || "").trim() === "") {
       cell.setValue("▶ Начал смотреть").setBackground("#bbdefb");
     }
     return;
   }
 
-  const duration = Number(data.videoDuration) || 0;
-  const position = Number(data.videoPosition) || 0;
-  const watched = Number(data.videoWatched) || 0;
-  if (watched < 1 && !data.videoEnded) return;
+  // После паузы нажали play снова
+  if (state === "resume") {
+    cell.setValue("▶ Продолжил смотреть с " + videoTimeLabel_(position)).setBackground("#bbdefb");
+    return;
+  }
 
-  if (data.videoEnded) {
+  if (watched < 1 && state !== "end") return;
+
+  // Закрыли вкладку / ушли с сайта во время просмотра
+  if (state === "left") {
+    cell.setValue("🚪 Вышел с сайта на " + videoTimeLabel_(position) +
+      " (видео " + videoTimeLabel_(duration) + ")").setBackground("#ffcc80");
+    return;
+  }
+
+  if (state === "end") {
     cell.setValue("✅ Досмотрел — смотрел " + videoTimeLabel_(watched || duration) +
       " из " + videoTimeLabel_(duration)).setBackground("#a5d6a7");
   } else {
