@@ -527,10 +527,20 @@ function videoTimeLabel_(sec) {
 // Пишет в ячейку "Просмотр видео" строки посетителя:
 //   досмотрел до конца  -> зелёная, "✅ Досмотрел — смотрел 1 мин 28 сек из 1 мин 30 сек"
 //   остановил посередине -> жёлтая,  "⏸ Остановил на 42 сек (видео 1 мин 30 сек)"
+//   только нажал play    -> голубая,  "▶ Начал смотреть"
 // Если досмотрел один раз, повторные просмотры зелёную отметку не затирают.
 function writeVideoCell_(sheet, row, data) {
   const cell = sheet.getRange(row, VCOL.video + 1);
   if (String(cell.getValue() || "").indexOf("✅") === 0) return;
+
+  // Только нажали play: пишем "начал смотреть", но уже записанное
+  // (остановил / досмотрел) не затираем
+  if (data.videoStarted) {
+    if (String(cell.getValue() || "").trim() === "") {
+      cell.setValue("▶ Начал смотреть").setBackground("#bbdefb");
+    }
+    return;
+  }
 
   const duration = Number(data.videoDuration) || 0;
   const position = Number(data.videoPosition) || 0;

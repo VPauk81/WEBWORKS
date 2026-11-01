@@ -2508,23 +2508,28 @@
     var v = document.getElementById("introVideo");
     if (!v) return;
     var watched = 0, lastT = null, timer = 0, ended = false;
-    function send(){
+    var startedSent = false;
+    function send(started){
       clearTimeout(timer);
-      if (watched < 1 && !ended) return;
+      if (started !== true && watched < 1 && !ended) return;
       if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1 || !isRealVisit()) return;
       try {
         var payload = Object.assign({ type: "visit", event: "video_progress", visitId: getVisitSession().id }, buildVisitorContext(), {
           videoPosition: Math.round(v.currentTime),
           videoDuration: Math.round(v.duration || 0),
           videoWatched: Math.round(watched),
-          videoEnded: ended
+          videoEnded: ended,
+          videoStarted: started === true
         });
         var fd = new URLSearchParams();
         fd.append("data", JSON.stringify(payload));
         fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
       } catch (err) { /* statistics must never break the site */ }
     }
-    v.addEventListener("playing", function(){ clearTimeout(timer); ended = false; lastT = v.currentTime; });
+    v.addEventListener("playing", function(){
+      clearTimeout(timer); ended = false; lastT = v.currentTime;
+      if (!startedSent){ startedSent = true; send(true); }
+    });
     v.addEventListener("timeupdate", function(){
       var t = v.currentTime;
       if (lastT !== null && t >= lastT && t - lastT < 1.5 && !v.paused){ watched += t - lastT; }
@@ -2537,6 +2542,7 @@
       timer = setTimeout(send, 1500);
     });
     v.addEventListener("ended", function(){ ended = true; send(); });
+    v.addEventListener("emptied", function(){ startedSent = false; });
     v.addEventListener("emptied", function(){ watched = 0; lastT = null; ended = false; });
     window.addEventListener("pagehide", function(){ if (!v.paused && !v.ended) send(); });
     document.addEventListener("visibilitychange", function(){ if (document.hidden && !v.paused && !v.ended) send(); });
