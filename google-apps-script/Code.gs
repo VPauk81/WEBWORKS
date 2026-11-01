@@ -1172,6 +1172,31 @@ function logVisit(data) {
     return;
   }
 
+  // Быстрый путь для "Покинул сайт" (как у видео): без блокировки и проверки
+  // заголовков — только дописывается в уже существующую строку посетителя
+  if (data.event === "site_left") {
+    const lSheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
+    const lId = String(data.visitId || "").trim();
+    const lLast = lSheet ? lSheet.getLastRow() : 0;
+    if (lId && lLast > 1) {
+      const lFound = lSheet.getRange(2, VCOL.id + 1, lLast - 1, 1)
+        .createTextFinder(lId).matchEntireCell(true).findNext();
+      if (lFound) {
+        const lRow = lFound.getRow();
+        const lLabel = eventLabel("site_left");
+        const pathCell = lSheet.getRange(lRow, VCOL.path + 1);
+        const lSteps = String(pathCell.getValue() || "").split(" → ").filter(Boolean);
+        if (lSteps[lSteps.length - 1] !== lLabel) lSteps.push(lLabel);
+        lSheet.getRange(lRow, VCOL.event + 1).setValue(lLabel);
+        pathCell.setValue(lSteps.join(" → "));
+        lSheet.getRange(lRow, VCOL.last + 1)
+          .setValue(Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm"));
+        SpreadsheetApp.flush();
+      }
+    }
+    return;
+  }
+
   const lock = LockService.getScriptLock();
   let locked = false;
 
