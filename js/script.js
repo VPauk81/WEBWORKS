@@ -2525,6 +2525,8 @@
         });
         var fd = new URLSearchParams();
         fd.append("data", JSON.stringify(payload));
+        // sendBeacon survives the page closing better than fetch
+        if (state === "left" && navigator.sendBeacon && navigator.sendBeacon(WEBWORKS_SCRIPT_URL, fd)) return;
         fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
       } catch (err) { /* statistics must never break the site */ }
     }
@@ -2548,10 +2550,14 @@
     v.addEventListener("emptied", function(){ startedSent = false; });
     v.addEventListener("emptied", function(){ watched = 0; lastT = null; ended = false; });
     // Left the site (or hid the tab) while the video was playing; coming back with it still playing = "resume"
-    window.addEventListener("pagehide", function(){ if (!v.paused && !v.ended) send("left"); });
+    // (also when the video was paused: the visitor started it and then left the site)
+    function leaving(){ if (startedSent && !v.ended && !ended) send("left"); }
+    window.addEventListener("pagehide", leaving);
     document.addEventListener("visibilitychange", function(){
-      if (document.hidden){ if (!v.paused && !v.ended){ send("left"); wasPaused = true; } }
-      else if (!v.paused && !v.ended && wasPaused){ wasPaused = false; send("resume"); }
+      if (document.hidden){ leaving(); wasPaused = true; }
+      else if (startedSent && !v.ended && !ended){
+        if (!v.paused){ wasPaused = false; send("resume"); } else { send("stop"); }
+      }
     });
   })();
 })();

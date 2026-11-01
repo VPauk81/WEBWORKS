@@ -554,7 +554,7 @@ function writeVideoCell_(sheet, row, data) {
     return;
   }
 
-  if (watched < 1 && state !== "end") return;
+  if (watched < 1 && state !== "end" && state !== "left") return;
 
   // Закрыли вкладку / ушли с сайта во время просмотра
   if (state === "left") {
