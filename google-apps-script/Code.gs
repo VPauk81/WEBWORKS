@@ -494,7 +494,7 @@ const VISITS_SHEET_NAME = "Visits";
 // на него завязаны индексы VCOL ниже. Новые поля — только в конец.
 const VISITS_HEADERS = [
   "Дата/время (моё, Europe/Warsaw)", "Метка времени (raw)", "Событие",
-  "Язык сайта", "Язык браузера", "Часовой пояс (посетителя)",
+  "Язык сайта", "Язык браузера", "Просмотр видео", "Часовой пояс (посетителя)",
   "Источник (домен)", "Referrer (полный)", "UTM Source", "UTM Medium",
   "UTM Campaign", "Устройство", "Разрешение экрана", "Страница",
   "User-Agent", "Страна (догадка по часовому поясу)",
@@ -504,10 +504,40 @@ const VISITS_HEADERS = [
 
 // Номера столбцов (0-based) листа "Visits"
 const VCOL = {
-  time: 0, raw: 1, event: 2, siteLang: 3, browserLang: 4, timezone: 5,
-  domain: 6, device: 11, page: 13, ua: 14, country: 15,
-  localTime: 16, id: 17, path: 18, langs: 19, last: 20
+  time: 0, raw: 1, event: 2, siteLang: 3, browserLang: 4, video: 5, timezone: 6,
+  domain: 7, device: 12, page: 14, ua: 15, country: 16,
+  localTime: 17, id: 18, path: 19, langs: 20, last: 21
 };
+const VIDEO_HEADER = "Просмотр видео";
+
+// Время для ячейки "Просмотр видео": 92 -> "1 мин 32 сек"
+function videoTimeLabel_(sec) {
+  const s = Math.max(0, Math.round(Number(sec) || 0));
+  const m = Math.floor(s / 60);
+  return (m ? m + " мин " : "") + (s % 60) + " сек";
+}
+
+// Пишет в ячейку "Просмотр видео" строки посетителя:
+//   досмотрел до конца  -> зелёная, "✅ Досмотрел — смотрел 1 мин 28 сек из 1 мин 30 сек"
+//   остановил посередине -> жёлтая,  "⏸ Остановил на 42 сек (видео 1 мин 30 сек)"
+// Если досмотрел один раз, повторные просмотры зелёную отметку не затирают.
+function writeVideoCell_(sheet, row, data) {
+  const cell = sheet.getRange(row, VCOL.video + 1);
+  if (String(cell.getValue() || "").indexOf("✅") === 0) return;
+
+  const duration = Number(data.videoDuration) || 0;
+  const position = Number(data.videoPosition) || 0;
+  const watched = Number(data.videoWatched) || 0;
+  if (watched < 1 && !data.videoEnded) return;
+
+  if (data.videoEnded) {
+    cell.setValue("✅ Досмотрел — смотрел " + videoTimeLabel_(watched || duration) +
+      " из " + videoTimeLabel_(duration)).setBackground("#a5d6a7");
+  } else {
+    cell.setValue("⏸ Остановил на " + videoTimeLabel_(position) +
+      " (видео " + videoTimeLabel_(duration) + ")").setBackground("#fff3b0");
+  }
+}
 
 // Настоящий посетитель = страница открыта с живого адреса сайта и не
 // автоматическим браузером. Локальные копии (file://, Live Server на
@@ -1004,6 +1034,13 @@ function getOrCreateVisitsSheet() {
   // не пишем в Таблицу на каждое событие); новые столбцы — в конец,
   // существующие данные не трогаем.
   const hasAny = sheet.getLastRow() > 0;
+
+  // Один раз вставляем столбец "Просмотр видео" после "Язык браузера":
+  // существующие данные и галочки сдвигаются вправо вместе со столбцами
+  if (hasAny && String(sheet.getRange(1, VCOL.video + 1).getValue()) !== VIDEO_HEADER) {
+    sheet.insertColumnAfter(VCOL.browserLang + 1);
+  }
+
   const current = hasAny
     ? sheet.getRange(1, 1, 1, VISITS_HEADERS.length).getValues()[0]
     : [];
@@ -1017,6 +1054,7 @@ function getOrCreateVisitsSheet() {
     sheet.getRange(1, VCOL.country + 1).setBackground("#1baf7a").setFontColor("#ffffff");
     sheet.setColumnWidth(1, 190);
     sheet.setColumnWidth(VCOL.event + 1, 190);
+    sheet.setColumnWidth(VCOL.video + 1, 300);
     sheet.setColumnWidth(VCOL.timezone + 1, 170);
     sheet.setColumnWidth(VCOL.country + 1, 200);
     sheet.setColumnWidth(VCOL.path + 1, 420);
@@ -1097,6 +1135,14 @@ function logVisit(data) {
       }
     }
 
+    // Прогресс просмотра видео — только ячейка "Просмотр видео", без
+    // новых шагов в пути и без пересчёта Дашборда
+    if (data.event === "video_progress") {
+      if (row) writeVideoCell_(sheet, row, data);
+      SpreadsheetApp.flush();
+      return;
+    }
+
     if (row) {
 
       // ---- тот же посетитель: обновляем строку ----
@@ -1121,6 +1167,7 @@ function logVisit(data) {
         label,
         lang,
         data.browserLang || "",
+        "",                                    // Просмотр видео — заполняется позже
         data.timezone || "",
         extractDomain(data.referrer),
         cut_(data.referrer, 200),
@@ -1551,9 +1598,9 @@ function archiveOldVisits() {
 }
 
 // =======================
-// ГАЛОЧКИ ОЧИСТКИ — в листах "Visits" (W1, Y1) и "Дашборд" (A3, F3).
+// ГАЛОЧКИ ОЧИСТКИ — в листах "Visits" (X1, Z1) и "Дашборд" (A3, F3).
 // Работают и в приложении Google Таблицы на телефоне. После выполнения
-// галочка снимается сама, результат пишется рядом (Visits!AA1 и строка
+// галочка снимается сама, результат пишется рядом (Visits!AB1 и строка
 // "Обновлено" на Дашборде).
 //   🧹 Очистить лист  — старые визиты сворачиваются в "VisitsArchive",
 //                        лист Visits пустой, статистика СОХРАНЯЕТСЯ
@@ -1562,14 +1609,14 @@ function archiveOldVisits() {
 // Срабатывают через уже установленный триггер checkStatusChanges
 // ("При редактировании") — отдельный триггер не нужен.
 // =======================
-const VISITS_CTRL = { keep: 23, all: 25, note: 27 };   // W, Y, AA
+const VISITS_CTRL = { keep: 24, all: 26, note: 28 };   // X, Z, AB
 const DASH_CTRL = { row: 3, keep: 1, all: 6 };         // A3, F3
 const CLEAR_NOTE_PROP = "VISITS_LAST_ACTION";
 
 function ensureVisitsControls_(sheet) {
 
-  if (sheet.getMaxColumns() < 28) {
-    sheet.insertColumnsAfter(sheet.getMaxColumns(), 28 - sheet.getMaxColumns());
+  if (sheet.getMaxColumns() < 29) {
+    sheet.insertColumnsAfter(sheet.getMaxColumns(), 29 - sheet.getMaxColumns());
   }
 
   if (String(sheet.getRange(1, VISITS_CTRL.keep, 1, 3).getValues()[0].join("")).trim() !== "") return;
