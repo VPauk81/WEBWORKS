@@ -993,7 +993,8 @@
 
   var ctaButtons = document.querySelectorAll(".cta-btn");
   for (var c = 0; c < ctaButtons.length; c++){
-    ctaButtons[c].addEventListener("click", playCtaClickSound);
+    // the sound is played right AFTER the click is handled, so creating the audio engine never delays opening a link
+    ctaButtons[c].addEventListener("click", function(){ setTimeout(playCtaClickSound, 0); });
   }
 
   var navLinkButtons = document.querySelectorAll(".nav-links a");

@@ -2151,6 +2151,8 @@
     width:46px; height:46px; flex:none; fill:none; stroke:#ff6a5a; stroke-width:3.4; stroke-linecap:round; stroke-linejoin:round;
     animation:arrowDown 1.4s ease-in-out infinite;
   }
+  /* taps fire at once (no double-tap-zoom wait) on every button and link-button */
+  .btn, .featured-frame, .nav-links a, .lang-switch button{ touch-action:manipulation; -webkit-tap-highlight-color:transparent; }
   @keyframes arrowDown{
     0%,100%{ transform:translateY(-6px); opacity:.35; }
     50%{ transform:translateY(8px); opacity:1; }
