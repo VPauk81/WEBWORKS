@@ -2152,22 +2152,50 @@
   openCardFromHash();
   window.addEventListener("hashchange", openCardFromHash);
 
-  /* "Video guide" buttons: scroll so the VIDEO itself (not the section heading above it) is in view,
-     just under the sticky header. Plain #anchor scrolling left the video below the fold on phones. */
-  document.addEventListener("click", function(e){
-    var a = e.target.closest ? e.target.closest(".hero-video-btn") : null;
-    if (!a) return;
-    var frame = document.getElementById("introVideoFrame");
-    if (!frame) return;
-    e.preventDefault();
-    var offset = 12;
+  /* In-page links (menu, hero buttons, "Video guide", ...): on phones the sticky header is three rows tall, so a
+     plain #anchor jump leaves the section heading hidden under it; and the sections below are rendered lazily
+     (content-visibility), so their height changes while the page scrolls and a long jump can stop short.
+     Here the target is scrolled to just under the header and re-aligned a few times until the layout settles. */
+  var scrollToken = 0;
+  ["touchstart", "wheel", "keydown", "mousedown"].forEach(function(evt){
+    window.addEventListener(evt, function(){ scrollToken++; }, { passive: true });   // the visitor took over
+  });
+  function headerOffset(){
+    var offset = 8;
     var header = document.querySelector("header");
     if (header){
       var pos = window.getComputedStyle(header).position;
       if (pos === "fixed" || pos === "sticky"){ offset += header.offsetHeight; }
     }
-    var top = frame.getBoundingClientRect().top + window.pageYOffset - offset;
-    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+    return offset;
+  }
+  function scrollGoal(target){
+    return target ? Math.max(0, target.getBoundingClientRect().top + window.pageYOffset - headerOffset()) : 0;
+  }
+  function goToTarget(target){
+    var token = ++scrollToken;
+    try { window.scrollTo({ top: scrollGoal(target), behavior: "smooth" }); }
+    catch (err) { window.scrollTo(0, scrollGoal(target)); }
+    [600, 1300, 2200].forEach(function(ms){
+      setTimeout(function(){
+        if (token !== scrollToken) return;
+        var goal = scrollGoal(target);
+        if (Math.abs(goal - window.pageYOffset) > 3){ window.scrollTo(0, goal); }
+      }, ms);
+    });
+  }
+  document.addEventListener("click", function(e){
+    if (e.defaultPrevented || e.button || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = decodeURIComponent(a.getAttribute("href").slice(1));
+    if (!id || /^project\d+$/.test(id)) return;          // demo cards keep their own deep-link handling
+    var target = id === "top" ? null : document.getElementById(id);
+    if (id !== "top" && !target) return;
+    e.preventDefault();
+    openFoldFor(id);                                      // Services / What I Build open first, then we scroll
+    try { history.replaceState(null, "", "#" + id); } catch (err) { /* ignore */ }
+    goToTarget(target);
   });
 
   /* Collapsible Services / What I Build sections: opening them from a nav link or a #hash. */
