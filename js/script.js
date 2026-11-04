@@ -2152,6 +2152,24 @@
   openCardFromHash();
   window.addEventListener("hashchange", openCardFromHash);
 
+  /* "Video guide" buttons: scroll so the VIDEO itself (not the section heading above it) is in view,
+     just under the sticky header. Plain #anchor scrolling left the video below the fold on phones. */
+  document.addEventListener("click", function(e){
+    var a = e.target.closest ? e.target.closest(".hero-video-btn") : null;
+    if (!a) return;
+    var frame = document.getElementById("introVideoFrame");
+    if (!frame) return;
+    e.preventDefault();
+    var offset = 12;
+    var header = document.querySelector("header");
+    if (header){
+      var pos = window.getComputedStyle(header).position;
+      if (pos === "fixed" || pos === "sticky"){ offset += header.offsetHeight; }
+    }
+    var top = frame.getBoundingClientRect().top + window.pageYOffset - offset;
+    window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+  });
+
   /* Collapsible Services / What I Build sections: opening them from a nav link or a #hash. */
   function openFoldFor(id){
     var el = id ? document.getElementById(id) : null;
