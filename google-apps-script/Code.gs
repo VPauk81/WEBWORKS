@@ -506,14 +506,14 @@ const VISITS_HEADERS = [
   "UTM Campaign", "Устройство", "Разрешение экрана", "Страница",
   "User-Agent", "Страна (догадка по часовому поясу)",
   "Время у посетителя", "ID визита", "Путь посетителя", "Языки",
-  "Последнее действие"
+  "Последнее действие", "Был на сайте (сигнал)"
 ];
 
 // Номера столбцов (0-based) листа "Visits"
 const VCOL = {
   time: 0, raw: 1, event: 2, siteLang: 3, browserLang: 4, video: 5, timezone: 6,
   domain: 7, device: 12, page: 14, ua: 15, country: 16,
-  localTime: 17, id: 18, path: 19, langs: 20, last: 21
+  localTime: 17, id: 18, path: 19, langs: 20, last: 21, seen: 22
 };
 const VIDEO_HEADER = "Просмотр видео";
 const VIDEO_NOT_WATCHED = "— Видео не смотрел";
@@ -522,19 +522,83 @@ const VIDEO_NOT_WATCHED = "— Видео не смотрел";
 // медленнее, чем быстрые обновления видео / "Покинул сайт": если посетитель
 // быстро ушёл, его обновление приходит РАНЬШЕ строки — поэтому ждём её
 // появления (до ~6 сек), а не теряем событие.
-function findVisitRowWithRetry_(sheet, visitId) {
+function findVisitRowWithRetry_(sheet, visitId, attempts) {
   const id = String(visitId || "").trim();
   if (!sheet || !id) return 0;
-  for (let attempt = 0; attempt < 5; attempt++) {
+  const tries = attempts || 5;
+  for (let attempt = 0; attempt < tries; attempt++) {
     const last = sheet.getLastRow();
     if (last > 1) {
       const found = sheet.getRange(2, VCOL.id + 1, last - 1, 1)
         .createTextFinder(id).matchEntireCell(true).findNext();
       if (found) return found.getRow();
     }
-    if (attempt < 4) Utilities.sleep(1500);
+    if (attempt < tries - 1) Utilities.sleep(1500);
   }
   return 0;
+}
+
+// =======================
+// "Был на сайте": сайт раз в ~30 сек шлёт сигнал, пока вкладка открыта, и
+// пишет его время в последний столбец строки. Если браузер убили без
+// единого сигнала (телефон выключили, вкладку "прибило"), сигналы просто
+// прекращаются — и триггер по расписанию помечает такого посетителя как
+// "Покинул сайт" (markAbandonedVisits, ставится setupVisitsSheet).
+// =======================
+const VISITOR_STALE_MS = 3 * 60 * 1000;   // нет сигнала дольше — считаем, что ушёл
+
+function markAbandonedVisits() {
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
+  if (!sheet || sheet.getLastRow() < 2) return;
+
+  const lock = LockService.getScriptLock();
+  try { lock.waitLock(5000); } catch (e) { return; }
+
+  try {
+    const last = sheet.getLastRow();
+    const n = Math.min(last - 1, 300);          // смотрим только свежие строки
+    const first = last - n + 1;
+    const width = VCOL.seen - VCOL.event + 1;
+    const vals = sheet.getRange(first, VCOL.event + 1, n, width).getValues();
+
+    const label = eventLabel("site_left");
+    const nowText = Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+    const cutoff = Date.now() - VISITOR_STALE_MS;
+
+    vals.forEach(function(r, i){
+      const seen = r[VCOL.seen - VCOL.event];
+      if (Object.prototype.toString.call(seen) !== "[object Date]" || seen.getTime() > cutoff) return;
+      if (String(r[0]) === label) return;       // уже помечен
+
+      const row = first + i;
+      const steps = String(r[VCOL.path - VCOL.event] || "").split(" → ").filter(Boolean);
+      if (steps[steps.length - 1] !== label) steps.push(label);
+
+      sheet.getRange(row, VCOL.event + 1).setValue(label);
+      sheet.getRange(row, VCOL.path + 1).setValue(steps.join(" → "));
+      sheet.getRange(row, VCOL.last + 1).setValue(nowText);
+
+      // Видео: не запускали -> "не смотрел"; шло, когда пропал -> "вышел"
+      const vCell = sheet.getRange(row, VCOL.video + 1);
+      const v = String(vCell.getValue() || "").trim();
+      if (v === "") vCell.setValue(VIDEO_NOT_WATCHED);
+      else if (v.indexOf("▶") === 0) vCell.setValue("🚪 Вышел с сайта во время просмотра").setBackground("#ffcc80");
+    });
+
+    SpreadsheetApp.flush();
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+// Ставит триггер "каждые 5 минут -> markAbandonedVisits", если его ещё нет
+function ensureAbandonTrigger_() {
+  const exists = ScriptApp.getProjectTriggers().some(function(t){
+    return t.getHandlerFunction() === "markAbandonedVisits";
+  });
+  if (!exists) {
+    ScriptApp.newTrigger("markAbandonedVisits").timeBased().everyMinutes(5).create();
+  }
 }
 
 // Время для ячейки "Просмотр видео": 92 -> "1 мин 32 сек"
@@ -1135,6 +1199,7 @@ function setupVisitsSheet() {
   lock.waitLock(10000);
   try {
     getOrCreateVisitsSheet();
+    ensureAbandonTrigger_();
     SpreadsheetApp.flush();
   } finally {
     lock.releaseLock();
@@ -1187,6 +1252,14 @@ function logVisit(data) {
       writeVideoCell_(vSheet, vRow, data);
       SpreadsheetApp.flush();
     }
+    return;
+  }
+
+  // Сигнал "я ещё на сайте": только время в последнем столбце строки
+  if (data.event === "heartbeat") {
+    const hSheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
+    const hRow = findVisitRowWithRetry_(hSheet, data.visitId, 1);
+    if (hRow) hSheet.getRange(hRow, VCOL.seen + 1).setValue(new Date());
     return;
   }
 
@@ -1297,7 +1370,8 @@ function logVisit(data) {
         visitId,
         label,
         lang,
-        nowText
+        nowText,
+        now                                    // Был на сайте (сигнал)
       ]);
 
       const lastRow = sheet.getLastRow();

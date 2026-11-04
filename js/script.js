@@ -1409,6 +1409,22 @@
   window.addEventListener("pagehide", sendLeftBeacon);
   document.addEventListener("visibilitychange", function(){ if (document.hidden) sendLeftBeacon(); });
 
+  // "Still here" signal every 30 s while the tab is visible (at most 20 times per visit). If the browser is
+  // killed without any leave event, the signals stop and the sheet marks the visitor as having left.
+  var heartbeats = 0;
+  function sendHeartbeat(){
+    if (document.hidden || heartbeats >= 20) return;
+    if (WEBWORKS_SCRIPT_URL.indexOf("REPLACE_WITH") !== -1 || !isRealVisit()) return;
+    heartbeats++;
+    try {
+      var payload = Object.assign({ type: "visit", event: "heartbeat", visitId: getVisitSession().id }, buildVisitorContext());
+      var fd = new URLSearchParams();
+      fd.append("data", JSON.stringify(payload));
+      fetch(WEBWORKS_SCRIPT_URL, { method: "POST", body: fd, keepalive: true }).catch(function(){});
+    } catch (err) { /* statistics must never break the site */ }
+  }
+  setInterval(sendHeartbeat, 30000);
+
   var sentFunnelEvents = {};
   function trackEvent(eventName){
     if (sentFunnelEvents[eventName]) return;
