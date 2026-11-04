@@ -361,8 +361,6 @@
       display:flex;
       order:-2;
       width:100%;
-      background:rgba(255,255,255,.1);
-      border-color:var(--accent);
       color:var(--white);
     }
   }
@@ -2248,10 +2246,25 @@
   .perf-lite .fold:not([open]) .fold-chevron, .perf-lite .fold:not([open]) .fold-chevron::before, .perf-lite .fold:not([open]) .fold-chevron::after,
   .perf-lite .case-study:not([open]) .fold-chevron, .perf-lite .case-study:not([open]) .fold-chevron::before, .perf-lite .case-study:not([open]) .fold-chevron::after,
   .perf-lite .project-toggle:not([open]) .fold-chevron, .perf-lite .project-toggle:not([open]) .fold-chevron::before, .perf-lite .project-toggle:not([open]) .fold-chevron::after,
-  .perf-lite #contactCtaBtn, .perf-lite .video-play{ animation-iteration-count:infinite !important; }
+  .perf-lite #contactCtaBtn, .perf-lite .video-play,
+  .perf-lite .hero-video-btn, .perf-lite .hero-video-btn::after{ animation-iteration-count:infinite !important; }
+
+  /* "Video guide" button (phones): breathes and sends out a ring so it draws the eye to the video */
+  .hero-video-btn{
+    position:relative;
+    background:linear-gradient(135deg, #2f7d68 0%, #3fb391 100%);
+    border-color:#7fe0c3;
+    font-weight:700;
+    animation:cheapBreathe 2.2s ease-in-out infinite;
+  }
+  .hero-video-btn::after{
+    content:""; position:absolute; inset:-2px; border-radius:inherit; border:3px solid rgba(127,224,195,.95); pointer-events:none;
+    animation:ringOutBtn 2.2s ease-out infinite;
+  }
 
   @media (prefers-reduced-motion: reduce){
-    .featured-badge .dot::after, .featured-cta::after, .fold-chevron::after{ animation:none !important; display:none; }
+    .featured-badge .dot::after, .featured-cta::after, .fold-chevron::after, .hero-video-btn::after{ animation:none !important; display:none; }
+    .hero-video-btn{ animation:none !important; }
   }
 
   /* demo 6: beauty studio (rose) */
