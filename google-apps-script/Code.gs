@@ -516,6 +516,26 @@ const VCOL = {
   localTime: 17, id: 18, path: 19, langs: 20, last: 21
 };
 const VIDEO_HEADER = "Просмотр видео";
+const VIDEO_NOT_WATCHED = "— Видео не смотрел";
+
+// Строка посетителя по ID визита. Запись самой строки (первый заход) идёт
+// медленнее, чем быстрые обновления видео / "Покинул сайт": если посетитель
+// быстро ушёл, его обновление приходит РАНЬШЕ строки — поэтому ждём её
+// появления (до ~6 сек), а не теряем событие.
+function findVisitRowWithRetry_(sheet, visitId) {
+  const id = String(visitId || "").trim();
+  if (!sheet || !id) return 0;
+  for (let attempt = 0; attempt < 5; attempt++) {
+    const last = sheet.getLastRow();
+    if (last > 1) {
+      const found = sheet.getRange(2, VCOL.id + 1, last - 1, 1)
+        .createTextFinder(id).matchEntireCell(true).findNext();
+      if (found) return found.getRow();
+    }
+    if (attempt < 4) Utilities.sleep(1500);
+  }
+  return 0;
+}
 
 // Время для ячейки "Просмотр видео": 92 -> "1 мин 32 сек"
 function videoTimeLabel_(sec) {
@@ -542,7 +562,8 @@ function writeVideoCell_(sheet, row, data) {
 
   // Первый play — только если ячейка ещё пустая
   if (state === "start") {
-    if (String(cell.getValue() || "").trim() === "") {
+    const now_ = String(cell.getValue() || "").trim();
+    if (now_ === "" || now_ === VIDEO_NOT_WATCHED) {
       cell.setValue("▶ Начал смотреть").setBackground("#bbdefb");
     }
     return;
@@ -1161,12 +1182,9 @@ function logVisit(data) {
   // правится одна ячейка, поэтому статус в таблице появляется сразу
   if (data.event === "video_progress") {
     const vSheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
-    const vId = String(data.visitId || "").trim();
-    const vLast = vSheet ? vSheet.getLastRow() : 0;
-    if (vId && vLast > 1) {
-      const found = vSheet.getRange(2, VCOL.id + 1, vLast - 1, 1)
-        .createTextFinder(vId).matchEntireCell(true).findNext();
-      if (found) writeVideoCell_(vSheet, found.getRow(), data);
+    const vRow = findVisitRowWithRetry_(vSheet, data.visitId);
+    if (vRow) {
+      writeVideoCell_(vSheet, vRow, data);
       SpreadsheetApp.flush();
     }
     return;
@@ -1176,23 +1194,24 @@ function logVisit(data) {
   // заголовков — только дописывается в уже существующую строку посетителя
   if (data.event === "site_left") {
     const lSheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(VISITS_SHEET_NAME);
-    const lId = String(data.visitId || "").trim();
-    const lLast = lSheet ? lSheet.getLastRow() : 0;
-    if (lId && lLast > 1) {
-      const lFound = lSheet.getRange(2, VCOL.id + 1, lLast - 1, 1)
-        .createTextFinder(lId).matchEntireCell(true).findNext();
-      if (lFound) {
-        const lRow = lFound.getRow();
-        const lLabel = eventLabel("site_left");
-        const pathCell = lSheet.getRange(lRow, VCOL.path + 1);
-        const lSteps = String(pathCell.getValue() || "").split(" → ").filter(Boolean);
-        if (lSteps[lSteps.length - 1] !== lLabel) lSteps.push(lLabel);
-        lSheet.getRange(lRow, VCOL.event + 1).setValue(lLabel);
-        pathCell.setValue(lSteps.join(" → "));
-        lSheet.getRange(lRow, VCOL.last + 1)
-          .setValue(Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm"));
-        SpreadsheetApp.flush();
-      }
+    const lRow = findVisitRowWithRetry_(lSheet, data.visitId);
+    if (lRow) {
+      const lLabel = eventLabel("site_left");
+      const pathCell = lSheet.getRange(lRow, VCOL.path + 1);
+      const lSteps = String(pathCell.getValue() || "").split(" → ").filter(Boolean);
+      if (lSteps[lSteps.length - 1] !== lLabel) lSteps.push(lLabel);
+      lSheet.getRange(lRow, VCOL.event + 1).setValue(lLabel);
+      pathCell.setValue(lSteps.join(" → "));
+      lSheet.getRange(lRow, VCOL.last + 1)
+        .setValue(Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm"));
+
+      // Уходя, подтверждаем: видео не запускали (пустая ячейка = неизвестно)
+      // (небольшая пауза: статус видео уходит одновременно и не должен быть затёрт)
+      Utilities.sleep(1500);
+      const vCell = lSheet.getRange(lRow, VCOL.video + 1);
+      if (String(vCell.getValue() || "").trim() === "") vCell.setValue(VIDEO_NOT_WATCHED);
+
+      SpreadsheetApp.flush();
     }
     return;
   }
