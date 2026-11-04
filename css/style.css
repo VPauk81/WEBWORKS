@@ -353,11 +353,15 @@
   /* "Video guide" button: shown on phones/tablets only, full width under the other two buttons */
   .hero-video-btn{ display:none; }
   .hero-video-btn svg{ width:18px; height:18px; flex:none; }
+  /* Computers: the same button sits in the row with the two other hero buttons */
+  @media (min-width: 861px){
+    .hero-video-btn--desk{ display:inline-flex; color:var(--white); }
+  }
 
   @media (max-width: 860px){
     .hero .wrap{ grid-template-columns:1fr; }
     .hero-photo{ order:-1; width:100%; }
-    .hero-video-btn{
+    .hero-video-btn:not(.hero-video-btn--desk){
       display:flex;
       order:-2;
       width:100%;
