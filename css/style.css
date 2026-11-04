@@ -350,9 +350,20 @@
     mix-blend-mode:screen;
   }
 
+  /* "Video guide" button: shown on phones/tablets only, full width under the other two buttons */
+  .hero-video-btn{ display:none; }
+  .hero-video-btn svg{ width:18px; height:18px; flex:none; }
+
   @media (max-width: 860px){
     .hero .wrap{ grid-template-columns:1fr; }
     .hero-photo{ order:-1; width:100%; }
+    .hero-video-btn{
+      display:inline-flex;
+      flex:1 0 100%;
+      background:rgba(255,255,255,.1);
+      border-color:var(--accent);
+      color:var(--white);
+    }
   }
 
   /* ==========================================================
