@@ -561,6 +561,25 @@ function writeVideoCell_(sheet, row, data) {
   const watched = Number(data.videoWatched) || 0;
   const state = String(data.videoState || (data.videoEnded ? "end" : "stop"));
 
+  // Отчёты могут прийти не по порядку (позже отправленный — раньше): новее побеждает
+  const ts = Number(data.videoTs) || 0;
+  if (ts && data.visitId) {
+    try {
+      const cache = CacheService.getScriptCache();
+      const key = "vts:" + data.visitId;
+      const prev = Number(cache.get(key)) || 0;
+      if (ts < prev) return;
+      cache.put(key, String(ts), 21600);
+    } catch (e) { /* кэша нет — пишем как есть */ }
+  }
+
+  // Пока видео играет — раз в 15 сек: где сейчас (если страницу убьют без сигнала, видно, докуда дошёл)
+  if (state === "progress") {
+    cell.setValue("▶ Смотрит, сейчас на " + videoTimeLabel_(position) +
+      " (видео " + videoTimeLabel_(duration) + ")").setBackground("#bbdefb");
+    return;
+  }
+
   // Первый play — только если ячейка ещё пустая
   if (state === "start") {
     const now_ = String(cell.getValue() || "").trim();

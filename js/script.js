@@ -2575,6 +2575,7 @@
     var watched = 0, lastT = null, timer = 0, ended = false;
     var startedSent = false;
     var wasPaused = false;
+    var beat = 0;
     function send(state){
       clearTimeout(timer);
       if (!state) state = ended ? "end" : "stop";
@@ -2586,7 +2587,8 @@
           videoDuration: Math.round(v.duration || 0),
           videoWatched: Math.round(watched),
           videoEnded: ended,
-          videoState: state
+          videoState: state,
+          videoTs: Date.now()                     // the sheet keeps the newest report if they arrive out of order
         });
         var fd = new URLSearchParams();
         fd.append("data", JSON.stringify(payload));
@@ -2597,6 +2599,13 @@
       clearTimeout(timer); ended = false; lastT = v.currentTime;
       if (!startedSent){ startedSent = true; wasPaused = false; send("start"); }
       else if (wasPaused){ wasPaused = false; send("resume"); }
+      // While the video really plays, report the position every 15 s: if the phone kills the page without any
+      // leave event, the sheet still shows how far they got. Idle (paused / hidden / ended) = nothing is sent.
+      if (!beat){
+        beat = setInterval(function(){
+          if (!v.paused && !v.ended && !document.hidden && !gone){ send("progress"); }
+        }, 15000);
+      }
     });
     v.addEventListener("timeupdate", function(){
       var t = v.currentTime;
