@@ -31,13 +31,13 @@ Just open `index.html` in a browser — no server or build step required.
 Same approach as the Arduino/ESP32 Firmware Studio site: the page POSTs to a Google Apps Script Web App, which appends a row to a Google Sheet and emails a notification. Until this is set up, the form still works via a `mailto:` fallback.
 
 1. Create a new Google Sheet, add a sheet/tab named `Заявки` (or change `SHEET_NAME` in the script to match).
-2. In the Sheet, open **Extensions → Apps Script**, delete the placeholder code, and paste in `google-apps-script/Code.gs`.
+2. In the Sheet, open **Extensions → Apps Script**, delete the placeholder code, and paste in `google-apps-script/Web_Code.gs`.
 3. Replace `SPREADSHEET_ID` in the script with the Sheet's ID (from its URL: `.../spreadsheets/d/THIS_PART/edit`).
 4. **Deploy → New deployment → Web app** — Execute as **Me**, Who has access **Anyone** — Deploy, and copy the Web App URL.
 5. In `js/script.js`, replace `WEBWORKS_SCRIPT_URL = "REPLACE_WITH_YOUR_APPS_SCRIPT_WEB_APP_URL"` with that URL.
 6. **One extra one-time step for the status-change emails to work:** in the Apps Script editor, open **Триггеры** (the clock icon on the left) → **Добавить триггер** → function `checkStatusChanges` → event source "Из таблицы" → event type "При редактировании" → Save (and authorize again when asked). Without this trigger, the status dropdown in column B still works, but changing it won't email the client or recolor the row.
 
-Whenever `google-apps-script/Code.gs` changes in this repo afterwards, re-paste it into the same Apps Script project and redeploy as a **new version** of the *same* deployment (Deploy → Manage deployments → ✏️ → Version: New version) — this keeps the same Web App URL, no need to touch `WEBWORKS_SCRIPT_URL` again.
+Whenever `google-apps-script/Web_Code.gs` changes in this repo afterwards, re-paste it into the same Apps Script project and redeploy as a **new version** of the *same* deployment (Deploy → Manage deployments → ✏️ → Version: New version) — this keeps the same Web App URL, no need to touch `WEBWORKS_SCRIPT_URL` again.
 
 ### What the sheet does
 

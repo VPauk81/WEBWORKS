@@ -1307,7 +1307,7 @@
   // Same backend approach as the Arduino/ESP32 Firmware Studio site:
   // POST a "data" field (JSON string) to a Google Apps Script Web App,
   // which appends a row to a Google Sheet and emails a notification.
-  // See google-apps-script/Code.gs for the script to deploy. Until a
+  // See google-apps-script/Web_Code.gs for the script to deploy. Until a
   // real URL is set here, submissions fall back to mailto: (still a
   // real, working send — just via the visitor's own email app).
   var WEBWORKS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcdVTHhxzfBV_wGtIFaM089sVgyTaMsQl_28nspfn6khEd59jac_ONeplNrmmbtZFY8g/exec";
@@ -1332,15 +1332,22 @@
       timezone: (Intl.DateTimeFormat().resolvedOptions().timeZone) || "",
       screen: screen.width + "x" + screen.height,
       device: /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent) ? "mobile" : "desktop",
-      userAgent: navigator.userAgent
+      userAgent: navigator.userAgent,
+      // a visit from the owner's own computer (Live Server 127.0.0.1 / localhost): the sheet marks it "ДИАГНОСТИКА"
+      diagnostic: isLocalTest()
     };
+  }
+
+  function isLocalTest(){
+    return /^(127\.0\.0\.1|localhost)$/.test(location.hostname);
   }
 
   // Only count real visitors: the live GitHub Pages address, not a local
   // copy (file://, VS Code Live Server on 127.0.0.1) and not automated
   // browsers (tests, Lighthouse) — those were inflating the statistics.
   function isRealVisit(){
-    if (location.hostname !== "vpauk81.github.io") return false;
+    // the live site counts as a visitor; the owner's local copy is sent too, but only as the single "ДИАГНОСТИКА" row
+    if (location.hostname !== "vpauk81.github.io" && !isLocalTest()) return false;
     if (navigator.webdriver) return false;
     return !/Headless|Lighthouse|PageSpeed/i.test(navigator.userAgent || "");
   }
@@ -1354,7 +1361,8 @@
 
   function getVisitSession(){
     if (visitSession) return visitSession;
-    try {
+    // local test: every page load is a new visit, so each load restarts the "ДИАГНОСТИКА" row
+    if (!isLocalTest()) try {
       var saved = JSON.parse(sessionStorage.getItem("ww_visit") || "null");
       if (saved && saved.id && saved.sent) visitSession = saved;
     } catch (err) { /* storage unavailable — keep the visit in memory only */ }

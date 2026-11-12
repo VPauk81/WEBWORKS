@@ -52,7 +52,7 @@ function doGet(e) {
   // столбцы листа Visits (в т.ч. "Просмотр видео"), не дожидаясь визита
   if (action === "setup") {
     setupVisitsSheet();
-    return ContentService.createTextOutput("Visits: столбцы обновлены");
+    return ContentService.createTextOutput("Visits: столбцы обновлены · код Web_Code от 12.11.2026 (Дата/время, Вход / выход, ДИАГНОСТИКА)");
   }
 
   return ContentService.createTextOutput("OK");
@@ -69,7 +69,9 @@ function doPost(e) {
     // дописывает строку на лист "Visits" и обновляет Дашборд.
     if (data.type === "visit") {
 
-      if (!isTestVisit(data.pageUrl, data.userAgent)) logVisit(data);
+      // Заход с компьютера владельца (127.0.0.1 / localhost) — не тест-мусор, а строка "ДИАГНОСТИКА"
+      data.diagnostic = isLocalDiagnostic_(data);
+      if (data.diagnostic || !isTestVisit(data.pageUrl, data.userAgent)) logVisit(data);
 
       return ContentService
         .createTextOutput(JSON.stringify({ status: "ok" }))
@@ -500,20 +502,20 @@ const VISITS_SHEET_NAME = "Visits";
 // действие, "Путь посетителя" — всю цепочку. Порядок столбцов не менять:
 // на него завязаны индексы VCOL ниже. Новые поля — только в конец.
 const VISITS_HEADERS = [
-  "Дата/время (моё, Europe/Warsaw)", "Метка времени (raw)", "Событие",
+  "Дата/время", "Вход / выход", "Событие",
   "Язык сайта", "Язык браузера", "Просмотр видео", "Часовой пояс (посетителя)",
   "Источник (домен)", "Referrer (полный)", "UTM Source", "UTM Medium",
   "UTM Campaign", "Устройство", "Разрешение экрана", "Страница",
   "User-Agent", "Страна (догадка по часовому поясу)",
   "Время у посетителя", "ID визита", "Путь посетителя", "Языки",
-  "Последнее действие"
+  "Последнее действие", "Метка времени (raw)"
 ];
 
 // Номера столбцов (0-based) листа "Visits"
 const VCOL = {
   time: 0, raw: 1, event: 2, siteLang: 3, browserLang: 4, video: 5, timezone: 6,
   domain: 7, device: 12, page: 14, ua: 15, country: 16,
-  localTime: 17, id: 18, path: 19, langs: 20, last: 21
+  localTime: 17, id: 18, path: 19, langs: 20, last: 21, rawKeep: 22
 };
 const VIDEO_HEADER = "Просмотр видео";
 const VIDEO_NOT_WATCHED = "— Видео не смотрел";
@@ -1103,9 +1105,14 @@ function normalizeLangCode(value) {
   return s.split("-")[0].split("_")[0];
 }
 
-function getOrCreateVisitsSheet() {
+function getOrCreateVisitsSheet(force) {
   const ss = SpreadsheetApp.openById(SPREADSHEET_ID);
   let sheet = ss.getSheetByName(VISITS_SHEET_NAME);
+
+  // Заголовки и служебные ячейки проверяем не на каждое событие, а раз в 6 часов (и по ?action=setup) —
+  // иначе каждый визит тратит время на лишние чтения листа, и строка обновляется с задержкой
+  const cache = CacheService.getScriptCache();
+  if (!force && sheet && cache.get("visits:ready:v4")) return sheet;
 
   if (!sheet) {
     sheet = ss.insertSheet(VISITS_SHEET_NAME);
@@ -1136,6 +1143,7 @@ function getOrCreateVisitsSheet() {
     sheet.setColumnWidth(1, 190);
     sheet.setColumnWidth(VCOL.event + 1, 190);
     sheet.setColumnWidth(VCOL.video + 1, 300);
+    sheet.setColumnWidth(VCOL.raw + 1, 280);
     sheet.setColumnWidth(VCOL.timezone + 1, 170);
     sheet.setColumnWidth(VCOL.country + 1, 200);
     sheet.setColumnWidth(VCOL.path + 1, 420);
@@ -1146,6 +1154,13 @@ function getOrCreateVisitsSheet() {
   backfillVisitCountries(sheet);
   ensureVisitsControls_(sheet);
 
+  // Столбец A: всегда текст вида «12.11.2026 17:45» (Таблица не превращает его в дату) и всё по правому краю
+  const colA = sheet.getRange(1, 1, sheet.getMaxRows(), 1);
+  colA.setNumberFormat("@");
+  colA.setHorizontalAlignment("right");
+
+  try { cache.put("visits:ready:v4", "1", 21600); } catch (e) { /* без кэша — проверяем при каждом обращении */ }
+
   return sheet;
 }
 
@@ -1155,7 +1170,7 @@ function setupVisitsSheet() {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
-    getOrCreateVisitsSheet();
+    getOrCreateVisitsSheet(true);
     SpreadsheetApp.flush();
   } finally {
     lock.releaseLock();
@@ -1195,6 +1210,81 @@ const VISITS_KEEP_DAYS = 45;
 const VISITS_MAX_ROWS = 1500;
 const DASHBOARD_REFRESH_SECONDS = 120;
 
+// Сырая дата визита для статистики: у новых строк она в последнем столбце (столбец B теперь текст
+// «Вход/Kiev - вход 16:30» → «Вход/Kiev - выход 16:35»), у старых — по-прежнему в B. Диагностика даты не имеет
+function rawDateOf_(row) {
+  const a = row[VCOL.raw];
+  if (Object.prototype.toString.call(a) === "[object Date]") return a;
+  const b = row[VCOL.rawKeep];
+  return Object.prototype.toString.call(b) === "[object Date]" ? b : null;
+}
+
+// "Europe/Kiev" -> "Kiev", "America/New_York" -> "New York"; неизвестный пояс -> "?"
+function cityOfTz_(tz) {
+  const s = String(tz || "").trim();
+  if (!s) return "?";
+  return s.split("/").pop().replace(/_/g, " ");
+}
+
+// "12.11.2026 16:30" -> "16:30"
+function timeOnly_(text) {
+  return String(text || "").split(" ").pop();
+}
+
+// Заход с компьютера владельца: страница открыта с 127.0.0.1 / localhost
+function isLocalDiagnostic_(data) {
+  return !!data.diagnostic && /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?(\/|$)/i.test(String(data.pageUrl || ""));
+}
+
+// Столбец B строки обычного посетителя: при выходе «Вход/Berlin - вход 16:45» становится «Вход/Berlin - выход 16:46»
+// (старые строки, где в B дата, не трогаем)
+function setLeftInB_(sheet, row, leftText) {
+  const cell = sheet.getRange(row, VCOL.raw + 1);
+  const cur = String(cell.getValue() || "");
+  const m = cur.match(/^Вход\/(.*?) - (?:вход|выход) /);
+  if (!m) return;
+  cell.setValue("Вход/" + m[1] + " - выход " + timeOnly_(leftText));
+}
+
+// Строка ДИАГНОСТИКА: «Дата/время» = время входа (12.11.2026 16:17), а при выходе в столбце B
+// пишется «ДИАГНОСТИКА – 16:18» (время выхода). startText — новый заход (вход сейчас, B снова «ДИАГНОСТИКА»);
+// endText — выход
+function setDiagTime_(sheet, row, startText, endText) {
+
+  if (startText) {
+    const cell = sheet.getRange(row, VCOL.time + 1);
+    cell.setNumberFormat("@");                     // текстом, чтобы Таблица не превратила в дату
+    cell.setHorizontalAlignment("right");          // как у всех остальных строк
+    cell.setValue(startText);
+    sheet.getRange(row, VCOL.raw + 1).setValue("ДИАГНОСТИКА");
+    return;
+  }
+
+  sheet.getRange(row, VCOL.raw + 1).setValue("ДИАГНОСТИКА – " + timeOnly_(endText));
+
+}
+
+// Переносит строку ДИАГНОСТИКА в самый низ листа (вызывается при новом заходе владельца)
+function moveDiagToEnd_(sheet) {
+
+  try {
+
+    const last = sheet.getLastRow();
+    if (last < 3) return;
+
+    const found = sheet.getRange(2, VCOL.raw + 1, last - 1, 1)
+      .createTextFinder("ДИАГНОСТИКА").matchEntireCell(false).findNext();
+
+    if (!found || found.getRow() === last) return;
+
+    sheet.moveRows(sheet.getRange(found.getRow(), 1, 1, VISITS_HEADERS.length), last + 1);
+
+  } catch (e) {
+    // перенос — только удобство, на запись визита не влияет
+  }
+
+}
+
 function logVisit(data) {
 
   if (isBotUserAgent_(data.userAgent)) return;
@@ -1221,14 +1311,17 @@ function logVisit(data) {
       const pathCell = lSheet.getRange(lRow, VCOL.path + 1);
       const lSteps = String(pathCell.getValue() || "").split(" → ").filter(Boolean);
       if (lSteps[lSteps.length - 1] !== lLabel) lSteps.push(lLabel);
-      lSheet.getRange(lRow, VCOL.event + 1).setValue(lLabel);
       pathCell.setValue(lSteps.join(" → "));
-      lSheet.getRange(lRow, VCOL.last + 1)
-        .setValue(Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm"));
+      const leftText = visitorLocalTime(new Date(), data.timezone) || Utilities.formatDate(new Date(), APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+      // в «Событии» — «Покинул сайт – 16:25» (время выхода); в «Пути» шаг остаётся без времени
+      lSheet.getRange(lRow, VCOL.event + 1).setValue(lLabel + " – " + timeOnly_(leftText));
+      lSheet.getRange(lRow, VCOL.last + 1).setValue(leftText);
+      if (data.diagnostic) setDiagTime_(lSheet, lRow, "", leftText);   // выход владельца
+      else setLeftInB_(lSheet, lRow, leftText);
 
       // Уходя, подтверждаем: видео не запускали (пустая ячейка = неизвестно)
       // (небольшая пауза: статус видео уходит одновременно и не должен быть затёрт)
-      Utilities.sleep(1500);
+      Utilities.sleep(700);
       const vCell = lSheet.getRange(lRow, VCOL.video + 1);
       if (String(vCell.getValue() || "").trim() === "") vCell.setValue(VIDEO_NOT_WATCHED);
 
@@ -1254,7 +1347,8 @@ function logVisit(data) {
     const label = eventLabel(data.event || "pageview");
     const visitId = String(data.visitId || "").trim();
     const lang = String(data.siteLang || "").trim();
-    const nowText = Utilities.formatDate(now, APP_TIMEZONE, "dd.MM.yyyy HH:mm");
+    // Дата/время — по часам самого посетителя (его часовой пояс); если пояс неизвестен — по Варшаве
+    const nowText = visitorLocalTime(now, data.timezone) || Utilities.formatDate(now, APP_TIMEZONE, "dd.MM.yyyy HH:mm");
 
     let row = 0;
 
@@ -1267,16 +1361,26 @@ function logVisit(data) {
       }
     }
 
-    // Прогресс просмотра видео — только ячейка "Просмотр видео", без
-    // новых шагов в пути и без пересчёта Дашборда
-    if (data.event === "video_progress") {
-      if (row) writeVideoCell_(sheet, row, data);
-      SpreadsheetApp.flush();
-      return;
-    }
+    // ДИАГНОСТИКА: строка всегда одна. Новый заход владельца (новый ID визита) не создаёт строку,
+    // а начинает её заново: вход = сейчас, путь и видео очищаются
+    let newDiagEntry = false;
 
-    // "Покинул сайт" только дописывается в уже существующую строку посетителя
-    if (data.event === "site_left" && !row) return;
+    if (!row && data.diagnostic) {
+
+      const lastD = sheet.getLastRow();
+      const foundD = lastD > 1
+        ? sheet.getRange(2, VCOL.raw + 1, lastD - 1, 1).createTextFinder("ДИАГНОСТИКА").matchEntireCell(false).findNext()
+        : null;
+
+      if (foundD) {
+        row = foundD.getRow();
+        newDiagEntry = true;
+        sheet.getRange(row, VCOL.id + 1).setValue(visitId);
+        sheet.getRange(row, VCOL.path + 1, 1, 2).setValues([["", ""]]);
+        sheet.getRange(row, VCOL.video + 1).setValue("").setBackground(null);
+      }
+
+    }
 
     if (row) {
 
@@ -1293,12 +1397,16 @@ function logVisit(data) {
       if (lang) sheet.getRange(row, VCOL.siteLang + 1).setValue(lang);
       sheet.getRange(row, VCOL.path + 1, 1, 3).setValues([[steps.join(" → "), langs.join(", "), nowText]]);
 
+      // ДИАГНОСТИКА — одна и та же строка: «Дата/время» = время входа, а при выходе в столбце B дописывается «– время выхода»
+      if (data.diagnostic && newDiagEntry) setDiagTime_(sheet, row, nowText, "");
+
     } else {
 
       // ---- новый посетитель: новая строка ----
       sheet.appendRow([
         nowText,
-        now,                                   // сырая дата — для статистики
+        // заход с компьютера владельца: в столбце B вместо входа/выхода слово ДИАГНОСТИКА (такие строки не идут в статистику)
+        data.diagnostic ? "ДИАГНОСТИКА" : "Вход/" + cityOfTz_(data.timezone) + " - вход " + timeOnly_(nowText),
         label,
         lang,
         data.browserLang || "",
@@ -1318,10 +1426,17 @@ function logVisit(data) {
         visitId,
         label,
         lang,
-        nowText
+        nowText,
+        (data.diagnostic ? "" : now)           // сырая дата — для подсчёта статистики (раньше была в столбце B)
       ]);
 
       const lastRow = sheet.getLastRow();
+
+      // ячейка «ДИАГНОСТИКА» — другого цвета, чтобы тестовые заходы сразу бросались в глаза
+      if (data.diagnostic) {
+        sheet.getRange(lastRow, VCOL.raw + 1).setBackground("#ffd54f").setFontWeight("bold").setFontColor("#b71c1c");
+      }
+
       sheet.getRange(lastRow, 1, 1, VISITS_HEADERS.length).setWrapStrategy(SpreadsheetApp.WrapStrategy.CLIP);
       sheet.setRowHeight(lastRow, 21);
 
@@ -1330,6 +1445,9 @@ function logVisit(data) {
         archiveVisitsOlderThan_(new Date(now.getTime() - VISITS_KEEP_DAYS * 24 * 60 * 60 * 1000));
       }
     }
+
+    // ДИАГНОСТИКА остаётся на своём месте, пока вы не зашли снова; при новом заходе опускается в самый низ списка
+    if (data.diagnostic && newDiagEntry) moveDiagToEnd_(sheet);
 
     SpreadsheetApp.flush();
 
@@ -1484,7 +1602,7 @@ function computeStats() {
     : [];
 
   rows.forEach(function(r){
-    const rawDate = r[VCOL.raw];
+    const rawDate = rawDateOf_(r);
     if (Object.prototype.toString.call(rawDate) !== "[object Date]" || isNaN(rawDate.getTime())) return;
     if (isTestVisit(r[VCOL.page], r[VCOL.ua])) return;
 
@@ -1654,7 +1772,7 @@ function archiveVisitsOlderThan_(cutoff) {
 
   rows.forEach(function(r, i){
 
-    const raw = r[VCOL.raw];
+    const raw = rawDateOf_(r);
     if (Object.prototype.toString.call(raw) !== "[object Date]" || isNaN(raw.getTime()) || raw >= cutoff) return;
 
     oldRows.push(i + 2);
